@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<TfrxReport Version="2022.1.6" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="167935" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44647,9732675463" ReportOptions.Description.Text="" ReportOptions.LastChange="44647,9960946759" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end.">
+  <Datasets>
+    <item DataSet="frxDBDataset1" DataSetName="frxDBDataset1"/>
+  </Datasets>
+  <TfrxDataPage Name="Data" HGuides.Text="" VGuides.Text="" Height="1000" Left="0" Top="0" Width="1000"/>
+  <TfrxReportPage Name="Page1" HGuides.Text="" VGuides.Text="" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" Frame.Typ="0" MirrorMode="0">
+    <TfrxMemoView Name="Memo1" AllowVectorExport="True" Left="41,57483" Top="83,14966" Width="268,34663" Height="26,45671" Font.Charset="1" Font.Color="0" Font.Height="-19" Font.Name="Arial" Font.Style="1" Frame.Typ="0" ParentFont="False" Text="Relatório geral de vendas"/>
+    <TfrxMemoView Name="Memo2" AllowVectorExport="True" Left="45,35436" Top="158,74026" Width="90,70872" Height="22,67718" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="5" Frame.Typ="0" HAlign="haCenter" ParentFont="False" Text="Vendedor"/>
+    <TfrxMemoView Name="Memo3" AllowVectorExport="True" Left="200,31509" Top="158,74026" Width="90,70872" Height="22,67718" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="5" Frame.Typ="0" HAlign="haCenter" ParentFont="False" Text="Cliente"/>
+    <TfrxMemoView Name="Memo4" AllowVectorExport="True" Left="362,83488" Top="154,96073" Width="90,70872" Height="22,67718" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="5" Frame.Typ="0" HAlign="haCenter" ParentFont="False" Text="Livro"/>
+    <TfrxMemoView Name="frxDBDataset1vendedor" IndexTag="1" AllowVectorExport="True" Left="56,69295" Top="181,41744" Width="158,74026" Height="18,89765" DataField="vendedor" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;vendedor&#34;]"/>
+    <TfrxMemoView Name="frxDBDataset1cliente" IndexTag="1" AllowVectorExport="True" Left="222,99227" Top="181,41744" Width="158,74026" Height="18,89765" DataField="cliente" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;cliente&#34;]"/>
+    <TfrxMemoView Name="frxDBDataset1livro" IndexTag="1" AllowVectorExport="True" Left="393,07112" Top="181,41744" Width="120,94496" Height="18,89765" DataField="livro" DataSet="frxDBDataset1" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;livro&#34;]"/>
+  </TfrxReportPage>
+</TfrxReport>

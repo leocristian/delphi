@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 0
   Caption = 'Form1'
   ClientHeight = 315
-  ClientWidth = 469
+  ClientWidth = 538
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,11 +16,12 @@ object Form1: TForm1
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 469
+    Width = 538
     Height = 315
-    ActivePage = LogPage
+    ActivePage = BooksPage
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 552
     object BooksPage: TTabSheet
       Caption = 'Livros cadastrados'
       object title: TLabel
@@ -199,16 +200,17 @@ object Form1: TForm1
         ParentFont = False
       end
       object Button3: TButton
-        Left = 161
-        Top = 168
+        Left = 249
+        Top = 192
         Width = 97
         Height = 25
         Caption = 'Nova venda'
         TabOrder = 0
+        OnClick = Button3Click
       end
       object Button4: TButton
-        Left = 264
-        Top = 168
+        Left = 352
+        Top = 192
         Width = 97
         Height = 25
         Caption = 'Estornar venda'
@@ -217,8 +219,8 @@ object Form1: TForm1
       end
       object DBGrid3: TDBGrid
         Left = 16
-        Top = 42
-        Width = 345
+        Top = 41
+        Width = 433
         Height = 120
         DataSource = DataModule3.DataSource3
         TabOrder = 2
@@ -232,37 +234,20 @@ object Form1: TForm1
     object LogPage: TTabSheet
       Caption = 'Relat'#243'rio geral'
       ImageIndex = 4
-      object Label5: TLabel
-        Left = 16
-        Top = 16
-        Width = 190
-        Height = 19
-        Caption = 'Relat'#243'rio de atividades'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object CRDBGrid1: TCRDBGrid
-        Left = 16
-        Top = 56
-        Width = 320
-        Height = 120
-        DataSource = DataModule3.DataSource3
+      object Button5: TButton
+        Left = 200
+        Top = 112
+        Width = 145
+        Height = 25
+        Caption = 'Abrir relat'#243'rio de vendas'
         TabOrder = 0
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -11
-        TitleFont.Name = 'Tahoma'
-        TitleFont.Style = []
+        OnClick = Button5Click
       end
     end
   end
   object UniQuery1: TUniQuery
     Connection = DataModule3.UniConnection1
-    Left = 256
-    Top = 32
+    Left = 80
+    Top = 248
   end
 end

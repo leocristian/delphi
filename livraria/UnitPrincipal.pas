@@ -28,7 +28,6 @@ type
     Button1: TButton;
     DBGrid1: TDBGrid;
     DBNavigator1: TDBNavigator;
-    UniQuery1: TUniQuery;
     CodInput: TEdit;
     LogoutBtn: TButton;
     TabSheet1: TTabSheet;
@@ -39,15 +38,17 @@ type
     Button3: TButton;
     Button4: TButton;
     Label4: TLabel;
-    DBGrid3: TDBGrid;
     DBGrid2: TDBGrid;
+    UniQuery1: TUniQuery;
+    DBGrid3: TDBGrid;
     LogPage: TTabSheet;
-    Label5: TLabel;
-    CRDBGrid1: TCRDBGrid;
+    Button5: TButton;
     procedure Button1Click(Sender: TObject);
     procedure LogoutBtnClick(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -61,7 +62,7 @@ implementation
 
 {$R *.dfm}
 
-uses SetupDatabase, LoginForm, CreateClientForm;
+uses LoginForm, CreateClientForm, SellPage, SetupDatabase;
 
 function StrIsEmpty(strIn: String): Boolean;
 begin
@@ -111,9 +112,19 @@ begin
   CreateClientForm.Form4.Visible := True;
 end;
 
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+  SellPage.Form5.Visible := True;
+end;
+
 procedure TForm1.Button4Click(Sender: TObject);
 begin
   ShowMessage(Form1.DBGrid1.SelectedRows.CurrentRowSelected.ToString(True));
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+begin
+  SetupDatabase.DataModule3.frxReport1.ShowReport;
 end;
 
 procedure TForm1.LogoutBtnClick(Sender: TObject);

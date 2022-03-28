@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, UniProvider, PostgreSQLUniProvider, Data.DB,
-  MemDS, DBAccess, Uni;
+  MemDS, DBAccess, Uni, VirtualTable, frxClass, frxDBSet;
 
 type
   TDataModule3 = class(TDataModule)
@@ -15,9 +15,11 @@ type
     UniTable2: TUniTable;
     DataSource2: TDataSource;
     UniTable3: TUniTable;
-    DataSource3: TDataSource;
     UniTable4: TUniTable;
     DataSource4: TDataSource;
+    DataSource3: TDataSource;
+    frxReport1: TfrxReport;
+    frxDBDataset1: TfrxDBDataset;
   private
     { Private declarations }
   public
