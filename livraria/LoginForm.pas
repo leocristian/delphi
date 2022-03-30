@@ -12,6 +12,7 @@ type
     name: String;
     email: String;
     password: String;
+
   end;
 
   TForm2 = class(TForm)

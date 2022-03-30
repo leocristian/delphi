@@ -30,7 +30,7 @@ type
     DBNavigator1: TDBNavigator;
     CodInput: TEdit;
     LogoutBtn: TButton;
-    TabSheet1: TTabSheet;
+    s: TTabSheet;
     Button2: TButton;
     Label3: TLabel;
     DBNavigator2: TDBNavigator;
@@ -43,6 +43,11 @@ type
     DBGrid3: TDBGrid;
     LogPage: TTabSheet;
     Button5: TButton;
+    PriceInput: TEdit;
+    Image1: TImage;
+    Label5: TLabel;
+    PublisherInput: TEdit;
+    DBNavigator3: TDBNavigator;
     procedure Button1Click(Sender: TObject);
     procedure LogoutBtnClick(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -62,7 +67,8 @@ implementation
 
 {$R *.dfm}
 
-uses LoginForm, CreateClientForm, SellPage, SetupDatabase;
+uses LoginForm, CreateClientForm, SellPage, SetupDatabase, SellPage2,
+  SellCancelPage;
 
 function StrIsEmpty(strIn: String): Boolean;
 begin
@@ -93,16 +99,16 @@ begin
     begin
       Form1.UniQuery1.SQL.Clear;
       Query := 'insert into livros values(' + Form1.CodInput.Text + ',' +
-       '''' + Form1.Edit1.Text + '''' + ',' + '''' + Form1.Edit2.Text + '''' +
-       ',' + '''' + DateToStr(Form1.YearInput.Date) + '''' + ');';
-
-      ShowMessage(Query);
+        QuotedStr(Form1.Edit1.Text) + ',' + QuotedStr(Form1.Edit2.Text) +
+       ',' + QuotedStr(DateToStr(Form1.YearInput.Date)) + ',' +
+       QuotedStr(Form1.PublisherInput.text) + ',' + QuotedStr(Form1.PriceInput.Text) + ');';
 
       try
         Form1.UniQuery1.SQL.Add(Query);
         Form1.UniQuery1.Execute;
       finally
         ShowMessage('Livro cadastrado com sucesso!');
+        Form1.DBGrid1.Refresh;
       end;
     end;
 end;
@@ -114,12 +120,12 @@ end;
 
 procedure TForm1.Button3Click(Sender: TObject);
 begin
-  SellPage.Form5.Visible := True;
+  SellPage2.Form5.Visible := True;
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
 begin
-  ShowMessage(Form1.DBGrid1.SelectedRows.CurrentRowSelected.ToString(True));
+  SellCancelPage.Form6.visible := True;
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);
@@ -129,8 +135,6 @@ end;
 
 procedure TForm1.LogoutBtnClick(Sender: TObject);
 begin
-//  Form1.Visible := False;
-//  LoginForm.Form2.visible := True
   ShowMessage('Programa encerrado!');
   Application.Terminate;
 end;
