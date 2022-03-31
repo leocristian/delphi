@@ -1,4 +1,4 @@
-object Form1: TForm1
+object EditorasForm: TEditorasForm
   Left = 0
   Top = 0
   Align = alClient

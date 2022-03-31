@@ -4,7 +4,7 @@ object FormUsuario: TFormUsuario
   Anchors = []
   Caption = 'FormUsuario'
   ClientHeight = 261
-  ClientWidth = 358
+  ClientWidth = 356
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

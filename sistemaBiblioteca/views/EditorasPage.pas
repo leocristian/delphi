@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Menus;
 
 type
-  TForm1 = class(TForm)
+  TEditorasForm = class(TForm)
     Label1: TLabel;
     PopupMenu1: TPopupMenu;
     Visualizareditoraselecionada1: TMenuItem;
@@ -22,7 +22,7 @@ type
   end;
 
 var
-  EditorasForm: TForm1;
+  EditorasForm: TEditorasForm;
 
 implementation
 

@@ -106,41 +106,33 @@
         <DCCReference Include="MainPage.pas">
             <Form>FormPrincipal</Form>
         </DCCReference>
-        <DCCReference Include="LoginPage.pas">
+        <DCCReference Include="views\LoginPage.pas">
             <Form>FormUsuario</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UserPage.pas">
+        <DCCReference Include="views\UserPage.pas">
             <Form>UserForm</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="dmDatabase.pas">
-            <Form>DataModule1</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="MenuFrame.pas">
             <Form>BuscaPessoa</Form>
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
-        <DCCReference Include="ClientPage.pas">
+        <DCCReference Include="views\ClientPage.pas">
             <Form>ClientForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UserUnit.pas">
-            <Form>UserScreen</Form>
-            <FormType>dfm</FormType>
+        <DCCReference Include="views\LivrosPage.pas">
+            <Form>LivrosForm</Form>
+        </DCCReference>
+        <DCCReference Include="views\EditorasPage.pas">
+            <Form>EditorasForm</Form>
+            <DesignClass>T</DesignClass>
+        </DCCReference>
+        <DCCReference Include="controllers\Usuario.pas"/>
+        <DCCReference Include="services\dmDatabase.pas">
+            <Form>DataModule1</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="LivrosPage.pas">
-            <Form>LivrosForm</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="EditorasPage.pas">
-            <Form>Form1</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
+        <DCCReference Include="controllers\Cliente.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

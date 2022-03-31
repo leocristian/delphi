@@ -34,7 +34,6 @@ type
     Welcome: TTabSheet;
     Label1: TLabel;
     ShowPublishersPage: TAction;
-
     procedure AbrirForm(Sender: TObject);
     procedure Finalizar(Sender: TObject);
     procedure AbrirTelaUsuarios(Sender: TObject);

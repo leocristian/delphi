@@ -3,14 +3,15 @@ program Biblioteca;
 uses
   Vcl.Forms,
   MainPage in 'MainPage.pas' {FormPrincipal},
-  LoginPage in 'LoginPage.pas' {FormUsuario},
-  UserPage in 'UserPage.pas' {UserForm},
-  dmDatabase in 'dmDatabase.pas' {DataModule1: TDataModule},
+  LoginPage in 'views\LoginPage.pas' {FormUsuario},
+  UserPage in 'views\UserPage.pas' {UserForm},
   MenuFrame in 'MenuFrame.pas' {BuscaPessoa: TFrame},
-  ClientPage in 'ClientPage.pas' {ClientForm},
-  UserUnit in 'UserUnit.pas' {UserScreen: TDataModule},
-  LivrosPage in 'LivrosPage.pas' {LivrosForm},
-  EditorasPage in 'EditorasPage.pas' {Form1};
+  ClientPage in 'views\ClientPage.pas' {ClientForm},
+  LivrosPage in 'views\LivrosPage.pas' {LivrosForm},
+  EditorasPage in 'views\EditorasPage.pas' {EditorasForm},
+  Usuario in 'controllers\Usuario.pas',
+  dmDatabase in 'services\dmDatabase.pas' {DataModule1: TDataModule},
+  Cliente in 'controllers\Cliente.pas';
 
 {$R *.res}
 
@@ -22,9 +23,9 @@ begin
   Application.CreateForm(TUserForm, UserForm);
   Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TClientForm, ClientForm);
-  Application.CreateForm(TUserScreen, UserScreen);
   Application.CreateForm(TLivrosForm, LivrosForm);
-  Application.CreateForm(TForm1, EditorasForm);
+  Application.CreateForm(TEditorasForm, EditorasForm);
+  Application.CreateForm(TDataModule1, DataModule1);
   Application.Run;
 end.
 
