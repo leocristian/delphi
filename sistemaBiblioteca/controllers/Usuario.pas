@@ -45,22 +45,47 @@ begin
     query.Connection := dataModule.dbConnection;
 
     query.Close;
-    query.SQL.Text := 'select nextval('' '') as codProximo';
+    query.SQL.Text := 'select nextval(''tb_usuarios_cod_seq'') as codProximo';
     query.Open;
-
     objUsuario.cod := query.FieldByName('codProximo').AsInteger;
+
+    query.Close;
+    query.SQL.Clear;
+    query.SQL.Add('insert into usuarios');
+    query.SQL.Add('values');
+    query.SQL.Add('(:objUsuario.cod, :objUsuario.nome_completo, :objUsuario.email, :objUsuario.login, :objUsuario.senha)');
+
+    query.ExecSQL;
 
   finally
     FreeAndNil(query);
   end;
-
-    query.SQL.Add('oi');
-
 end;
 
 procedure TUsuario.Read(const objUsuario: TUsuario);
+var
+  query: TUniQuery;
 begin
-  WriteLn('oi');
+  try
+    query := TUniQuery.Create(query);
+    query.Connection := dataModule.dbConnection;
+
+    query.Close;
+    query.SQL.Clear;
+
+    query.SQL.Add('select * from usuarios');
+    query.SQL.Add('where codigo = :objUsuario.cod');
+    query.ParamByName('codigo').Value := objUsuario.cod;
+
+    query.Open;
+
+    if query.RecordCount > 0 then
+    begin
+      objUsuario.nome_completo := query.FieldByName('codigo').Value;
+    end;
+  finally
+    FreeAndnil(query);
+  end;
 end;
 
 procedure TUsuario.Update(const objUsuario: TUsuario);
@@ -72,4 +97,5 @@ procedure TUsuario.Delete(const objUsuaro: TUsuario);
 begin
   WriteLn('oi');
 end;
+
 end.

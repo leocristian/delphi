@@ -41,8 +41,8 @@ object FormPrincipal: TFormPrincipal
     end
   end
   object MainMenu1: TMainMenu
-    Left = 692
-    Top = 16
+    Left = 636
+    Top = 32
     object Cadastros: TMenuItem
       Caption = 'Cadastros'
       object Pessoas: TMenuItem
@@ -91,8 +91,8 @@ object FormPrincipal: TFormPrincipal
     end
   end
   object ActionList1: TActionList
-    Left = 688
-    Top = 72
+    Left = 704
+    Top = 32
     object ShowUsersPage: TAction
       Caption = 'Usuarios'
       OnExecute = AbrirTelaUsuarios

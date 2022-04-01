@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls,
-  Vcl.Menus, MenuFrame, MainPage;
+  Vcl.Menus, MenuFrame;
 
 type
   TUserForm = class(TForm)
@@ -16,6 +16,8 @@ type
     N1: TMenuItem;
     Excluirselecionado1: TMenuItem;
     BuscaPessoa1: TBuscaPessoa;
+
+    procedure CreateUser(Sender: TObject);
     procedure SetFocus(Sender: TObject);
     procedure BuscaPessoa1Button1Click(Sender: TObject);
     procedure DeleteUser(Sender: TObject);
@@ -31,6 +33,8 @@ var
 implementation
 
 {$R *.dfm}
+
+uses NewUserPage;
 
 procedure TUserForm.BuscaPessoa1Button1Click(Sender: TObject);
 begin
@@ -49,6 +53,11 @@ end;
 procedure TUserForm.SetFocus(Sender: TObject);
 begin
   UserForm.BuscaPessoa1.Edit1.SetFocus;
+end;
+
+procedure TUserForm.CreateUser(Sender: TObject);
+begin
+  NewUserPage.NewUserForm.Visible := True;
 end;
 
 end.

@@ -8,10 +8,11 @@ uses
   MenuFrame in 'MenuFrame.pas' {BuscaPessoa: TFrame},
   ClientPage in 'views\ClientPage.pas' {ClientForm},
   LivrosPage in 'views\LivrosPage.pas' {LivrosForm},
-  EditorasPage in 'views\EditorasPage.pas' {EditorasForm},
+  EditorasPage in 'views\EditorasPage.pas' {EditorasForm: T},
   Usuario in 'controllers\Usuario.pas',
   dmDatabase in 'services\dmDatabase.pas' {DataModule1: TDataModule},
-  Cliente in 'controllers\Cliente.pas';
+  Cliente in 'controllers\Cliente.pas',
+  NewUserPage in 'views\NewUserPage.pas' {NewUserForm};
 
 {$R *.res}
 
@@ -26,8 +27,6 @@ begin
   Application.CreateForm(TLivrosForm, LivrosForm);
   Application.CreateForm(TEditorasForm, EditorasForm);
   Application.CreateForm(TDataModule1, DataModule1);
+  Application.CreateForm(TNewUserForm, NewUserForm);
   Application.Run;
 end.
-
-
-

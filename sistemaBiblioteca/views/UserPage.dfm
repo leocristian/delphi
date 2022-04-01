@@ -32,13 +32,14 @@ object UserForm: TUserForm
     end
   end
   object PopupMenu1: TPopupMenu
-    Left = 720
-    Top = 16
+    Left = 728
+    Top = 24
     object Vsiuali1: TMenuItem
       Caption = 'Visualizar usuario selecionado'
     end
     object Inserirnovo1: TMenuItem
       Caption = 'Inserir novo usuario'
+      OnClick = CreateUser
     end
     object Inserirnovo2: TMenuItem
       Caption = 'Alterar usuario selecionado'
