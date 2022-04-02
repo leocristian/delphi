@@ -15,6 +15,7 @@ type
     Alterareditoraselecionada1: TMenuItem;
     N1: TMenuItem;
     Excluireditoraselecionada1: TMenuItem;
+    procedure InserirEditora(Sender: TObject);
   private
     { Private declarations }
   public
@@ -27,5 +28,12 @@ var
 implementation
 
 {$R *.dfm}
+
+uses NewEditoraPage;
+
+procedure TEditorasForm.InserirEditora(Sender: TObject);
+begin
+  NewEditoraForm.Visible := True;
+end;
 
 end.

@@ -42,7 +42,7 @@ begin
 
     query.Close;
     query.SQL.Clear;
-    query.SQL.Add('insert into usuarios ');
+    query.SQL.Add('insert into usuarios (codigo, nome_completo, email, login, senha) ');
     query.SQL.Add('values ');
 
     valuesStr := '(' + IntToStr(objUsuario.cod) + ',' + QuotedStr(objUsuario.nome_completo)
@@ -51,7 +51,14 @@ begin
 
     query.SQL.Add(valuesStr);
 
+//    query.ParamByName('codProximo').Value := objUsuario.cod;
+//    query.ParamByName('nome_completo').Value := objUsuario.nome_completo;
+//    query.ParamByName('email').Value := objUsuario.email;
+//    query.ParamByName('login').Value := objUsuario.login;
+//    query.ParamByName('senha').Value := objUsuario.senha;
+
     query.ExecSQL;
+
   finally
     FreeAndNil(query);
   end;

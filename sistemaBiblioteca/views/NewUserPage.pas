@@ -58,9 +58,20 @@ begin
     novoUsuario.Insert(novoUsuario);
 
   finally
-    ShowMessage('Usuário cadastrado com sucesso!');
-    FreeAndNil(novoUsuario);
 
+    Case
+      MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar usuário', MB_YESNO) of
+      idYes:
+        begin
+          ShowMessage('Usuario inserido com sucesso!');
+        end;
+      idNo:
+        begin
+          ShowMessage('Operação cancelada!');
+        end;
+    End;
+
+    FreeAndNil(novoUsuario);
     NewUserForm.Visible := False;
   end;
 end;

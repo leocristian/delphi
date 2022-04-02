@@ -39,7 +39,7 @@ begin
 
     query.Close;
     query.SQL.Clear;
-    query.SQL.Add('insert into clientes ');
+    query.SQL.Add('insert into clientes (codigo, nome_completo, email, telefone) ');
     query.SQL.Add('values ');
 
     valuesStr := '(' + IntToStr(objCliente.cod) + ',' + QuotedStr(objCliente.nome_completo)
@@ -47,7 +47,13 @@ begin
 
     query.SQL.Add(valuesStr);
 
+//    query.ParamByName('codigo').Value := objCliente.cod;
+//    query.ParamByName('nome_completo').Value := objCliente.nome_completo;
+//    query.ParamByName('email').Value := objCliente.email;
+//    query.ParamByName('telefone').Value := objCliente.telefone;
+
     query.ExecSQL;
+
   finally
     FreeAndNil(query);
   end;

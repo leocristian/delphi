@@ -16,7 +16,7 @@ object EditorasForm: TEditorasForm
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 88
+    Left = 72
     Top = 56
     Width = 77
     Height = 13
@@ -29,7 +29,8 @@ object EditorasForm: TEditorasForm
       Caption = 'Visualizar editora selecionada'
     end
     object Visualizareditoraselecionada2: TMenuItem
-      Caption = 'Adicionar nova editora'
+      Caption = 'Inserir nova editora'
+      OnClick = InserirEditora
     end
     object Alterareditoraselecionada1: TMenuItem
       Caption = 'Alterar editora selecionada'
