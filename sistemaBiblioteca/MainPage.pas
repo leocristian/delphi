@@ -25,14 +25,15 @@ type
     N2: TMenuItem;
     Sair: TMenuItem;
     ActionList1: TActionList;
-    ShowUsersPage: TAction;
-    ShowClientsPage: TAction;
-    ShowBooksPage: TAction;
+    ShowUsuariosPage: TAction;
+    ShowClientesPage: TAction;
+    ShowLivrosPage: TAction;
     Livros1: TMenuItem;
     PageControl1: TPageControl;
     Welcome: TTabSheet;
     Label1: TLabel;
-    ShowPublishersPage: TAction;
+    ShowEditorasPage: TAction;
+    ShowVendasPage: TAction;
 
     procedure AbrirForm(Sender: TObject);
     procedure Finalizar(Sender: TObject);
@@ -40,6 +41,8 @@ type
     procedure AbrirTelaClientes(Sender: TObject);
     procedure AbrirTelaLivros(Sender: TObject);
     procedure AbrirTelaEditoras(Sender: TObject);
+    procedure AbrirTelaVendas(Sender: TObject);
+    procedure AbrirRelatorioVendas(Sender: TObject);
 
   private
     { Private declarations }
@@ -55,7 +58,7 @@ implementation
 
 {$R *.dfm}
 
-uses UserPage, ClientPage, LivrosPage, EditorasPage;
+uses UserPage, ClientPage, LivrosPage, EditorasPage, VendasPage, dmDatabase;
 
 procedure TFormPrincipal.AbrirForm(Sender: TObject);
 begin
@@ -94,6 +97,23 @@ begin
   tabSheet.Caption := 'Usuarios';
   FormPrincipal.PageControl1.ActivePage := tabSheet;
 
+end;
+
+procedure TFormPrincipal.AbrirTelaVendas(Sender: TObject);
+begin
+  tabSheet := TTabSheet.Create(FormPrincipal.PageControl1);
+  tabSheet.PageControl := FormPrincipal.PageControl1;
+
+  VendasPage.VendasForm.Parent := tabSheet;
+  VendasPage.VendasForm.Visible := True;
+
+  tabSheet.Caption := 'Vendas';
+  FormPrincipal.PageControl1.ActivePage := tabSheet;
+end;
+
+procedure TFormPrincipal.AbrirRelatorioVendas(Sender: TObject);
+begin
+  dmDatabase.DataModule1.ShowRelatorioVendas;
 end;
 
 procedure TFormPrincipal.AbrirTelaClientes(Sender: TObject);

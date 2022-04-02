@@ -19,6 +19,8 @@ type
     procedure Update(const objCliente: TCliente);
     procedure Delete(const objCliente: TCliente);
 
+    function FindByNome(const nomeParam: String): TCliente;
+
   end;
 
 implementation
@@ -72,5 +74,35 @@ end;
 procedure TCliente.Delete(const objCliente: TCliente);
 begin
 
+end;
+
+function TCliente.FindByNome(const nomeParam: String): TCliente;
+var
+  query: TUniQuery;
+  clienteSelecionado: TCliente;
+
+begin
+  try
+    query := TUniQuery.Create(nil);
+    query.connection := DataModule1.dbConnection;
+
+    query.Close;
+    query.SQL.Clear;
+
+    query.SQL.Add('select * from clientes ');
+    query.SQL.Add('where nome_completo = ' + QuotedStr(nomeParam));
+
+    query.ExecSQL;
+
+  finally
+    clienteSelecionado.cod := query.FieldByName('codigo').AsInteger;
+    clienteSelecionado.nome_completo := query.FieldByName('nome_completo').AsString;
+    clienteSelecionado.email := query.FieldByName('email').AsString;
+    clienteSelecionado.telefone := query.FieldByName('telefone').AsString;
+
+    Result := clienteSelecionado;
+
+    FreeAndNil(query);
+  end;
 end;
 end.

@@ -56,7 +56,7 @@ object NewUserForm: TNewUserForm
   object senhaInput: TEdit
     Left = 40
     Top = 169
-    Width = 185
+    Width = 89
     Height = 21
     PasswordChar = '*'
     TabOrder = 3
@@ -70,5 +70,14 @@ object NewUserForm: TNewUserForm
     Caption = 'Adicionar'
     TabOrder = 4
     OnClick = Adicionar
+  end
+  object SenhaCheckInput: TEdit
+    Left = 135
+    Top = 169
+    Width = 90
+    Height = 21
+    PasswordChar = '*'
+    TabOrder = 5
+    TextHint = 'Repita a senha'
   end
 end

@@ -8,7 +8,7 @@ uses
 
 type
   TFormUsuario = class(TForm)
-    NomeInput: TEdit;
+    LoginInput: TEdit;
     SenhaInput: TEdit;
     Button1: TButton;
     Label1: TLabel;
@@ -31,7 +31,7 @@ implementation
 
 {$R *.dfm}
 
-uses MainPage;
+uses MainPage, Usuario;
 
 procedure TFormUsuario.FormCreate(Sender: TObject);
 begin
@@ -40,8 +40,41 @@ begin
 end;
 
 procedure TFormUsuario.Login(Sender: TObject);
+var
+  usuarioLogado: TUsuario;
+  login, senha: String;
 begin
-  FormUsuario.Visible := False;
-  MainPage.FormPrincipal.Visible := True;
+  if (FormUsuario.LoginInput.Text = '') then
+    begin
+      ShowMessage('Preencha todos os campos!');
+    end
+  else
+    begin
+      try
+        usuarioLogado := TUsuario.Create;
+
+        login := FormUsuario.LoginInput.Text;
+        senha := FormUsuario.SenhaInput.Text;
+
+        usuarioLogado := usuarioLogado.FindByNomeAndSenha(login, senha);
+      finally
+        if usuarioLogado.login = login then
+          begin
+            ShowMessage('Seja bem vindo ' + usuarioLogado.nome_completo);
+
+            FormUsuario.Visible := False;
+            MainPage.FormPrincipal.Visible := True;
+
+            FreeAndNil(usuarioLogado);
+          end
+        else
+          begin
+            ShowMessage('Usuário não encontrado!');
+          end;
+      end;
+
+
+    end;
+
 end;
 end.

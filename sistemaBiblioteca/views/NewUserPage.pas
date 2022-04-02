@@ -13,10 +13,13 @@ type
     emailInput: TEdit;
     loginInput: TEdit;
     senhaInput: TEdit;
+    SenhaCheckInput: TEdit;
     AdicionarUsuarioBtn: TButton;
+
 
     procedure OpenUserForm(Sender: TObject);
     procedure Adicionar(Sender: TObject);
+    procedure LimparForms;
 
   private
     { Private declarations }
@@ -47,32 +50,50 @@ var
   novoUsuario: TUsuario;
 begin
 
-  novoUsuario := TUsuario.Create;
+  if NewUserForm.senhaInput.Text <> NewUserForm.SenhaCheckInput.Text then
+    begin
+      ShowMessage('Senhas não são iguais!');
+    end
+  else
+    begin
 
-  try
-    novoUsuario.nome_completo := NewUserForm.nome_completoInput.Text;
-    novoUsuario.email := NewUserForm.emailInput.Text;
-    novoUsuario.login := NewUserForm.loginInput.Text;
-    novoUsuario.senha := NewUserForm.senhaInput.Text;
+      novoUsuario := TUsuario.Create;
 
-    novoUsuario.Insert(novoUsuario);
+      try
+        novoUsuario.nome_completo := NewUserForm.nome_completoInput.Text;
+        novoUsuario.email := NewUserForm.emailInput.Text;
+        novoUsuario.login := NewUserForm.loginInput.Text;
+        novoUsuario.senha := NewUserForm.senhaInput.Text;
 
-  finally
+        novoUsuario.Insert(novoUsuario);
 
-    Case
-      MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar usuário', MB_YESNO) of
-      idYes:
-        begin
-          ShowMessage('Usuario inserido com sucesso!');
-        end;
-      idNo:
-        begin
-          ShowMessage('Operação cancelada!');
-        end;
-    End;
+      finally
 
-    FreeAndNil(novoUsuario);
-    NewUserForm.Visible := False;
-  end;
+        Case
+          MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar usuário', MB_YESNO) of
+          idYes:
+            begin
+              ShowMessage('Usuario inserido com sucesso!');
+            end;
+          idNo:
+            begin
+              ShowMessage('Operação cancelada!');
+            end;
+        End;
+
+        FreeAndNil(novoUsuario);
+        NewUserForm.Visible := False;
+        NewUserForm.LimparForms;
+    end;
+    end;
+end;
+
+procedure TNewUserForm.LimparForms;
+begin
+  NewUserForm.nome_completoInput.Clear;
+  NewUserForm.emailInput.Clear;
+  NewUserForm.loginInput.clear;
+  NewUserForm.senhaInput.Clear;
+  NewUserForm.SenhaCheckInput.Clear;
 end;
 end.

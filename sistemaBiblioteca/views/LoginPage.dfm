@@ -3,8 +3,8 @@ object FormUsuario: TFormUsuario
   Top = 0
   Anchors = []
   Caption = 'FormUsuario'
-  ClientHeight = 261
-  ClientWidth = 356
+  ClientHeight = 208
+  ClientWidth = 361
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,13 +12,12 @@ object FormUsuario: TFormUsuario
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnClick = Login
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 88
-    Top = 45
+    Top = 29
     Width = 119
     Height = 16
     Caption = 'Acessar o sistema'
@@ -31,28 +30,28 @@ object FormUsuario: TFormUsuario
   end
   object LabelNome: TLabel
     Left = 88
-    Top = 75
+    Top = 59
     Width = 80
     Height = 13
     Caption = 'Nome de usu'#225'rio'
   end
   object LabelSenha: TLabel
     Left = 88
-    Top = 121
+    Top = 105
     Width = 30
     Height = 13
     Caption = 'Senha'
   end
-  object NomeInput: TEdit
+  object LoginInput: TEdit
     Left = 88
-    Top = 94
+    Top = 78
     Width = 169
     Height = 21
     TabOrder = 0
   end
   object SenhaInput: TEdit
     Left = 88
-    Top = 140
+    Top = 124
     Width = 169
     Height = 21
     PasswordChar = '*'
@@ -60,7 +59,7 @@ object FormUsuario: TFormUsuario
   end
   object Button1: TButton
     Left = 182
-    Top = 172
+    Top = 156
     Width = 75
     Height = 25
     Caption = 'Entrar'

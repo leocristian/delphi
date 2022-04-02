@@ -138,7 +138,17 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="views\NewClientPage.pas">
-            <Form>Form1</Form>
+            <Form>NewClientForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="views\NewEditoraPage.pas">
+            <Form>NewEditoraForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="controllers\Editora.pas"/>
+        <DCCReference Include="controllers\Livro.pas"/>
+        <DCCReference Include="views\NewLivroPage.pas">
+            <Form>NewLivroForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

@@ -20,7 +20,9 @@ type
     procedure Insert(const objUsuario: TUsuario);
     procedure Read(const objUsuario: TUsuario);
     procedure Update(const objUsuario: TUsuario);
-    procedure Delete(const objUsuaro: TUsuario);
+    procedure Delete(const codUsuario: Integer);
+
+    function FindByNomeAndSenha(var nome, senha: String): TUsuario;
 
   End;
 
@@ -83,7 +85,7 @@ begin
 
     if query.RecordCount > 0 then
     begin
-      objUsuario.nome_completo := query.FieldByName('codigo').Value;
+      objUsuario.nome_completo := query.FieldByName('nome_completo').Value;
     end;
   finally
     FreeAndnil(query);
@@ -95,9 +97,59 @@ begin
   WriteLn('oi');
 end;
 
-procedure TUsuario.Delete(const objUsuaro: TUsuario);
+procedure TUsuario.Delete(const codUsuario: Integer);
+var
+  query: TUniQuery;
+
 begin
-  WriteLn('oi');
+  try
+
+    query := TUniQuery.Create(nil);
+    query.Connection := DataModule1.dbConnection;
+
+    query.Close;
+    query.SQL.Clear;
+
+    query.SQL.Add('delete from usuarios where codigo = ' + codUsuario.ToString);
+//    query.ParamByName('codigo').Value := codUsuario;
+
+    query.ExecSQL;
+
+  finally
+    FreeAndNil(query);
+  end;
 end;
 
+function TUsuario.FindByNomeAndSenha(var nome, senha: String): TUsuario;
+var
+  query: TUniQuery;
+  usuarioSelecionado: TUsuario;
+begin
+  try
+
+    query := TUniQuery.Create(nil);
+    query.connection := DataModule1.dbConnection;
+
+    query.Close;
+    query.SQL.Clear;
+
+    query.SQL.Add('select * from usuarios ');
+    query.SQL.Add('Where nome_completo = ' + QuotedStr(nome) + ' and senha = ' + QuotedStr(senha));
+
+    query.ExecSQL;
+  finally
+    usuarioSelecionado := TUsuario.Create;
+
+    usuarioSelecionado.cod := query.FieldByName('codigo').AsInteger;
+    usuarioSelecionado.nome_completo := query.FieldByName('nome_completo').AsString;
+    usuarioSelecionado.email := query.FieldByName('email').AsString;
+    usuarioSelecionado.login := query.FieldByName('login').AsString;
+    usuarioSelecionado.senha := query.FieldByName('senha').AsString;
+
+    Result := usuarioSelecionado;
+
+    FreeAndNil(query);
+  end;
+
+end;
 end.

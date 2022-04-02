@@ -5,7 +5,12 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls,
-  Vcl.Menus, MenuFrame;
+  Vcl.Menus, MenuFrame, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, dxSkinsCore, cxStyles, cxCustomData, cxFilter,
+  cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
+  dxScrollbarAnnotations, Data.DB, cxDBData, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView,
+  cxGrid, dxSkinsForm, MemDS, DBAccess, Uni;
 
 type
   TUserForm = class(TForm)
@@ -16,11 +21,20 @@ type
     N1: TMenuItem;
     Excluirselecionado1: TMenuItem;
     BuscaPessoa1: TBuscaPessoa;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1Level1: TcxGridLevel;
+    cxGrid1: TcxGrid;
+    cxGrid1DBTableView1codigo: TcxGridDBColumn;
+    cxGrid1DBTableView1nome_completo: TcxGridDBColumn;
+    cxGrid1DBTableView1email: TcxGridDBColumn;
+    cxGrid1DBTableView1login: TcxGridDBColumn;
+    AtualizarBtn: TButton;
 
     procedure CreateUser(Sender: TObject);
     procedure SetFocus(Sender: TObject);
-    procedure BuscaPessoa1Button1Click(Sender: TObject);
+    procedure BuscarUsuario(Sender: TObject);
     procedure DeleteUser(Sender: TObject);
+    procedure AtualizarGrid(Sender: TObject);
   private
     { Private declarations }
   public
@@ -34,19 +48,58 @@ implementation
 
 {$R *.dfm}
 
-uses NewUserPage;
+uses NewUserPage, dmDatabase, Usuario;
 
-procedure TUserForm.BuscaPessoa1Button1Click(Sender: TObject);
+procedure TUserForm.AtualizarGrid(Sender: TObject);
 begin
-  ShowMessage('Pesquisando usuario ' + UserForm.BuscaPessoa1.Edit1.Text + #13 +
-  'campo: ' + UserForm.BuscaPessoa1.ComboBox1.Text);
+  try
+    UserForm.cxGrid1.Refresh;
+  finally
+    ShowMessage('Tabela de usuarios atualizada com sucesso!');
+  end;
+end;
+
+procedure TUserForm.BuscarUsuario(Sender: TObject);
+begin
+  if UserForm.BuscaPessoa1.ComboBox1.Text = 'Codigo' then
+    begin
+      ShowMessage('buscando por codigo');
+    end
+  else if UserForm.BuscaPessoa1.ComboBox1.Text = 'Nome ou email' then
+    begin
+      ShowMessage('Buscando por nome ou email');
+    end
+  else
+    begin
+      ShowMessage('Campo inválido!');
+    end;
+
 end;
 
 procedure TUserForm.DeleteUser(Sender: TObject);
+var
+  codDelete: Integer;
+  colunaSelected: Integer;
+  usuarioDelete: TUsuario;
+
 begin
   Case
     MessageBox(Application.Handle, 'Confirmar exclusão de usuário', 'Excluir usuário', MB_YESNO) of
-    idYes: ShowMessage('Usuario excluido com sucesso');
+    idYes:
+      begin
+        colunaSelected := UserForm.cxGrid1DBTableView1.ViewData.DataController.GetSelectedRowIndex(0);
+        codDelete := UserForm.cxGrid1DBTableView1.ViewData.Records[colunaSelected].Values[Userform.cxGrid1DBTableView1.GetColumnByFieldName('codigo').Index];
+
+        usuarioDelete := TUsuario.Create;
+
+        try
+          usuarioDelete.Delete(codDelete);
+        finally
+          ShowMessage('Usuario excluido com sucesso, codigo: ' + IntToStr(codDelete));
+        end;
+
+      end;
+    idNo: ShowMessage('Operação cancelada');
   End;
 end;
 

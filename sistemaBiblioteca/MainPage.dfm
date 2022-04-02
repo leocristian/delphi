@@ -48,32 +48,33 @@ object FormPrincipal: TFormPrincipal
       object Pessoas: TMenuItem
         Caption = 'Pessoas'
         object Usuarios: TMenuItem
-          Action = ShowUsersPage
+          Action = ShowUsuariosPage
         end
         object Clientes: TMenuItem
-          Action = ShowClientsPage
+          Action = ShowClientesPage
         end
       end
       object Outros: TMenuItem
         Caption = 'Outros'
         object Editoras: TMenuItem
-          Action = ShowPublishersPage
+          Action = ShowEditorasPage
         end
         object Livros1: TMenuItem
-          Action = ShowBooksPage
+          Action = ShowLivrosPage
         end
       end
     end
     object Vendas: TMenuItem
       Caption = 'Vendas'
       object RealizarVenda: TMenuItem
-        Caption = 'Realizar venda'
+        Action = ShowVendasPage
       end
       object N1: TMenuItem
         Caption = '-'
       end
       object RelatorioVendas: TMenuItem
         Caption = 'Relatorio de vendas'
+        OnClick = AbrirRelatorioVendas
       end
     end
     object Sistema: TMenuItem
@@ -93,21 +94,25 @@ object FormPrincipal: TFormPrincipal
   object ActionList1: TActionList
     Left = 704
     Top = 32
-    object ShowUsersPage: TAction
+    object ShowUsuariosPage: TAction
       Caption = 'Usuarios'
       OnExecute = AbrirTelaUsuarios
     end
-    object ShowClientsPage: TAction
+    object ShowClientesPage: TAction
       Caption = 'Clientes'
       OnExecute = AbrirTelaClientes
     end
-    object ShowBooksPage: TAction
+    object ShowLivrosPage: TAction
       Caption = 'Livros'
       OnExecute = AbrirTelaLivros
     end
-    object ShowPublishersPage: TAction
+    object ShowEditorasPage: TAction
       Caption = 'Editoras'
       OnExecute = AbrirTelaEditoras
+    end
+    object ShowVendasPage: TAction
+      Caption = 'Abrir vendas'
+      OnExecute = AbrirTelaVendas
     end
   end
 end
