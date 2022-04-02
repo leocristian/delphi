@@ -134,7 +134,7 @@ begin
     query.SQL.Clear;
 
     query.SQL.Add('select * from usuarios ');
-    query.SQL.Add('Where nome_completo = ' + QuotedStr(nome) + ' and senha = ' + QuotedStr(senha));
+    query.SQL.Add('Where login = ' + QuotedStr(nome) + ' and senha = ' + QuotedStr(senha));
 
     query.ExecSQL;
   finally

@@ -211,7 +211,7 @@ object DataModule1: TDataModule1
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 166.299320000000000000
+        Height = 56.692950000000000000
         Top = 102.047310000000000000
         Width = 718.110700000000000000
         DataSet = relDsVendas
@@ -296,7 +296,7 @@ object DataModule1: TDataModule1
         FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
-        Top = 328.819110000000000000
+        Top = 219.212740000000000000
         Width = 718.110700000000000000
       end
     end
