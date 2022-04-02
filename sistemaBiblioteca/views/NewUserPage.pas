@@ -49,16 +49,19 @@ begin
 
   novoUsuario := TUsuario.Create;
 
-  novoUsuario.nome_completo := NewUserForm.nome_completoInput.Text;
-  novoUsuario.email := NewUserForm.emailInput.Text;
-  novoUsuario.login := NewUserForm.loginInput.Text;
-  novoUsuario.senha := NewUserForm.senhaInput.Text;
-
   try
+    novoUsuario.nome_completo := NewUserForm.nome_completoInput.Text;
+    novoUsuario.email := NewUserForm.emailInput.Text;
+    novoUsuario.login := NewUserForm.loginInput.Text;
+    novoUsuario.senha := NewUserForm.senhaInput.Text;
+
     novoUsuario.Insert(novoUsuario);
+
   finally
-    showMessage('Usuário cadastrado com sucesso!');
+    ShowMessage('Usuário cadastrado com sucesso!');
+    FreeAndNil(novoUsuario);
+
+    NewUserForm.Visible := False;
   end;
 end;
-
 end.

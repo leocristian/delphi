@@ -12,6 +12,7 @@ object DataModule1: TDataModule1
     Database = 'bibliotecaDB'
     Username = 'postgres'
     Connected = True
+    LoginPrompt = False
     Left = 56
     Top = 96
     EncryptedPassword = '9EFF9BFF92FF96FF91FF'

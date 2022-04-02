@@ -14,8 +14,10 @@ type
     N1: TMenuItem;
     Excluirclienteselecionado1: TMenuItem;
     BuscaPessoa1: TBuscaPessoa;
+    Inserirnovocliente1: TMenuItem;
     procedure SetFocus(Sender: TObject);
     procedure BuscaPessoa1Button1Click(Sender: TObject);
+    procedure CreateClient(Sender: TObject);
 
   private
     { Private declarations }
@@ -30,9 +32,16 @@ implementation
 
 {$R *.dfm}
 
+uses NewClientPage;
+
 procedure TClientForm.BuscaPessoa1Button1Click(Sender: TObject);
 begin
   ShowMessage('Pesquisando cliente ' + ClientForm.BuscaPessoa1.Edit1.Text);
+end;
+
+procedure TClientForm.CreateClient(Sender: TObject);
+begin
+  NewClientPage.NewClientForm.Visible := True;
 end;
 
 procedure TClientForm.SetFocus(Sender: TObject);

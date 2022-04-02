@@ -23,12 +23,17 @@ object ClientForm: TClientForm
     Height = 72
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 771
   end
   object PopupMenu1: TPopupMenu
     Left = 720
     Top = 16
     object Visualizarclienteselecionado1: TMenuItem
       Caption = 'Visualizar cliente selecionado'
+    end
+    object Inserirnovocliente1: TMenuItem
+      Caption = 'Inserir novo cliente'
+      OnClick = CreateClient
     end
     object Acidionarnovocliente1: TMenuItem
       Caption = 'Alterar cliente selecionado'

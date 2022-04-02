@@ -4,7 +4,9 @@ unit Usuario;
 interface
 
 uses
-  Uni, dmDatabase;
+  Uni, dmDatabase, Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, MenuFrame,
+  Vcl.ToolWin, Vcl.ComCtrls, System.Actions, Vcl.ActnList, Vcl.ExtCtrls;
 
 type
   TUsuario = Class
@@ -24,25 +26,14 @@ type
 
 implementation
 
-var
-  dataModule: TDataModule1;
-
-procedure FreeAndNil(var obj);
-var
-  aux: TObject;
-begin
-  aux := TObject(obj);
-  Pointer(obj) := nil;
-  aux.Free;
-end;
-
 procedure TUsuario.Insert(const objUsuario: TUsuario);
 var
   query: TUniQuery;
+  valuesStr: String;
 begin
   try
-    query := TUniQuery.Create(query);
-    query.Connection := dataModule.dbConnection;
+    query := TUniQuery.Create(nil);
+    query.Connection := DataModule1.dbConnection;
 
     query.Close;
     query.SQL.Text := 'select nextval(''tb_usuarios_cod_seq'') as codProximo';
@@ -51,12 +42,16 @@ begin
 
     query.Close;
     query.SQL.Clear;
-    query.SQL.Add('insert into usuarios');
-    query.SQL.Add('values');
-    query.SQL.Add('(:objUsuario.cod, :objUsuario.nome_completo, :objUsuario.email, :objUsuario.login, :objUsuario.senha)');
+    query.SQL.Add('insert into usuarios ');
+    query.SQL.Add('values ');
+
+    valuesStr := '(' + IntToStr(objUsuario.cod) + ',' + QuotedStr(objUsuario.nome_completo)
+                + ',' + QuotedStr(objUsuario.email) + ',' + QuotedStr(objUsuario.login)
+                + ',' + QuotedStr(objUsuario.senha) + ')';
+
+    query.SQL.Add(valuesStr);
 
     query.ExecSQL;
-
   finally
     FreeAndNil(query);
   end;
@@ -68,7 +63,7 @@ var
 begin
   try
     query := TUniQuery.Create(query);
-    query.Connection := dataModule.dbConnection;
+    query.Connection := dmDatabase.DataModule1.dbConnection;
 
     query.Close;
     query.SQL.Clear;

@@ -12,7 +12,8 @@ uses
   Usuario in 'controllers\Usuario.pas',
   dmDatabase in 'services\dmDatabase.pas' {DataModule1: TDataModule},
   Cliente in 'controllers\Cliente.pas',
-  NewUserPage in 'views\NewUserPage.pas' {NewUserForm};
+  NewUserPage in 'views\NewUserPage.pas' {NewUserForm},
+  NewClientPage in 'views\NewClientPage.pas' {Form1};
 
 {$R *.res}
 
@@ -28,5 +29,6 @@ begin
   Application.CreateForm(TEditorasForm, EditorasForm);
   Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TNewUserForm, NewUserForm);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.
