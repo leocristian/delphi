@@ -4,19 +4,24 @@ uses
   Vcl.Forms,
   MainPage in 'MainPage.pas' {FormPrincipal},
   LoginPage in 'views\LoginPage.pas' {FormUsuario},
-  UserPage in 'views\UserPage.pas' {UserForm},
+  UserPage in 'views\usuario\UserPage.pas' {UserForm},
   MenuFrame in 'MenuFrame.pas' {BuscaPessoa: TFrame},
-  ClientPage in 'views\ClientPage.pas' {ClientForm},
-  LivrosPage in 'views\LivrosPage.pas' {LivrosForm},
-  EditorasPage in 'views\EditorasPage.pas' {EditorasForm: T},
+  ClientPage in 'views\cliente\ClientPage.pas' {ClientForm},
+  LivrosPage in 'views\livro\LivrosPage.pas' {LivrosForm},
+  EditorasPage in 'views\editora\EditorasPage.pas' {EditorasForm: T},
   Usuario in 'controllers\Usuario.pas',
   dmDatabase in 'services\dmDatabase.pas' {DataModule1: TDataModule},
   Cliente in 'controllers\Cliente.pas',
-  NewUserPage in 'views\NewUserPage.pas' {NewUserForm},
-  NewClientPage in 'views\NewClientPage.pas' {NewClientForm},
-  NewEditoraPage in 'views\NewEditoraPage.pas' {NewEditoraForm},
+  NewUserPage in 'views\usuario\NewUserPage.pas' {NewUserForm},
+  NewClientPage in 'views\cliente\NewClientPage.pas' {NewClientForm},
+  NewEditoraPage in 'views\editora\NewEditoraPage.pas' {NewEditoraForm},
   Editora in 'controllers\Editora.pas',
-  Livro in 'controllers\Livro.pas';
+  Livro in 'controllers\Livro.pas',
+  NewLivroPage in 'views\livro\NewLivroPage.pas' {NewLivroForm},
+  VendasPage in 'views\venda\VendasPage.pas' {VendasForm},
+  NewVendaPage in 'views\venda\NewVendaPage.pas' {NewVendaForm},
+  Venda in 'controllers\Venda.pas',
+  FormManipulation in 'controllers\formManipulation\FormManipulation.pas';
 
 {$R *.res}
 
@@ -34,5 +39,8 @@ begin
   Application.CreateForm(TNewUserForm, NewUserForm);
   Application.CreateForm(TNewClientForm, NewClientForm);
   Application.CreateForm(TNewEditoraForm, NewEditoraForm);
+  Application.CreateForm(TNewLivroForm, NewLivroForm);
+  Application.CreateForm(TVendasForm, VendasForm);
+  Application.CreateForm(TNewVendaForm, NewVendaForm);
   Application.Run;
 end.

@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, FormManipulation;
 
 type
   TNewUserForm = class(TForm)
@@ -15,7 +15,6 @@ type
     senhaInput: TEdit;
     SenhaCheckInput: TEdit;
     AdicionarUsuarioBtn: TButton;
-
 
     procedure OpenUserForm(Sender: TObject);
     procedure Adicionar(Sender: TObject);
@@ -29,6 +28,7 @@ type
 
 var
   NewUserForm: TNewUserForm;
+  formManipulation: TFormManipulation;
 
 implementation
 
@@ -37,12 +37,13 @@ implementation
 uses Usuario;
 
 procedure TNewUserForm.OpenUserForm(Sender: TObject);
-var
-  mousePointer: TPoint;
 begin
-  mousePointer := Mouse.CursorPos;
-  NewUserForm.Left := mousePointer.X - 100;
-  NewUserForm.Top := mousePointer.Y - 100;
+  formManipulation.AbrirForm(NewUserForm);
+end;
+
+procedure TNewUserForm.LimparForms;
+begin
+  formManipulation.LimparInputs(NewUserForm);
 end;
 
 procedure TNewUserForm.Adicionar(Sender: TObject);
@@ -88,12 +89,5 @@ begin
     end;
 end;
 
-procedure TNewUserForm.LimparForms;
-begin
-  NewUserForm.nome_completoInput.Clear;
-  NewUserForm.emailInput.Clear;
-  NewUserForm.loginInput.clear;
-  NewUserForm.senhaInput.Clear;
-  NewUserForm.SenhaCheckInput.Clear;
-end;
+
 end.
