@@ -9,6 +9,7 @@ type
   TFormManipulation = class
     procedure AbrirForm(const objForm: TForm);
     procedure LimparInputs(const owner: TWinControl);
+    function ExisteInputsVazios(const owner: TWinControl): Boolean;
   end;
 
 implementation
@@ -31,4 +32,33 @@ begin
       TEdit(owner.Components[i]).Clear;
 end;
 
+function TFormManipulation.ExisteInputsVazios(const owner: TWinControl): Boolean;
+var
+  i: Integer;
+  countInputs: Integer;
+
+begin
+
+  countInputs := 0;
+
+  for i := 0 to owner.ComponentCount - 1 do
+  begin
+    if owner.components[i] is TEdit then
+    begin
+      if TEdit(owner.Components[i]).Text = '' then
+      begin
+        countInputs := countInputs + 1;
+      end;
+    end;
+  end;
+
+  if countInputs > 0 then
+    begin
+      Result := True;
+    end
+  else
+    begin
+      Result := False;
+    end;
+end;
 end.

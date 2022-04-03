@@ -17,7 +17,8 @@ type
     procedure Insert(const objCliente: TCliente);
     procedure Read(const objCliente: TCliente);
     procedure Update(const objCliente: TCliente);
-    procedure Delete(const objCliente: TCliente);
+
+    procedure Delete(const codDelete: Integer);
 
     function FindByNome(const nomeParam: String): TCliente;
 
@@ -71,9 +72,22 @@ begin
 
 end;
 
-procedure TCliente.Delete(const objCliente: TCliente);
+procedure TCliente.Delete(const codDelete: Integer);
+var
+  query: TUniQuery;
 begin
+  try
+    query := TUniQuery.Create(nil);
+    query.Connection := DataModule1.dbConnection;
 
+    query.Close;
+    query.SQL.Clear;
+    query.SQL.Add('delete from clientes where codigo = ' + IntToStr(codDelete));
+
+    query.ExecSQL;
+  finally
+    FreeAndNil(query);
+  end;
 end;
 
 function TCliente.FindByNome(const nomeParam: String): TCliente;
@@ -95,6 +109,9 @@ begin
     query.ExecSQL;
 
   finally
+
+    clienteSelecionado := TCliente.Create;
+
     clienteSelecionado.cod := query.FieldByName('codigo').AsInteger;
     clienteSelecionado.nome_completo := query.FieldByName('nome_completo').AsString;
     clienteSelecionado.email := query.FieldByName('email').AsString;

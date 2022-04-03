@@ -38,6 +38,7 @@ uses Usuario;
 
 procedure TNewUserForm.OpenUserForm(Sender: TObject);
 begin
+  formManipulation.LimparInputs(NewUserForm);
   formManipulation.AbrirForm(NewUserForm);
 end;
 
@@ -50,43 +51,49 @@ procedure TNewUserForm.Adicionar(Sender: TObject);
 var
   novoUsuario: TUsuario;
 begin
-
-  if NewUserForm.senhaInput.Text <> NewUserForm.SenhaCheckInput.Text then
-    begin
-      ShowMessage('Senhas não são iguais!');
-    end
+  if FormManipulation.ExisteInputsVazios(NewUserForm) then
+  begin
+    ShowMessage('Preencha todos os campos!');
+  end
   else
-    begin
+  begin
+    if NewUserForm.senhaInput.Text <> NewUserForm.SenhaCheckInput.Text then
+      begin
+        ShowMessage('Senhas não são iguais!');
+      end
+    else
+      begin
 
-      novoUsuario := TUsuario.Create;
+        novoUsuario := TUsuario.Create;
 
-      try
-        novoUsuario.nome_completo := NewUserForm.nome_completoInput.Text;
-        novoUsuario.email := NewUserForm.emailInput.Text;
-        novoUsuario.login := NewUserForm.loginInput.Text;
-        novoUsuario.senha := NewUserForm.senhaInput.Text;
+        try
+          novoUsuario.nome_completo := NewUserForm.nome_completoInput.Text;
+          novoUsuario.email := NewUserForm.emailInput.Text;
+          novoUsuario.login := NewUserForm.loginInput.Text;
+          novoUsuario.senha := NewUserForm.senhaInput.Text;
 
-        novoUsuario.Insert(novoUsuario);
+          novoUsuario.Insert(novoUsuario);
 
-      finally
+        finally
 
-        Case
-          MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar usuário', MB_YESNO) of
-          idYes:
-            begin
-              ShowMessage('Usuario inserido com sucesso!');
-            end;
-          idNo:
-            begin
-              ShowMessage('Operação cancelada!');
-            end;
-        End;
+          Case
+            MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar usuário', MB_YESNO) of
+            idYes:
+              begin
+                ShowMessage('Usuario inserido com sucesso!');
+              end;
+            idNo:
+              begin
+                ShowMessage('Operação cancelada!');
+              end;
+          End;
 
-        FreeAndNil(novoUsuario);
-        NewUserForm.Visible := False;
-        NewUserForm.LimparForms;
-    end;
-    end;
+          FreeAndNil(novoUsuario);
+          NewUserForm.Visible := False;
+          NewUserForm.LimparForms;
+        end;
+      end;
+  end;
 end;
 
 

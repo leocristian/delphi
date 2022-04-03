@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, FormManipulation;
 
 type
   TNewLivroForm = class(TForm)
@@ -24,6 +24,7 @@ type
 
 var
   NewLivroForm: TNewLivroForm;
+  formManipulation: TFormManipulation;
 
 implementation
 
@@ -36,32 +37,40 @@ var
   novoLivro: TLivro;
 
 begin
-  novoLivro := TLivro.Create;
+  if formManipulation.ExisteInputsVazios(NewLivroForm) then
+  begin
+    ShowMessage('Preencha todos os campos!');
+  end
+  else
+  begin
 
-  try
-    novoLivro.titulo := NewLivroForm.TituloInput.Text;
-    novoLivro.editora := NewLivroForm.EditoraInput.Text;
-    novoLivro.anoPublicacao := DateToStr(NewLivroForm.AnoInput.Date);
-    novoLivro.preco := NewLivroForm.PrecoInput.Text;
+    novoLivro := TLivro.Create;
 
-  finally
-    Case
-      MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar livro', MB_YESNO) of
-      idYes:
-        begin
-          try
-            novoLivro.Insert(novoLivro);
-          finally
-            ShowMessage('Livro inserido com sucesso!');
+    try
+      novoLivro.titulo := NewLivroForm.TituloInput.Text;
+      novoLivro.editora := NewLivroForm.EditoraInput.Text;
+      novoLivro.anoPublicacao := DateToStr(NewLivroForm.AnoInput.Date);
+      novoLivro.preco := NewLivroForm.PrecoInput.Text;
+
+    finally
+      Case
+        MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar livro', MB_YESNO) of
+        idYes:
+          begin
+            try
+              novoLivro.Insert(novoLivro);
+            finally
+              ShowMessage('Livro inserido com sucesso!');
+            end;
           end;
-        end;
-      idNo:
-        begin
-          ShowMessage('Operação cancelada!');
-        end;
-    End;
-      FreeAndNil(novoLivro);
-      NewLivroForm.Visible := False;
+        idNo:
+          begin
+            ShowMessage('Operação cancelada!');
+          end;
+      End;
+        FreeAndNil(novoLivro);
+        NewLivroForm.Visible := False;
+    end;
   end;
 end;
 

@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, FormManipulation;
 
 type
   TNewClientForm = class(TForm)
@@ -25,6 +25,7 @@ type
 
 var
   NewClientForm: TNewClientForm;
+  formManipulation: TFormManipulation;
 
 implementation
 
@@ -33,12 +34,9 @@ implementation
 uses Cliente;
 
 procedure TNewClientForm.OpenClienteForm(Sender: TObject);
-var
-  mousePointer: TPoint;
 begin
-  mousePointer := Mouse.CursorPos;
-  NewClientForm.Left := mousePointer.X - 100;
-  NewClientForm.Top := mousePointer.Y - 100;
+  formManipulation.LimparInputs(NewClientForm);
+  formManipulation.AbrirForm(NewClientForm);
 end;
 
 procedure TNewClientForm.Adicionar(Sender: TObject);
@@ -46,20 +44,28 @@ var
   novoCliente: TCliente;
 begin
 
-  novoCliente := TCliente.Create;
+  if formManipulation.ExisteInputsVazios(NewClientForm) then
+  begin
+    ShowMessage('Preencha todos os campos!');
+  end
+  else
+  begin
 
-  try
-    novoCliente.nome_completo := NewClientForm.clientNameInput.Text;
-    novoCliente.email := NewClientForm.clientEmailInput.Text;
-    novoCliente.telefone := NewClientForm.clientTelInput.Text;
+    novoCliente := TCliente.Create;
 
-    novoCliente.Insert(novoCliente);
+    try
+      novoCliente.nome_completo := NewClientForm.clientNameInput.Text;
+      novoCliente.email := NewClientForm.clientEmailInput.Text;
+      novoCliente.telefone := NewClientForm.clientTelInput.Text;
 
-  finally
-    ShowMessage('Cliente cadastrado com sucesso!');
-    FreeAndNil(novoCliente);
+      novoCliente.Insert(novoCliente);
 
-    NewClientForm.Visible := False;
+    finally
+      ShowMessage('Cliente cadastrado com sucesso!');
+      FreeAndNil(novoCliente);
+
+      NewClientForm.Visible := False;
+    end;
   end;
 end;
 end.

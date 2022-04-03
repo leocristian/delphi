@@ -32,10 +32,6 @@ object ClientForm: TClientForm
     Height = 349
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 184
-    ExplicitTop = 200
-    ExplicitWidth = 250
-    ExplicitHeight = 200
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -94,6 +90,7 @@ object ClientForm: TClientForm
     end
     object Excluirclienteselecionado1: TMenuItem
       Caption = 'Excluir cliente selecionado'
+      OnClick = DeleteCliente
     end
   end
 end

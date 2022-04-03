@@ -31,7 +31,7 @@ implementation
 
 {$R *.dfm}
 
-uses MainPage, Usuario;
+uses MainPage, Usuario, FormManipulation;
 
 procedure TFormUsuario.FormCreate(Sender: TObject);
 begin
@@ -43,8 +43,10 @@ procedure TFormUsuario.Login(Sender: TObject);
 var
   usuarioLogado: TUsuario;
   login, senha: String;
+  formManipulation: TFormManipulation;
+
 begin
-  if (FormUsuario.LoginInput.Text = '') then
+  if formManipulation.ExisteInputsVazios(FormUsuario) then
     begin
       ShowMessage('Preencha todos os campos!');
     end
