@@ -78,14 +78,17 @@ begin
     query.SQL.Clear;
 
     query.SQL.Add('select * from usuarios');
-    query.SQL.Add('where codigo = :objUsuario.cod');
-    query.ParamByName('codigo').Value := objUsuario.cod;
+    query.SQL.Add('where codigo = ' + IntToStr(objUsuario.cod));
+
+//    query.ParamByName('codigo').Value := objUsuario.cod;
 
     query.Open;
 
     if query.RecordCount > 0 then
     begin
       objUsuario.nome_completo := query.FieldByName('nome_completo').Value;
+      objUsuario.email := query.FieldByName('email').Value;
+      objUsuario.login := query.FieldByName('login').Value;
     end;
   finally
     FreeAndnil(query);
@@ -93,8 +96,29 @@ begin
 end;
 
 procedure TUsuario.Update(const objUsuario: TUsuario);
+var
+  query: TUniQuery;
+  queryStr: String;
 begin
-  WriteLn('oi');
+  try
+    query := TUniQuery.Create(nil);
+    query.Connection := DataModule1.dbConnection;
+
+    query.Close;
+    query.SQL.Clear;
+
+    queryStr := 'update usuarios set nome_completo = ' +
+                    QuotedStr(objUsuario.nome_completo) +
+                    ', email = ' + QuotedStr(objUsuario.email) +
+                    ', login = ' + QuotedStr(objUsuario.login) +
+                    'where codigo = ' + objUsuario.cod.ToString;
+
+    query.SQL.Add(queryStr);
+
+    query.ExecSQL;
+  finally
+    FreeAndNil(query);
+  end;
 end;
 
 procedure TUsuario.Delete(const codUsuario: Integer);

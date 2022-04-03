@@ -16,6 +16,7 @@ type
     Label2: TLabel;
     Button1: TButton;
     procedure Adicionar(Sender: TObject);
+    procedure OpenLivroForm(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,6 +32,12 @@ implementation
 {$R *.dfm}
 
 uses Livro;
+
+procedure TNewLivroForm.OpenLivroForm(Sender: TObject);
+begin
+  formManipulation.LimparInputs(NewLivroForm);
+  formManipulation.AbrirForm(NewLivroForm);
+end;
 
 procedure TNewLivroForm.Adicionar(Sender: TObject);
 var

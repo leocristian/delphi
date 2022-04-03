@@ -13,6 +13,7 @@ object NewClientForm: TNewClientForm
   Font.Style = []
   OldCreateOrder = False
   OnCreate = OpenClienteForm
+  OnShow = OpenClienteForm
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel

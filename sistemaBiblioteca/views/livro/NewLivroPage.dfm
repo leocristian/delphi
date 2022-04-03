@@ -12,6 +12,7 @@ object NewLivroForm: TNewLivroForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnShow = OpenLivroForm
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel

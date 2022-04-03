@@ -155,6 +155,14 @@
         </DCCReference>
         <DCCReference Include="controllers\Venda.pas"/>
         <DCCReference Include="controllers\formManipulation\FormManipulation.pas"/>
+        <DCCReference Include="views\usuario\ShowUserPage.pas">
+            <Form>ShowUsuarioForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="views\usuario\EditUserPage.pas">
+            <Form>EditUserForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

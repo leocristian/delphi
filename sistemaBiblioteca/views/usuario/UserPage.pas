@@ -25,16 +25,16 @@ type
     cxGrid1Level1: TcxGridLevel;
     cxGrid1: TcxGrid;
     cxGrid1DBTableView1codigo: TcxGridDBColumn;
-    cxGrid1DBTableView1nome_completo: TcxGridDBColumn;
-    cxGrid1DBTableView1email: TcxGridDBColumn;
     cxGrid1DBTableView1login: TcxGridDBColumn;
     AtualizarBtn: TButton;
 
     procedure CreateUser(Sender: TObject);
     procedure SetFocus(Sender: TObject);
     procedure BuscarUsuario(Sender: TObject);
-    procedure DeleteUser(Sender: TObject);
+    procedure DeletarUsuario(Sender: TObject);
     procedure AtualizarGrid(Sender: TObject);
+    procedure ShowUsuarioInfo(Sender: TObject);
+    procedure ShowEditUsuarioForm(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,7 +48,7 @@ implementation
 
 {$R *.dfm}
 
-uses NewUserPage, dmDatabase, Usuario;
+uses NewUserPage, dmDatabase, Usuario, ShowUserPage, EditUserPage;
 
 procedure TUserForm.AtualizarGrid(Sender: TObject);
 begin
@@ -76,7 +76,7 @@ begin
 
 end;
 
-procedure TUserForm.DeleteUser(Sender: TObject);
+procedure TUserForm.DeletarUsuario(Sender: TObject);
 var
   codDelete: Integer;
   colunaSelected: Integer;
@@ -106,6 +106,48 @@ end;
 procedure TUserForm.SetFocus(Sender: TObject);
 begin
   UserForm.BuscaPessoa1.Edit1.SetFocus;
+end;
+
+procedure TUserForm.ShowEditUsuarioForm(Sender: TObject);
+var
+  colunaSelected: Integer;
+  usuarioSelecionado: TUsuario;
+
+begin
+
+  colunaSelected := UserForm.cxGrid1DBTableView1.ViewData.DataController.GetSelectedRowIndex(0);
+
+  try
+
+    usuarioSelecionado := TUsuario.Create;
+    usuarioSelecionado.cod := UserForm.cxGrid1DBTableView1.ViewData.Records[colunaSelected].Values[Userform.cxGrid1DBTableView1.GetColumnByFieldName('codigo').Index];
+    usuarioSelecionado.Read(usuarioSelecionado);
+
+  finally
+    EditUserPage.EditUserForm.PreencherInputs(usuarioSelecionado);
+    EditUserPage.EditUserForm.Visible := True;
+  end;
+end;
+
+procedure TUserForm.ShowUsuarioInfo(Sender: TObject);
+var
+  colunaSelected: Integer;
+  usuarioSelecionado: TUsuario;
+
+begin
+
+  colunaSelected := UserForm.cxGrid1DBTableView1.ViewData.DataController.GetSelectedRowIndex(0);
+
+  try
+
+    usuarioSelecionado := TUsuario.Create;
+    usuarioSelecionado.cod := UserForm.cxGrid1DBTableView1.ViewData.Records[colunaSelected].Values[Userform.cxGrid1DBTableView1.GetColumnByFieldName('codigo').Index];
+    usuarioSelecionado.Read(usuarioSelecionado);
+
+  finally
+    ShowUserPage.ShowUsuarioForm.PreencherInputs(usuarioSelecionado);
+    ShowUserPage.ShowUsuarioForm.visible := True;
+  end;
 end;
 
 procedure TUserForm.CreateUser(Sender: TObject);

@@ -42,7 +42,6 @@ object UserForm: TUserForm
     Align = alClient
     PopupMenu = PopupMenu1
     TabOrder = 1
-    ExplicitTop = 78
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -69,12 +68,6 @@ object UserForm: TUserForm
       object cxGrid1DBTableView1codigo: TcxGridDBColumn
         DataBinding.FieldName = 'codigo'
       end
-      object cxGrid1DBTableView1nome_completo: TcxGridDBColumn
-        DataBinding.FieldName = 'nome_completo'
-      end
-      object cxGrid1DBTableView1email: TcxGridDBColumn
-        DataBinding.FieldName = 'email'
-      end
       object cxGrid1DBTableView1login: TcxGridDBColumn
         DataBinding.FieldName = 'login'
       end
@@ -97,6 +90,7 @@ object UserForm: TUserForm
     Top = 8
     object Vsiuali1: TMenuItem
       Caption = 'Visualizar usuario selecionado'
+      OnClick = ShowUsuarioInfo
     end
     object Inserirnovo1: TMenuItem
       Caption = 'Inserir novo usuario'
@@ -104,13 +98,14 @@ object UserForm: TUserForm
     end
     object Inserirnovo2: TMenuItem
       Caption = 'Alterar usuario selecionado'
+      OnClick = ShowEditUsuarioForm
     end
     object N1: TMenuItem
       Caption = '-'
     end
     object Excluirselecionado1: TMenuItem
       Caption = 'Excluir usuario selecionado'
-      OnClick = DeleteUser
+      OnClick = DeletarUsuario
     end
   end
 end

@@ -90,7 +90,7 @@ object ClientForm: TClientForm
     end
     object Excluirclienteselecionado1: TMenuItem
       Caption = 'Excluir cliente selecionado'
-      OnClick = DeleteCliente
+      OnClick = DeletarCliente
     end
   end
 end

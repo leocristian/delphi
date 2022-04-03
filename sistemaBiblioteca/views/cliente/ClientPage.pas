@@ -31,7 +31,7 @@ type
     procedure SetFocus(Sender: TObject);
     procedure BuscaPessoa1Button1Click(Sender: TObject);
     procedure CreateClient(Sender: TObject);
-    procedure DeleteCliente(Sender: TObject);
+    procedure DeletarCliente(Sender: TObject);
 
   private
     { Private declarations }
@@ -58,7 +58,7 @@ begin
   NewClientPage.NewClientForm.Visible := True;
 end;
 
-procedure TClientForm.DeleteCliente(Sender: TObject);
+procedure TClientForm.DeletarCliente(Sender: TObject);
 var
   codDelete: Integer;
   colunaSelected: Integer;
