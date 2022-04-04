@@ -28,7 +28,8 @@ uses
   EditClientePage in 'views\cliente\EditClientePage.pas' {EditClienteForm},
   ShowEditoraPage in 'views\editora\ShowEditoraPage.pas' {ShowEditoraForm},
   EditEditoraPage in 'views\editora\EditEditoraPage.pas' {EditEditoraForm},
-  VendaControle in 'controllers\VendaControle.pas';
+  VendaControle in 'controllers\VendaControle.pas',
+  AlterarSenhaPage in 'views\usuario\AlterarSenhaPage.pas' {AlterarSenhaForm};
 
 {$R *.res}
 
@@ -55,5 +56,6 @@ begin
   Application.CreateForm(TEditClienteForm, EditClienteForm);
   Application.CreateForm(TShowEditoraForm, ShowEditoraForm);
   Application.CreateForm(TEditEditoraForm, EditEditoraForm);
+  Application.CreateForm(TAlterarSenhaForm, AlterarSenhaForm);
   Application.Run;
 end.

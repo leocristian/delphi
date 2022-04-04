@@ -29,6 +29,7 @@ type
     procedure CadastrarUsuario(Sender: TObject);
 
     function GetUsuarioLogado: TUsuario;
+    procedure SetUsuarioLogado(objUsuario: TUsuario);
 
   private
     { Private declarations }
@@ -49,6 +50,11 @@ uses MainPage, FormManipulation, NewUserPage;
 function TFormUsuario.GetUsuarioLogado: TUsuario;
 begin
   Result := usuarioLogado;
+end;
+
+procedure TFormUsuario.SetUsuarioLogado(objUsuario: TUsuario);
+begin
+  usuarioLogado := objUsuario;
 end;
 
 procedure TFormUsuario.CadastrarUsuario(Sender: TObject);
@@ -84,7 +90,6 @@ begin
     begin
       try
 
-
         login := FormUsuario.LoginInput.Text;
         senha := FormUsuario.SenhaInput.Text;
 
@@ -96,17 +101,17 @@ begin
           begin
             ShowMessage('Seja bem vindo ' + usuarioLogado.nome_completo);
 
+            Self.SetUsuarioLogado(usuarioLogado);
+
             FormUsuario.Visible := False;
             MainPage.FormPrincipal.Visible := True;
 
-            FreeAndNil(usuarioLogado);
           end
         else
           begin
             ShowMessage('Usuário não encontrado!');
           end;
       end;
-
 
     end;
 

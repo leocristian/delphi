@@ -62,7 +62,7 @@ implementation
 {$R *.dfm}
 
 uses UserPage, ClientPage, LivrosPage, EditorasPage, VendasPage, dmDatabase,
-  LoginPage;
+  LoginPage, AlterarSenhaPage;
 
 procedure TFormPrincipal.AbrirForm(Sender: TObject);
 begin
@@ -116,8 +116,14 @@ begin
 end;
 
 procedure TFormPrincipal.AlterarSenha(Sender: TObject);
+var
+  alterarSenhaForm: TAlterarSenhaForm;
+
 begin
-  ShowMessage('Usuario logado: ');
+  alterarSenhaForm := TAlterarSenhaForm.Create(nil);
+
+  ShowMessage('Usuario logado: ' + LoginPage.usuarioLogado.nome_completo);
+  alterarSenhaForm.Visible := True;
 end;
 
 procedure TFormPrincipal.AbrirRelatorioVendas(Sender: TObject);

@@ -70,6 +70,8 @@ begin
         vendaControle.IncrementaValor(StrToFloat(livroEncontrado.preco));
 
         Self.labelPreco.Caption := FloatToStr(vendaControle.valorAtual);
+
+        Self.TituloInput.SetFocus;
       end;
     end;
   end;
@@ -103,14 +105,13 @@ begin
   else
   begin
     try
-      clienteVenda := TCliente.Create;
       livroVenda := TLivro.Create;
 
       nomeCliente := NewVendaForm.ClienteInput.Text;
       tituloLivro := NewVendaform.TituloInput.Text;
 
-  //    clienteVenda := clienteVenda.FindByNome(nomeCliente);
       livroVenda := livroVenda.FindByTitulo(tituloLivro);
+      ShowMessage(IntToStr(livroVenda.cod));
 
     finally
       try
@@ -119,18 +120,31 @@ begin
         novaVenda.vendedor := 'leonardo';
         novaVenda.livro := livroVenda.titulo;
         novaVenda.cliente := clienteVenda.nome_completo;
-        novaVenda.valorTotal := livroVenda.preco;
+        novaVenda.valorTotal := FloatToStr(vendaControle.valorAtual);
 
       finally
         Case
         MessageBox(Application.Handle, 'Confirmar venda?', 'Realizar venda', MB_YESNO) of
         idYes:
           begin
-            try
-              showMessage('vendedor: ' + novaVenda.vendedor);
-              novaVenda.Insert(novaVenda);
-            finally
-              ShowMessage('Venda realizada com sucesso!');
+
+            clienteVenda := TCliente.Create;
+            clienteVenda := clienteVenda.FindByNome(nomeCliente);
+
+            if clienteVenda.nome_completo = '' then
+            begin
+              ShowMessage('Cliente não encontrado!');
+            end
+            else
+            begin
+              try
+                novaVenda.Insert(novaVenda);
+              finally
+                ShowMessage('Venda realizada com sucesso!');
+                FreeAndNil(novaVenda);
+                FreeandNil(clienteVenda);
+                NewVendaForm.Visible := False;
+              end;
             end;
           end;
         idNo:
@@ -138,8 +152,6 @@ begin
             ShowMessage('Operação cancelada!');
           end;
         End;
-        FreeAndNil(novaVenda);
-        NewVendaForm.Visible := False;
       end;
     end;
   end;

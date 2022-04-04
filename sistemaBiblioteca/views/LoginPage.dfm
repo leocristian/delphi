@@ -77,8 +77,8 @@ object FormUsuario: TFormUsuario
     Caption = '___________'
   end
   object Image1: TImage
-    Left = 48
-    Top = 77
+    Left = 32
+    Top = 79
     Width = 306
     Height = 196
     Picture.Data = {
