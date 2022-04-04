@@ -105,6 +105,9 @@ begin
     query.ExecSQL;
 
   finally
+
+    livroSelecionado := Tlivro.Create;
+
     livroSelecionado.cod := query.FieldByName('codigo').AsInteger;
     livroSelecionado.titulo := query.FieldByName('titulo').AsString;
     livroSelecionado.editora := query.FieldByName('editora').AsString;

@@ -25,7 +25,10 @@ uses
   ShowUserPage in 'views\usuario\ShowUserPage.pas' {ShowUsuarioForm},
   EditUserPage in 'views\usuario\EditUserPage.pas' {EditUserForm},
   ShowClientePage in 'views\cliente\ShowClientePage.pas' {ShowClienteForm},
-  EditClientePage in 'views\cliente\EditClientePage.pas' {EditClienteForm};
+  EditClientePage in 'views\cliente\EditClientePage.pas' {EditClienteForm},
+  ShowEditoraPage in 'views\editora\ShowEditoraPage.pas' {ShowEditoraForm},
+  EditEditoraPage in 'views\editora\EditEditoraPage.pas' {EditEditoraForm},
+  VendaControle in 'controllers\VendaControle.pas';
 
 {$R *.res}
 
@@ -50,5 +53,7 @@ begin
   Application.CreateForm(TEditUserForm, EditUserForm);
   Application.CreateForm(TShowClienteForm, ShowClienteForm);
   Application.CreateForm(TEditClienteForm, EditClienteForm);
+  Application.CreateForm(TShowEditoraForm, ShowEditoraForm);
+  Application.CreateForm(TEditEditoraForm, EditEditoraForm);
   Application.Run;
 end.

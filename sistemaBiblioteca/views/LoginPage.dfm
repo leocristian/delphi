@@ -17,8 +17,8 @@ object FormUsuario: TFormUsuario
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 360
-    Top = 61
+    Left = 384
+    Top = 52
     Width = 146
     Height = 19
     Caption = 'Acessar o sistema'
@@ -30,21 +30,21 @@ object FormUsuario: TFormUsuario
     ParentFont = False
   end
   object LabelNome: TLabel
-    Left = 360
+    Left = 384
     Top = 91
     Width = 80
     Height = 13
     Caption = 'Nome de usu'#225'rio'
   end
   object LabelSenha: TLabel
-    Left = 360
+    Left = 384
     Top = 137
     Width = 30
     Height = 13
     Caption = 'Senha'
   end
   object Label2: TLabel
-    Left = 439
+    Left = 463
     Top = 259
     Width = 20
     Height = 16
@@ -57,27 +57,27 @@ object FormUsuario: TFormUsuario
     ParentFont = False
   end
   object Label3: TLabel
-    Left = 351
+    Left = 375
     Top = 256
     Width = 3
     Height = 13
   end
   object Label4: TLabel
-    Left = 469
+    Left = 493
     Top = 256
     Width = 66
     Height = 13
     Caption = '___________'
   end
   object Label5: TLabel
-    Left = 360
+    Left = 384
     Top = 256
     Width = 66
     Height = 13
     Caption = '___________'
   end
   object Image1: TImage
-    Left = 24
+    Left = 48
     Top = 77
     Width = 306
     Height = 196
@@ -310,22 +310,22 @@ object FormUsuario: TFormUsuario
       AABEDD7E63FFD9}
   end
   object LoginInput: TEdit
-    Left = 360
+    Left = 384
     Top = 110
-    Width = 169
+    Width = 175
     Height = 21
     TabOrder = 0
   end
   object SenhaInput: TEdit
-    Left = 360
+    Left = 384
     Top = 156
-    Width = 169
+    Width = 175
     Height = 21
     PasswordChar = '*'
     TabOrder = 1
   end
   object Button1: TButton
-    Left = 360
+    Left = 384
     Top = 192
     Width = 85
     Height = 34
@@ -334,16 +334,22 @@ object FormUsuario: TFormUsuario
     OnClick = Login
   end
   object ExitBtn: TButton
-    Left = 451
+    Left = 475
     Top = 192
-    Width = 85
+    Width = 84
     Height = 34
     Caption = 'Sair'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 3
     OnClick = Sair
   end
   object Button2: TButton
-    Left = 360
+    Left = 384
     Top = 281
     Width = 176
     Height = 41
