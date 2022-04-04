@@ -81,7 +81,7 @@ begin
     end;
 
   finally
-
+     FreeAndNil(query);
   end;
 end;
 

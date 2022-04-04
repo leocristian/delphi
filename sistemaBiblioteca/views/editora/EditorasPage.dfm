@@ -51,9 +51,6 @@ object EditorasForm: TEditorasForm
       object cxGrid1DBTableView1nome: TcxGridDBColumn
         DataBinding.FieldName = 'nome'
       end
-      object cxGrid1DBTableView1cnpj: TcxGridDBColumn
-        DataBinding.FieldName = 'cnpj'
-      end
     end
     object cxGrid1Level1: TcxGridLevel
       GridView = cxGrid1DBTableView1
@@ -107,6 +104,7 @@ object EditorasForm: TEditorasForm
     end
     object Alterareditoraselecionada1: TMenuItem
       Caption = 'Alterar editora selecionada'
+      OnClick = AlterarEditora
     end
     object N1: TMenuItem
       Caption = '-'

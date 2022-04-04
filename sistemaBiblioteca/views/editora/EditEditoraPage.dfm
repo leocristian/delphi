@@ -1,10 +1,10 @@
-object EditClienteForm: TEditClienteForm
+object EditEditoraForm: TEditEditoraForm
   Left = 0
   Top = 0
   BorderStyle = bsSizeToolWin
-  Caption = 'EditClienteForm'
-  ClientHeight = 262
-  ClientWidth = 359
+  Caption = 'Editar editora'
+  ClientHeight = 203
+  ClientWidth = 365
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,7 +12,7 @@ object EditClienteForm: TEditClienteForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnShow = OpenForm
+  OnShow = AbrirForm
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -31,9 +31,9 @@ object EditClienteForm: TEditClienteForm
   object Label2: TLabel
     Left = 120
     Top = 62
-    Width = 73
+    Width = 69
     Height = 13
-    Caption = 'Nome completo'
+    Caption = 'Nome fantasia'
   end
   object Label3: TLabel
     Left = 48
@@ -45,16 +45,9 @@ object EditClienteForm: TEditClienteForm
   object Label4: TLabel
     Left = 48
     Top = 120
-    Width = 24
+    Width = 25
     Height = 13
-    Caption = 'Email'
-  end
-  object Label5: TLabel
-    Left = 48
-    Top = 178
-    Width = 42
-    Height = 13
-    Caption = 'Telefone'
+    Caption = 'CNPJ'
   end
   object codigoEdit: TEdit
     Left = 48
@@ -71,27 +64,19 @@ object EditClienteForm: TEditClienteForm
     Height = 21
     TabOrder = 1
   end
-  object emailEdit: TEdit
+  object cnpjEdit: TEdit
     Left = 48
     Top = 139
-    Width = 257
+    Width = 141
     Height = 21
     TabOrder = 2
   end
   object Button1: TButton
-    Left = 199
-    Top = 178
-    Width = 106
-    Height = 45
+    Left = 203
+    Top = 123
+    Width = 102
+    Height = 37
     Caption = 'Salvar altera'#231#245'es'
-    TabOrder = 4
-    OnClick = SalvarAlteracoes
-  end
-  object telefoneEdit: TEdit
-    Left = 48
-    Top = 197
-    Width = 145
-    Height = 21
     TabOrder = 3
   end
 end

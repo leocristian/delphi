@@ -28,9 +28,9 @@ type
     PesquisarBtn: TButton;
     cxGrid1DBTableView1codigo: TcxGridDBColumn;
     cxGrid1DBTableView1nome: TcxGridDBColumn;
-    cxGrid1DBTableView1cnpj: TcxGridDBColumn;
     procedure InserirEditora(Sender: TObject);
     procedure ShowEditoraInfo(Sender: TObject);
+    procedure AlterarEditora(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,7 +44,28 @@ implementation
 
 {$R *.dfm}
 
-uses NewEditoraPage, dmDatabase, Editora, ShowEditoraPage;
+uses NewEditoraPage, dmDatabase, Editora, ShowEditoraPage, EditEditoraPage;
+
+procedure TEditorasForm.AlterarEditora(Sender: TObject);
+var
+  colunaSelected: Integer;
+  editoraSelecionada: TEditora;
+
+begin
+
+  colunaSelected := Self.cxGrid1DBTableView1.ViewData.DataController.GetSelectedRowIndex(0);
+
+  try
+
+    editoraSelecionada := TEditora.Create;
+    editoraSelecionada.cod := Self.cxGrid1DBTableView1.ViewData.Records[colunaSelected].Values[Self.cxGrid1DBTableView1.GetColumnByFieldName('codigo').Index];
+    editoraSelecionada.Read(editoraSelecionada);
+
+  finally
+    EditEditoraPage.EditEditoraForm.PreencherInputs(editoraSelecionada);
+    EditEditoraPage.EditEditoraForm.Visible := True;
+  end;
+end;
 
 procedure TEditorasForm.InserirEditora(Sender: TObject);
 begin
