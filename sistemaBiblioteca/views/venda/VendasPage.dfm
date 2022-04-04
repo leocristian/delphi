@@ -23,7 +23,6 @@ object VendasForm: TVendasForm
     Height = 73
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 786
     object Edit1: TEdit
       Left = 224
       Top = 27
@@ -59,8 +58,6 @@ object VendasForm: TVendasForm
     Height = 356
     Align = alClient
     TabOrder = 2
-    ExplicitLeft = -8
-    ExplicitTop = 79
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -80,20 +77,12 @@ object VendasForm: TVendasForm
       Navigator.Buttons.GotoBookmark.Visible = True
       Navigator.Buttons.Filter.Visible = True
       ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.DataSource = DataModule1.dsVendas
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       object cxGrid1DBTableView1codigo: TcxGridDBColumn
         DataBinding.FieldName = 'codigo'
-      end
-      object cxGrid1DBTableView1cod_vendedor: TcxGridDBColumn
-        DataBinding.FieldName = 'cod_vendedor'
-      end
-      object cxGrid1DBTableView1cod_livro: TcxGridDBColumn
-        DataBinding.FieldName = 'cod_livro'
-      end
-      object cxGrid1DBTableView1cod_cliente: TcxGridDBColumn
-        DataBinding.FieldName = 'cod_cliente'
       end
       object cxGrid1DBTableView1vendedor: TcxGridDBColumn
         DataBinding.FieldName = 'vendedor'

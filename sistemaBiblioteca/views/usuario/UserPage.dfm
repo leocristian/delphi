@@ -25,6 +25,12 @@ object UserForm: TUserForm
     Align = alTop
     TabOrder = 0
     ExplicitWidth = 796
+    inherited ComboBox1: TComboBox
+      Text = 'Nome completo'
+      Items.Strings = (
+        'Nome completo'
+        'Codigo')
+    end
     inherited Button1: TButton
       Left = 384
       OnClick = BuscarUsuario
@@ -70,6 +76,9 @@ object UserForm: TUserForm
       end
       object cxGrid1DBTableView1login: TcxGridDBColumn
         DataBinding.FieldName = 'login'
+      end
+      object cxGrid1DBTableView1nome_completo: TcxGridDBColumn
+        DataBinding.FieldName = 'nome_completo'
       end
     end
     object cxGrid1Level1: TcxGridLevel

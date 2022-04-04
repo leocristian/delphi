@@ -41,13 +41,12 @@ begin
 
     query.Close;
     query.SQL.Clear;
-    query.SQL.Add('insert into vendas (codigo, vendedor, livro, cliente, valor_total) ');
-    query.SQL.Add('values ');
-
     valuesStr := '(' + IntToStr(objVenda.cod) + ',' + QuotedStr(objVenda.vendedor)
                   + ',' + QuotedStr(objVenda.livro)
                   + ',' + QuotedStr(objVenda.cliente)
-                  + ',' + QuotedStr(objVenda.valorTotal) + ')';
+                  + ',' + objVenda.valorTotal + ');';
+
+    query.SQL.Add('insert into vendas (codigo, vendedor, livro, cliente, valor_total) values ' + valuesStr);
 
     query.SQL.Add(valuesStr);
 

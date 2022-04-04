@@ -27,6 +27,7 @@ type
     cxGrid1DBTableView1codigo: TcxGridDBColumn;
     cxGrid1DBTableView1login: TcxGridDBColumn;
     AtualizarBtn: TButton;
+    cxGrid1DBTableView1nome_completo: TcxGridDBColumn;
 
     procedure CreateUser(Sender: TObject);
     procedure SetFocus(Sender: TObject);
@@ -60,14 +61,35 @@ begin
 end;
 
 procedure TUserForm.BuscarUsuario(Sender: TObject);
+var
+  usuarioEncontrado: TUsuario;
+
 begin
   if UserForm.BuscaPessoa1.ComboBox1.Text = 'Codigo' then
     begin
-      ShowMessage('buscando por codigo');
+      try
+
+        usuarioEncontrado := TUsuario.Create;
+        usuarioEncontrado.cod := StrToInt(Self.BuscaPessoa1.Edit1.Text);
+
+        usuarioEncontrado.Read(usuarioEncontrado);
+
+      finally
+
+        if usuarioEncontrado.nome_completo = '' then
+        begin
+          ShowMessage('Usuário não encontrado!');
+        end
+        else
+        begin
+          ShowUserPage.ShowUsuarioForm.PreencherInputs(usuarioEncontrado);
+          ShowUserPage.ShowUsuarioForm.visible := True;
+        end;
+      end;
     end
-  else if UserForm.BuscaPessoa1.ComboBox1.Text = 'Nome ou email' then
+  else if UserForm.BuscaPessoa1.ComboBox1.Text = 'Nome completo' then
     begin
-      ShowMessage('Buscando por nome ou email');
+      ShowMessage('Buscando por nome completo');
     end
   else
     begin

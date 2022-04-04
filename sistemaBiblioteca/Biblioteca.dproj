@@ -163,6 +163,14 @@
             <Form>EditUserForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="views\cliente\ShowClientePage.pas">
+            <Form>ShowClienteForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="views\cliente\EditClientePage.pas">
+            <Form>EditClienteForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

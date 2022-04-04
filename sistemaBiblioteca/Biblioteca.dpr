@@ -23,7 +23,9 @@ uses
   Venda in 'controllers\Venda.pas',
   FormManipulation in 'controllers\formManipulation\FormManipulation.pas',
   ShowUserPage in 'views\usuario\ShowUserPage.pas' {ShowUsuarioForm},
-  EditUserPage in 'views\usuario\EditUserPage.pas' {EditUserForm};
+  EditUserPage in 'views\usuario\EditUserPage.pas' {EditUserForm},
+  ShowClientePage in 'views\cliente\ShowClientePage.pas' {ShowClienteForm},
+  EditClientePage in 'views\cliente\EditClientePage.pas' {EditClienteForm};
 
 {$R *.res}
 
@@ -46,5 +48,7 @@ begin
   Application.CreateForm(TNewVendaForm, NewVendaForm);
   Application.CreateForm(TShowUsuarioForm, ShowUsuarioForm);
   Application.CreateForm(TEditUserForm, EditUserForm);
+  Application.CreateForm(TShowClienteForm, ShowClienteForm);
+  Application.CreateForm(TEditClienteForm, EditClienteForm);
   Application.Run;
 end.

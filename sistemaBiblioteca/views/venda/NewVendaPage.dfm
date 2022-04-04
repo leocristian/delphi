@@ -12,6 +12,7 @@ object NewVendaForm: TNewVendaForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnShow = OpenForm
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -32,7 +33,7 @@ object NewVendaForm: TNewVendaForm
     Top = 91
     Width = 161
     Height = 21
-    TabOrder = 0
+    TabOrder = 1
     TextHint = 'Titulo do livro'
   end
   object ClienteInput: TEdit
@@ -40,7 +41,7 @@ object NewVendaForm: TNewVendaForm
     Top = 64
     Width = 161
     Height = 21
-    TabOrder = 1
+    TabOrder = 0
     TextHint = 'Nome do cliente'
   end
   object RealizarVendaBtn: TButton

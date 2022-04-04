@@ -65,18 +65,24 @@ begin
       idYes:
         begin
           usuarioAlterado := TUsuario.Create;
+
+          usuarioAlterado.nome_completo := EditUserForm.nameEdit.Text;
+          usuarioAlterado.email := EditUserForm.emailEdit.Text;
+          usuarioAlterado.login := EditUserForm.loginEdit.Text;
+
           try
+            showmessage(usuarioAlterado.nome_completo);
             usuarioSelecionado.Update(usuarioAlterado);
+            showmessage(usuarioSelecionado.nome_completo);
           finally
             ShowMessage('Usuário alterado com sucesso!');
+            EditUserForm.visible := False;
+            FreeAndNil(usuarioSelecionado);
+            FreeAndNil(usuarioAlterado);
           end;
         end;
       idNo: ShowMessage('Operação cancelada');
     end;
-
-    EditUserForm.visible := False;
-    FreeAndNil(usuarioSelecionado);
-    FreeAndNil(usuarioAlterado);
   end;
 
 end;

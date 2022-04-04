@@ -111,7 +111,7 @@ begin
                     QuotedStr(objUsuario.nome_completo) +
                     ', email = ' + QuotedStr(objUsuario.email) +
                     ', login = ' + QuotedStr(objUsuario.login) +
-                    'where codigo = ' + objUsuario.cod.ToString;
+                    ' where codigo = ' + IntToStr(objUsuario.cod);
 
     query.SQL.Add(queryStr);
 

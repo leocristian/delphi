@@ -20,20 +20,17 @@ type
     cxGrid1DBTableView1: TcxGridDBTableView;
     cxGrid1Level1: TcxGridLevel;
     cxGrid1: TcxGrid;
-    cxGrid1DBTableView1codigo: TcxGridDBColumn;
-    cxGrid1DBTableView1cod_vendedor: TcxGridDBColumn;
-    cxGrid1DBTableView1cod_livro: TcxGridDBColumn;
-    cxGrid1DBTableView1cod_cliente: TcxGridDBColumn;
-    cxGrid1DBTableView1vendedor: TcxGridDBColumn;
-    cxGrid1DBTableView1livro: TcxGridDBColumn;
-    cxGrid1DBTableView1cliente: TcxGridDBColumn;
-    cxGrid1DBTableView1valor_total: TcxGridDBColumn;
     PopupMenu1: TPopupMenu;
     Visualizarselecionado1: TMenuItem;
     Visualizarselecionado2: TMenuItem;
     Alterarvendaselecionada1: TMenuItem;
     N1: TMenuItem;
     Excluirvendaselecionada1: TMenuItem;
+    cxGrid1DBTableView1codigo: TcxGridDBColumn;
+    cxGrid1DBTableView1vendedor: TcxGridDBColumn;
+    cxGrid1DBTableView1livro: TcxGridDBColumn;
+    cxGrid1DBTableView1cliente: TcxGridDBColumn;
+    cxGrid1DBTableView1valor_total: TcxGridDBColumn;
     procedure NovaVenda(Sender: TObject);
   private
     { Private declarations }

@@ -63,13 +63,58 @@ begin
 end;
 
 procedure TCliente.Read(const objCliente: TCliente);
+var
+  query: TUniQuery;
 begin
+  try
+    query := TUniQuery.Create(query);
+    query.Connection := dmDatabase.DataModule1.dbConnection;
 
+    query.Close;
+    query.SQL.Clear;
+
+    query.SQL.Add('select * from clientes');
+    query.SQL.Add('where codigo = ' + IntToStr(objCliente.cod));
+
+//    query.ParamByName('codigo').Value := objUsuario.cod;
+
+    query.Open;
+
+    if query.RecordCount > 0 then
+    begin
+      objCliente.nome_completo := query.FieldByName('nome_completo').Value;
+      objCliente.email := query.FieldByName('email').Value;
+      objCliente.telefone := query.FieldByName('telefone').Value;
+    end;
+  finally
+    FreeAndnil(query);
+  end;
 end;
 
 procedure TCliente.Update(const objCliente: TCliente);
+var
+  query: TUniQuery;
+  queryStr: String;
 begin
+  try
+    query := TUniQuery.Create(nil);
+    query.Connection := DataModule1.dbConnection;
 
+    query.Close;
+    query.SQL.Clear;
+
+    queryStr := 'update clientes set nome_completo = ' +
+                    QuotedStr(objCliente.nome_completo) +
+                    ', email = ' + QuotedStr(objCliente.email) +
+                    ', telefone = ' + QuotedStr(objCliente.telefone) +
+                    ' where codigo = ' + IntToStr(objCliente.cod);
+
+    query.SQL.Add(queryStr);
+
+    query.ExecSQL;
+  finally
+    FreeAndNil(query);
+  end;
 end;
 
 procedure TCliente.Delete(const codDelete: Integer);

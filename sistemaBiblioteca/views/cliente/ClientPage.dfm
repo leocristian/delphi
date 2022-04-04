@@ -77,6 +77,7 @@ object ClientForm: TClientForm
     Top = 16
     object Visualizarclienteselecionado1: TMenuItem
       Caption = 'Visualizar cliente selecionado'
+      OnClick = ShowClienteInfo
     end
     object Inserirnovocliente1: TMenuItem
       Caption = 'Inserir novo cliente'
@@ -84,6 +85,7 @@ object ClientForm: TClientForm
     end
     object Acidionarnovocliente1: TMenuItem
       Caption = 'Alterar cliente selecionado'
+      OnClick = ShowEditClienteForm
     end
     object N1: TMenuItem
       Caption = '-'

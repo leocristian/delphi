@@ -32,6 +32,8 @@ type
     procedure BuscaPessoa1Button1Click(Sender: TObject);
     procedure CreateClient(Sender: TObject);
     procedure DeletarCliente(Sender: TObject);
+    procedure ShowClienteInfo(Sender: TObject);
+    procedure ShowEditClienteForm(Sender: TObject);
 
   private
     { Private declarations }
@@ -46,7 +48,7 @@ implementation
 
 {$R *.dfm}
 
-uses NewClientPage, dmDatabase, Cliente;
+uses NewClientPage, dmDatabase, Cliente, ShowClientePage, EditClientePage;
 
 procedure TClientForm.BuscaPessoa1Button1Click(Sender: TObject);
 begin
@@ -89,6 +91,47 @@ end;
 procedure TClientForm.SetFocus(Sender: TObject);
 begin
   ClientForm.BuscaPessoa1.Edit1.SetFocus;
+end;
+
+procedure TClientForm.ShowClienteInfo(Sender: TObject);
+var
+  colunaSelected: Integer;
+  clienteSelecionado: TCliente;
+
+begin
+
+  colunaSelected := Self.cxGrid1DBTableView1.ViewData.DataController.GetSelectedRowIndex(0);
+
+  try
+
+    clienteSelecionado := TCliente.Create;
+    clienteSelecionado.cod := Self.cxGrid1DBTableView1.ViewData.Records[colunaSelected].Values[Self.cxGrid1DBTableView1.GetColumnByFieldName('codigo').Index];
+    clienteSelecionado.Read(clienteSelecionado);
+
+  finally
+    ShowClientePage.ShowClienteForm.PreencherInputs(clienteSelecionado);
+    ShowClienteForm.visible := True;
+  end;
+end;
+
+procedure TClientForm.ShowEditClienteForm(Sender: TObject);
+var
+  colunaSelected: Integer;
+  clienteSelecionado: TCliente;
+
+begin
+
+  colunaSelected := ClientForm.cxGrid1DBTableView1.ViewData.DataController.GetSelectedRowIndex(0);
+  try
+
+    clienteSelecionado := TCliente.Create;
+    clienteSelecionado.cod := ClientForm.cxGrid1DBTableView1.ViewData.Records[colunaSelected].Values[ClientForm.cxGrid1DBTableView1.GetColumnByFieldName('codigo').Index];
+    clienteSelecionado.Read(clienteSelecionado);
+
+  finally
+    EditClientePage.EditClienteForm.PreencherInputs(clienteSelecionado);
+    EditClientePage.EditClienteForm.Visible := True;
+  end;
 end;
 
 end.

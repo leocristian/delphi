@@ -1,9 +1,10 @@
-object EditUserForm: TEditUserForm
+object ShowClienteForm: TShowClienteForm
   Left = 0
   Top = 0
-  Caption = 'EditUserForm'
-  ClientHeight = 305
-  ClientWidth = 308
+  BorderStyle = bsToolWindow
+  Caption = 'ShowClienteForm'
+  ClientHeight = 264
+  ClientWidth = 287
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,16 +12,15 @@ object EditUserForm: TEditUserForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnClick = SalvarAlteracoes
   OnShow = OpenForm
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 48
-    Top = 32
-    Width = 179
+    Top = 24
+    Width = 124
     Height = 16
-    Caption = 'Alterar usu'#225'rio selecionado'
+    Caption = 'Cliente selecionado'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -29,8 +29,8 @@ object EditUserForm: TEditUserForm
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 48
-    Top = 121
+    Left = 104
+    Top = 62
     Width = 73
     Height = 13
     Caption = 'Nome completo'
@@ -43,55 +43,49 @@ object EditUserForm: TEditUserForm
     Caption = 'Codigo'
   end
   object Label4: TLabel
-    Left = 48
-    Top = 176
+    Left = 49
+    Top = 112
     Width = 24
     Height = 13
     Caption = 'Email'
   end
-  object Label5: TLabel
-    Left = 127
-    Top = 62
-    Width = 25
+  object Label6: TLabel
+    Left = 49
+    Top = 168
+    Width = 42
     Height = 13
-    Caption = 'Login'
+    Caption = 'Telefone'
   end
   object codigoEdit: TEdit
     Left = 48
     Top = 81
-    Width = 57
+    Width = 43
     Height = 21
     Enabled = False
-    TabOrder = 4
-  end
-  object loginEdit: TEdit
-    Left = 127
-    Top = 81
-    Width = 121
-    Height = 21
     TabOrder = 0
   end
   object nameEdit: TEdit
-    Left = 48
-    Top = 140
-    Width = 200
+    Left = 104
+    Top = 81
+    Width = 145
     Height = 21
+    Enabled = False
     TabOrder = 1
   end
   object emailEdit: TEdit
     Left = 48
-    Top = 195
-    Width = 200
+    Top = 131
+    Width = 201
     Height = 21
+    Enabled = False
     TabOrder = 2
   end
-  object Button1: TButton
-    Left = 150
-    Top = 232
-    Width = 98
-    Height = 33
-    Caption = 'Salvar altera'#231#245'es'
+  object telEdit: TEdit
+    Left = 49
+    Top = 187
+    Width = 200
+    Height = 21
+    Enabled = False
     TabOrder = 3
-    OnClick = SalvarAlteracoes
   end
 end
