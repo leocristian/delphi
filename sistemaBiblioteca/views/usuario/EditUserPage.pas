@@ -71,9 +71,7 @@ begin
           usuarioAlterado.login := EditUserForm.loginEdit.Text;
 
           try
-            showmessage(usuarioAlterado.nome_completo);
             usuarioSelecionado.Update(usuarioAlterado);
-            showmessage(usuarioSelecionado.nome_completo);
           finally
             ShowMessage('Usuário alterado com sucesso!');
             EditUserForm.visible := False;

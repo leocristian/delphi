@@ -61,10 +61,19 @@ begin
       novoCliente.Insert(novoCliente);
 
     finally
-      ShowMessage('Cliente cadastrado com sucesso!');
-      FreeAndNil(novoCliente);
-
-      NewClientForm.Visible := False;
+      Case
+        MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar usuário', MB_YESNO) of
+        idYes:
+          begin
+            ShowMessage('Usuario inserido com sucesso!');
+            FreeAndNil(novoCliente);
+            NewClientForm.Visible := False;
+          end;
+        idNo:
+          begin
+            ShowMessage('Operação cancelada!');
+          end;
+      End;
     end;
   end;
 end;

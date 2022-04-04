@@ -33,6 +33,7 @@ procedure TNewVendaForm.OpenForm(Sender: TObject);
 var
   formManipulation: TFormManipulation;
 begin
+  formManipulation := TFormManipulation.Create;
   formManipulation.AbrirForm(NewVendaForm);
 end;
 
@@ -72,6 +73,7 @@ begin
       idYes:
         begin
           try
+            showMessage('vendedor: ' + novaVenda.vendedor);
             novaVenda.Insert(novaVenda);
           finally
             ShowMessage('Venda realizada com sucesso!');
@@ -88,5 +90,4 @@ begin
   end;
 
 end;
-
 end.

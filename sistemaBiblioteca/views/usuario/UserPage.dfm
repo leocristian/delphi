@@ -24,6 +24,7 @@ object UserForm: TUserForm
     Height = 72
     Align = alTop
     TabOrder = 0
+    ExplicitLeft = 8
     ExplicitWidth = 796
     inherited ComboBox1: TComboBox
       Text = 'Nome completo'
@@ -46,8 +47,15 @@ object UserForm: TUserForm
     Width = 796
     Height = 367
     Align = alClient
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'z'
+    Font.Style = []
+    ParentFont = False
     PopupMenu = PopupMenu1
     TabOrder = 1
+    ExplicitTop = 78
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -86,10 +94,10 @@ object UserForm: TUserForm
     end
   end
   object AtualizarBtn: TButton
-    Left = 577
-    Top = 25
-    Width = 75
-    Height = 25
+    Left = 512
+    Top = 17
+    Width = 89
+    Height = 41
     Caption = 'Atualizar'
     TabOrder = 2
     OnClick = AtualizarGrid
@@ -100,10 +108,6 @@ object UserForm: TUserForm
     object Vsiuali1: TMenuItem
       Caption = 'Visualizar usuario selecionado'
       OnClick = ShowUsuarioInfo
-    end
-    object Inserirnovo1: TMenuItem
-      Caption = 'Inserir novo usuario'
-      OnClick = CreateUser
     end
     object Inserirnovo2: TMenuItem
       Caption = 'Alterar usuario selecionado'

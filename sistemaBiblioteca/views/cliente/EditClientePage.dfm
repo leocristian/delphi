@@ -79,12 +79,12 @@ object EditClienteForm: TEditClienteForm
     TabOrder = 2
   end
   object Button1: TButton
-    Left = 207
-    Top = 187
+    Left = 199
+    Top = 192
     Width = 98
     Height = 31
     Caption = 'Salvar altera'#231#245'es'
-    TabOrder = 3
+    TabOrder = 4
     OnClick = SalvarAlteracoes
   end
   object telefoneEdit: TEdit
@@ -92,6 +92,6 @@ object EditClienteForm: TEditClienteForm
     Top = 197
     Width = 145
     Height = 21
-    TabOrder = 4
+    TabOrder = 3
   end
 end

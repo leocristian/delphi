@@ -81,20 +81,17 @@ begin
             idYes:
               begin
                 ShowMessage('Usuario inserido com sucesso!');
+                FreeAndNil(novoUsuario);
+                NewUserForm.Visible := False;
               end;
             idNo:
               begin
                 ShowMessage('Operação cancelada!');
               end;
           End;
-
-          FreeAndNil(novoUsuario);
-          NewUserForm.Visible := False;
-          NewUserForm.LimparForms;
         end;
       end;
   end;
 end;
-
 
 end.

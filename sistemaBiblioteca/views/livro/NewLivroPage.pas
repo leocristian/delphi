@@ -31,7 +31,7 @@ implementation
 
 {$R *.dfm}
 
-uses Livro;
+uses Livro, Editora;
 
 procedure TNewLivroForm.OpenLivroForm(Sender: TObject);
 begin
@@ -42,6 +42,7 @@ end;
 procedure TNewLivroForm.Adicionar(Sender: TObject);
 var
   novoLivro: TLivro;
+  objEditora: TEditora;
 
 begin
   if formManipulation.ExisteInputsVazios(NewLivroForm) then
@@ -59,15 +60,27 @@ begin
       novoLivro.anoPublicacao := DateToStr(NewLivroForm.AnoInput.Date);
       novoLivro.preco := NewLivroForm.PrecoInput.Text;
 
+      objEditora := TEditora.Create;
+
+      objEditora := objEditora.FindByNome(novoLivro.editora);
+
     finally
       Case
         MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar livro', MB_YESNO) of
         idYes:
           begin
-            try
-              novoLivro.Insert(novoLivro);
-            finally
-              ShowMessage('Livro inserido com sucesso!');
+            if objEditora.nome = novoLivro.editora then
+            begin
+              try
+                novoLivro.Insert(novoLivro);
+              finally
+                ShowMessage('Livro inserido com sucesso!');
+                NewLivroForm.Visible := False;
+              end;
+            end
+            else
+            begin
+              ShowMessage('Editora não encontrada!');
             end;
           end;
         idNo:
@@ -76,7 +89,6 @@ begin
           end;
       End;
         FreeAndNil(novoLivro);
-        NewLivroForm.Visible := False;
     end;
   end;
 end;

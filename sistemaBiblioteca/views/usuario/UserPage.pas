@@ -16,7 +16,6 @@ type
   TUserForm = class(TForm)
     PopupMenu1: TPopupMenu;
     Vsiuali1: TMenuItem;
-    Inserirnovo1: TMenuItem;
     Inserirnovo2: TMenuItem;
     N1: TMenuItem;
     Excluirselecionado1: TMenuItem;
@@ -53,11 +52,7 @@ uses NewUserPage, dmDatabase, Usuario, ShowUserPage, EditUserPage;
 
 procedure TUserForm.AtualizarGrid(Sender: TObject);
 begin
-  try
-    UserForm.cxGrid1.Refresh;
-  finally
-    ShowMessage('Tabela de usuarios atualizada com sucesso!');
-  end;
+  UserForm.cxGrid1DBTableView1.DataController.Refresh;
 end;
 
 procedure TUserForm.BuscarUsuario(Sender: TObject);
@@ -84,6 +79,7 @@ begin
         begin
           ShowUserPage.ShowUsuarioForm.PreencherInputs(usuarioEncontrado);
           ShowUserPage.ShowUsuarioForm.visible := True;
+          Self.cxGrid1DBTableView1.GetColumnByFieldName('codigo');
         end;
       end;
     end

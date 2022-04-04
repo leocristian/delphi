@@ -86,14 +86,14 @@ object DataModule1: TDataModule1
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44653.748292037000000000
-    ReportOptions.LastChange = 44653.756675057900000000
+    ReportOptions.LastChange = 44655.474178229170000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
       ''
       'end.')
-    Left = 432
-    Top = 120
+    Left = 280
+    Top = 32
     Datasets = <
       item
         DataSet = relDsVendas
@@ -211,7 +211,7 @@ object DataModule1: TDataModule1
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 56.692950000000000000
+        Height = 41.574830000000000000
         Top = 102.047310000000000000
         Width = 718.110700000000000000
         DataSet = relDsVendas
@@ -221,7 +221,7 @@ object DataModule1: TDataModule1
           IndexTag = 1
           AllowVectorExport = True
           Left = 7.559060000000000000
-          Top = 22.677180000000000000
+          Top = 7.559060000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           DataField = 'codigo'
@@ -235,7 +235,7 @@ object DataModule1: TDataModule1
           IndexTag = 1
           AllowVectorExport = True
           Left = 124.724490000000000000
-          Top = 22.677180000000000000
+          Top = 7.559060000000000000
           Width = 162.519790000000000000
           Height = 18.897650000000000000
           DataField = 'vendedor'
@@ -249,7 +249,7 @@ object DataModule1: TDataModule1
           IndexTag = 1
           AllowVectorExport = True
           Left = 317.480520000000000000
-          Top = 22.677180000000000000
+          Top = 7.559060000000000000
           Width = 128.504020000000000000
           Height = 18.897650000000000000
           DataField = 'livro'
@@ -263,7 +263,7 @@ object DataModule1: TDataModule1
           IndexTag = 1
           AllowVectorExport = True
           Left = 468.661720000000000000
-          Top = 22.677180000000000000
+          Top = 7.559060000000000000
           Width = 139.842610000000000000
           Height = 18.897650000000000000
           DataField = 'cliente'
@@ -277,7 +277,7 @@ object DataModule1: TDataModule1
           IndexTag = 1
           AllowVectorExport = True
           Left = 623.622450000000000000
-          Top = 22.677180000000000000
+          Top = 7.559060000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           DataField = 'valor_total'
@@ -296,7 +296,7 @@ object DataModule1: TDataModule1
         FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
-        Top = 219.212740000000000000
+        Top = 204.094620000000000000
         Width = 718.110700000000000000
       end
     end
@@ -307,7 +307,7 @@ object DataModule1: TDataModule1
     DataSet = tbVendas
     BCDToCurrency = False
     DataSetOptions = []
-    Left = 432
-    Top = 56
+    Left = 224
+    Top = 32
   end
 end

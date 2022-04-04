@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, MenuFrame,
-  Vcl.ToolWin, Vcl.ComCtrls, System.Actions, Vcl.ActnList, Vcl.ExtCtrls;
+  Vcl.ToolWin, Vcl.ComCtrls, System.Actions, Vcl.ActnList, Vcl.ExtCtrls,
+  dxGDIPlusClasses;
 
 type
   TFormPrincipal = class(TForm)
@@ -21,8 +22,6 @@ type
     N1: TMenuItem;
     RelatorioVendas: TMenuItem;
     Sistema: TMenuItem;
-    RelatorioGeral: TMenuItem;
-    N2: TMenuItem;
     Sair: TMenuItem;
     ActionList1: TActionList;
     ShowUsuariosPage: TAction;
@@ -31,9 +30,12 @@ type
     Livros1: TMenuItem;
     PageControl1: TPageControl;
     Welcome: TTabSheet;
-    Label1: TLabel;
     ShowEditorasPage: TAction;
     ShowVendasPage: TAction;
+    Label1: TLabel;
+    Alterarsenha1: TMenuItem;
+    N2: TMenuItem;
+    Image1: TImage;
 
     procedure AbrirForm(Sender: TObject);
     procedure Finalizar(Sender: TObject);
@@ -43,6 +45,7 @@ type
     procedure AbrirTelaEditoras(Sender: TObject);
     procedure AbrirTelaVendas(Sender: TObject);
     procedure AbrirRelatorioVendas(Sender: TObject);
+    procedure AlterarSenha(Sender: TObject);
 
   private
     { Private declarations }
@@ -58,7 +61,8 @@ implementation
 
 {$R *.dfm}
 
-uses UserPage, ClientPage, LivrosPage, EditorasPage, VendasPage, dmDatabase;
+uses UserPage, ClientPage, LivrosPage, EditorasPage, VendasPage, dmDatabase,
+  LoginPage;
 
 procedure TFormPrincipal.AbrirForm(Sender: TObject);
 begin
@@ -109,6 +113,11 @@ begin
 
   tabSheet.Caption := 'Vendas';
   FormPrincipal.PageControl1.ActivePage := tabSheet;
+end;
+
+procedure TFormPrincipal.AlterarSenha(Sender: TObject);
+begin
+  ShowMessage('Usuario logado: ');
 end;
 
 procedure TFormPrincipal.AbrirRelatorioVendas(Sender: TObject);

@@ -22,10 +22,6 @@ object EditorasForm: TEditorasForm
     Height = 366
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = 271
-    ExplicitTop = 184
-    ExplicitWidth = 250
-    ExplicitHeight = 200
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -103,6 +99,7 @@ object EditorasForm: TEditorasForm
     Top = 32
     object Visualizareditoraselecionada1: TMenuItem
       Caption = 'Visualizar editora selecionada'
+      OnClick = ShowEditoraInfo
     end
     object Visualizareditoraselecionada2: TMenuItem
       Caption = 'Inserir nova editora'

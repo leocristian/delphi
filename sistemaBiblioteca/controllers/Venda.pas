@@ -37,16 +37,18 @@ begin
     query.Close;
     query.SQL.Text := 'select nextval(''tb_vendas_cod_seq'') as codProximo';
     query.Open;
+
     objVenda.cod := query.FieldByName('codProximo').AsInteger;
 
     query.Close;
     query.SQL.Clear;
-    valuesStr := '(' + IntToStr(objVenda.cod) + ',' + QuotedStr(objVenda.vendedor)
+
+    valuesStr := IntToStr(objVenda.cod) + ',' + QuotedStr(objVenda.vendedor)
                   + ',' + QuotedStr(objVenda.livro)
                   + ',' + QuotedStr(objVenda.cliente)
-                  + ',' + objVenda.valorTotal + ');';
+                  + ',' + objVenda.valorTotal;
 
-    query.SQL.Add('insert into vendas (codigo, vendedor, livro, cliente, valor_total) values ' + valuesStr);
+    query.SQL.Add('insert into vendas values (' + valuesStr + ')');
 
     query.SQL.Add(valuesStr);
 

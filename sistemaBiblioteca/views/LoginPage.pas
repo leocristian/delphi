@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Menus;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Menus, Usuario,
+  Vcl.ExtCtrls, Vcl.Imaging.jpeg;
 
 type
   TFormUsuario = class(TForm)
@@ -14,9 +15,20 @@ type
     Label1: TLabel;
     LabelNome: TLabel;
     LabelSenha: TLabel;
+    ExitBtn: TButton;
+    Label2: TLabel;
+    Button2: TButton;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Image1: TImage;
 
     procedure Login(Sender: TObject);
+    procedure Sair(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure CadastrarUsuario(Sender: TObject);
+
+    function GetUsuarioLogado: TUsuario;
 
   private
     { Private declarations }
@@ -26,12 +38,23 @@ type
 
 var
   FormUsuario: TFormUsuario;
+  usuarioLogado: TUsuario;
 
 implementation
 
 {$R *.dfm}
 
-uses MainPage, Usuario, FormManipulation;
+uses MainPage, FormManipulation, NewUserPage;
+
+function TFormUsuario.GetUsuarioLogado: TUsuario;
+begin
+  Result := usuarioLogado;
+end;
+
+procedure TFormUsuario.CadastrarUsuario(Sender: TObject);
+begin
+  NewUserPage.NewUserForm.Visible := True;
+end;
 
 procedure TFormUsuario.FormCreate(Sender: TObject);
 begin
@@ -39,13 +62,20 @@ begin
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
 end;
 
+procedure TFormUsuario.Sair(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
 procedure TFormUsuario.Login(Sender: TObject);
 var
-  usuarioLogado: TUsuario;
   login, senha: String;
   formManipulation: TFormManipulation;
 
 begin
+
+  formManipulation := TFormManipulation.Create;
+
   if formManipulation.ExisteInputsVazios(FormUsuario) then
     begin
       ShowMessage('Preencha todos os campos!');
@@ -53,12 +83,14 @@ begin
   else
     begin
       try
-        usuarioLogado := TUsuario.Create;
+
 
         login := FormUsuario.LoginInput.Text;
         senha := FormUsuario.SenhaInput.Text;
 
+        usuarioLogado := TUsuario.Create;
         usuarioLogado := usuarioLogado.FindByNomeAndSenha(login, senha);
+
       finally
         if usuarioLogado.login = login then
           begin

@@ -42,6 +42,7 @@ procedure TEditClienteForm.OpenForm(Sender: TObject);
 var
   formManipulation: TFormManipulation;
 begin
+  formManipulation := TFormManipulation.Create;
   formManipulation.AbrirForm(EditClienteForm);
 end;
 
@@ -75,9 +76,7 @@ begin
           clienteAlterado.telefone := EditClienteForm.telefoneEdit.Text;
 
           try
-            showmessage(clienteAlterado.nome_completo);
             clienteSelecionado.Update(clienteAlterado);
-            showmessage(clienteSelecionado.nome_completo);
           finally
             ShowMessage('Cliente alterado com sucesso!');
             EditClienteForm.visible := False;

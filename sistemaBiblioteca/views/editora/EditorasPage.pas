@@ -30,6 +30,7 @@ type
     cxGrid1DBTableView1nome: TcxGridDBColumn;
     cxGrid1DBTableView1cnpj: TcxGridDBColumn;
     procedure InserirEditora(Sender: TObject);
+    procedure ShowEditoraInfo(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,11 +44,33 @@ implementation
 
 {$R *.dfm}
 
-uses NewEditoraPage, dmDatabase;
+uses NewEditoraPage, dmDatabase, Editora, ShowEditoraPage;
 
 procedure TEditorasForm.InserirEditora(Sender: TObject);
 begin
   NewEditoraForm.Visible := True;
+end;
+
+procedure TEditorasForm.ShowEditoraInfo(Sender: TObject);
+var
+  colunaSelected: Integer;
+  editoraSelecionada: TEditora;
+
+begin
+
+  colunaSelected := Self.cxGrid1DBTableView1.ViewData.DataController.GetSelectedRowIndex(0);
+
+  try
+
+    editoraSelecionada := TEditora.Create;
+    editoraSelecionada.cod := Self.cxGrid1DBTableView1.ViewData.Records[colunaSelected].Values[Self.cxGrid1DBTableView1.GetColumnByFieldName('codigo').Index];
+    editoraSelecionada.Read(editoraSelecionada);
+
+  finally
+
+    ShowEditoraPage.ShowEditoraForm.PreencherInputs(editoraSelecionada);
+    ShowEditoraPage.ShowEditoraForm.visible := True;
+  end;
 end;
 
 end.

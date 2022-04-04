@@ -3,8 +3,8 @@ object NewLivroForm: TNewLivroForm
   Top = 0
   BorderStyle = bsToolWindow
   Caption = 'NewLivroForm'
-  ClientHeight = 232
-  ClientWidth = 378
+  ClientHeight = 282
+  ClientWidth = 275
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -29,8 +29,8 @@ object NewLivroForm: TNewLivroForm
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 200
-    Top = 53
+    Left = 128
+    Top = 138
     Width = 87
     Height = 13
     Caption = 'Ano de publica'#231#227'o'
@@ -38,7 +38,7 @@ object NewLivroForm: TNewLivroForm
   object TituloInput: TEdit
     Left = 48
     Top = 72
-    Width = 121
+    Width = 177
     Height = 21
     TabOrder = 0
     TextHint = 'T'#237'tulo'
@@ -46,32 +46,32 @@ object NewLivroForm: TNewLivroForm
   object EditoraInput: TEdit
     Left = 48
     Top = 112
-    Width = 121
+    Width = 177
     Height = 21
     TabOrder = 1
     TextHint = 'Editora'
   end
   object PrecoInput: TEdit
-    Left = 200
-    Top = 112
-    Width = 121
+    Left = 48
+    Top = 157
+    Width = 65
     Height = 21
     NumbersOnly = True
     TabOrder = 2
-    TextHint = 'Pre'#231'o'
+    TextHint = 'Pre'#231'o (R$)'
   end
   object AnoInput: TDateTimePicker
-    Left = 200
-    Top = 72
-    Width = 121
+    Left = 128
+    Top = 157
+    Width = 97
     Height = 21
     Date = 44653.000000000000000000
     Time = 0.676915231480961700
     TabOrder = 3
   end
   object Button1: TButton
-    Left = 238
-    Top = 160
+    Left = 142
+    Top = 199
     Width = 83
     Height = 33
     Caption = 'Adicionar'
