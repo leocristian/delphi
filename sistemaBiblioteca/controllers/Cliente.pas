@@ -3,9 +3,7 @@ unit Cliente;
 interface
 
 uses
-  Uni, dmDatabase, Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, MenuFrame,
-  Vcl.ToolWin, Vcl.ComCtrls, System.Actions, Vcl.ActnList, Vcl.ExtCtrls;
+  Uni, dmDatabase, System.SysUtils;
 
 type
   TCliente = class
@@ -45,15 +43,14 @@ begin
     query.SQL.Add('insert into clientes (codigo, nome_completo, email, telefone) ');
     query.SQL.Add('values ');
 
-    valuesStr := '(' + IntToStr(objCliente.cod) + ',' + QuotedStr(objCliente.nome_completo)
-                + ',' + QuotedStr(objCliente.email) + ',' + QuotedStr(objCliente.telefone)  + ')';
+    valuesStr := '(:codigo, :nome_completo, :email, :telefone)'; // add cpf
 
     query.SQL.Add(valuesStr);
 
-//    query.ParamByName('codigo').Value := objCliente.cod;
-//    query.ParamByName('nome_completo').Value := objCliente.nome_completo;
-//    query.ParamByName('email').Value := objCliente.email;
-//    query.ParamByName('telefone').Value := objCliente.telefone;
+    query.ParamByName('codigo').Value := objCliente.cod;
+    query.ParamByName('nome_completo').Value := objCliente.nome_completo;
+    query.ParamByName('email').Value := objCliente.email;
+    query.ParamByName('telefone').Value := objCliente.telefone;
 
     query.ExecSQL;
 

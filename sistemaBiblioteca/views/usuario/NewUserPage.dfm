@@ -3,8 +3,8 @@ object NewUserForm: TNewUserForm
   Top = 0
   BorderStyle = bsToolWindow
   Caption = 'NewUserForm'
-  ClientHeight = 265
-  ClientWidth = 263
+  ClientHeight = 316
+  ClientWidth = 304
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,9 +19,9 @@ object NewUserForm: TNewUserForm
   object Label1: TLabel
     Left = 40
     Top = 24
-    Width = 131
+    Width = 154
     Height = 16
-    Caption = 'Inserir novo usu'#225'rio'
+    Caption = 'Cadastre-se no sistema'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -29,55 +29,85 @@ object NewUserForm: TNewUserForm
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Label2: TLabel
+    Left = 40
+    Top = 46
+    Width = 75
+    Height = 13
+    Caption = 'Nome Completo'
+  end
+  object Label3: TLabel
+    Left = 40
+    Top = 99
+    Width = 24
+    Height = 13
+    Caption = 'Email'
+  end
+  object Label4: TLabel
+    Left = 40
+    Top = 147
+    Width = 25
+    Height = 13
+    Caption = 'Login'
+  end
+  object Label5: TLabel
+    Left = 40
+    Top = 198
+    Width = 30
+    Height = 13
+    Caption = 'Senha'
+  end
+  object Label6: TLabel
+    Left = 150
+    Top = 198
+    Width = 72
+    Height = 13
+    Caption = 'Repita a senha'
+  end
   object nome_completoInput: TEdit
     Left = 40
-    Top = 64
-    Width = 185
+    Top = 65
+    Width = 208
     Height = 21
     TabOrder = 0
-    TextHint = 'Nome completo'
   end
   object emailInput: TEdit
     Left = 40
-    Top = 99
-    Width = 185
+    Top = 118
+    Width = 208
     Height = 21
     TabOrder = 1
-    TextHint = 'Email'
   end
   object loginInput: TEdit
     Left = 40
-    Top = 134
-    Width = 185
+    Top = 166
+    Width = 208
     Height = 21
     TabOrder = 2
-    TextHint = 'Login'
   end
   object senhaInput: TEdit
     Left = 40
-    Top = 169
-    Width = 89
+    Top = 217
+    Width = 105
     Height = 21
     PasswordChar = '*'
     TabOrder = 3
-    TextHint = 'Senha'
   end
   object AdicionarUsuarioBtn: TButton
-    Left = 150
-    Top = 208
-    Width = 75
-    Height = 25
-    Caption = 'Adicionar'
+    Left = 164
+    Top = 263
+    Width = 84
+    Height = 34
+    Caption = 'Cadastrar-se'
     TabOrder = 5
     OnClick = Adicionar
   end
   object SenhaCheckInput: TEdit
-    Left = 135
-    Top = 169
-    Width = 90
+    Left = 150
+    Top = 217
+    Width = 98
     Height = 21
     PasswordChar = '*'
     TabOrder = 4
-    TextHint = 'Repita a senha'
   end
 end

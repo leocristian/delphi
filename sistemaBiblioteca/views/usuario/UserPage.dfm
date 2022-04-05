@@ -49,7 +49,7 @@ object UserForm: TUserForm
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
-    Font.Name = 'z'
+    Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
     PopupMenu = PopupMenu1
@@ -64,27 +64,37 @@ object UserForm: TUserForm
       Navigator.Buttons.Last.Visible = True
       Navigator.Buttons.Insert.Visible = True
       Navigator.Buttons.Append.Visible = False
-      Navigator.Buttons.Delete.Visible = True
+      Navigator.Buttons.Delete.Visible = False
       Navigator.Buttons.Edit.Visible = True
       Navigator.Buttons.Post.Visible = True
-      Navigator.Buttons.Cancel.Visible = True
+      Navigator.Buttons.Cancel.Visible = False
       Navigator.Buttons.Refresh.Visible = True
       Navigator.Buttons.SaveBookmark.Visible = True
       Navigator.Buttons.GotoBookmark.Visible = True
       Navigator.Buttons.Filter.Visible = True
+      Navigator.InfoPanel.DisplayMask = '[RecordIndex] / [RecordCount]'
+      Navigator.InfoPanel.Visible = True
+      Navigator.Visible = True
       ScrollbarAnnotations.CustomAnnotations = <>
       DataController.DataSource = DataModule1.dsUsuarios
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsView.GroupByBox = False
       object cxGrid1DBTableView1codigo: TcxGridDBColumn
+        Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
+        Styles.Header = cxStyle1
       end
       object cxGrid1DBTableView1login: TcxGridDBColumn
+        Caption = 'Login'
         DataBinding.FieldName = 'login'
+        Styles.Header = cxStyle1
       end
       object cxGrid1DBTableView1nome_completo: TcxGridDBColumn
+        Caption = 'Nome Completo'
         DataBinding.FieldName = 'nome_completo'
+        Styles.Header = cxStyle1
       end
     end
     object cxGrid1Level1: TcxGridLevel
@@ -117,6 +127,19 @@ object UserForm: TUserForm
     object Excluirselecionado1: TMenuItem
       Caption = 'Excluir usuario selecionado'
       OnClick = DeletarUsuario
+    end
+  end
+  object cxStyleRepository1: TcxStyleRepository
+    Left = 736
+    Top = 96
+    PixelsPerInch = 96
+    object cxStyle1: TcxStyle
+      AssignedValues = [svFont]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
     end
   end
 end

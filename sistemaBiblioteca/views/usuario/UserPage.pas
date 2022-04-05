@@ -10,7 +10,7 @@ uses
   cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView,
-  cxGrid, dxSkinsForm, MemDS, DBAccess, Uni;
+  cxGrid, dxSkinsForm, MemDS, DBAccess, Uni,  Generics.Collections;
 
 type
   TUserForm = class(TForm)
@@ -27,6 +27,8 @@ type
     cxGrid1DBTableView1login: TcxGridDBColumn;
     AtualizarBtn: TButton;
     cxGrid1DBTableView1nome_completo: TcxGridDBColumn;
+    cxStyleRepository1: TcxStyleRepository;
+    cxStyle1: TcxStyle;
 
     procedure CreateUser(Sender: TObject);
     procedure SetFocus(Sender: TObject);
@@ -48,7 +50,8 @@ implementation
 
 {$R *.dfm}
 
-uses NewUserPage, dmDatabase, Usuario, ShowUserPage, EditUserPage;
+uses NewUserPage, dmDatabase, Usuario, ShowUserPage, EditUserPage,
+  BuscaControle;
 
 procedure TUserForm.AtualizarGrid(Sender: TObject);
 begin
@@ -57,7 +60,12 @@ end;
 
 procedure TUserForm.BuscarUsuario(Sender: TObject);
 var
+  nomeFiltro: String;
   usuarioEncontrado: TUsuario;
+  listaEncontrados: TList<TUsuario>;
+
+  codigoFiltro: String;
+  buscaControle: TBuscaControle;
 
 begin
   if UserForm.BuscaPessoa1.ComboBox1.Text = 'Codigo' then
@@ -87,9 +95,10 @@ begin
     begin
       try
 
-        usuarioEncontrado := TUsuario.Create;
-        usuarioEncontrado.nome_completo := Self.BuscaPessoa1.Edit1.Text;
-        usuarioEncontrado.FindByNomeCompleto(usuarioEncontrado);
+        nomeFiltro := Self.BuscaPessoa1.Edit1.Text;
+
+        listaEncontrados := TList<TUsuario>.Create;
+        buscaControle.FilterByNomeCompleto(nomeFiltro);
 
       finally
 
@@ -109,7 +118,6 @@ begin
     begin
       ShowMessage('Campo de busca inválido!');
     end;
-
 end;
 
 procedure TUserForm.DeletarUsuario(Sender: TObject);

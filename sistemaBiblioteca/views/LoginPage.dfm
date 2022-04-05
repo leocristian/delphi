@@ -310,7 +310,7 @@ object FormUsuario: TFormUsuario
       AABEDD7E63FFD9}
   end
   object LoginInput: TEdit
-    Left = 384
+    Left = 385
     Top = 110
     Width = 175
     Height = 21

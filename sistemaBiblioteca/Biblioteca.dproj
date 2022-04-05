@@ -184,6 +184,7 @@
             <Form>AlterarSenhaForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="controllers\BuscaControle.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -4,9 +4,7 @@ unit Usuario;
 interface
 
 uses
-  Uni, dmDatabase, Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, MenuFrame,
-  Vcl.ToolWin, Vcl.ComCtrls, System.Actions, Vcl.ActnList, Vcl.ExtCtrls;
+  Uni, dmDatabase, System.SysUtils;
 
 type
   TUsuario = Class
@@ -48,17 +46,15 @@ begin
     query.SQL.Add('insert into usuarios (codigo, nome_completo, email, login, senha) ');
     query.SQL.Add('values ');
 
-    valuesStr := '(' + IntToStr(objUsuario.cod) + ',' + QuotedStr(objUsuario.nome_completo)
-                + ',' + QuotedStr(objUsuario.email) + ',' + QuotedStr(objUsuario.login)
-                + ',' + QuotedStr(objUsuario.senha) + ')';
+    valuesStr := '(:codigo, :nome_completo, :email, :login, :senha)';
 
     query.SQL.Add(valuesStr);
 
-//    query.ParamByName('codProximo').Value := objUsuario.cod;
-//    query.ParamByName('nome_completo').Value := objUsuario.nome_completo;
-//    query.ParamByName('email').Value := objUsuario.email;
-//    query.ParamByName('login').Value := objUsuario.login;
-//    query.ParamByName('senha').Value := objUsuario.senha;
+    query.ParamByName('codProximo').Value := objUsuario.cod;
+    query.ParamByName('nome_completo').Value := objUsuario.nome_completo;
+    query.ParamByName('email').Value := objUsuario.email;
+    query.ParamByName('login').Value := objUsuario.login;
+    query.ParamByName('senha').Value := objUsuario.senha;
 
     query.ExecSQL;
 

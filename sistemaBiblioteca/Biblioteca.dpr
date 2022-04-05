@@ -29,7 +29,8 @@ uses
   ShowEditoraPage in 'views\editora\ShowEditoraPage.pas' {ShowEditoraForm},
   EditEditoraPage in 'views\editora\EditEditoraPage.pas' {EditEditoraForm},
   VendaControle in 'controllers\VendaControle.pas',
-  AlterarSenhaPage in 'views\usuario\AlterarSenhaPage.pas' {AlterarSenhaForm};
+  AlterarSenhaPage in 'views\usuario\AlterarSenhaPage.pas' {AlterarSenhaForm},
+  BuscaControle in 'controllers\BuscaControle.pas';
 
 {$R *.res}
 
