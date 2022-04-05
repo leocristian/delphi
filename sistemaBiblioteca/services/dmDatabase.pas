@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, Data.DB, DBAccess, Uni, UniProvider,
-  PostgreSQLUniProvider, MemDS, frxClass, frxDBSet;
+  PostgreSQLUniProvider, MemDS, frxClass, frxDBSet, VirtualTable;
 
 type
   TDataModule1 = class(TDataModule)

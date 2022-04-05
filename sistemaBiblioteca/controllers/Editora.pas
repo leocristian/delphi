@@ -15,7 +15,7 @@ type
 
     procedure Insert(const objEditora: TEditora);
     procedure Read(const objEditora: TEditora);
-    procedure Update(const objEditora: TEditora);
+    procedure Update(var objEditora: TEditora);
     procedure Delete(const objEditora: TEditora);
 
     function FindByNome(const nomeParam: String): TEditora;
@@ -85,7 +85,7 @@ begin
   end;
 end;
 
-procedure TEditora.Update(const objEditora: TEditora);
+procedure TEditora.Update(var objEditora: TEditora);
 begin
 
 end;

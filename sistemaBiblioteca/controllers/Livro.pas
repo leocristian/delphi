@@ -46,17 +46,15 @@ begin
     query.SQL.Add('insert into livros (codigo, titulo, editora, ano_publicacao, preco) ');
     query.SQL.Add('values ');
 
-    valuesStr := '(' + IntToStr(objLivro.cod) + ',' + QuotedStr(objLivro.titulo)
-                  + ',' + QuotedStr(objLivro.editora)
-                  + ',' + QuotedStr(objLivro.anoPublicacao)
-                  + ',' + QuotedStr(objLivro.preco) + ')';
+    valuesStr := '(:codigo, :titulo, :editora, :ano_publicacao, :preco)';
 
     query.SQL.Add(valuesStr);
 
-//    query.ParamByName('codigo').Value := objCliente.cod;
-//    query.ParamByName('nome_completo').Value := objCliente.nome_completo;
-//    query.ParamByName('email').Value := objCliente.email;
-//    query.ParamByName('telefone').Value := objCliente.telefone;
+    query.ParamByName('codigo').Value := objLivro.cod;
+    query.ParamByName('titulo').Value := objLivro.titulo;
+    query.ParamByName('editora').Value := objLivro.editora;
+    query.ParamByName('ano_publicacao').Value := objLivro.anoPublicacao;
+    query.ParamByName('preco').Value := objLivro.preco;
 
     query.ExecSQL;
 

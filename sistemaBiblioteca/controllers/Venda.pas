@@ -15,7 +15,7 @@ type
     cliente: String;
     valorTotal: String;
 
-    procedure Insert(const objVenda: TVenda);
+    procedure Insert(var objVenda: TVenda);
 //    procedure Read(const objLivro: TLivro);
 //    procedure Update(const objLivro: TLivro);
     procedure Delete(const codVenda: Integer);
@@ -24,10 +24,9 @@ type
 
 implementation
 
-procedure TVenda.Insert(const objVenda: TVenda);
+procedure TVenda.Insert(var objVenda: TVenda);
 var
   query: TUniQuery;
-  valuesStr: String;
 
 begin
   try
@@ -43,14 +42,16 @@ begin
     query.Close;
     query.SQL.Clear;
 
-    valuesStr := IntToStr(objVenda.cod) + ',' + QuotedStr(objVenda.vendedor)
-                  + ',' + QuotedStr(objVenda.livro)
-                  + ',' + QuotedStr(objVenda.cliente)
-                  + ',' + objVenda.valorTotal;
+    query.SQL.Add('insert into vendas (codigo, vendedor, livro, cliente, valor_total) ');
 
-    query.SQL.Add('insert into vendas values ' + valuesStr);
+    query.SQL.Add('values ');
+    query.SQL.Add('(:codigo, :vendedor, :livro, :cliente, :valor_total)');
 
-    query.SQL.Add(valuesStr);
+    query.ParamByName('codigo').Value := objVenda.cod;
+    query.ParamByName('vendedor').Value := objVenda.vendedor;
+    query.ParamByName('livro').Value := objVenda.livro;
+    query.ParamByName('cliente').Value := objVenda.cliente;
+    query.ParamByName('valor_total').Value := objVenda.valorTotal;
 
     query.ExecSQL;
 

@@ -31,6 +31,8 @@ type
     cxGrid1DBTableView1livro: TcxGridDBColumn;
     cxGrid1DBTableView1cliente: TcxGridDBColumn;
     cxGrid1DBTableView1valor_total: TcxGridDBColumn;
+    cxStyleRepository1: TcxStyleRepository;
+    cxStyle1: TcxStyle;
     procedure NovaVenda(Sender: TObject);
   private
     { Private declarations }

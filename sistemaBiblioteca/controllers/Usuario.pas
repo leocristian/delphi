@@ -17,11 +17,14 @@ type
 
     procedure Insert(const objUsuario: TUsuario);
     procedure Read(const objUsuario: TUsuario);
-    procedure Update(const objUsuario: TUsuario);
+    procedure Update(var objUsuario: TUsuario);
     procedure Delete(const codUsuario: Integer);
 
     function FindByNomeAndSenha(var nome, senha: String): TUsuario;
     procedure FindByNomeCompleto(const objUsuario: TUsuario);
+
+    private
+      semente: String;
 
   End;
 
@@ -31,6 +34,8 @@ procedure TUsuario.Insert(const objUsuario: TUsuario);
 var
   query: TUniQuery;
   valuesStr: String;
+  senhaHash: String;
+
 begin
   try
     query := TUniQuery.Create(nil);
@@ -46,15 +51,17 @@ begin
     query.SQL.Add('insert into usuarios (codigo, nome_completo, email, login, senha) ');
     query.SQL.Add('values ');
 
-    valuesStr := '(:codigo, :nome_completo, :email, :login, :senha)';
+    valuesStr := '(:codigo, :nome_completo, :email, :login, md5(:senha))';
 
     query.SQL.Add(valuesStr);
 
-    query.ParamByName('codProximo').Value := objUsuario.cod;
+    query.ParamByName('codigo').Value := objUsuario.cod;
     query.ParamByName('nome_completo').Value := objUsuario.nome_completo;
     query.ParamByName('email').Value := objUsuario.email;
     query.ParamByName('login').Value := objUsuario.login;
-    query.ParamByName('senha').Value := objUsuario.senha;
+
+    senhaHash := Self.semente + objUsuario.senha + Self.semente;
+    query.ParamByName('senha').Value := senhaHash;
 
     query.ExecSQL;
 
@@ -75,9 +82,9 @@ begin
     query.SQL.Clear;
 
     query.SQL.Add('select * from usuarios');
-    query.SQL.Add('where codigo = ' + IntToStr(objUsuario.cod));
+    query.SQL.Add('where codigo = :codigo');
 
-//    query.ParamByName('codigo').Value := objUsuario.cod;
+    query.ParamByName('codigo').Value := objUsuario.cod;
 
     query.Open;
 
@@ -92,7 +99,7 @@ begin
   end;
 end;
 
-procedure TUsuario.Update(const objUsuario: TUsuario);
+procedure TUsuario.Update(var objUsuario: TUsuario);
 var
   query: TUniQuery;
   queryStr: String;
@@ -104,13 +111,14 @@ begin
     query.Close;
     query.SQL.Clear;
 
-    queryStr := 'update usuarios set nome_completo = ' +
-                    QuotedStr(objUsuario.nome_completo) +
-                    ', email = ' + QuotedStr(objUsuario.email) +
-                    ', login = ' + QuotedStr(objUsuario.login) +
-                    ' where codigo = ' + IntToStr(objUsuario.cod);
-
+    queryStr := 'update usuarios set nome_completo = :nome_completo, email = :email, login = :login';
     query.SQL.Add(queryStr);
+    query.SQL.Add(' where codigo = :codigo');
+
+    query.ParamByName('nome_completo').Value := objUsuario.nome_completo;
+    query.ParamByName('email').Value := objUsuario.email;
+    query.ParamByName('login').Value := objUsuario.login;
+    query.ParamByName('codigo').Value := objUsuario.cod;
 
     query.ExecSQL;
   finally
@@ -131,8 +139,8 @@ begin
     query.Close;
     query.SQL.Clear;
 
-    query.SQL.Add('delete from usuarios where codigo = ' + codUsuario.ToString);
-//    query.ParamByName('codigo').Value := codUsuario;
+    query.SQL.Add('delete from usuarios where codigo = :codigo');
+    query.ParamByName('codigo').Value := codUsuario;
 
     query.ExecSQL;
 
@@ -145,6 +153,8 @@ function TUsuario.FindByNomeAndSenha(var nome, senha: String): TUsuario;
 var
   query: TUniQuery;
   usuarioSelecionado: TUsuario;
+  senhaHash: String;
+
 begin
   try
 
@@ -155,7 +165,12 @@ begin
     query.SQL.Clear;
 
     query.SQL.Add('select * from usuarios ');
-    query.SQL.Add('Where login = ' + QuotedStr(nome) + ' and senha = ' + QuotedStr(senha));
+    query.SQL.Add('Where login = :login and senha = md5(:senha)');
+
+    query.ParamByName('login').Value := nome;
+
+    senhaHash := Self.semente + senha + Self.semente;
+    query.ParamByName('senha').Value := senha;
 
     query.ExecSQL;
   finally

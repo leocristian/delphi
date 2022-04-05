@@ -3,8 +3,8 @@ object NewVendaForm: TNewVendaForm
   Top = 0
   BorderStyle = bsToolWindow
   Caption = 'NewVendaForm'
-  ClientHeight = 397
-  ClientWidth = 337
+  ClientHeight = 460
+  ClientWidth = 407
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,6 +12,7 @@ object NewVendaForm: TNewVendaForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = create
   OnShow = OpenForm
   PixelsPerInch = 96
   TextHeight = 13
@@ -30,21 +31,27 @@ object NewVendaForm: TNewVendaForm
   end
   object Label2: TLabel
     Left = 40
-    Top = 148
+    Top = 165
     Width = 92
     Height = 13
     Caption = 'Livros selecionados'
   end
   object Label3: TLabel
-    Left = 207
-    Top = 287
-    Width = 49
-    Height = 13
-    Caption = 'Valor total'
+    Left = 225
+    Top = 351
+    Width = 91
+    Height = 23
+    Caption = 'Valor total:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
   end
   object labelPreco: TLabel
-    Left = 262
-    Top = 306
+    Left = 268
+    Top = 388
     Width = 17
     Height = 33
     Caption = '0'
@@ -56,8 +63,8 @@ object NewVendaForm: TNewVendaForm
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 207
-    Top = 306
+    Left = 225
+    Top = 388
     Width = 37
     Height = 33
     Caption = 'R$'
@@ -85,41 +92,129 @@ object NewVendaForm: TNewVendaForm
   object TituloInput: TEdit
     Left = 40
     Top = 107
-    Width = 161
+    Width = 217
     Height = 21
     TabOrder = 1
   end
   object ClienteInput: TEdit
     Left = 40
     Top = 57
-    Width = 242
+    Width = 313
     Height = 21
     TabOrder = 0
   end
   object RealizarVendaBtn: TButton
     Left = 40
-    Top = 298
-    Width = 126
-    Height = 41
+    Top = 356
+    Width = 161
+    Height = 65
     Caption = 'Confirmar venda'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 3
     OnClick = RealizarVenda
   end
-  object LivrosEscolhidos: TListBox
-    Left = 40
-    Top = 167
-    Width = 242
-    Height = 113
-    ItemHeight = 13
-    TabOrder = 4
-  end
   object Button1: TButton
-    Left = 207
-    Top = 96
-    Width = 75
-    Height = 33
+    Left = 263
+    Top = 84
+    Width = 91
+    Height = 46
     Caption = 'Adicionar livro'
     TabOrder = 2
     OnClick = AdicionarLivro
+  end
+  object DBGrid1: TDBGrid
+    Left = 40
+    Top = 192
+    Width = 321
+    Height = 153
+    DataSource = dsLivrosVenda
+    TabOrder = 4
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'codigo'
+        ReadOnly = True
+        Title.Caption = 'C'#243'digo'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'titulo'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ReadOnly = True
+        Title.Caption = 'T'#237'tulo do livro'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 146
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'preco'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ReadOnly = True
+        Title.Caption = 'Pre'#231'o'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Width = 68
+        Visible = True
+      end>
+  end
+  object tbLivrosVenda: TVirtualTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'codigo'
+        DataType = ftInteger
+      end
+      item
+        Name = 'titulo'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'preco'
+        DataType = ftString
+        Size = 20
+      end>
+    Left = 168
+    Top = 144
+    Data = {
+      040003000600636F6469676F03000000000000000600746974756C6F01001400
+      000000000500707265636F0100140000000000000000000000}
+  end
+  object dsLivrosVenda: TDataSource
+    DataSet = tbLivrosVenda
+    Left = 256
+    Top = 144
   end
 end

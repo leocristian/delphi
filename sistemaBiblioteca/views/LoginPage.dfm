@@ -319,7 +319,7 @@ object FormUsuario: TFormUsuario
   object SenhaInput: TEdit
     Left = 384
     Top = 156
-    Width = 175
+    Width = 176
     Height = 21
     PasswordChar = '*'
     TabOrder = 1

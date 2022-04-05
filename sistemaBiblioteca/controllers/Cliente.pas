@@ -14,7 +14,7 @@ type
 
     procedure Insert(const objCliente: TCliente);
     procedure Read(const objCliente: TCliente);
-    procedure Update(const objCliente: TCliente);
+    procedure Update(var objCliente: TCliente);
 
     procedure Delete(const codDelete: Integer);
 
@@ -71,12 +71,11 @@ begin
     query.SQL.Clear;
 
     query.SQL.Add('select * from clientes');
-    query.SQL.Add('where codigo = ' + IntToStr(objCliente.cod));
+    query.SQL.Add('where codigo = :codigo');
 
-//    query.ParamByName('codigo').Value := objUsuario.cod;
+    query.ParamByName('codigo').Value := objCliente.cod;
 
     query.Open;
-
     if query.RecordCount > 0 then
     begin
       objCliente.nome_completo := query.FieldByName('nome_completo').Value;
@@ -88,7 +87,7 @@ begin
   end;
 end;
 
-procedure TCliente.Update(const objCliente: TCliente);
+procedure TCliente.Update(var objCliente: TCliente);
 var
   query: TUniQuery;
   queryStr: String;
@@ -100,13 +99,14 @@ begin
     query.Close;
     query.SQL.Clear;
 
-    queryStr := 'update clientes set nome_completo = ' +
-                    QuotedStr(objCliente.nome_completo) +
-                    ', email = ' + QuotedStr(objCliente.email) +
-                    ', telefone = ' + QuotedStr(objCliente.telefone) +
-                    ' where codigo = ' + IntToStr(objCliente.cod);
-
+    queryStr := 'update clientes set nome_completo = :nome_completo, email = :email, telefone = :telefone';
     query.SQL.Add(queryStr);
+    query.SQL.Add(' where codigo = :codigo');
+
+    query.ParamByName('codigo').Value := objCliente.cod;
+    query.ParamByName('nome_completo').Value := objCliente.nome_completo;
+    query.ParamByName('email').Value := objCliente.email;
+    query.ParamByName('telefone').Value := objCliente.telefone;
 
     query.ExecSQL;
   finally

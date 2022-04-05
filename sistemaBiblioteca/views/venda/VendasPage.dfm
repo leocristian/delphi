@@ -58,6 +58,7 @@ object VendasForm: TVendasForm
     Height = 356
     Align = alClient
     TabOrder = 2
+    ExplicitTop = 64
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -66,23 +67,41 @@ object VendasForm: TVendasForm
       Navigator.Buttons.Next.Visible = True
       Navigator.Buttons.NextPage.Visible = True
       Navigator.Buttons.Last.Visible = True
-      Navigator.Buttons.Insert.Visible = True
+      Navigator.Buttons.Insert.Enabled = False
+      Navigator.Buttons.Insert.Visible = False
+      Navigator.Buttons.Append.Enabled = False
       Navigator.Buttons.Append.Visible = False
-      Navigator.Buttons.Delete.Visible = True
-      Navigator.Buttons.Edit.Visible = True
-      Navigator.Buttons.Post.Visible = True
-      Navigator.Buttons.Cancel.Visible = True
+      Navigator.Buttons.Delete.Enabled = False
+      Navigator.Buttons.Delete.Visible = False
+      Navigator.Buttons.Edit.Enabled = False
+      Navigator.Buttons.Edit.Visible = False
+      Navigator.Buttons.Post.Enabled = False
+      Navigator.Buttons.Post.Visible = False
+      Navigator.Buttons.Cancel.Enabled = False
+      Navigator.Buttons.Cancel.Visible = False
       Navigator.Buttons.Refresh.Visible = True
-      Navigator.Buttons.SaveBookmark.Visible = True
-      Navigator.Buttons.GotoBookmark.Visible = True
-      Navigator.Buttons.Filter.Visible = True
+      Navigator.Buttons.SaveBookmark.Enabled = False
+      Navigator.Buttons.SaveBookmark.Visible = False
+      Navigator.Buttons.GotoBookmark.Enabled = False
+      Navigator.Buttons.GotoBookmark.Visible = False
+      Navigator.Buttons.Filter.Enabled = False
+      Navigator.Buttons.Filter.Visible = False
+      Navigator.InfoPanel.DisplayMask = '[RecordIndex] / [RecordCount]'
+      Navigator.InfoPanel.Visible = True
+      Navigator.Visible = True
       ScrollbarAnnotations.CustomAnnotations = <>
       DataController.DataSource = DataModule1.dsVendas
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsSelection.CellSelect = False
+      OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
+      Styles.Header = cxStyle1
       object cxGrid1DBTableView1codigo: TcxGridDBColumn
         DataBinding.FieldName = 'codigo'
+        VisibleForEditForm = bFalse
       end
       object cxGrid1DBTableView1vendedor: TcxGridDBColumn
         DataBinding.FieldName = 'vendedor'
@@ -119,6 +138,19 @@ object VendasForm: TVendasForm
     end
     object Excluirvendaselecionada1: TMenuItem
       Caption = 'Excluir venda selecionada'
+    end
+  end
+  object cxStyleRepository1: TcxStyleRepository
+    Left = 640
+    Top = 216
+    PixelsPerInch = 96
+    object cxStyle1: TcxStyle
+      AssignedValues = [svFont]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
     end
   end
 end

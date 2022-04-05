@@ -4,7 +4,13 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Livro, VendaControle, FormManipulation;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Livro, VendaControle, FormManipulation,
+  Vcl.Grids, Vcl.ValEdit, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
+  Data.DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, Vcl.DBGrids,
+  MemDS, VirtualTable;
 
 type
   TNewVendaForm = class(TForm)
@@ -12,7 +18,6 @@ type
     TituloInput: TEdit;
     ClienteInput: TEdit;
     RealizarVendaBtn: TButton;
-    LivrosEscolhidos: TListBox;
     Label2: TLabel;
     Button1: TButton;
     Label3: TLabel;
@@ -20,10 +25,14 @@ type
     Label5: TLabel;
     Label4: TLabel;
     Label6: TLabel;
+    DBGrid1: TDBGrid;
+    tbLivrosVenda: TVirtualTable;
+    dsLivrosVenda: TDataSource;
 
     procedure RealizarVenda(Sender: TObject);
     procedure OpenForm(Sender: TObject);
     procedure AdicionarLivro(Sender: TObject);
+    procedure create(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,15 +41,20 @@ type
 
 var
   NewVendaForm: TNewVendaForm;
-  livrosVenda: Array of TLivro;
   vendaControle: TVendaControle;
   formManipulation: TFormManipulation;
+  livrosStr: String;
 
 implementation
 
 {$R *.dfm}
 
-uses Cliente, LoginPage, Venda;
+uses Cliente, LoginPage, Venda, dmDatabase;
+
+procedure TNewVendaForm.create(Sender: TObject);
+begin
+  livrosStr := '';
+end;
 
 procedure TNewVendaForm.AdicionarLivro(Sender: TObject);
 var
@@ -66,12 +80,22 @@ begin
       end
       else
       begin
-        Self.LivrosEscolhidos.Items.Add(livroEncontrado.titulo);
+
+        with Self.tbLivrosVenda do
+        begin
+          Self.tbLivrosVenda.Append;
+          Self.tbLivrosVenda['codigo'] := livroEncontrado.cod;
+          Self.tbLivrosVenda['titulo'] := livroEncontrado.titulo;
+          Self.tbLivrosVenda['preco'] := livroEncontrado.preco;
+        end;
+
         vendaControle.IncrementaValor(StrToFloat(livroEncontrado.preco));
 
-        Self.labelPreco.Caption := FloatToStr(vendaControle.valorAtual);
+        livrosStr := livrosStr + livroEncontrado.titulo + ', ';
 
+        Self.labelPreco.Caption := FloatToStr(vendaControle.valorAtual);
         Self.TituloInput.SetFocus;
+
       end;
     end;
   end;
@@ -131,11 +155,13 @@ begin
           begin
             try
               novaVenda := TVenda.Create;
-              novaVenda.vendedor := LoginPage.usuarioLogado.nome_completo;
 
-              novaVenda.livro := livroVenda.titulo;
+              novaVenda.vendedor := LoginPage.usuarioLogado.nome_completo;
+              novaVenda.livro := livrosStr;
               novaVenda.cliente := clienteVenda.nome_completo;
               novaVenda.valorTotal := FloatToStr(vendaControle.valorAtual);
+
+              showmessage(novaVenda.livro);
 
               novaVenda.Insert(novaVenda);
             finally
@@ -143,6 +169,7 @@ begin
               NewVendaForm.Visible := False;
               FreeAndNil(novaVenda);
               FreeandNil(clienteVenda);
+              FreeAndNil(livroVenda);
             end;
           end;
         end;
