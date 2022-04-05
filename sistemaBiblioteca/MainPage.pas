@@ -71,8 +71,9 @@ end;
 
 procedure TFormPrincipal.Finalizar(Sender: TObject);
 begin
-  ShowMessage('Programa encerrado!');
-  Application.Terminate;
+  ShowMessage('Sessão encerrada!');
+  Self.Visible := False;
+  LoginPage.FormUsuario.Visible := True;
 end;
 
 procedure TFormPrincipal.AbrirTelaLivros(Sender: TObject);

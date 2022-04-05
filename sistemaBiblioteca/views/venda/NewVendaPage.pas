@@ -114,45 +114,43 @@ begin
       ShowMessage(IntToStr(livroVenda.cod));
 
     finally
-      try
-        novaVenda := TVenda.Create;
 
-        novaVenda.vendedor := 'leonardo';
-        novaVenda.livro := livroVenda.titulo;
-        novaVenda.cliente := clienteVenda.nome_completo;
-        novaVenda.valorTotal := FloatToStr(vendaControle.valorAtual);
+      Case
+      MessageBox(Application.Handle, 'Confirmar venda?', 'Realizar venda', MB_YESNO) of
+      idYes:
+        begin
 
-      finally
-        Case
-        MessageBox(Application.Handle, 'Confirmar venda?', 'Realizar venda', MB_YESNO) of
-        idYes:
+          clienteVenda := TCliente.Create;
+          clienteVenda := clienteVenda.FindByNome(nomeCliente);
+
+          if clienteVenda.nome_completo = '' then
           begin
+            ShowMessage('Cliente não encontrado!');
+          end
+          else
+          begin
+            try
+              novaVenda := TVenda.Create;
+              novaVenda.vendedor := LoginPage.usuarioLogado.nome_completo;
 
-            clienteVenda := TCliente.Create;
-            clienteVenda := clienteVenda.FindByNome(nomeCliente);
+              novaVenda.livro := livroVenda.titulo;
+              novaVenda.cliente := clienteVenda.nome_completo;
+              novaVenda.valorTotal := FloatToStr(vendaControle.valorAtual);
 
-            if clienteVenda.nome_completo = '' then
-            begin
-              ShowMessage('Cliente não encontrado!');
-            end
-            else
-            begin
-              try
-                novaVenda.Insert(novaVenda);
-              finally
-                ShowMessage('Venda realizada com sucesso!');
-                FreeAndNil(novaVenda);
-                FreeandNil(clienteVenda);
-                NewVendaForm.Visible := False;
-              end;
+              novaVenda.Insert(novaVenda);
+            finally
+              ShowMessage('Venda realizada com sucesso!');
+              NewVendaForm.Visible := False;
+              FreeAndNil(novaVenda);
+              FreeandNil(clienteVenda);
             end;
           end;
-        idNo:
-          begin
-            ShowMessage('Operação cancelada!');
-          end;
-        End;
-      end;
+        end;
+      idNo:
+        begin
+          ShowMessage('Operação cancelada!');
+        end;
+      End;
     end;
   end;
 

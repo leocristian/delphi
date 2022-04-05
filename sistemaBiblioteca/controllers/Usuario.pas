@@ -23,6 +23,7 @@ type
     procedure Delete(const codUsuario: Integer);
 
     function FindByNomeAndSenha(var nome, senha: String): TUsuario;
+    procedure FindByNomeCompleto(const objUsuario: TUsuario);
 
   End;
 
@@ -174,6 +175,33 @@ begin
 
     FreeAndNil(query);
   end;
+end;
 
+procedure TUsuario.FindByNomeCompleto(const objUsuario: TUsuario);
+var
+  query: TUniQuery;
+begin
+  try
+
+    query := TUniQuery.Create(nil);
+    query.connection := DataModule1.dbConnection;
+
+    query.Close;
+    query.SQL.Clear;
+
+    query.SQL.Add('select * from usuarios ');
+    query.SQL.Add('Where nome_completo = ' + QuotedStr(objUsuario.nome_completo));
+
+    query.ExecSQL;
+    if query.RecordCount > 0 then
+    begin
+      objUsuario.cod := query.FieldByName('codigo').AsInteger;
+      objUsuario.email := query.FieldByName('email').AsString;
+      objUsuario.login := query.FieldByName('login').AsString;
+      objUsuario.senha := query.FieldByName('senha').AsString;
+    end;
+  finally
+    FreeAndNil(query);
+  end;
 end;
 end.

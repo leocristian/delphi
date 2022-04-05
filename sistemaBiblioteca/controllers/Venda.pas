@@ -48,7 +48,7 @@ begin
                   + ',' + QuotedStr(objVenda.cliente)
                   + ',' + objVenda.valorTotal;
 
-    query.SQL.Add('insert into vendas values (' + valuesStr + ')');
+    query.SQL.Add('insert into vendas values ' + valuesStr);
 
     query.SQL.Add(valuesStr);
 

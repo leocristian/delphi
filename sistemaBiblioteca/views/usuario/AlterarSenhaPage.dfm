@@ -54,6 +54,7 @@ object AlterarSenhaForm: TAlterarSenhaForm
     Top = 80
     Width = 145
     Height = 21
+    PasswordChar = '*'
     TabOrder = 0
   end
   object novaSenhaInput: TEdit
@@ -61,6 +62,7 @@ object AlterarSenhaForm: TAlterarSenhaForm
     Top = 128
     Width = 145
     Height = 21
+    PasswordChar = '*'
     TabOrder = 1
   end
   object novaSenhaCheckInput: TEdit

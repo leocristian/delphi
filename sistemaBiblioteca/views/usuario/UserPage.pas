@@ -85,11 +85,29 @@ begin
     end
   else if UserForm.BuscaPessoa1.ComboBox1.Text = 'Nome completo' then
     begin
-      ShowMessage('Buscando por nome completo');
+      try
+
+        usuarioEncontrado := TUsuario.Create;
+        usuarioEncontrado.nome_completo := Self.BuscaPessoa1.Edit1.Text;
+        usuarioEncontrado.FindByNomeCompleto(usuarioEncontrado);
+
+      finally
+
+        if usuarioEncontrado.email = '' then
+        begin
+          ShowMessage('Usuário não encontrado!');
+        end
+        else
+        begin
+          ShowUserPage.ShowUsuarioForm.PreencherInputs(usuarioEncontrado);
+          ShowUserPage.ShowUsuarioForm.visible := True;
+          Self.cxGrid1DBTableView1.GetColumnByFieldName('codigo');
+        end;
+      end;
     end
   else
     begin
-      ShowMessage('Campo inválido!');
+      ShowMessage('Campo de busca inválido!');
     end;
 
 end;

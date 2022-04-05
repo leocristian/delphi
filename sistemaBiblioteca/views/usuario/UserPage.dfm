@@ -24,7 +24,6 @@ object UserForm: TUserForm
     Height = 72
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = 8
     ExplicitWidth = 796
     inherited ComboBox1: TComboBox
       Text = 'Nome completo'
@@ -55,7 +54,6 @@ object UserForm: TUserForm
     ParentFont = False
     PopupMenu = PopupMenu1
     TabOrder = 1
-    ExplicitTop = 78
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
