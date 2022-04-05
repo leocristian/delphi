@@ -27,6 +27,8 @@ type
     cxGrid1DBTableView1nome_completo: TcxGridDBColumn;
     cxGrid1DBTableView1email: TcxGridDBColumn;
     cxGrid1DBTableView1telefone: TcxGridDBColumn;
+    cxStyleRepository1: TcxStyleRepository;
+    cxStyle1: TcxStyle;
 
     procedure SetFocus(Sender: TObject);
     procedure BuscaPessoa1Button1Click(Sender: TObject);

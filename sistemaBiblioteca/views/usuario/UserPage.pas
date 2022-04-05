@@ -25,7 +25,6 @@ type
     cxGrid1: TcxGrid;
     cxGrid1DBTableView1codigo: TcxGridDBColumn;
     cxGrid1DBTableView1login: TcxGridDBColumn;
-    AtualizarBtn: TButton;
     cxGrid1DBTableView1nome_completo: TcxGridDBColumn;
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;

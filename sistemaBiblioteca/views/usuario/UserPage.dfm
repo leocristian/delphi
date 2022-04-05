@@ -32,9 +32,15 @@ object UserForm: TUserForm
         'Codigo')
     end
     inherited Button1: TButton
-      Left = 384
+      Left = 440
+      Top = 16
+      Width = 105
+      Height = 44
       OnClick = BuscarUsuario
-      ExplicitLeft = 384
+      ExplicitLeft = 440
+      ExplicitTop = 16
+      ExplicitWidth = 105
+      ExplicitHeight = 44
     end
     inherited Edit1: TEdit
       OnClick = SetFocus
@@ -54,6 +60,7 @@ object UserForm: TUserForm
     ParentFont = False
     PopupMenu = PopupMenu1
     TabOrder = 1
+    ExplicitTop = 78
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -62,16 +69,25 @@ object UserForm: TUserForm
       Navigator.Buttons.Next.Visible = True
       Navigator.Buttons.NextPage.Visible = True
       Navigator.Buttons.Last.Visible = True
-      Navigator.Buttons.Insert.Visible = True
+      Navigator.Buttons.Insert.Enabled = False
+      Navigator.Buttons.Insert.Visible = False
+      Navigator.Buttons.Append.Enabled = False
       Navigator.Buttons.Append.Visible = False
+      Navigator.Buttons.Delete.Enabled = False
       Navigator.Buttons.Delete.Visible = False
-      Navigator.Buttons.Edit.Visible = True
-      Navigator.Buttons.Post.Visible = True
+      Navigator.Buttons.Edit.Enabled = False
+      Navigator.Buttons.Edit.Visible = False
+      Navigator.Buttons.Post.Enabled = False
+      Navigator.Buttons.Post.Visible = False
+      Navigator.Buttons.Cancel.Enabled = False
       Navigator.Buttons.Cancel.Visible = False
       Navigator.Buttons.Refresh.Visible = True
-      Navigator.Buttons.SaveBookmark.Visible = True
-      Navigator.Buttons.GotoBookmark.Visible = True
-      Navigator.Buttons.Filter.Visible = True
+      Navigator.Buttons.SaveBookmark.Enabled = False
+      Navigator.Buttons.SaveBookmark.Visible = False
+      Navigator.Buttons.GotoBookmark.Enabled = False
+      Navigator.Buttons.GotoBookmark.Visible = False
+      Navigator.Buttons.Filter.Enabled = False
+      Navigator.Buttons.Filter.Visible = False
       Navigator.InfoPanel.DisplayMask = '[RecordIndex] / [RecordCount]'
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
@@ -80,7 +96,10 @@ object UserForm: TUserForm
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsSelection.CellSelect = False
       OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
       object cxGrid1DBTableView1codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
@@ -100,15 +119,6 @@ object UserForm: TUserForm
     object cxGrid1Level1: TcxGridLevel
       GridView = cxGrid1DBTableView1
     end
-  end
-  object AtualizarBtn: TButton
-    Left = 512
-    Top = 17
-    Width = 89
-    Height = 41
-    Caption = 'Atualizar'
-    TabOrder = 2
-    OnClick = AtualizarGrid
   end
   object PopupMenu1: TPopupMenu
     Left = 728
