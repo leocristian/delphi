@@ -23,14 +23,14 @@ object DataModule1: TDataModule1
     Top = 232
   end
   object tbUsuarios: TUniTable
-    TableName = 'usuarios'
+    TableName = 'usuarios2'
     Connection = dbConnection
     Active = True
     Left = 56
     Top = 160
   end
   object tbClientes: TUniTable
-    TableName = 'clientes'
+    TableName = 'clientes2'
     Connection = dbConnection
     Active = True
     Left = 128
@@ -86,7 +86,7 @@ object DataModule1: TDataModule1
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44653.748292037000000000
-    ReportOptions.LastChange = 44655.474178229170000000
+    ReportOptions.LastChange = 44655.474178229200000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'

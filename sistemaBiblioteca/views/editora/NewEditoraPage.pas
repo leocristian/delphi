@@ -12,6 +12,8 @@ type
     editoraNomeInput: TEdit;
     editoraCnpjInput: TEdit;
     AdicionarEditoraBtn: TButton;
+    Label2: TLabel;
+    Label3: TLabel;
 
     procedure OpenEditoraForm(Sender: TObject);
     procedure Adicionar(Sender: TObject);

@@ -2,9 +2,9 @@ object NewUserForm: TNewUserForm
   Left = 0
   Top = 0
   BorderStyle = bsToolWindow
-  Caption = 'NewUserForm'
-  ClientHeight = 316
-  ClientWidth = 304
+  Caption = 'Cadastro de usu'#225'rio'
+  ClientHeight = 310
+  ClientWidth = 299
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -88,14 +88,14 @@ object NewUserForm: TNewUserForm
   object senhaInput: TEdit
     Left = 40
     Top = 217
-    Width = 105
+    Width = 97
     Height = 21
     PasswordChar = '*'
     TabOrder = 3
   end
   object AdicionarUsuarioBtn: TButton
-    Left = 164
-    Top = 263
+    Left = 72
+    Top = 255
     Width = 84
     Height = 34
     Caption = 'Cadastrar-se'
@@ -109,5 +109,14 @@ object NewUserForm: TNewUserForm
     Height = 21
     PasswordChar = '*'
     TabOrder = 4
+  end
+  object Button1: TButton
+    Left = 173
+    Top = 255
+    Width = 75
+    Height = 34
+    Caption = 'Cancelar'
+    TabOrder = 6
+    OnClick = Cancelar
   end
 end

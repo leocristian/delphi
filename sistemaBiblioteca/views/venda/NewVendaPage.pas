@@ -30,9 +30,10 @@ type
     dsLivrosVenda: TDataSource;
 
     procedure RealizarVenda(Sender: TObject);
-    procedure OpenForm(Sender: TObject);
+    procedure AbrirForm(Sender: TObject);
     procedure AdicionarLivro(Sender: TObject);
-    procedure create(Sender: TObject);
+    procedure CriarForm(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -49,9 +50,9 @@ implementation
 
 {$R *.dfm}
 
-uses Cliente, LoginPage, Venda, dmDatabase;
+uses Cliente, LoginPage, Venda, dmDatabase, NewClientPage;
 
-procedure TNewVendaForm.create(Sender: TObject);
+procedure TNewVendaForm.CriarForm(Sender: TObject);
 begin
   livrosStr := '';
 end;
@@ -102,7 +103,7 @@ begin
 
 end;
 
-procedure TNewVendaForm.OpenForm(Sender: TObject);
+procedure TNewVendaForm.AbrirForm(Sender: TObject);
 begin
   formManipulation := TFormManipulation.Create;
   vendaControle := TVendaControle.Create;
@@ -135,7 +136,6 @@ begin
       tituloLivro := NewVendaform.TituloInput.Text;
 
       livroVenda := livroVenda.FindByTitulo(tituloLivro);
-      ShowMessage(IntToStr(livroVenda.cod));
 
     finally
 
@@ -149,7 +149,15 @@ begin
 
           if clienteVenda.nome_completo = '' then
           begin
-            ShowMessage('Cliente não encontrado!');
+            case
+            MessageBox(Application.HAndle, 'Cliente não encontrado! Adicionar um novo cliente?', 'Adicionar cliente', MB_YESNO) of
+            idYes:
+              begin
+                NewClientForm.Visible := True;
+                NewClientForm.clientNameInput.Text := nomeCliente;
+              end;
+            idNo: ShowMessage('Operação cancelada.');
+            end;
           end
           else
           begin
@@ -161,12 +169,16 @@ begin
               novaVenda.cliente := clienteVenda.nome_completo;
               novaVenda.valorTotal := FloatToStr(vendaControle.valorAtual);
 
-              showmessage(novaVenda.livro);
-
               novaVenda.Insert(novaVenda);
             finally
               ShowMessage('Venda realizada com sucesso!');
               NewVendaForm.Visible := False;
+
+              Self.tbLivrosVenda.Free;
+
+              vendaControle.ZerarValor;
+              novaVenda.valorTotal := FloatToStr(vendaControle.valorAtual);
+
               FreeAndNil(novaVenda);
               FreeandNil(clienteVenda);
               FreeAndNil(livroVenda);

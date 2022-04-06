@@ -39,18 +39,18 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TFormUsuario, FormUsuario);
   Application.CreateForm(TFormPrincipal, FormPrincipal);
+  Application.CreateForm(TNewUserForm, NewUserForm);
+  Application.CreateForm(TLivrosForm, LivrosForm);
   Application.CreateForm(TUserForm, UserForm);
   Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TClientForm, ClientForm);
-  Application.CreateForm(TLivrosForm, LivrosForm);
   Application.CreateForm(TEditorasForm, EditorasForm);
   Application.CreateForm(TDataModule1, DataModule1);
-  Application.CreateForm(TNewUserForm, NewUserForm);
   Application.CreateForm(TNewClientForm, NewClientForm);
   Application.CreateForm(TNewEditoraForm, NewEditoraForm);
   Application.CreateForm(TNewLivroForm, NewLivroForm);
-  Application.CreateForm(TVendasForm, VendasForm);
   Application.CreateForm(TNewVendaForm, NewVendaForm);
+  Application.CreateForm(TVendasForm, VendasForm);
   Application.CreateForm(TShowUsuarioForm, ShowUsuarioForm);
   Application.CreateForm(TEditUserForm, EditUserForm);
   Application.CreateForm(TShowClienteForm, ShowClienteForm);
@@ -60,3 +60,6 @@ begin
   Application.CreateForm(TAlterarSenhaForm, AlterarSenhaForm);
   Application.Run;
 end.
+
+
+

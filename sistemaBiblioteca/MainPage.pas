@@ -79,41 +79,29 @@ end;
 procedure TFormPrincipal.AbrirTelaLivros(Sender: TObject);
 begin
 
-  tabSheet := TTabSheet.Create(FormPrincipal.PageControl1);
-  tabSheet.PageControl := FormPrincipal.PageControl1;
+  tabSheet := FormPrincipal.PageControl1.ActivePage;
 
-  LivrosPage.LivrosForm.Parent := tabSheet;
-  LivrosPage.LivrosForm.Visible := True;
-
-  tabSheet.Caption := 'Livros';
-  FormPrincipal.PageControl1.ActivePage := tabSheet;
+  LivrosForm.Parent := tabSheet;
+  LivrosForm.Visible := True;
 
 end;
 
 procedure TFormPrincipal.AbrirTelaUsuarios(Sender: TObject);
 begin
 
-  tabSheet := TTabSheet.Create(FormPrincipal.PageControl1);
-  tabSheet.PageControl := FormPrincipal.PageControl1;
+  tabSheet := FormPrincipal.PageControl1.ActivePage;
 
-  UserPage.UserForm.Parent := tabSheet;
-  UserPage.UserForm.Visible := True;
-
-  tabSheet.Caption := 'Usuarios';
-  FormPrincipal.PageControl1.ActivePage := tabSheet;
+  UserForm.Parent := tabSheet;
+  UserForm.Visible := True;
 
 end;
 
 procedure TFormPrincipal.AbrirTelaVendas(Sender: TObject);
 begin
-  tabSheet := TTabSheet.Create(FormPrincipal.PageControl1);
-  tabSheet.PageControl := FormPrincipal.PageControl1;
+  tabSheet := FormPrincipal.PageControl1.ActivePage;
 
-  VendasPage.VendasForm.Parent := tabSheet;
-  VendasPage.VendasForm.Visible := True;
-
-  tabSheet.Caption := 'Vendas';
-  FormPrincipal.PageControl1.ActivePage := tabSheet;
+  VendasForm.Parent := tabSheet;
+  VendasForm.Visible := True;
 end;
 
 procedure TFormPrincipal.AlterarSenha(Sender: TObject);
@@ -135,28 +123,20 @@ end;
 procedure TFormPrincipal.AbrirTelaClientes(Sender: TObject);
 begin
 
-  tabSheet := TTabSheet.Create(FormPrincipal.PageControl1);
-  tabSheet.PageControl := FormPrincipal.PageControl1;
+  tabSheet := FormPrincipal.PageControl1.ActivePage;
 
-  ClientPage.ClientForm.Parent := tabSheet;
-  ClientPage.ClientForm.Visible := True;
-
-  tabSheet.Caption := 'Clientes';
-  FormPrincipal.PageControl1.ActivePage := tabSheet;
+  ClientForm.Parent := tabSheet;
+  ClientForm.Visible := True;
 
 end;
 
 procedure TFormPrincipal.AbrirTelaEditoras(Sender: TObject);
 begin
 
-  tabSheet := TTabSheet.Create(FormPrincipal.PageControl1);
-  tabSheet.PageControl := FormPrincipal.PageControl1;
+  tabSheet := FormPrincipal.PageControl1.ActivePage;
 
-  EditorasPage.EditorasForm.Parent := tabSheet;
-  EditorasPage.EditorasForm.Visible := True;
-
-  tabSheet.Caption := 'Editoras';
-  FormPrincipal.PageControl1.ActivePage := tabSheet;
+  EditorasForm.Parent := tabSheet;
+  EditorasForm.Visible := True;
 
 end;
 

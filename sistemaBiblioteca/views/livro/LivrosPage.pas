@@ -31,6 +31,8 @@ type
     Inserirnovolivro2: TMenuItem;
     N1: TMenuItem;
     Excluirselecionado1: TMenuItem;
+    cxStyleRepository1: TcxStyleRepository;
+    cxStyle1: TcxStyle;
     procedure AdicionarLivro(Sender: TObject);
     procedure DeletarLivro(Sender: TObject);
   private

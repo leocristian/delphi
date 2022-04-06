@@ -20,10 +20,12 @@ type
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
+    Button1: TButton;
 
     procedure OpenUserForm(Sender: TObject);
     procedure Adicionar(Sender: TObject);
     procedure LimparForms;
+    procedure Cancelar(Sender: TObject);
 
   private
     { Private declarations }
@@ -45,6 +47,11 @@ procedure TNewUserForm.OpenUserForm(Sender: TObject);
 begin
   formManipulation.LimparInputs(NewUserForm);
   formManipulation.AbrirForm(NewUserForm);
+end;
+
+procedure TNewUserForm.Cancelar(Sender: TObject);
+begin
+  Self.Visible := False;
 end;
 
 procedure TNewUserForm.LimparForms;
@@ -76,15 +83,13 @@ begin
           novoUsuario.email := NewUserForm.emailInput.Text;
           novoUsuario.login := NewUserForm.loginInput.Text;
           novoUsuario.senha := NewUserForm.senhaInput.Text;
-
-          novoUsuario.Insert(novoUsuario);
-
         finally
 
           Case
             MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar usuário', MB_YESNO) of
             idYes:
               begin
+                novoUsuario.Insert(novoUsuario);
                 ShowMessage('Usuario inserido com sucesso!');
                 FreeAndNil(novoUsuario);
                 NewUserForm.Visible := False;

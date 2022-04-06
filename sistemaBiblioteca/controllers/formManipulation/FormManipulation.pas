@@ -8,6 +8,7 @@ uses
 type
   TFormManipulation = class
     procedure AbrirForm(const objForm: TForm);
+    procedure MostrarForm(const objForm: TForm);
     procedure LimparInputs(const owner: TWinControl);
     function ExisteInputsVazios(const owner: TWinControl): Boolean;
   end;
@@ -21,6 +22,18 @@ begin
   mousePointer := Mouse.CursorPos;
   objForm.Left := mousePointer.X - 100;
   objForm.Top := mousePointer.Y - 100;
+end;
+
+procedure TFormManipulation.MostrarForm(const objForm: TForm);
+begin
+  if objForm.Visible = True then
+  begin
+    objForm.BringToFront;
+  end
+  else
+  begin
+    objForm.Visible := True
+  end;
 end;
 
 procedure TFormManipulation.LimparInputs(const owner: TWinControl);

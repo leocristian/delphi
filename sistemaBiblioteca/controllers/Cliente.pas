@@ -8,6 +8,7 @@ uses
 type
   TCliente = class
     cod: Integer;
+    cpf: String;
     nome_completo: String;
     email: String;
     telefone: String;
@@ -40,14 +41,15 @@ begin
 
     query.Close;
     query.SQL.Clear;
-    query.SQL.Add('insert into clientes (codigo, nome_completo, email, telefone) ');
+    query.SQL.Add('insert into clientes2 (codigo, cpf, nome_completo, email, telefone) ');
     query.SQL.Add('values ');
 
-    valuesStr := '(:codigo, :nome_completo, :email, :telefone)'; // add cpf
+    valuesStr := '(:codigo, :cpf, :nome_completo, :email, :telefone)';
 
     query.SQL.Add(valuesStr);
 
     query.ParamByName('codigo').Value := objCliente.cod;
+    query.ParamByName('cpf').Value := objCliente.cpf;
     query.ParamByName('nome_completo').Value := objCliente.nome_completo;
     query.ParamByName('email').Value := objCliente.email;
     query.ParamByName('telefone').Value := objCliente.telefone;
@@ -70,7 +72,7 @@ begin
     query.Close;
     query.SQL.Clear;
 
-    query.SQL.Add('select * from clientes');
+    query.SQL.Add('select * from clientes2');
     query.SQL.Add('where codigo = :codigo');
 
     query.ParamByName('codigo').Value := objCliente.cod;
@@ -99,7 +101,7 @@ begin
     query.Close;
     query.SQL.Clear;
 
-    queryStr := 'update clientes set nome_completo = :nome_completo, email = :email, telefone = :telefone';
+    queryStr := 'update clientes2 set nome_completo = :nome_completo, email = :email, telefone = :telefone';
     query.SQL.Add(queryStr);
     query.SQL.Add(' where codigo = :codigo');
 
@@ -124,7 +126,7 @@ begin
 
     query.Close;
     query.SQL.Clear;
-    query.SQL.Add('delete from clientes where codigo = ' + IntToStr(codDelete));
+    query.SQL.Add('delete from clientes2 where codigo = ' + IntToStr(codDelete));
 
     query.ExecSQL;
   finally
@@ -145,7 +147,7 @@ begin
     query.Close;
     query.SQL.Clear;
 
-    query.SQL.Add('select * from clientes ');
+    query.SQL.Add('select * from clientes2 ');
     query.SQL.Add('where nome_completo = ' + QuotedStr(nomeParam));
 
     query.ExecSQL;

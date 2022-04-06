@@ -28,25 +28,37 @@ object NewEditoraForm: TNewEditoraForm
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Label2: TLabel
+    Left = 40
+    Top = 61
+    Width = 27
+    Height = 13
+    Caption = 'Nome'
+  end
+  object Label3: TLabel
+    Left = 40
+    Top = 112
+    Width = 25
+    Height = 13
+    Caption = 'CNPJ'
+  end
   object editoraNomeInput: TEdit
     Left = 40
-    Top = 72
+    Top = 80
     Width = 177
     Height = 21
     TabOrder = 0
-    TextHint = 'Nome fantasia'
   end
   object editoraCnpjInput: TEdit
     Left = 40
-    Top = 107
+    Top = 131
     Width = 177
     Height = 21
     TabOrder = 1
-    TextHint = 'CNPJ'
   end
   object AdicionarEditoraBtn: TButton
     Left = 142
-    Top = 144
+    Top = 168
     Width = 75
     Height = 25
     Caption = 'Adicionar'

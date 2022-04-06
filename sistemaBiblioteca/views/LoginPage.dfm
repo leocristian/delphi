@@ -2,10 +2,10 @@ object FormUsuario: TFormUsuario
   Left = 0
   Top = 0
   Anchors = []
-  BorderStyle = bsNone
+  BorderStyle = bsToolWindow
   Caption = 'Login'
-  ClientHeight = 373
-  ClientWidth = 662
+  ClientHeight = 344
+  ClientWidth = 656
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,6 +13,7 @@ object FormUsuario: TFormUsuario
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Visible = True
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13

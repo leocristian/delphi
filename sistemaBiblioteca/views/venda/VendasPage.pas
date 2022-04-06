@@ -28,7 +28,6 @@ type
     Excluirvendaselecionada1: TMenuItem;
     cxGrid1DBTableView1codigo: TcxGridDBColumn;
     cxGrid1DBTableView1vendedor: TcxGridDBColumn;
-    cxGrid1DBTableView1livro: TcxGridDBColumn;
     cxGrid1DBTableView1cliente: TcxGridDBColumn;
     cxGrid1DBTableView1valor_total: TcxGridDBColumn;
     cxStyleRepository1: TcxStyleRepository;
@@ -47,11 +46,13 @@ implementation
 
 {$R *.dfm}
 
-uses dmDatabase, NewVendaPage;
+uses dmDatabase, NewVendaPage, FormManipulation;
 
 procedure TVendasForm.NovaVenda(Sender: TObject);
+var
+  formManipulation: TFormManipulation;
 begin
-  NewVendaPage.NewVendaForm.Visible := True;
+  formManipulation.MostrarForm(NewVendaForm);
 end;
 
 end.

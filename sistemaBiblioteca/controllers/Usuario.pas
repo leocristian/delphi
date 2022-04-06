@@ -48,7 +48,7 @@ begin
 
     query.Close;
     query.SQL.Clear;
-    query.SQL.Add('insert into usuarios (codigo, nome_completo, email, login, senha) ');
+    query.SQL.Add('insert into usuarios2 (codigo, nome_completo, email, login, senha) ');
     query.SQL.Add('values ');
 
     valuesStr := '(:codigo, :nome_completo, :email, :login, md5(:senha))';

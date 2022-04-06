@@ -13,9 +13,15 @@ type
     clientEmailInput: TEdit;
     clientTelInput: TEdit;
     AdicionarClienteBtn: TButton;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    clientCpfInput: TEdit;
+    Label5: TLabel;
 
-    procedure OpenClienteForm(Sender: TObject);
+    procedure AbrirForm(Sender: TObject);
     procedure Adicionar(Sender: TObject);
+    procedure Cancelar(Sender: TObject);
 
   private
     { Private declarations }
@@ -33,7 +39,12 @@ implementation
 
 uses Cliente;
 
-procedure TNewClientForm.OpenClienteForm(Sender: TObject);
+procedure TNewClientForm.Cancelar(Sender: TObject);
+begin
+  Self.Visible := False;
+end;
+
+procedure TNewClientForm.AbrirForm(Sender: TObject);
 begin
   formManipulation.LimparInputs(NewClientForm);
   formManipulation.AbrirForm(NewClientForm);
@@ -54,18 +65,19 @@ begin
     novoCliente := TCliente.Create;
 
     try
+
+      novoCliente.cpf := NewClientForm.clientCpfInput.Text;
       novoCliente.nome_completo := NewClientForm.clientNameInput.Text;
       novoCliente.email := NewClientForm.clientEmailInput.Text;
       novoCliente.telefone := NewClientForm.clientTelInput.Text;
-
-      novoCliente.Insert(novoCliente);
 
     finally
       Case
         MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar usuário', MB_YESNO) of
         idYes:
           begin
-            ShowMessage('Usuario inserido com sucesso!');
+            novoCliente.Insert(novoCliente);
+            ShowMessage('Cliente cadastrado com sucesso!');
             FreeAndNil(novoCliente);
             NewClientForm.Visible := False;
           end;

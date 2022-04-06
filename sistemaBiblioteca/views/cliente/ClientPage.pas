@@ -23,14 +23,14 @@ type
     cxGrid1DBTableView1: TcxGridDBTableView;
     cxGrid1Level1: TcxGridLevel;
     cxGrid1: TcxGrid;
+    cxStyleRepository1: TcxStyleRepository;
+    cxStyle1: TcxStyle;
     cxGrid1DBTableView1codigo: TcxGridDBColumn;
+    cxGrid1DBTableView1cpf: TcxGridDBColumn;
     cxGrid1DBTableView1nome_completo: TcxGridDBColumn;
     cxGrid1DBTableView1email: TcxGridDBColumn;
     cxGrid1DBTableView1telefone: TcxGridDBColumn;
-    cxStyleRepository1: TcxStyleRepository;
-    cxStyle1: TcxStyle;
 
-    procedure SetFocus(Sender: TObject);
     procedure BuscaPessoa1Button1Click(Sender: TObject);
     procedure CreateClient(Sender: TObject);
     procedure DeletarCliente(Sender: TObject);
@@ -59,7 +59,7 @@ end;
 
 procedure TClientForm.CreateClient(Sender: TObject);
 begin
-  NewClientPage.NewClientForm.Visible := True;
+  formManipulation.MostrarForm(NewClientForm);
 end;
 
 procedure TClientForm.DeletarCliente(Sender: TObject);
@@ -88,11 +88,6 @@ begin
       end;
     idNo: ShowMessage('Operação cancelada');
   end;
-end;
-
-procedure TClientForm.SetFocus(Sender: TObject);
-begin
-  ClientForm.BuscaPessoa1.Edit1.SetFocus;
 end;
 
 procedure TClientForm.ShowClienteInfo(Sender: TObject);

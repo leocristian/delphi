@@ -3,8 +3,8 @@ object AlterarSenhaForm: TAlterarSenhaForm
   Top = 0
   BorderStyle = bsToolWindow
   Caption = 'AlterarSenhaForm'
-  ClientHeight = 252
-  ClientWidth = 238
+  ClientHeight = 260
+  ClientWidth = 235
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -74,7 +74,7 @@ object AlterarSenhaForm: TAlterarSenhaForm
   end
   object Button1: TButton
     Left = 110
-    Top = 203
+    Top = 211
     Width = 75
     Height = 25
     Caption = 'Alterar senha'

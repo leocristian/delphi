@@ -7,6 +7,7 @@ type
 
     valorAtual: Float32;
     procedure IncrementaValor(const novoValor: Float32);
+    procedure ZerarValor;
 
     constructor Create;
 
@@ -19,9 +20,14 @@ begin
   Self.valorAtual := Self.valorAtual + novoValor;
 end;
 
-constructor TVendaControle.Create;
+procedure TVendaControle.ZerarValor;
 begin
   Self.valorAtual := 0;
+end;
+
+constructor TVendaControle.Create;
+begin
+  Self.ZerarValor;
 end;
 
 end.

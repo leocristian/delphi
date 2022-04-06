@@ -2,9 +2,9 @@ object NewVendaForm: TNewVendaForm
   Left = 0
   Top = 0
   BorderStyle = bsToolWindow
-  Caption = 'NewVendaForm'
+  Caption = 'Nova venda'
   ClientHeight = 460
-  ClientWidth = 407
+  ClientWidth = 399
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,8 +12,8 @@ object NewVendaForm: TNewVendaForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  OnCreate = create
-  OnShow = OpenForm
+  OnCreate = CriarForm
+  OnShow = AbrirForm
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -155,11 +155,6 @@ object NewVendaForm: TNewVendaForm
       item
         Expanded = False
         FieldName = 'titulo'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
         ReadOnly = True
         Title.Caption = 'T'#237'tulo do livro'
         Title.Font.Charset = DEFAULT_CHARSET
@@ -173,11 +168,6 @@ object NewVendaForm: TNewVendaForm
       item
         Expanded = False
         FieldName = 'preco'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
         ReadOnly = True
         Title.Caption = 'Pre'#231'o'
         Title.Font.Charset = DEFAULT_CHARSET

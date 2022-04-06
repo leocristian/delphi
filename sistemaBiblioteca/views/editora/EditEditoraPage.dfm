@@ -31,9 +31,9 @@ object EditEditoraForm: TEditEditoraForm
   object Label2: TLabel
     Left = 120
     Top = 62
-    Width = 69
+    Width = 27
     Height = 13
-    Caption = 'Nome fantasia'
+    Caption = 'Nome'
   end
   object Label3: TLabel
     Left = 48
