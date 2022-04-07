@@ -7302,20 +7302,15 @@ object VendasForm: TVendasForm
       OptionsView.IndicatorWidth = 20
       Styles.Header = cxStyle1
       object cxGrid1DBTableView1codigo: TcxGridDBColumn
-        Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
-        VisibleForEditForm = bFalse
       end
       object cxGrid1DBTableView1vendedor: TcxGridDBColumn
-        Caption = 'Vendedor'
         DataBinding.FieldName = 'vendedor'
       end
       object cxGrid1DBTableView1cliente: TcxGridDBColumn
-        Caption = 'Cliente'
         DataBinding.FieldName = 'cliente'
       end
       object cxGrid1DBTableView1valor_total: TcxGridDBColumn
-        Caption = 'Valor total'
         DataBinding.FieldName = 'valor_total'
       end
     end
@@ -7328,6 +7323,7 @@ object VendasForm: TVendasForm
     Top = 24
     object Visualizarselecionado1: TMenuItem
       Caption = 'Visualizar venda selecionada'
+      OnClick = VisualizarVenda
     end
     object Visualizarselecionado2: TMenuItem
       Caption = 'Realizar nova venda'

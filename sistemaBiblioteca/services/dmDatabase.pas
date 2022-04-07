@@ -18,10 +18,12 @@ type
     tbLivros: TUniTable;
     tbEditoras: TUniTable;
     dsEditoras: TDataSource;
-    tbVendas: TUniTable;
-    dsVendas: TDataSource;
     relVendas: TfrxReport;
     relDsVendas: TfrxDBDataset;
+    tbVendas: TUniTable;
+    dsVendas: TDataSource;
+    tbLivrosVenda: TUniTable;
+    dsLivrosVenda: TDataSource;
 
     procedure ShowRelatorioVendas;
   private

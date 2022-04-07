@@ -26,13 +26,14 @@ type
     Alterarvendaselecionada1: TMenuItem;
     N1: TMenuItem;
     Excluirvendaselecionada1: TMenuItem;
+    cxStyleRepository1: TcxStyleRepository;
+    cxStyle1: TcxStyle;
     cxGrid1DBTableView1codigo: TcxGridDBColumn;
     cxGrid1DBTableView1vendedor: TcxGridDBColumn;
     cxGrid1DBTableView1cliente: TcxGridDBColumn;
     cxGrid1DBTableView1valor_total: TcxGridDBColumn;
-    cxStyleRepository1: TcxStyleRepository;
-    cxStyle1: TcxStyle;
     procedure NovaVenda(Sender: TObject);
+    procedure VisualizarVenda(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,13 +47,38 @@ implementation
 
 {$R *.dfm}
 
-uses dmDatabase, NewVendaPage, FormManipulation;
+uses dmDatabase, NewVendaPage, FormManipulation, Venda, ShowVendaPage;
 
 procedure TVendasForm.NovaVenda(Sender: TObject);
 var
   formManipulation: TFormManipulation;
 begin
   formManipulation.MostrarForm(NewVendaForm);
+end;
+
+procedure TVendasForm.VisualizarVenda(Sender: TObject);
+var
+  colunaSelecionada: Integer;
+  vendaSelecionada: TVenda;
+
+begin
+
+  colunaSelecionada := Self.cxGrid1DBTableView1.ViewData.DataController.GetSelectedRowIndex(0);
+
+  try
+
+    vendaSelecionada := TVenda.Create;
+    vendaSelecionada.cod := Self.cxGrid1DBTableView1.ViewData.Records[colunaSelecionada].Values[Self.cxGrid1DBTableView1.GetColumnByFieldName('codigo').Index];
+    vendaSelecionada.Read(vendaSelecionada);
+
+  finally
+    ShowVendaForm.codVendaLabel.Caption := IntToStr(vendaSelecionada.cod);
+    ShowVendaForm.vendedorLabel.Caption := vendaSelecionada.vendedor;
+    ShowVendaForm.clienteLabel.Caption := vendaSelecionada.cliente;
+    ShowVendaForm.valorTotalLabel.Caption := vendaSelecionada.valorTotal;
+
+    ShowVendaForm.Visible := True;
+  end;
 end;
 
 end.

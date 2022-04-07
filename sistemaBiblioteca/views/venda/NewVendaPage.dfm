@@ -3,8 +3,8 @@ object NewVendaForm: TNewVendaForm
   Top = 0
   BorderStyle = bsToolWindow
   Caption = 'Nova venda'
-  ClientHeight = 460
-  ClientWidth = 399
+  ClientHeight = 455
+  ClientWidth = 393
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -37,8 +37,8 @@ object NewVendaForm: TNewVendaForm
     Caption = 'Livros selecionados'
   end
   object Label3: TLabel
-    Left = 225
-    Top = 351
+    Left = 257
+    Top = 359
     Width = 91
     Height = 23
     Caption = 'Valor total:'
@@ -50,8 +50,8 @@ object NewVendaForm: TNewVendaForm
     ParentFont = False
   end
   object labelPreco: TLabel
-    Left = 268
-    Top = 388
+    Left = 300
+    Top = 384
     Width = 17
     Height = 33
     Caption = '0'
@@ -63,8 +63,8 @@ object NewVendaForm: TNewVendaForm
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 225
-    Top = 388
+    Left = 257
+    Top = 384
     Width = 37
     Height = 33
     Caption = 'R$'
@@ -105,9 +105,9 @@ object NewVendaForm: TNewVendaForm
   end
   object RealizarVendaBtn: TButton
     Left = 40
-    Top = 356
-    Width = 161
-    Height = 65
+    Top = 364
+    Width = 177
+    Height = 53
     Caption = 'Confirmar venda'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText

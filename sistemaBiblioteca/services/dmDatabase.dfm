@@ -65,18 +65,6 @@ object DataModule1: TDataModule1
     Left = 280
     Top = 232
   end
-  object tbVendas: TUniTable
-    TableName = 'vendas'
-    Connection = dbConnection
-    Active = True
-    Left = 352
-    Top = 160
-  end
-  object dsVendas: TDataSource
-    DataSet = tbVendas
-    Left = 352
-    Top = 232
-  end
   object relVendas: TfrxReport
     Version = '2022.2'
     DotMatrixReport = False
@@ -156,25 +144,10 @@ object DataModule1: TDataModule1
             'Vendedor')
           ParentFont = False
         end
-        object Memo3: TfrxMemoView
+        object Memo4: TfrxMemoView
           AllowVectorExport = True
           Left = 317.480520000000000000
           Top = 3.779530000000000000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Frame.Typ = []
-          Memo.UTF8W = (
-            'Livro')
-          ParentFont = False
-        end
-        object Memo4: TfrxMemoView
-          AllowVectorExport = True
-          Left = 468.661720000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -189,8 +162,7 @@ object DataModule1: TDataModule1
         end
         object Memo5: TfrxMemoView
           AllowVectorExport = True
-          Left = 623.622450000000000000
-          Top = 3.779530000000000000
+          Left = 517.795610000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -245,24 +217,10 @@ object DataModule1: TDataModule1
           Memo.UTF8W = (
             '[relDsVendas."vendedor"]')
         end
-        object relDsVendaslivro: TfrxMemoView
-          IndexTag = 1
-          AllowVectorExport = True
-          Left = 317.480520000000000000
-          Top = 7.559060000000000000
-          Width = 128.504020000000000000
-          Height = 18.897650000000000000
-          DataField = 'livro'
-          DataSet = relDsVendas
-          DataSetName = 'relDsVendas'
-          Frame.Typ = []
-          Memo.UTF8W = (
-            '[relDsVendas."livro"]')
-        end
         object relDsVendascliente: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 468.661720000000000000
+          Left = 317.480520000000000000
           Top = 7.559060000000000000
           Width = 139.842610000000000000
           Height = 18.897650000000000000
@@ -276,7 +234,7 @@ object DataModule1: TDataModule1
         object relDsVendasvalor_total: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 623.622450000000000000
+          Left = 517.795610000000000000
           Top = 7.559060000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
@@ -304,10 +262,34 @@ object DataModule1: TDataModule1
   object relDsVendas: TfrxDBDataset
     UserName = 'relDsVendas'
     CloseDataSource = False
-    DataSet = tbVendas
+    DataSource = dsVendas
     BCDToCurrency = False
     DataSetOptions = []
     Left = 224
     Top = 32
+  end
+  object tbVendas: TUniTable
+    TableName = 'vendas'
+    Connection = dbConnection
+    Active = True
+    Left = 344
+    Top = 168
+  end
+  object dsVendas: TDataSource
+    DataSet = tbVendas
+    Left = 344
+    Top = 240
+  end
+  object tbLivrosVenda: TUniTable
+    TableName = 'livros_venda'
+    Connection = dbConnection
+    Active = True
+    Left = 416
+    Top = 168
+  end
+  object dsLivrosVenda: TDataSource
+    DataSet = tbLivrosVenda
+    Left = 416
+    Top = 240
   end
 end

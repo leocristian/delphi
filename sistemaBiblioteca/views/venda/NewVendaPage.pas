@@ -10,7 +10,7 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, Vcl.DBGrids,
-  MemDS, VirtualTable;
+  MemDS, VirtualTable, Cliente, LoginPage, Venda, dmDatabase, NewClientPage;
 
 type
   TNewVendaForm = class(TForm)
@@ -29,10 +29,10 @@ type
     tbLivrosVenda: TVirtualTable;
     dsLivrosVenda: TDataSource;
 
+    procedure CriarForm(Sender: TObject);
     procedure RealizarVenda(Sender: TObject);
     procedure AbrirForm(Sender: TObject);
     procedure AdicionarLivro(Sender: TObject);
-    procedure CriarForm(Sender: TObject);
 
   private
     { Private declarations }
@@ -44,23 +44,31 @@ var
   NewVendaForm: TNewVendaForm;
   vendaControle: TVendaControle;
   formManipulation: TFormManipulation;
-  livrosStr: String;
+  novaVenda: TVenda;
 
 implementation
 
 {$R *.dfm}
 
-uses Cliente, LoginPage, Venda, dmDatabase, NewClientPage;
+uses LivroVenda;
 
 procedure TNewVendaForm.CriarForm(Sender: TObject);
 begin
-  livrosStr := '';
+  novaVenda := TVenda.Create;
+  formManipulation := TFormManipulation.Create;
+  vendaControle := TVendaControle.Create;
+  novaVenda.cod := novaVenda.SelecionarProxCodigo;
 end;
 
 procedure TNewVendaForm.AdicionarLivro(Sender: TObject);
 var
   livroEncontrado: TLivro;
+  livroVenda: TLivroVenda;
+
 begin
+
+  livroVenda := TLivroVenda.Create;
+
   if Self.TituloInput.Text = '' then
   begin
     ShowMessage('Informe o título do livro!');
@@ -81,6 +89,10 @@ begin
       end
       else
       begin
+        livroVenda.titulo := livroEncontrado.titulo;
+        livroVenda.numeroVenda := novaVenda.cod;
+
+        livroVenda.Insert(livroVenda);
 
         with Self.tbLivrosVenda do
         begin
@@ -91,8 +103,6 @@ begin
         end;
 
         vendaControle.IncrementaValor(StrToFloat(livroEncontrado.preco));
-
-        livrosStr := livrosStr + livroEncontrado.titulo + ', ';
 
         Self.labelPreco.Caption := FloatToStr(vendaControle.valorAtual);
         Self.TituloInput.SetFocus;
@@ -105,9 +115,6 @@ end;
 
 procedure TNewVendaForm.AbrirForm(Sender: TObject);
 begin
-  formManipulation := TFormManipulation.Create;
-  vendaControle := TVendaControle.Create;
-
   formManipulation.LimparInputs(NewVendaForm);
   formManipulation.AbrirForm(NewVendaForm);
 end;
@@ -119,8 +126,6 @@ var
 
   clienteVenda: TCliente;
   livroVenda: TLivro;
-
-  novaVenda: TVenda;
 
 begin
   if formManipulation.ExisteInputsVazios(NewVendaForm) then
@@ -162,10 +167,8 @@ begin
           else
           begin
             try
-              novaVenda := TVenda.Create;
 
               novaVenda.vendedor := LoginPage.usuarioLogado.nome_completo;
-              novaVenda.livro := livrosStr;
               novaVenda.cliente := clienteVenda.nome_completo;
               novaVenda.valorTotal := FloatToStr(vendaControle.valorAtual);
 
@@ -177,9 +180,10 @@ begin
               Self.tbLivrosVenda.Free;
 
               vendaControle.ZerarValor;
-              novaVenda.valorTotal := FloatToStr(vendaControle.valorAtual);
+              Self.labelPreco.Caption := FloatToStr(vendaControle.valorAtual);
 
-              FreeAndNil(novaVenda);
+              novaVenda.cod := novaVenda.SelecionarProxCodigo;
+
               FreeandNil(clienteVenda);
               FreeAndNil(livroVenda);
             end;

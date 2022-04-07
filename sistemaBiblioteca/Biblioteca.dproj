@@ -185,6 +185,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="controllers\BuscaControle.pas"/>
+        <DCCReference Include="controllers\livroVenda.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

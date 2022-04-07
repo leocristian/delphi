@@ -30,15 +30,16 @@ uses
   EditEditoraPage in 'views\editora\EditEditoraPage.pas' {EditEditoraForm},
   VendaControle in 'controllers\VendaControle.pas',
   AlterarSenhaPage in 'views\usuario\AlterarSenhaPage.pas' {AlterarSenhaForm},
-  BuscaControle in 'controllers\BuscaControle.pas';
+  BuscaControle in 'controllers\BuscaControle.pas',
+  livroVenda in 'controllers\livroVenda.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TFormUsuario, FormUsuario);
   Application.CreateForm(TFormPrincipal, FormPrincipal);
+  Application.CreateForm(TFormUsuario, FormUsuario);
   Application.CreateForm(TNewUserForm, NewUserForm);
   Application.CreateForm(TLivrosForm, LivrosForm);
   Application.CreateForm(TUserForm, UserForm);

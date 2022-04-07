@@ -81,7 +81,7 @@ begin
     query.Close;
     query.SQL.Clear;
 
-    query.SQL.Add('select * from usuarios');
+    query.SQL.Add('select * from usuarios2');
     query.SQL.Add('where codigo = :codigo');
 
     query.ParamByName('codigo').Value := objUsuario.cod;
@@ -111,7 +111,7 @@ begin
     query.Close;
     query.SQL.Clear;
 
-    queryStr := 'update usuarios set nome_completo = :nome_completo, email = :email, login = :login';
+    queryStr := 'update usuarios2 set nome_completo = :nome_completo, email = :email, login = :login';
     query.SQL.Add(queryStr);
     query.SQL.Add(' where codigo = :codigo');
 
@@ -139,7 +139,7 @@ begin
     query.Close;
     query.SQL.Clear;
 
-    query.SQL.Add('delete from usuarios where codigo = :codigo');
+    query.SQL.Add('delete from usuarios2 where codigo = :codigo');
     query.ParamByName('codigo').Value := codUsuario;
 
     query.ExecSQL;
@@ -164,7 +164,7 @@ begin
     query.Close;
     query.SQL.Clear;
 
-    query.SQL.Add('select * from usuarios ');
+    query.SQL.Add('select * from usuarios2 ');
     query.SQL.Add('Where login = :login and senha = md5(:senha)');
 
     query.ParamByName('login').Value := nome;
@@ -200,7 +200,7 @@ begin
     query.Close;
     query.SQL.Clear;
 
-    query.SQL.Add('select * from usuarios ');
+    query.SQL.Add('select * from usuarios2 ');
     query.SQL.Add('Where nome_completo = ' + QuotedStr(objUsuario.nome_completo));
 
     query.ExecSQL;
