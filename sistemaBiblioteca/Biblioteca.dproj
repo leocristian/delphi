@@ -186,6 +186,9 @@
         </DCCReference>
         <DCCReference Include="controllers\BuscaControle.pas"/>
         <DCCReference Include="controllers\livroVenda.pas"/>
+        <DCCReference Include="views\venda\ShowVendaPage.pas">
+            <Form>ShowVendaForm</Form>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

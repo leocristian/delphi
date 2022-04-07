@@ -45,9 +45,12 @@ var
   livroVenda: TLivroVenda;
   count: Integer;
 
+  livro: TLivro;
+
 begin
   count := 0;
 
+  Self.tbLivrosVenda.Clear;
   codVenda := StrToInt(Self.codVendaLabel.Caption);
 
   vendaAtual := TVenda.Create;
@@ -59,10 +62,20 @@ begin
 
   listaTitulos := livroVenda.FindAllByCodVenda(vendaAtual.cod);
 
-  with Self.tbLivrosVenda do
+  livro := TLivro.Create;
+
+  while count < listaTitulos.Count  do
   begin
     Self.tbLivrosVenda.Append;
-    Self.tbLivrosVenda['titulo'] := listaTitulos.Items[count];
+
+    livro := livro.FindByTitulo(listaTitulos.Items[count]);
+
+    Self.tbLivrosVenda['codigo'] := livro.cod;
+    Self.tbLivrosVenda['titulo'] := livro.titulo;
+    Self.tbLivrosVenda['editora'] := livro.editora;
+    Self.tbLivrosVenda['anoPublicacao'] := livro.anoPublicacao;
+    Self.tbLivrosVenda['preco'] := livro.preco;
+
     count := count + 1;
   end;
 

@@ -31,7 +31,8 @@ uses
   VendaControle in 'controllers\VendaControle.pas',
   AlterarSenhaPage in 'views\usuario\AlterarSenhaPage.pas' {AlterarSenhaForm},
   BuscaControle in 'controllers\BuscaControle.pas',
-  livroVenda in 'controllers\livroVenda.pas';
+  livroVenda in 'controllers\livroVenda.pas',
+  ShowVendaPage in 'views\venda\ShowVendaPage.pas' {ShowVendaForm};
 
 {$R *.res}
 
@@ -59,6 +60,7 @@ begin
   Application.CreateForm(TShowEditoraForm, ShowEditoraForm);
   Application.CreateForm(TEditEditoraForm, EditEditoraForm);
   Application.CreateForm(TAlterarSenhaForm, AlterarSenhaForm);
+  Application.CreateForm(TShowVendaForm, ShowVendaForm);
   Application.Run;
 end.
 
