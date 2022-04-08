@@ -3,8 +3,8 @@ object NewUserForm: TNewUserForm
   Top = 0
   BorderStyle = bsToolWindow
   Caption = 'Cadastro de usu'#225'rio'
-  ClientHeight = 310
-  ClientWidth = 299
+  ClientHeight = 383
+  ClientWidth = 307
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

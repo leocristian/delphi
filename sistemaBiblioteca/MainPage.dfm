@@ -235,6 +235,7 @@ object FormPrincipal: TFormPrincipal
     AE426082}
   Menu = MainMenu1
   OldCreateOrder = False
+  OnCloseQuery = FormCloseQuery
   OnCreate = AbrirForm
   PixelsPerInch = 96
   TextHeight = 13

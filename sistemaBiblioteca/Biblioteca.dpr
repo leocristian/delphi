@@ -1,5 +1,4 @@
 program Biblioteca;
-
 uses
   Vcl.Forms,
   MainPage in 'MainPage.pas' {FormPrincipal},
@@ -35,7 +34,6 @@ uses
   ShowVendaPage in 'views\venda\ShowVendaPage.pas' {ShowVendaForm};
 
 {$R *.res}
-
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
@@ -63,6 +61,3 @@ begin
   Application.CreateForm(TShowVendaForm, ShowVendaForm);
   Application.Run;
 end.
-
-
-
