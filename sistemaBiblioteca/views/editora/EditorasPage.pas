@@ -28,6 +28,8 @@ type
     PesquisarBtn: TButton;
     cxGrid1DBTableView1codigo: TcxGridDBColumn;
     cxGrid1DBTableView1nome: TcxGridDBColumn;
+    cxStyleRepository1: TcxStyleRepository;
+    cxStyle1: TcxStyle;
     procedure InserirEditora(Sender: TObject);
     procedure ShowEditoraInfo(Sender: TObject);
     procedure AlterarEditora(Sender: TObject);

@@ -3611,8 +3611,6 @@ object ClientForm: TClientForm
     Height = 320
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 78
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True

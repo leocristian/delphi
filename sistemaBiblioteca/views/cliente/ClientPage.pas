@@ -82,7 +82,7 @@ begin
         try
           clienteDelete.Delete(codDelete);
         finally
-          ShowMessage('Cliente excluido com sucesso, codigo: ' + IntToStr(codDelete));
+          ShowMessage('Cliente excluído com sucesso, codigo: ' + IntToStr(codDelete));
         end;
 
       end;

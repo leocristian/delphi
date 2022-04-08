@@ -83,7 +83,7 @@ begin
             idYes:
               begin
                 novoUsuario.Insert(novoUsuario);
-                ShowMessage('Usuario inserido com sucesso!');
+                ShowMessage('Usuário inserido com sucesso!');
                 FreeAndNil(novoUsuario);
                 NewUserForm.Visible := False;
               end;

@@ -1,7 +1,5 @@
 unit NewVendaPage;
-
 interface
-
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Livro, VendaControle, FormManipulation,
@@ -11,7 +9,6 @@ uses
   Data.DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, Vcl.DBGrids,
   MemDS, VirtualTable, Cliente, LoginPage, Venda, dmDatabase, NewClientPage, LivroVenda;
-
 type
   TNewVendaForm = class(TForm)
     Label1: TLabel;
@@ -28,19 +25,16 @@ type
     DBGrid1: TDBGrid;
     tbLivrosVenda: TVirtualTable;
     dsLivrosVenda: TDataSource;
-
     procedure CriarForm(Sender: TObject);
     procedure RealizarVenda(Sender: TObject);
     procedure AbrirForm(Sender: TObject);
     procedure AdicionarLivro(Sender: TObject);
     procedure EmularEnter(Sender: TObject; var Key: Char);
-
   private
     { Private declarations }
   public
     { Public declarations }
   end;
-
 var
   NewVendaForm: TNewVendaForm;
   vendaControle: TVendaControle;
@@ -48,11 +42,8 @@ var
   novaVenda: TVenda;
   livroEncontrado: TLivro;
   livroVenda: TLivroVenda;
-
 implementation
-
 {$R *.dfm}
-
 procedure TNewVendaForm.CriarForm(Sender: TObject);
 begin
   novaVenda := TVenda.Create;
@@ -62,7 +53,6 @@ begin
   livroEncontrado := TLivro.Create;
   livroVenda := TLivroVenda.Create;
 end;
-
 procedure TNewVendaForm.EmularEnter(Sender: TObject; var Key: Char);
 begin
   if Key = #13 then
@@ -74,17 +64,14 @@ end;
 
 procedure TNewVendaForm.AdicionarLivro(Sender: TObject);
 begin
-
   if Self.TituloInput.Text = '' then
   begin
     ShowMessage('Informe o título do livro!');
   end
   else
   begin
-
     try
       livroEncontrado := livroEncontrado.FindByTitulo(Self.TituloInput.Text);
-
     finally
       if livroEncontrado.titulo = '' then
       begin
@@ -95,9 +82,7 @@ begin
       begin
         livroVenda.titulo := livroEncontrado.titulo;
         livroVenda.numeroVenda := novaVenda.cod;
-
         livroVenda.Insert(livroVenda);
-
         with Self.tbLivrosVenda do
         begin
           Self.tbLivrosVenda.Append;
@@ -105,32 +90,24 @@ begin
           Self.tbLivrosVenda['titulo'] := livroEncontrado.titulo;
           Self.tbLivrosVenda['preco'] := livroEncontrado.preco;
         end;
-
         vendaControle.IncrementaValor(StrToFloat(livroEncontrado.preco));
-
         Self.labelPreco.Caption := FloatToStr(vendaControle.valorAtual);
         Self.TituloInput.SetFocus;
-
       end;
     end;
   end;
-
 end;
-
 procedure TNewVendaForm.AbrirForm(Sender: TObject);
 begin
   formManipulation.LimparInputs(NewVendaForm);
   formManipulation.AbrirForm(NewVendaForm);
 end;
-
 procedure TNewVendaForm.RealizarVenda(Sender: TObject);
 var
   nomeCliente: String;
   tituloLivro: String;
-
   clienteVenda: TCliente;
   livroVenda: TLivro;
-
 begin
   if formManipulation.ExisteInputsVazios(NewVendaForm) then
   begin
@@ -140,22 +117,16 @@ begin
   begin
     try
       livroVenda := TLivro.Create;
-
       nomeCliente := NewVendaForm.ClienteInput.Text;
       tituloLivro := NewVendaform.TituloInput.Text;
-
       livroVenda := livroVenda.FindByTitulo(tituloLivro);
-
     finally
-
       Case
       MessageBox(Application.Handle, 'Confirmar venda?', 'Realizar venda', MB_YESNO) of
       idYes:
         begin
-
           clienteVenda := TCliente.Create;
           clienteVenda := clienteVenda.FindByNome(nomeCliente);
-
           if clienteVenda.nome_completo = '' then
           begin
             case
@@ -171,25 +142,17 @@ begin
           else
           begin
             try
-
               novaVenda.vendedor := LoginPage.usuarioLogado.nome_completo;
               novaVenda.cliente := clienteVenda.nome_completo;
               novaVenda.valorTotal := FloatToStr(vendaControle.valorAtual);
-
               novaVenda.Insert(novaVenda);
             finally
               ShowMessage('Venda realizada com sucesso!');
               NewVendaForm.Visible := False;
-
               Self.tbLivrosVenda.Free;
-
               vendaControle.ZerarValor;
               Self.labelPreco.Caption := FloatToStr(vendaControle.valorAtual);
-
               novaVenda.cod := novaVenda.SelecionarProxCodigo;
-
-              FreeandNil(clienteVenda);
-
             end;
           end;
         end;
@@ -200,6 +163,5 @@ begin
       End;
     end;
   end;
-
 end;
 end.

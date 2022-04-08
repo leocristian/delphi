@@ -34,6 +34,7 @@ type
     cxGrid1DBTableView1valor_total: TcxGridDBColumn;
     procedure NovaVenda(Sender: TObject);
     procedure VisualizarVenda(Sender: TObject);
+    procedure ExcluirVenda(Sender: TObject);
   private
     { Private declarations }
   public
@@ -54,6 +55,42 @@ var
   formManipulation: TFormManipulation;
 begin
   formManipulation.MostrarForm(NewVendaForm);
+end;
+
+procedure TVendasForm.Excluirvenda(Sender: TObject);
+var
+  colunaSelecionada: Integer;
+  vendaSelecionada: TVenda;
+  codDelete: Integer;
+
+begin
+
+  colunaSelecionada := Self.cxGrid1DBTableView1.ViewData.DataController.GetSelectedRowIndex(0);
+
+  try
+
+    vendaSelecionada := TVenda.Create;
+    vendaSelecionada.cod := Self.cxGrid1DBTableView1.ViewData.Records[colunaSelecionada].Values[Self.cxGrid1DBTableView1.GetColumnByFieldName('codigo').Index];
+    vendaSelecionada.Read(vendaSelecionada);
+
+  finally
+    Case
+    MessageBox(Application.Handle, 'Confirmar exclusão da venda?', 'Excluir venda', MB_YESNO) of
+    idYes:
+      begin
+        colunaSelecionada := Self.cxGrid1DBTableView1.ViewData.DataController.GetSelectedRowIndex(0);
+        codDelete := Self.cxGrid1DBTableView1.ViewData.Records[colunaSelecionada].Values[Self.cxGrid1DBTableView1.GetColumnByFieldName('codigo').Index];
+
+        vendaSelecionada := TVenda.Create;
+        try
+          vendaSelecionada.Delete(codDelete);
+        finally
+          ShowMessage('Venda excluída com sucesso, código: ' + IntToStr(codDelete));
+        end;
+      end;
+    idNo: ShowMessage('Operação cancelada');
+  End;
+  end;
 end;
 
 procedure TVendasForm.VisualizarVenda(Sender: TObject);

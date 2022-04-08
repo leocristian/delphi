@@ -7337,6 +7337,7 @@ object VendasForm: TVendasForm
     end
     object Excluirvendaselecionada1: TMenuItem
       Caption = 'Excluir venda selecionada'
+      OnClick = Excluirvenda
     end
   end
   object cxStyleRepository1: TcxStyleRepository
