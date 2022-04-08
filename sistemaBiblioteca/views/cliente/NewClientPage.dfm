@@ -11,9 +11,11 @@ object NewClientForm: TNewClientForm
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poDefault
   OnCreate = AbrirForm
+  OnKeyPress = EmularEnter
   OnShow = AbrirForm
   PixelsPerInch = 96
   TextHeight = 13

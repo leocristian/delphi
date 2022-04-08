@@ -36,6 +36,7 @@ type
     procedure AtualizarGrid(Sender: TObject);
     procedure ShowUsuarioInfo(Sender: TObject);
     procedure ShowEditUsuarioForm(Sender: TObject);
+    procedure EmularEnter(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -144,6 +145,15 @@ begin
       end;
     idNo: ShowMessage('Operação cancelada');
   End;
+end;
+
+procedure TUserForm.EmularEnter(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform (wm_nextdlgctl, 0, 0);
+  end;
 end;
 
 procedure TUserForm.SetFocus(Sender: TObject);

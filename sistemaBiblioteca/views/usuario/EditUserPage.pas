@@ -22,6 +22,7 @@ type
     procedure OpenForm(Sender: TObject);
     procedure PreencherInputs(const objUsuario: TUsuario);
     procedure SalvarAlteracoes(Sender: TObject);
+    procedure EmularEnter(Sender: TObject; var Key: Char);
 
   private
     { Private declarations }
@@ -36,6 +37,15 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TEditUserForm.EmularEnter(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform (wm_nextdlgctl, 0, 0);
+  end;
+end;
 
 procedure TEditUserForm.OpenForm(Sender: TObject);
 begin

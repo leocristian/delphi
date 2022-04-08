@@ -22,6 +22,7 @@ type
     procedure AbrirForm(Sender: TObject);
     procedure Adicionar(Sender: TObject);
     procedure Cancelar(Sender: TObject);
+    procedure EmularEnter(Sender: TObject; var Key: Char);
 
   private
     { Private declarations }
@@ -42,6 +43,15 @@ uses Cliente;
 procedure TNewClientForm.Cancelar(Sender: TObject);
 begin
   Self.Visible := False;
+end;
+
+procedure TNewClientForm.EmularEnter(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform (wm_nextdlgctl, 0, 0);
+  end;
 end;
 
 procedure TNewClientForm.AbrirForm(Sender: TObject);

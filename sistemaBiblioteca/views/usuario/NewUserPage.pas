@@ -1,11 +1,8 @@
 unit NewUserPage;
-
 interface
-
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, FormManipulation;
-
 type
   TNewUserForm = class(TForm)
     Label1: TLabel;
@@ -21,44 +18,43 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Button1: TButton;
-
     procedure OpenUserForm(Sender: TObject);
     procedure Adicionar(Sender: TObject);
     procedure LimparForms;
     procedure Cancelar(Sender: TObject);
-
+    procedure EmularEnter(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
     { Public declarations }
   end;
-
 var
   NewUserForm: TNewUserForm;
   formManipulation: TFormManipulation;
-
 implementation
-
 {$R *.dfm}
-
 uses Usuario;
-
 procedure TNewUserForm.OpenUserForm(Sender: TObject);
 begin
   formManipulation.LimparInputs(NewUserForm);
   formManipulation.AbrirForm(NewUserForm);
 end;
-
+procedure TNewUserForm.EmularEnter(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform (wm_nextdlgctl, 0, 0);
+  end;
+end;
 procedure TNewUserForm.Cancelar(Sender: TObject);
 begin
   Self.Visible := False;
 end;
-
 procedure TNewUserForm.LimparForms;
 begin
   formManipulation.LimparInputs(NewUserForm);
 end;
-
 procedure TNewUserForm.Adicionar(Sender: TObject);
 var
   novoUsuario: TUsuario;
@@ -75,16 +71,13 @@ begin
       end
     else
       begin
-
         novoUsuario := TUsuario.Create;
-
         try
           novoUsuario.nome_completo := NewUserForm.nome_completoInput.Text;
           novoUsuario.email := NewUserForm.emailInput.Text;
           novoUsuario.login := NewUserForm.loginInput.Text;
           novoUsuario.senha := NewUserForm.senhaInput.Text;
         finally
-
           Case
             MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar usuário', MB_YESNO) of
             idYes:
@@ -103,5 +96,4 @@ begin
       end;
   end;
 end;
-
 end.

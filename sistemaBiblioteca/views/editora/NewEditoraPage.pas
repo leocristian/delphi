@@ -17,6 +17,7 @@ type
 
     procedure OpenEditoraForm(Sender: TObject);
     procedure Adicionar(Sender: TObject);
+    procedure EmularEnter(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -32,6 +33,15 @@ implementation
 {$R *.dfm}
 
 uses Editora;
+
+procedure TNewEditoraForm.EmularEnter(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform (wm_nextdlgctl, 0, 0);
+  end;
+end;
 
 procedure TNewEditoraForm.OpenEditoraForm(Sender: TObject);
 begin

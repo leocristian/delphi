@@ -11,8 +11,10 @@ object NewUserForm: TNewUserForm
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poDefault
+  OnKeyPress = EmularEnter
   OnShow = OpenUserForm
   PixelsPerInch = 96
   TextHeight = 13

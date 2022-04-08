@@ -10,7 +10,7 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, Vcl.DBGrids,
-  MemDS, VirtualTable, Cliente, LoginPage, Venda, dmDatabase, NewClientPage;
+  MemDS, VirtualTable, Cliente, LoginPage, Venda, dmDatabase, NewClientPage, LivroVenda;
 
 type
   TNewVendaForm = class(TForm)
@@ -33,6 +33,7 @@ type
     procedure RealizarVenda(Sender: TObject);
     procedure AbrirForm(Sender: TObject);
     procedure AdicionarLivro(Sender: TObject);
+    procedure EmularEnter(Sender: TObject; var Key: Char);
 
   private
     { Private declarations }
@@ -45,12 +46,12 @@ var
   vendaControle: TVendaControle;
   formManipulation: TFormManipulation;
   novaVenda: TVenda;
+  livroEncontrado: TLivro;
+  livroVenda: TLivroVenda;
 
 implementation
 
 {$R *.dfm}
-
-uses LivroVenda;
 
 procedure TNewVendaForm.CriarForm(Sender: TObject);
 begin
@@ -58,16 +59,21 @@ begin
   formManipulation := TFormManipulation.Create;
   vendaControle := TVendaControle.Create;
   novaVenda.cod := novaVenda.SelecionarProxCodigo;
+  livroEncontrado := TLivro.Create;
+  livroVenda := TLivroVenda.Create;
+end;
+
+procedure TNewVendaForm.EmularEnter(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform (wm_nextdlgctl, 0, 0);
+  end;
 end;
 
 procedure TNewVendaForm.AdicionarLivro(Sender: TObject);
-var
-  livroEncontrado: TLivro;
-  livroVenda: TLivroVenda;
-
 begin
-
-  livroVenda := TLivroVenda.Create;
 
   if Self.TituloInput.Text = '' then
   begin
@@ -77,8 +83,6 @@ begin
   begin
 
     try
-
-      livroEncontrado := TLivro.Create;
       livroEncontrado := livroEncontrado.FindByTitulo(Self.TituloInput.Text);
 
     finally
@@ -185,7 +189,7 @@ begin
               novaVenda.cod := novaVenda.SelecionarProxCodigo;
 
               FreeandNil(clienteVenda);
-              FreeAndNil(livroVenda);
+
             end;
           end;
         end;

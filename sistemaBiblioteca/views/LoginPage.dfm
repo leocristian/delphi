@@ -12,9 +12,11 @@ object FormUsuario: TFormUsuario
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Visible = True
   OnCreate = FormCreate
+  OnKeyPress = EmularEnter
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel

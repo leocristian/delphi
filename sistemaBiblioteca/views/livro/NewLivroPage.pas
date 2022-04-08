@@ -15,8 +15,12 @@ type
     AnoInput: TDateTimePicker;
     Label2: TLabel;
     Button1: TButton;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
     procedure Adicionar(Sender: TObject);
     procedure OpenLivroForm(Sender: TObject);
+    procedure EmularEnter(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -32,6 +36,15 @@ implementation
 {$R *.dfm}
 
 uses Livro, Editora;
+
+procedure TNewLivroForm.EmularEnter(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform (wm_nextdlgctl, 0, 0);
+  end;
+end;
 
 procedure TNewLivroForm.OpenLivroForm(Sender: TObject);
 begin

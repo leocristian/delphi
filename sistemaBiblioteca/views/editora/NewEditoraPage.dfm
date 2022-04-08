@@ -11,8 +11,10 @@ object NewEditoraForm: TNewEditoraForm
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   OnCreate = OpenEditoraForm
+  OnKeyPress = EmularEnter
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel

@@ -1332,9 +1332,11 @@ object UserForm: TUserForm
     E94B5FFAD297BEF4A52F7DE94B5FFAD297BEF4A52F7DE94B5FFAD297BEF4A52F
     7DE94B5FFAD297BEF4A52F7DE94B5FFAD297BEF4A52F7DE94B5FFAD297BEFE1F
     AFFF035D0AFDDA8EA3724A0000000049454E44AE426082}
+  KeyPreview = True
   OldCreateOrder = False
   PopupMenu = PopupMenu1
   Position = poDefault
+  OnKeyPress = EmularEnter
   PixelsPerInch = 96
   TextHeight = 13
   inline BuscaPessoa1: TBuscaPessoa
@@ -1353,16 +1355,18 @@ object UserForm: TUserForm
     end
     inherited Button1: TButton
       Left = 440
-      Top = 16
+      Top = 22
       Width = 105
       Height = 44
+      TabOrder = 2
       OnClick = BuscarUsuario
       ExplicitLeft = 440
-      ExplicitTop = 16
+      ExplicitTop = 22
       ExplicitWidth = 105
       ExplicitHeight = 44
     end
     inherited Edit1: TEdit
+      TabOrder = 1
       OnClick = SetFocus
     end
   end
