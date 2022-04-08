@@ -20,6 +20,7 @@ type
 
     procedure PreencherInputs(const objUsuario: TUsuario);
     procedure OpenForm(Sender: TObject);
+    procedure EmularEnter(Sender: TObject; var Key: Char);
 
   private
     { Private declarations }
@@ -34,6 +35,16 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TShowUsuarioForm.EmularEnter(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform (wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close;
+end;
 
 procedure TShowUsuarioForm.OpenForm(Sender: TObject);
 begin

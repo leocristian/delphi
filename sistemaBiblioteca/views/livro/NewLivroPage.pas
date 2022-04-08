@@ -1,11 +1,8 @@
 unit NewLivroPage;
-
 interface
-
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, FormManipulation;
-
 type
   TNewLivroForm = class(TForm)
     Label1: TLabel;
@@ -26,24 +23,20 @@ type
   public
     { Public declarations }
   end;
-
 var
   NewLivroForm: TNewLivroForm;
   formManipulation: TFormManipulation;
-
 implementation
-
 {$R *.dfm}
-
 uses Livro, Editora;
-
 procedure TNewLivroForm.EmularEnter(Sender: TObject; var Key: Char);
 begin
   if Key = #13 then
   begin
     Key := #0;
     Perform (wm_nextdlgctl, 0, 0);
-  end;
+  end
+  else if key = #27 then close;
 end;
 
 procedure TNewLivroForm.OpenLivroForm(Sender: TObject);
@@ -51,12 +44,10 @@ begin
   formManipulation.LimparInputs(NewLivroForm);
   formManipulation.AbrirForm(NewLivroForm);
 end;
-
 procedure TNewLivroForm.Adicionar(Sender: TObject);
 var
   novoLivro: TLivro;
   objEditora: TEditora;
-
 begin
   if formManipulation.ExisteInputsVazios(NewLivroForm) then
   begin
@@ -64,19 +55,14 @@ begin
   end
   else
   begin
-
     novoLivro := TLivro.Create;
-
     try
       novoLivro.titulo := NewLivroForm.TituloInput.Text;
       novoLivro.editora := NewLivroForm.EditoraInput.Text;
       novoLivro.anoPublicacao := DateToStr(NewLivroForm.AnoInput.Date);
       novoLivro.preco := NewLivroForm.PrecoInput.Text;
-
       objEditora := TEditora.Create;
-
       objEditora := objEditora.FindByNome(novoLivro.editora);
-
     finally
       Case
         MessageBox(Application.Handle, 'Confirmar inclusão de registro?', 'Adicionar livro', MB_YESNO) of
@@ -105,5 +91,4 @@ begin
     end;
   end;
 end;
-
 end.

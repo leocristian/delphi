@@ -20,6 +20,7 @@ type
 
     procedure OpenForm(Sender: TObject);
     procedure PreencherInputs(const objCliente: TCliente);
+    procedure FecharForm(Sender: TObject; var Key: Char);
 
   private
     { Private declarations }
@@ -34,6 +35,16 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TShowClienteForm.FecharForm(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform (wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close;
+end;
 
 procedure TShowClienteForm.OpenForm(Sender: TObject);
 begin

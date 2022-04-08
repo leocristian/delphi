@@ -19,6 +19,7 @@ type
 
     procedure PreencherInputs(const objEditora: TEditora);
     procedure AbrirForm(Sender: TObject);
+    procedure FecharForm(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -42,6 +43,15 @@ begin
   formManipulation.AbrirForm(EditEditoraform);
 end;
 
+procedure TEditEditoraForm.FecharForm(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform (wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close;
+end;
 procedure TEditEditoraForm.PreencherInputs(const objEditora: TEditora);
 begin
   Self.codigoEdit.Text := IntToStr(objEditora.cod);

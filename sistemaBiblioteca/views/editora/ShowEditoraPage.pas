@@ -18,6 +18,7 @@ type
 
     procedure AbrirForm(Sender: TObject);
     procedure PreencherInputs(const objEditora: TEditora);
+    procedure EmularEnter(Sender: TObject; var Key: Char);
 
   end;
 
@@ -36,6 +37,16 @@ var
 begin
   formManipulation := TFormManipulation.Create;
   formManipulation.AbrirForm(ShowEditoraForm);
+end;
+
+procedure TShowEditoraForm.EmularEnter(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform (wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close;
 end;
 
 procedure TShowEditoraForm.PreencherInputs(const objEditora: TEditora);

@@ -11,7 +11,9 @@ object ShowClienteForm: TShowClienteForm
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
+  OnKeyPress = FecharForm
   OnShow = OpenForm
   PixelsPerInch = 96
   TextHeight = 13

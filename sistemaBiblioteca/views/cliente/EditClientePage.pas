@@ -22,6 +22,7 @@ type
     procedure PreencherInputs(const objCliente: TCliente);
     procedure OpenForm(Sender: TObject);
     procedure SalvarAlteracoes(Sender: TObject);
+    procedure EmularEnter(Sender: TObject; var Key: Char);
 
   private
     { Private declarations }
@@ -38,6 +39,15 @@ implementation
 
 uses FormManipulation;
 
+procedure TEditClienteForm.EmularEnter(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform (wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close;
+end;
 procedure TEditClienteForm.OpenForm(Sender: TObject);
 var
   formManipulation: TFormManipulation;

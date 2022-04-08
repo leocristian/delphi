@@ -44,7 +44,8 @@ begin
   begin
     Key := #0;
     Perform (wm_nextdlgctl, 0, 0);
-  end;
+  end
+  else if key = #27 then close;
 end;
 
 procedure TEditUserForm.OpenForm(Sender: TObject);
