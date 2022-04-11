@@ -80,14 +80,15 @@ begin
     q1.ParamByName('login').Value := loginInput.Text;
     q1.ParamByName('senha').Value := 'segredo' + senhaInput.Text + 'segredo';
 
-    q1.ExecSQL;
+    try
+      q1.ExecSQL;
+      ShowMessage('Usuário cadastrado com sucesso!');
+      Self.Close;
+    except
+      ShowMessage('Usuário já existe!!');
+    end;
 
   finally
-    ShowMessage('Usuário cadastrado com sucesso!');
-
-    LimparInputs(CadastroForm);
-    CadastroForm.Close;
-
     FreeAndNil(q1);
   end;
 end;
@@ -99,7 +100,7 @@ begin
     Key := #0;
     Perform(wm_nextdlgctl, 0, 0);
   end
-  else if key = #27 then close
+  else if key = #27 then close;
 end;
 
 end.

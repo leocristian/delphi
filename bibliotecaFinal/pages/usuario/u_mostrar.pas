@@ -35,7 +35,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_forms, Uni, u_dm1;
+uses u_forms, Uni, u_dm1, u_usuarios;
 
 procedure TUsuarioForm.AtivaNavegacao(Sender: TObject; var Key: Char);
 begin
@@ -90,7 +90,14 @@ begin
     q1.ParamByName('login').Value := LoginInput.Text;
     q1.ParamByName('codigo').Value := CodigoInput.Text;
 
-    q1.ExecSQL;
+    try
+      q1.ExecSQL;
+      ShowMessage('Usuário alterado com sucesso!');
+      Self.Close;
+      FormUsuarios.grid_usuariosDBTableView1.DataController.RefreshExternalData;
+    except
+      ShowMessage('Usuário já existe!');
+    end;
   finally
     FreeAndNil(q1);
   end;

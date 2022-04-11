@@ -133,6 +133,18 @@
             <Form>PerfilUsuario</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="cliente\u_mostrarClientes.pas">
+            <Form>MostrarClientesForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="vendas\u_vendas.pas">
+            <Form>FormVendas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="vendas\u_novaVenda.pas">
+            <Form>NovaVendaForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

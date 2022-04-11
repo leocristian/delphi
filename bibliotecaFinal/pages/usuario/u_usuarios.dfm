@@ -12,41 +12,22 @@ object FormUsuarios: TFormUsuarios
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
+  OnKeyPress = FormKeyPress
   OnShow = FocarInput
   PixelsPerInch = 96
   TextHeight = 13
-  object Panel1: TPanel
-    Left = 0
-    Top = 0
-    Width = 829
-    Height = 65
-    Align = alTop
-    TabOrder = 0
-    object BuscaInput: TEdit
-      Left = 135
-      Top = 23
-      Width = 146
-      Height = 21
-      TabOrder = 0
-    end
-    object bt_busca: TButton
-      Left = 336
-      Top = 13
-      Width = 97
-      Height = 41
-      Caption = 'Pesquisar'
-      TabOrder = 1
-    end
-  end
   object grid_usuarios: TcxGrid
     Left = 0
-    Top = 65
+    Top = 57
     Width = 829
-    Height = 431
+    Height = 439
     Align = alClient
     PopupMenu = PopupUsuarios
-    TabOrder = 2
+    TabOrder = 0
+    ExplicitLeft = -8
+    ExplicitTop = 63
     object grid_usuariosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -76,7 +57,7 @@ object FormUsuarios: TFormUsuarios
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
       ScrollbarAnnotations.CustomAnnotations = <>
-      DataController.DataSource = dm1.ds_usuarios
+      DataController.DataSource = ds_usuarios
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -87,31 +68,64 @@ object FormUsuarios: TFormUsuarios
       end
       object grid_usuariosDBTableView1nome_completo: TcxGridDBColumn
         DataBinding.FieldName = 'nome_completo'
-        Width = 193
+        Width = 261
+      end
+      object grid_usuariosDBTableView1email: TcxGridDBColumn
+        DataBinding.FieldName = 'email'
       end
       object grid_usuariosDBTableView1login: TcxGridDBColumn
         DataBinding.FieldName = 'login'
+      end
+      object grid_usuariosDBTableView1senha: TcxGridDBColumn
+        DataBinding.FieldName = 'senha'
       end
     end
     object grid_usuariosLevel1: TcxGridLevel
       GridView = grid_usuariosDBTableView1
     end
   end
-  object SelecaoBusca: TComboBox
-    Left = 16
-    Top = 23
-    Width = 113
-    Height = 21
-    CharCase = ecUpperCase
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 829
+    Height = 57
+    Align = alTop
     TabOrder = 1
-    Text = 'C'#211'DIGO'
-    Items.Strings = (
-      'C'#211'DIGO'
-      'NOME OU EMAIL')
+    ExplicitLeft = 8
+    ExplicitTop = 57
+    object bt_busca: TButton
+      Left = 312
+      Top = 10
+      Width = 97
+      Height = 41
+      Caption = 'Pesquisar'
+      TabOrder = 0
+      OnClick = bt_buscaClick
+    end
+    object SelecaoBusca: TComboBox
+      Left = 16
+      Top = 19
+      Width = 113
+      Height = 21
+      CharCase = ecUpperCase
+      TabOrder = 1
+      Text = 'C'#211'DIGO'
+      Items.Strings = (
+        'C'#211'DIGO'
+        'NOME COMPLETO'
+        'EMAIL')
+    end
+  end
+  object BuscaInput: TEdit
+    Left = 135
+    Top = 19
+    Width = 130
+    Height = 21
+    TabOrder = 2
   end
   object PopupUsuarios: TPopupMenu
-    Left = 640
-    Top = 16
+    Left = 528
+    Top = 8
     object VisualizarUsuario: TMenuItem
       Caption = 'Visualizar usu'#225'rio selecionado'
       OnClick = VisualizarUsuarioClick
@@ -125,6 +139,19 @@ object FormUsuarios: TFormUsuarios
     end
     object ExcluirUsuario: TMenuItem
       Caption = 'Excluir usu'#225'rio selecionado'
+      OnClick = ExcluirUsuarioClick
     end
+  end
+  object tb_usuarios: TUniTable
+    TableName = 'usuarios2'
+    Connection = dm1.con1
+    Active = True
+    Left = 616
+    Top = 8
+  end
+  object ds_usuarios: TDataSource
+    DataSet = tb_usuarios
+    Left = 688
+    Top = 8
   end
 end

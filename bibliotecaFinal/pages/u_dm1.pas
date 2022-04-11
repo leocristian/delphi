@@ -10,8 +10,6 @@ type
   Tdm1 = class(TDataModule)
     ProvedorPG: TPostgreSQLUniProvider;
     con1: TUniConnection;
-    tb_usuarios: TUniTable;
-    ds_usuarios: TDataSource;
   private
     { Private declarations }
   public

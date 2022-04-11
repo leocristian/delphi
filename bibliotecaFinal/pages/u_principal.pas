@@ -32,12 +32,14 @@ type
     Panel2: TPanel;
     Label1: TLabel;
     Verperfil1: TMenuItem;
+    N2: TMenuItem;
     procedure AbrirForm(Sender: TObject);
     procedure usuariosClick(Sender: TObject);
     procedure clientesClick(Sender: TObject);
     procedure Verperfil1Click(Sender: TObject);
     procedure encerrarClick(Sender: TObject);
     procedure AlterarPerfilClick(Sender: TObject);
+    procedure vendasClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,7 +53,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_usuarios, u_clientes, u_login, u_perfil;
+uses u_usuarios, u_clientes, u_login, u_perfil, u_vendas;
 
 procedure TFormPrincipal.AbrirForm(Sender: TObject);
 begin
@@ -73,6 +75,12 @@ procedure TFormPrincipal.usuariosClick(Sender: TObject);
 begin
   FormUsuarios.Parent := Panel2;
   FormUsuarios.Show;
+end;
+
+procedure TFormPrincipal.vendasClick(Sender: TObject);
+begin
+  FormVendas.Parent := Panel2;
+  FormVendas.Show;
 end;
 
 procedure TFormPrincipal.Verperfil1Click(Sender: TObject);

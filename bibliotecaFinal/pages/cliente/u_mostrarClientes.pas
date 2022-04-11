@@ -1,4 +1,4 @@
-unit u_perfil;
+unit u_mostrarClientes;
 
 interface
 
@@ -7,20 +7,22 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Uni, u_dm1;
 
 type
-  TPerfilUsuario = class(TForm)
+  TMostrarClientesForm = class(TForm)
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    Label5: TLabel;
     NomeInput: TEdit;
     EmailInput: TEdit;
-    LoginInput: TEdit;
+    TelefoneInput: TEdit;
     ModoInput: TEdit;
     SalvarBtn: TButton;
     CodigoInput: TEdit;
-    Label5: TLabel;
-    procedure MostrarPerfil(Sender: TObject);
-    procedure AbrirForm(Sender: TObject; var Key: Char);
+    Label6: TLabel;
+    CpfInput: TEdit;
+    procedure AtivaNavegacao(Sender: TObject; var Key: Char);
+    procedure MostrarForm(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
   private
     { Private declarations }
@@ -29,42 +31,49 @@ type
   end;
 
 var
-  PerfilUsuario: TPerfilUsuario;
+  MostrarClientesForm: TMostrarClientesForm;
 
 implementation
 
 {$R *.dfm}
 
-procedure TPerfilUsuario.AbrirForm(Sender: TObject; var Key: Char);
+uses u_forms, u_clientes;
+
+procedure TMostrarClientesForm.AtivaNavegacao(Sender: TObject; var Key: Char);
 begin
   if Key = #13 then
   begin
     Key := #0;
     Perform(wm_nextdlgctl, 0, 0);
   end
-  else if key = #27 then close
+  else if key = #27 then close;
 end;
 
-procedure TPerfilUsuario.MostrarPerfil(Sender: TObject);
+procedure TMostrarClientesForm.MostrarForm(Sender: TObject);
 begin
+  AbrirForm(MostrarClientesForm);
+
+  Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
+  Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
+
   if ModoInput.Text = 'V' then
   begin
     NomeInput.Enabled := False;
     EmailInput.Enabled := False;
-    LoginInput.Enabled := False;
+    CpfInput.Enabled := False;
+    TelefoneInput.Enabled := False;
     SalvarBtn.Visible := False;
   end
   else
   begin
     NomeInput.Enabled := True;
-    NomeInput.SetFocus;
     EmailInput.Enabled := True;
-    LoginInput.Enabled := True;
+    CpfInput.Enabled := True;
+    TelefoneInput.Enabled := True;
     SalvarBtn.Visible := True;
   end;
 end;
-
-procedure TPerfilUsuario.SalvarBtnClick(Sender: TObject);
+procedure TMostrarClientesForm.SalvarBtnClick(Sender: TObject);
 var
   q1: TUniQuery;
 
@@ -76,20 +85,22 @@ begin
     q1.Close;
     q1.SQL.Clear;
 
-    q1.SQL.Add('update usuarios2 set nome_completo = :nome_completo, email = :email, login = :login');
+    q1.SQL.Add('update clientes2 set nome_completo = :nome_completo, email = :email, cpf = :cpf, telefone = :telefone');
     q1.SQL.Add(' where codigo = :codigo');
 
     q1.ParamByName('nome_completo').Value := NomeInput.Text;
     q1.ParamByName('email').Value := EmailInput.Text;
-    q1.ParamByName('login').Value := LoginInput.Text;
+    q1.ParamByName('cpf').Value := CpfInput.Text;
+    q1.ParamByName('telefone').Value := TelefoneInput.Text;
     q1.ParamByName('codigo').Value := CodigoInput.Text;
 
     try
       q1.ExecSQL;
-      ShowMessage('Perfil alterado com sucesso!');
+      ShowMessage('Cliente alterado com sucesso!');
       Self.Close;
+      FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
     except
-      ShowMessage('Usuário já existe!');
+      ShowMessage('Cliente já existe!');
     end;
   finally
     FreeAndNil(q1);

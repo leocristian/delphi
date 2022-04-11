@@ -13,8 +13,6 @@ uses
 
 type
   TFormUsuarios = class(TForm)
-    Panel1: TPanel;
-    BuscaInput: TEdit;
     bt_busca: TButton;
     grid_usuarios: TcxGrid;
     grid_usuariosDBTableView1: TcxGridDBTableView;
@@ -25,12 +23,21 @@ type
     AlterarUsuario: TMenuItem;
     N2: TMenuItem;
     ExcluirUsuario: TMenuItem;
+    Panel1: TPanel;
+    BuscaInput: TEdit;
+    tb_usuarios: TUniTable;
+    ds_usuarios: TDataSource;
     grid_usuariosDBTableView1codigo: TcxGridDBColumn;
     grid_usuariosDBTableView1nome_completo: TcxGridDBColumn;
+    grid_usuariosDBTableView1email: TcxGridDBColumn;
     grid_usuariosDBTableView1login: TcxGridDBColumn;
+    grid_usuariosDBTableView1senha: TcxGridDBColumn;
     procedure FocarInput(Sender: TObject);
     procedure VisualizarUsuarioClick(Sender: TObject);
     procedure AlterarUsuarioClick(Sender: TObject);
+    procedure ExcluirUsuarioClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure bt_buscaClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -87,9 +94,109 @@ begin
   end;
 end;
 
+procedure TFormUsuarios.bt_buscaClick(Sender: TObject);
+var
+  buscaInfo: String;
+  q1: TUniQuery;
+begin
+
+  buscaInfo := BuscaInput.Text;
+
+  q1 := TUniQuery.Create(nil);
+  q1.Connection := dm1.con1;
+
+  if Self.SelecaoBusca.Text = 'CÓDIGO' then
+  begin
+    ShowMessage('buscando por código');
+
+    q1.Close;
+    q1.SQL.Clear;
+
+    q1.SQL.Add('select * from usuarios2 ');
+    q1.SQL.Add(' where codigo = :codigo');
+
+    q1.ParamByName('codigo').Value := buscaInfo;
+
+    try
+      q1.Open;
+      ShowMessage(IntToStr(q1.RecordCount));
+    except
+      ShowMessage('erro ao buscar usuários');
+    end;
+  end
+  else if Self.SelecaoBusca.Text = 'NOME COMPLETO' then
+  begin
+    ShowMessage('buscando por nome');
+  end
+  else if Self.SelecaoBusca.Text = 'EMAIL' then
+  begin
+    ShowMessage('buscando por email');
+  end
+  else
+  begin
+    ShowMessage('Campo de busca inválido!');
+  end;
+
+end;
+
+procedure TFormUsuarios.ExcluirUsuarioClick(Sender: TObject);
+var
+  q1: TUniQuery;
+  indexUsuario: Integer;
+  codUsuario: Integer;
+  msgExcluir: String;
+
+begin
+  try
+    q1 := TUniQuery.Create(nil);
+    q1.Connection := dm1.con1;
+
+    q1.Close;
+    q1.SQL.Clear;
+
+    indexUsuario := grid_usuariosDBTableView1.DataController.GetSelectedRowIndex(0);
+    codUsuario := grid_usuariosDBTableView1.ViewData.Records[indexUsuario].Values[0];
+
+    q1.SQL.Add('delete from usuarios2 where codigo = :codigo');
+
+    q1.ParamByName('codigo').Value := codUsuario;
+
+    msgExcluir := 'Confirmar exclusão do usuário ' + IntToStr(codUsuario) + '?';
+
+    try
+
+      case
+        MessageBox(Application.Handle, 'Confirmar exclusão de usuário?', 'Excluir usuário', MB_YESNO) of
+        idYes:
+          begin
+            q1.ExecSQL;
+            ShowMessage('Usuário excluído com sucesso! código: ' + IntToStr(codUsuario));
+            Self.grid_usuariosDBTableView1.DataController.RefreshExternalData;
+          end;
+        idNo: ShowMessage('Operação cancelada!');
+      end;
+
+    except
+      ShowMessage('Erro ao excluir usuário!');
+    end;
+  finally
+    FreeAndNil(q1);
+  end;
+end;
+
 procedure TFormUsuarios.FocarInput(Sender: TObject);
 begin
   Self.BuscaInput.SetFocus;
+end;
+
+procedure TFormUsuarios.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close;
 end;
 
 procedure TFormUsuarios.VisualizarUsuarioClick(Sender: TObject);

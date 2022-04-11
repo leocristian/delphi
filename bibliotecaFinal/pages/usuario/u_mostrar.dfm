@@ -3,8 +3,8 @@ object UsuarioForm: TUsuarioForm
   Top = 0
   BorderStyle = bsSingle
   Caption = 'UsuarioForm'
-  ClientHeight = 261
-  ClientWidth = 344
+  ClientHeight = 265
+  ClientWidth = 346
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -63,6 +63,7 @@ object UsuarioForm: TUsuarioForm
     Top = 93
     Width = 193
     Height = 21
+    CharCase = ecUpperCase
     TabOrder = 0
   end
   object EmailInput: TEdit
@@ -70,6 +71,7 @@ object UsuarioForm: TUsuarioForm
     Top = 141
     Width = 273
     Height = 21
+    CharCase = ecUpperCase
     TabOrder = 1
   end
   object LoginInput: TEdit
@@ -77,6 +79,7 @@ object UsuarioForm: TUsuarioForm
     Top = 187
     Width = 177
     Height = 21
+    CharCase = ecUpperCase
     TabOrder = 2
   end
   object ModoInput: TEdit
@@ -84,6 +87,7 @@ object UsuarioForm: TUsuarioForm
     Top = 224
     Width = 25
     Height = 21
+    CharCase = ecUpperCase
     TabOrder = 3
     Visible = False
   end
@@ -101,6 +105,7 @@ object UsuarioForm: TUsuarioForm
     Top = 93
     Width = 74
     Height = 21
+    CharCase = ecUpperCase
     Enabled = False
     TabOrder = 5
   end

@@ -1,11 +1,10 @@
-object FormClientes: TFormClientes
+object FormVendas: TFormVendas
   Left = 0
   Top = 0
   Align = alClient
-  BorderStyle = bsSingle
-  Caption = 'FormClientes'
-  ClientHeight = 511
-  ClientWidth = 831
+  Caption = 'FormVendas'
+  ClientHeight = 504
+  ClientWidth = 826
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,12 +17,11 @@ object FormClientes: TFormClientes
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 831
+    Width = 826
     Height = 65
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = -32
-    ExplicitTop = 8
+    ExplicitTop = -6
     object BuscaInput: TEdit
       Left = 135
       Top = 23
@@ -40,16 +38,19 @@ object FormClientes: TFormClientes
       TabOrder = 1
     end
   end
-  object grid_clientes: TcxGrid
+  object grid_vendas: TcxGrid
     Left = 0
     Top = 65
-    Width = 831
-    Height = 446
+    Width = 826
+    Height = 439
     Align = alClient
-    PopupMenu = PopupClientes
+    PopupMenu = PopupVendas
     TabOrder = 1
-    ExplicitTop = 71
-    object grid_clientesDBTableView1: TcxGridDBTableView
+    ExplicitLeft = -5
+    ExplicitTop = 58
+    ExplicitWidth = 831
+    ExplicitHeight = 446
+    object grid_vendasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
       Navigator.Buttons.PriorPage.Visible = True
@@ -78,7 +79,7 @@ object FormClientes: TFormClientes
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
       ScrollbarAnnotations.CustomAnnotations = <>
-      DataController.DataSource = ds_clientes
+      DataController.DataSource = ds_vendas
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -87,24 +88,21 @@ object FormClientes: TFormClientes
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
       Styles.Header = cxStyle1
-      object grid_clientesDBTableView1codigo: TcxGridDBColumn
+      object grid_vendasDBTableView1codigo: TcxGridDBColumn
         DataBinding.FieldName = 'codigo'
       end
-      object grid_clientesDBTableView1cpf: TcxGridDBColumn
-        DataBinding.FieldName = 'cpf'
+      object grid_vendasDBTableView1vendedor: TcxGridDBColumn
+        DataBinding.FieldName = 'vendedor'
       end
-      object grid_clientesDBTableView1nome_completo: TcxGridDBColumn
-        DataBinding.FieldName = 'nome_completo'
+      object grid_vendasDBTableView1cliente: TcxGridDBColumn
+        DataBinding.FieldName = 'cliente'
       end
-      object grid_clientesDBTableView1email: TcxGridDBColumn
-        DataBinding.FieldName = 'email'
-      end
-      object grid_clientesDBTableView1telefone: TcxGridDBColumn
-        DataBinding.FieldName = 'telefone'
+      object grid_vendasDBTableView1valor_total: TcxGridDBColumn
+        DataBinding.FieldName = 'valor_total'
       end
     end
-    object grid_clientesLevel1: TcxGridLevel
-      GridView = grid_clientesDBTableView1
+    object grid_vendasLevel1: TcxGridLevel
+      GridView = grid_vendasDBTableView1
     end
   end
   object SelecaoBusca: TComboBox
@@ -117,30 +115,38 @@ object FormClientes: TFormClientes
     Text = 'C'#211'DIGO'
     Items.Strings = (
       'C'#211'DIGO'
-      'NOME OU EMAIL')
+      'CLIENTE')
   end
-  object PopupClientes: TPopupMenu
-    Left = 576
+  object tb_vendas: TUniTable
+    TableName = 'vendas'
+    Connection = dm1.con1
+    Active = True
+    Left = 704
     Top = 16
-    object VisualizarCliente: TMenuItem
-      Caption = 'Visualizar cliente selecionado'
-      OnClick = VisualizarClienteClick
+  end
+  object PopupVendas: TPopupMenu
+    Left = 640
+    Top = 16
+    object VisualizarVenda: TMenuItem
+      Caption = 'Visualizar venda selecionada'
     end
-    object AlterarCliente: TMenuItem
-      Caption = 'Alterar cliente selecionado'
-      OnClick = AlterarClienteClick
+    object NovaVenda: TMenuItem
+      Caption = 'Realizar nova venda'
+      OnClick = NovaVendaClick
+    end
+    object AlterarVenda: TMenuItem
+      Caption = 'Alterar venda selecionada'
     end
     object N2: TMenuItem
       Caption = '-'
     end
     object ExcluirCliente: TMenuItem
-      Caption = 'Excluir cliente selecionado'
-      OnClick = ExcluirClienteClick
+      Caption = 'Cancelar venda  selecionada'
     end
   end
   object cxStyleRepository1: TcxStyleRepository
-    Left = 752
-    Top = 368
+    Left = 560
+    Top = 16
     PixelsPerInch = 96
     object cxStyle1: TcxStyle
       AssignedValues = [svFont]
@@ -151,16 +157,9 @@ object FormClientes: TFormClientes
       Font.Style = [fsBold]
     end
   end
-  object tb_clientes: TUniTable
-    TableName = 'clientes2'
-    Connection = dm1.con1
-    Active = True
-    Left = 656
-    Top = 16
-  end
-  object ds_clientes: TDataSource
-    DataSet = tb_clientes
-    Left = 736
+  object ds_vendas: TDataSource
+    DataSet = tb_vendas
+    Left = 760
     Top = 16
   end
 end
