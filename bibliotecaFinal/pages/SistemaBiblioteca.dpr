@@ -13,7 +13,8 @@ uses
   u_perfil in 'usuario\u_perfil.pas' {PerfilUsuario},
   u_mostrarClientes in 'cliente\u_mostrarClientes.pas' {MostrarClientesForm},
   u_vendas in 'vendas\u_vendas.pas' {FormVendas},
-  u_novaVenda in 'vendas\u_novaVenda.pas' {NovaVendaForm};
+  u_novaVenda in 'vendas\u_novaVenda.pas' {NovaVendaForm},
+  u_vendaControle in 'vendas\u_vendaControle.pas';
 
 {$R *.res}
 

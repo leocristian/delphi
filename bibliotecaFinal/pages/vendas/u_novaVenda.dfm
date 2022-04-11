@@ -2,8 +2,8 @@ object NovaVendaForm: TNovaVendaForm
   Left = 0
   Top = 0
   Caption = 'NovaVendaForm'
-  ClientHeight = 509
-  ClientWidth = 827
+  ClientHeight = 539
+  ClientWidth = 751
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -63,7 +63,7 @@ object NovaVendaForm: TNovaVendaForm
     Height = 33
     Caption = '0'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
+    Font.Color = clRed
     Font.Height = -27
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
@@ -90,15 +90,15 @@ object NovaVendaForm: TNovaVendaForm
     Caption = 'Nome do cliente'
   end
   object Label6: TLabel
-    Left = 376
-    Top = 67
+    Left = 304
+    Top = 69
     Width = 64
     Height = 13
     Caption = 'Titulo do livro'
   end
   object TituloInput: TEdit
-    Left = 376
-    Top = 86
+    Left = 304
+    Top = 88
     Width = 217
     Height = 21
     CharCase = ecLowerCase
@@ -107,7 +107,7 @@ object NovaVendaForm: TNovaVendaForm
   object ClienteInput: TEdit
     Left = 40
     Top = 88
-    Width = 313
+    Width = 241
     Height = 21
     CharCase = ecUpperCase
     TabOrder = 0
@@ -125,10 +125,11 @@ object NovaVendaForm: TNovaVendaForm
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 3
+    OnClick = RealizarVendaBtnClick
   end
   object AddLivro: TButton
-    Left = 647
-    Top = 74
+    Left = 574
+    Top = 76
     Width = 91
     Height = 46
     Caption = 'Adicionar livro'
@@ -140,7 +141,8 @@ object NovaVendaForm: TNovaVendaForm
     Top = 192
     Width = 657
     Height = 223
-    DataSource = ds_livrosVenda
+    DataSource = vds_livrosVenda
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     TabOrder = 4
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -200,7 +202,7 @@ object NovaVendaForm: TNovaVendaForm
         Visible = True
       end>
   end
-  object tb_livrosVenda: TVirtualTable
+  object vtb_livrosVenda: TVirtualTable
     Active = True
     FieldDefs = <
       item
@@ -222,16 +224,27 @@ object NovaVendaForm: TNovaVendaForm
         DataType = ftString
         Size = 20
       end>
-    Left = 480
-    Top = 136
+    Left = 336
+    Top = 16
     Data = {
       040004000600636F6469676F03000000000000000600746974756C6F01001400
       000000000D00616E6F5075626C69636163616F01001400000000000500707265
       636F0100140000000000000000000000}
   end
+  object vds_livrosVenda: TDataSource
+    DataSet = vtb_livrosVenda
+    Left = 400
+    Top = 16
+  end
   object ds_livrosVenda: TDataSource
     DataSet = tb_livrosVenda
-    Left = 560
-    Top = 136
+    Left = 632
+    Top = 16
+  end
+  object tb_livrosVenda: TUniTable
+    TableName = 'livros_venda'
+    Connection = dm1.con1
+    Left = 536
+    Top = 16
   end
 end

@@ -1,7 +1,7 @@
 object dm1: Tdm1
   OldCreateOrder = False
-  Height = 264
-  Width = 543
+  Height = 153
+  Width = 240
   object ProvedorPG: TPostgreSQLUniProvider
     Left = 40
     Top = 40
