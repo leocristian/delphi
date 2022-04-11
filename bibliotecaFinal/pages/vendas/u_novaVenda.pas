@@ -45,7 +45,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_forms, u_dm1, u_escolhaLivro;
+uses u_forms, u_dm1, u_escolhaLivro, u_perfil, u_vendas;
 
 procedure TNovaVendaForm.AtivarNavegacao(Sender: TObject; var Key: Char);
 begin
@@ -115,12 +115,46 @@ begin
 end;
 
 procedure TNovaVendaForm.RealizarVendaBtnClick(Sender: TObject);
+var
+  codVenda: Integer;
+
 begin
   try
+    q1.Close;
+    q1.SQL.Clear;
 
+    q1.SQL.Text := 'select nextval(''tb_vendas_cod_seq'') as codProximo';
+    q1.Open;
+
+    codVenda := q1.FieldByName('codProximo').AsInteger;
+
+    q1.Close;
+    q1.SQL.Clear;
+
+    q1.SQL.Add('insert into vendas ');
+    q1.SQL.Add('values (:codigo, :vendedor, :cliente, :valor_total )');
+
+    q1.ParamByName('codigo').Value := codVenda;
+    q1.ParamByName('vendedor').Value := PerfilUsuario.NomeInput.Text;
+    q1.ParamByName('cliente').Value := ClienteInput.Text;
+    q1.ParamByName('valor_total').Value := labelPreco.Caption;
+
+    case MessageBox(Application.Handle, 'Confirmar nova venda?', 'Confirmar venda', MB_YESNO) of
+    idYes:
+      begin
+        q1.ExecSQL;
+        ShowMessage('Venda realizada com sucesso');
+      end;
+    idNo:
+      begin
+        ShowMessage('Operação cancelada!');
+      end;
+    end;
   finally
     vendaControle.ZerarValor;
     LabelPreco.Caption := FloatToStr(vendaControle.valorAtual);
+    Self.Close;
+    FormVendas.grid_vendasDBTableView1.DataController.RefreshExternalData;
   end;
 end;
 
