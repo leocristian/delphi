@@ -1,10 +1,10 @@
-object FormVendas: TFormVendas
+object FormLivros: TFormLivros
   Left = 0
   Top = 0
   Align = alClient
-  Caption = 'FormVendas'
-  ClientHeight = 640
-  ClientWidth = 805
+  Caption = 'FormLivros'
+  ClientHeight = 683
+  ClientWidth = 862
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +17,7 @@ object FormVendas: TFormVendas
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 805
+    Width = 862
     Height = 65
     Align = alTop
     TabOrder = 0
@@ -42,15 +42,13 @@ object FormVendas: TFormVendas
   object grid_vendas: TcxGrid
     Left = 0
     Top = 65
-    Width = 805
-    Height = 575
+    Width = 862
+    Height = 618
     Align = alClient
-    PopupMenu = PopupVendas
+    PopupMenu = PopupLivros
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 60
-    ExplicitWidth = 826
-    ExplicitHeight = 439
+    ExplicitLeft = -48
+    ExplicitTop = 13
     object grid_vendasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -80,7 +78,7 @@ object FormVendas: TFormVendas
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
       ScrollbarAnnotations.CustomAnnotations = <>
-      DataController.DataSource = ds_vendas
+      DataController.DataSource = ds_livros
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -92,17 +90,21 @@ object FormVendas: TFormVendas
       object grid_vendasDBTableView1codigo: TcxGridDBColumn
         DataBinding.FieldName = 'codigo'
       end
-      object grid_vendasDBTableView1vendedor: TcxGridDBColumn
-        DataBinding.FieldName = 'vendedor'
+      object grid_vendasDBTableView1titulo: TcxGridDBColumn
+        DataBinding.FieldName = 'titulo'
       end
-      object grid_vendasDBTableView1cliente: TcxGridDBColumn
-        DataBinding.FieldName = 'cliente'
+      object grid_vendasDBTableView1editora: TcxGridDBColumn
+        DataBinding.FieldName = 'editora'
       end
-      object grid_vendasDBTableView1valor_total: TcxGridDBColumn
-        DataBinding.FieldName = 'valor_total'
+      object grid_vendasDBTableView1ano_publicacao: TcxGridDBColumn
+        DataBinding.FieldName = 'ano_publicacao'
       end
-      object grid_vendasDBTableView1data_venda: TcxGridDBColumn
-        DataBinding.FieldName = 'data_venda'
+      object grid_vendasDBTableView1categoria: TcxGridDBColumn
+        DataBinding.FieldName = 'categoria'
+        Width = 130
+      end
+      object grid_vendasDBTableView1preco: TcxGridDBColumn
+        DataBinding.FieldName = 'preco'
       end
     end
     object grid_vendasLevel1: TcxGridLevel
@@ -119,33 +121,34 @@ object FormVendas: TFormVendas
     Text = 'C'#211'DIGO'
     Items.Strings = (
       'C'#211'DIGO'
-      'CLIENTE')
+      'TITULO'
+      'CATEGORIA')
   end
-  object tb_vendas: TUniTable
-    TableName = 'vendas'
+  object tb_livros: TUniTable
+    TableName = 'livros'
     Connection = dm1.con1
     Active = True
     Left = 704
     Top = 16
   end
-  object PopupVendas: TPopupMenu
+  object PopupLivros: TPopupMenu
     Left = 640
     Top = 16
-    object VisualizarVenda: TMenuItem
-      Caption = 'Visualizar venda selecionada'
+    object VisualizarLivro: TMenuItem
+      Caption = 'Visualizar livro selecionado'
     end
-    object NovaVenda: TMenuItem
-      Caption = 'Realizar nova venda'
-      OnClick = NovaVendaClick
+    object NovoLivro: TMenuItem
+      Caption = 'Adicionar novo livro'
+      OnClick = NovoLivroClick
     end
-    object AlterarVenda: TMenuItem
-      Caption = 'Alterar venda selecionada'
+    object AlterarLivro: TMenuItem
+      Caption = 'Alterar livro selecionado'
     end
     object N2: TMenuItem
       Caption = '-'
     end
-    object EstornarVenda: TMenuItem
-      Caption = 'Estornar venda  selecionada'
+    object ExcluirLivro: TMenuItem
+      Caption = 'Excluir livro selecionado'
     end
   end
   object cxStyleRepository1: TcxStyleRepository
@@ -161,8 +164,8 @@ object FormVendas: TFormVendas
       Font.Style = [fsBold]
     end
   end
-  object ds_vendas: TDataSource
-    DataSet = tb_vendas
+  object ds_livros: TDataSource
+    DataSet = tb_livros
     Left = 760
     Top = 16
   end

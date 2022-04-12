@@ -153,11 +153,6 @@ object NovaVendaForm: TNovaVendaForm
       item
         Expanded = False
         FieldName = 'codigo'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
         Title.Caption = 'C'#243'digo'
         Title.Font.Charset = DEFAULT_CHARSET
         Title.Font.Color = clWindowText

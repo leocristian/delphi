@@ -26,8 +26,6 @@ object FormUsuarios: TFormUsuarios
     Align = alClient
     PopupMenu = PopupUsuarios
     TabOrder = 0
-    ExplicitLeft = -8
-    ExplicitTop = 63
     object grid_usuariosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -91,8 +89,6 @@ object FormUsuarios: TFormUsuarios
     Height = 57
     Align = alTop
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 57
     object bt_busca: TButton
       Left = 312
       Top = 10

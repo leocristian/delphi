@@ -86,7 +86,7 @@ object PerfilUsuario: TPerfilUsuario
     Top = 236
     Width = 25
     Height = 21
-    TabOrder = 3
+    TabOrder = 4
     Visible = False
   end
   object SalvarBtn: TButton
@@ -95,7 +95,7 @@ object PerfilUsuario: TPerfilUsuario
     Width = 83
     Height = 49
     Caption = 'Salvar'
-    TabOrder = 4
+    TabOrder = 3
     OnClick = SalvarBtnClick
   end
   object CodigoInput: TEdit

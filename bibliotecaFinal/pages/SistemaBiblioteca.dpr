@@ -14,7 +14,8 @@ uses
   u_mostrarClientes in 'cliente\u_mostrarClientes.pas' {MostrarClientesForm},
   u_vendas in 'vendas\u_vendas.pas' {FormVendas},
   u_novaVenda in 'vendas\u_novaVenda.pas' {NovaVendaForm},
-  u_vendaControle in 'vendas\u_vendaControle.pas';
+  u_vendaControle in 'vendas\u_vendaControle.pas',
+  u_escolhaLivro in 'vendas\u_escolhaLivro.pas' {EscolhaLivroForm};
 
 {$R *.res}
 
@@ -32,5 +33,6 @@ begin
   Application.CreateForm(TMostrarClientesForm, MostrarClientesForm);
   Application.CreateForm(TFormVendas, FormVendas);
   Application.CreateForm(TNovaVendaForm, NovaVendaForm);
+  Application.CreateForm(TEscolhaLivroForm, EscolhaLivroForm);
   Application.Run;
 end.

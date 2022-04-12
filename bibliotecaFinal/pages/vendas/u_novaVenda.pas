@@ -132,18 +132,24 @@ begin
     q1.SQL.Clear;
 
     q1.SQL.Add('insert into vendas ');
-    q1.SQL.Add('values (:codigo, :vendedor, :cliente, :valor_total )');
+    q1.SQL.Add('values (:codigo, :vendedor, :cliente, :valor_total, :data )');
 
     q1.ParamByName('codigo').Value := codVenda;
     q1.ParamByName('vendedor').Value := PerfilUsuario.NomeInput.Text;
     q1.ParamByName('cliente').Value := ClienteInput.Text;
     q1.ParamByName('valor_total').Value := labelPreco.Caption;
+    q1.ParamByName('data').Value := Now();
 
     case MessageBox(Application.Handle, 'Confirmar nova venda?', 'Confirmar venda', MB_YESNO) of
     idYes:
       begin
         q1.ExecSQL;
         ShowMessage('Venda realizada com sucesso');
+        Self.vtb_livrosVenda.Clear;
+        vendaControle.ZerarValor;
+        LimparInputs(NovaVendaForm);
+        LabelPreco.Caption := FloatToStr(vendaControle.valorAtual);
+        FormVendas.grid_vendasDBTableView1.DataController.RefreshExternalData;
       end;
     idNo:
       begin
@@ -151,10 +157,7 @@ begin
       end;
     end;
   finally
-    vendaControle.ZerarValor;
-    LabelPreco.Caption := FloatToStr(vendaControle.valorAtual);
     Self.Close;
-    FormVendas.grid_vendasDBTableView1.DataController.RefreshExternalData;
   end;
 end;
 

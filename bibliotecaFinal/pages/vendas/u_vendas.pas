@@ -26,15 +26,16 @@ type
     VisualizarVenda: TMenuItem;
     AlterarVenda: TMenuItem;
     N2: TMenuItem;
-    ExcluirCliente: TMenuItem;
+    EstornarVenda: TMenuItem;
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;
     ds_vendas: TDataSource;
+    NovaVenda: TMenuItem;
     grid_vendasDBTableView1codigo: TcxGridDBColumn;
     grid_vendasDBTableView1vendedor: TcxGridDBColumn;
     grid_vendasDBTableView1cliente: TcxGridDBColumn;
     grid_vendasDBTableView1valor_total: TcxGridDBColumn;
-    NovaVenda: TMenuItem;
+    grid_vendasDBTableView1data_venda: TcxGridDBColumn;
     procedure NovaVendaClick(Sender: TObject);
   private
     { Private declarations }

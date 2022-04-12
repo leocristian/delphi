@@ -40,6 +40,7 @@ type
     procedure encerrarClick(Sender: TObject);
     procedure AlterarPerfilClick(Sender: TObject);
     procedure vendasClick(Sender: TObject);
+    procedure livrosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -53,7 +54,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_usuarios, u_clientes, u_login, u_perfil, u_vendas;
+uses u_usuarios, u_clientes, u_login, u_perfil, u_vendas, u_livros;
 
 procedure TFormPrincipal.AbrirForm(Sender: TObject);
 begin
@@ -69,6 +70,12 @@ end;
 procedure TFormPrincipal.encerrarClick(Sender: TObject);
 begin
   FormPrincipal.Visible := False;
+end;
+
+procedure TFormPrincipal.livrosClick(Sender: TObject);
+begin
+  FormLivros.Parent := Panel2;
+  FormLivros.Show;
 end;
 
 procedure TFormPrincipal.usuariosClick(Sender: TObject);

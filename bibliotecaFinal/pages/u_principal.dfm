@@ -34,6 +34,7 @@ object FormPrincipal: TFormPrincipal
     Height = 505
     Align = alClient
     TabOrder = 1
+    ExplicitTop = 8
     object Label1: TLabel
       Left = 53
       Top = 28
@@ -52,7 +53,7 @@ object FormPrincipal: TFormPrincipal
     Left = 744
     Top = 16
     object Cadastro1: TMenuItem
-      Caption = 'Cadastro'
+      Caption = 'Cadastros'
       object Pessoas1: TMenuItem
         Caption = 'Pessoas'
         object usuarios: TMenuItem
@@ -71,6 +72,7 @@ object FormPrincipal: TFormPrincipal
         end
         object livros: TMenuItem
           Caption = 'Livros'
+          OnClick = livrosClick
         end
       end
     end
