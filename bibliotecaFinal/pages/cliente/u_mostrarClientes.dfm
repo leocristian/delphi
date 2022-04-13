@@ -70,7 +70,6 @@ object MostrarClientesForm: TMostrarClientesForm
     Width = 272
     Height = 21
     CharCase = ecUpperCase
-    ReadOnly = True
     TabOrder = 1
   end
   object EmailInput: TEdit
@@ -79,7 +78,6 @@ object MostrarClientesForm: TMostrarClientesForm
     Width = 273
     Height = 21
     CharCase = ecUpperCase
-    ReadOnly = True
     TabOrder = 2
   end
   object TelefoneInput: TEdit
@@ -88,7 +86,6 @@ object MostrarClientesForm: TMostrarClientesForm
     Width = 177
     Height = 21
     CharCase = ecUpperCase
-    ReadOnly = True
     TabOrder = 3
   end
   object ModoInput: TEdit
@@ -101,7 +98,7 @@ object MostrarClientesForm: TMostrarClientesForm
     Visible = False
   end
   object SalvarBtn: TButton
-    Left = 238
+    Left = 232
     Top = 245
     Width = 83
     Height = 49
@@ -115,6 +112,7 @@ object MostrarClientesForm: TMostrarClientesForm
     Width = 74
     Height = 21
     CharCase = ecUpperCase
+    Enabled = False
     ReadOnly = True
     TabOrder = 6
   end
@@ -124,7 +122,6 @@ object MostrarClientesForm: TMostrarClientesForm
     Width = 185
     Height = 21
     CharCase = ecUpperCase
-    ReadOnly = True
     TabOrder = 0
   end
 end

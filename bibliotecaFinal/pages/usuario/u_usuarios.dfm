@@ -20,13 +20,15 @@ object FormUsuarios: TFormUsuarios
   TextHeight = 13
   object grid_usuarios: TcxGrid
     Left = 0
-    Top = 57
+    Top = 81
     Width = 829
-    Height = 439
+    Height = 415
     Align = alClient
     PopupMenu = PopupUsuarios
-    TabOrder = 4
-    ExplicitTop = 63
+    TabOrder = 1
+    ExplicitLeft = 8
+    ExplicitTop = -15
+    ExplicitHeight = 439
     object grid_usuariosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -87,40 +89,54 @@ object FormUsuarios: TFormUsuarios
     Left = 0
     Top = 0
     Width = 829
-    Height = 57
+    Height = 81
     Align = alTop
-    TabOrder = 5
-    ExplicitTop = -6
-  end
-  object bt_busca: TButton
-    Left = 312
-    Top = 10
-    Width = 97
-    Height = 41
-    Caption = 'Pesquisar'
     TabOrder = 2
-    OnClick = bt_buscaClick
-  end
-  object bt_mostrarTudo: TButton
-    Left = 440
-    Top = 10
-    Width = 97
-    Height = 41
-    Caption = 'Mostrar todos'
-    TabOrder = 3
-    OnClick = bt_mostrarTudoClick
-  end
-  object BuscaInput: TEdit
-    Left = 135
-    Top = 19
-    Width = 130
-    Height = 21
-    CharCase = ecUpperCase
-    TabOrder = 1
+    ExplicitTop = 8
+    object Label1: TLabel
+      Left = 16
+      Top = 20
+      Width = 79
+      Height = 13
+      Caption = 'Campo de busca'
+    end
+    object Label2: TLabel
+      Left = 135
+      Top = 20
+      Width = 69
+      Height = 13
+      Caption = 'Palavra-chave'
+    end
+    object BuscaInput: TEdit
+      Left = 135
+      Top = 39
+      Width = 130
+      Height = 21
+      CharCase = ecUpperCase
+      TabOrder = 0
+    end
+    object bt_busca: TButton
+      Left = 320
+      Top = 19
+      Width = 97
+      Height = 41
+      Caption = 'Pesquisar'
+      TabOrder = 1
+      OnClick = bt_buscaClick
+    end
+    object bt_mostrarTudo: TButton
+      Left = 440
+      Top = 19
+      Width = 97
+      Height = 41
+      Caption = 'Mostrar todos'
+      TabOrder = 2
+      OnClick = bt_mostrarTudoClick
+    end
   end
   object SelecaoBusca: TComboBox
     Left = 16
-    Top = 19
+    Top = 39
     Width = 113
     Height = 21
     CharCase = ecUpperCase

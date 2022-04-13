@@ -19,12 +19,27 @@ object FormClientes: TFormClientes
     Left = 0
     Top = 0
     Width = 831
-    Height = 65
+    Height = 81
     Align = alTop
     TabOrder = 0
+    ExplicitTop = 2
+    object Label1: TLabel
+      Left = 16
+      Top = 14
+      Width = 79
+      Height = 13
+      Caption = 'Campo de busca'
+    end
+    object Label2: TLabel
+      Left = 135
+      Top = 14
+      Width = 69
+      Height = 13
+      Caption = 'Palavra-chave'
+    end
     object BuscaInput: TEdit
       Left = 135
-      Top = 23
+      Top = 33
       Width = 146
       Height = 21
       CharCase = ecUpperCase
@@ -32,7 +47,7 @@ object FormClientes: TFormClientes
     end
     object bt_busca: TButton
       Left = 336
-      Top = 13
+      Top = 21
       Width = 97
       Height = 41
       Caption = 'Pesquisar'
@@ -41,7 +56,7 @@ object FormClientes: TFormClientes
     end
     object bt_mostrarTudo: TButton
       Left = 448
-      Top = 13
+      Top = 21
       Width = 97
       Height = 41
       Caption = 'Mostrar todos'
@@ -51,12 +66,14 @@ object FormClientes: TFormClientes
   end
   object grid_clientes: TcxGrid
     Left = 0
-    Top = 65
+    Top = 81
     Width = 831
-    Height = 446
+    Height = 430
     Align = alClient
     PopupMenu = PopupClientes
     TabOrder = 1
+    ExplicitTop = 65
+    ExplicitHeight = 446
     object grid_clientesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -110,8 +127,8 @@ object FormClientes: TFormClientes
     end
   end
   object SelecaoBusca: TComboBox
-    Left = 8
-    Top = 23
+    Left = 16
+    Top = 33
     Width = 113
     Height = 21
     CharCase = ecUpperCase

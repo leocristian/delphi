@@ -15,7 +15,11 @@ uses
   u_vendas in 'vendas\u_vendas.pas' {FormVendas},
   u_novaVenda in 'vendas\u_novaVenda.pas' {NovaVendaForm},
   u_vendaControle in 'vendas\u_vendaControle.pas',
-  u_escolhaLivro in 'vendas\u_escolhaLivro.pas' {EscolhaLivroForm};
+  u_escolhaLivro in 'vendas\u_escolhaLivro.pas' {EscolhaLivroForm},
+  u_livros in 'livros\u_livros.pas' {FormLivros},
+  u_novoLivro in 'livros\u_novoLivro.pas' {NovoLivroForm},
+  u_mostrarLivro in 'livros\u_mostrarLivro.pas' {MostrarLivroForm},
+  u_novoCliente in 'cliente\u_novoCliente.pas' {NovoCliente};
 
 {$R *.res}
 
@@ -34,5 +38,9 @@ begin
   Application.CreateForm(TFormVendas, FormVendas);
   Application.CreateForm(TNovaVendaForm, NovaVendaForm);
   Application.CreateForm(TEscolhaLivroForm, EscolhaLivroForm);
+  Application.CreateForm(TFormLivros, FormLivros);
+  Application.CreateForm(TNovoLivroForm, NovoLivroForm);
+  Application.CreateForm(TMostrarLivroForm, MostrarLivroForm);
+  Application.CreateForm(TNovoCliente, NovoCliente);
   Application.Run;
 end.

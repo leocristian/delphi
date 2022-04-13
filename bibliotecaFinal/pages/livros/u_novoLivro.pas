@@ -63,7 +63,6 @@ begin
     q1.ParamByName('titulo').Value := TituloInput.Text;
     q1.ParamByName('editora').Value := EditoraInput.Text;
     q1.ParamByName('anoPublicacao').Value := DateToStr(AnoPublicacao.Date);
-
     q1.ParamByName('preco').Value := PrecoInput.Text;
 
     categoria := Categorias.Items[Categorias.ItemIndex];

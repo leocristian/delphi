@@ -150,6 +150,22 @@
             <Form>EscolhaLivroForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="livros\u_livros.pas">
+            <Form>FormLivros</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="livros\u_novoLivro.pas">
+            <Form>NovoLivroForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="livros\u_mostrarLivro.pas">
+            <Form>MostrarLivroForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="cliente\u_novoCliente.pas">
+            <Form>NovoCliente</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -18,13 +18,26 @@ object FormLivros: TFormLivros
     Left = 0
     Top = 0
     Width = 862
-    Height = 65
+    Height = 81
     Align = alTop
     TabOrder = 0
-    ExplicitTop = -6
+    object Label1: TLabel
+      Left = 16
+      Top = 19
+      Width = 79
+      Height = 13
+      Caption = 'Campo de busca'
+    end
+    object Label2: TLabel
+      Left = 135
+      Top = 19
+      Width = 69
+      Height = 13
+      Caption = 'Palavra-chave'
+    end
     object BuscaInput: TEdit
       Left = 135
-      Top = 23
+      Top = 38
       Width = 146
       Height = 21
       CharCase = ecUpperCase
@@ -51,14 +64,12 @@ object FormLivros: TFormLivros
   end
   object grid_livros: TcxGrid
     Left = 0
-    Top = 65
+    Top = 81
     Width = 862
-    Height = 618
+    Height = 602
     Align = alClient
     PopupMenu = PopupLivros
     TabOrder = 1
-    ExplicitLeft = -48
-    ExplicitTop = 13
     object grid_livrosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -106,12 +117,14 @@ object FormLivros: TFormLivros
       object grid_livrosDBTableView1editora: TcxGridDBColumn
         DataBinding.FieldName = 'editora'
       end
-      object grid_livrosDBTableView1categoria: TcxGridDBColumn
-        DataBinding.FieldName = 'categoria'
-        Width = 130
+      object grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn
+        DataBinding.FieldName = 'ano_publicacao'
       end
       object grid_livrosDBTableView1preco: TcxGridDBColumn
         DataBinding.FieldName = 'preco'
+      end
+      object grid_livrosDBTableView1categoria: TcxGridDBColumn
+        DataBinding.FieldName = 'categoria'
       end
     end
     object grid_livrosLevel1: TcxGridLevel
@@ -119,8 +132,8 @@ object FormLivros: TFormLivros
     end
   end
   object SelecaoBusca: TComboBox
-    Left = 8
-    Top = 23
+    Left = 16
+    Top = 38
     Width = 113
     Height = 21
     CharCase = ecUpperCase
@@ -144,6 +157,7 @@ object FormLivros: TFormLivros
     Top = 16
     object VisualizarLivro: TMenuItem
       Caption = 'Visualizar livro selecionado'
+      OnClick = VisualizarLivroClick
     end
     object NovoLivro: TMenuItem
       Caption = 'Adicionar novo livro'
@@ -151,6 +165,7 @@ object FormLivros: TFormLivros
     end
     object AlterarLivro: TMenuItem
       Caption = 'Alterar livro selecionado'
+      OnClick = AlterarLivroClick
     end
     object N2: TMenuItem
       Caption = '-'

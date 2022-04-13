@@ -33,6 +33,8 @@ type
     cxStyle1: TcxStyle;
     bt_mostrarTudo: TButton;
     Panel1: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
     procedure FocarInput(Sender: TObject);
     procedure VisualizarUsuarioClick(Sender: TObject);
     procedure AlterarUsuarioClick(Sender: TObject);
@@ -99,95 +101,36 @@ end;
 procedure TFormUsuarios.bt_buscaClick(Sender: TObject);
 var
   buscaInfo: String;
-  q1: TUniQuery;
+
 begin
 
   buscaInfo := BuscaInput.Text;
 
-  q1 := TUniQuery.Create(nil);
-  q1.Connection := dm1.con1;
-
   if Self.SelecaoBusca.Text = 'CÓDIGO' then
   begin
-    q1.Close;
-    q1.SQL.Clear;
-
-    q1.SQL.Add('select * from usuarios2 ');
-    q1.SQL.Add(' where codigo = :codigo');
-
-    q1.ParamByName('codigo').Value := buscaInfo;
-
-    try
-      q1.Open;
-      if(q1.RecordCount > 0 ) then
-      begin
-        ds_usuarios.DataSet.Filter := 'codigo = ' + buscaInfo;
-        ds_usuarios.DataSet.Filtered := True;
-        grid_usuariosDBTableView1.DataController.RefreshExternalData;
-        buscaInput.Text := '';
-      end
-      else
-      begin
-        ShowMessage('Usuário não encontrado!');
-      end;
-    except
-      ShowMessage('Erro ao buscar usuário!');
-    end;
+    ds_usuarios.DataSet.Filter := 'codigo = ' + buscaInfo;
   end
   else if Self.SelecaoBusca.Text = 'NOME COMPLETO' then
   begin
-    q1.Close;
-    q1.SQL.Clear;
-
-    q1.SQL.Add('select * from usuarios2 ');
-    q1.SQL.Add(' where nome_completo like :nome');
-
-    q1.ParamByName('nome').Value := '%' + buscaInfo + '%';
-
-    try
-      q1.Open;
-      if(q1.RecordCount > 0 ) then
-      begin
-        ds_usuarios.DataSet.Filter := 'nome_completo like ' + QuotedStr('%' + buscaInfo + '%');
-        ds_usuarios.DataSet.Filtered := True;
-        grid_usuariosDBTableView1.DataController.RefreshExternalData;
-        buscaInput.Text := '';
-      end
-      else
-      begin
-        ShowMessage('Usuário não encontrado!');
-      end;
-    except
-      ShowMessage('Erro ao buscar usuário!');
-    end;
+    ds_usuarios.DataSet.Filter := 'nome_completo like ' + QuotedStr('%' + buscaInfo + '%');
   end
   else if Self.SelecaoBusca.Text = 'EMAIL' then
   begin
-    q1.Close;
-    q1.SQL.Clear;
+    ds_usuarios.DataSet.Filter := 'email like ' + QuotedStr('%' + buscaInfo + '%');
+  end
+  else ShowMessage('Campo de busca inválido!!');
 
-    q1.SQL.Add('select * from usuarios2 ');
-    q1.SQL.Add(' where email like :email');
-
-    q1.ParamByName('email').Value := '%' + buscaInfo + '%';
-
-    try
-      q1.Open;
-      if(q1.RecordCount > 0 ) then
-      begin
-        ds_usuarios.DataSet.Filter := 'email like ' + QuotedStr('%' + buscaInfo + '%');
-        ds_usuarios.DataSet.Filtered := True;
-        grid_usuariosDBTableView1.DataController.RefreshExternalData;
-        buscaInput.Text := '';
-      end
-      else
-      begin
-        ShowMessage('Usuário não encontrado!');
-      end;
-    except
-      ShowMessage('Erro ao buscar usuário!');
-    end;
+  if buscaInfo <> '' then
+  begin
+    ds_usuarios.DataSet.Filtered := True;
+    grid_usuariosDBTableView1.DataController.RefreshExternalData;
+    buscaInput.Text := '';
+  end
+  else
+  begin
+    ShowMessage('Informe uma palavra-chave válida!');
   end;
+
 end;
 
 procedure TFormUsuarios.bt_mostrarTudoClick(Sender: TObject);

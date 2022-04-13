@@ -1,21 +1,24 @@
-object Form1: TForm1
+object MostrarLivroForm: TMostrarLivroForm
   Left = 0
   Top = 0
-  Caption = 'Form1'
-  ClientHeight = 338
-  ClientWidth = 651
+  Caption = 'MostrarLivroForm'
+  ClientHeight = 365
+  ClientWidth = 652
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
+  OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 40
-    Top = 20
+    Top = 8
     Width = 175
     Height = 24
     Caption = 'Livro selecionado'
@@ -28,69 +31,100 @@ object Form1: TForm1
   end
   object Label2: TLabel
     Left = 40
-    Top = 66
+    Top = 106
     Width = 64
     Height = 13
     Caption = 'T'#237'tulo do livro'
   end
   object Label3: TLabel
     Left = 40
-    Top = 112
+    Top = 152
     Width = 34
     Height = 13
     Caption = 'Editora'
   end
   object Label4: TLabel
     Left = 40
-    Top = 176
+    Top = 200
     Width = 87
     Height = 13
     Caption = 'Ano de publica'#231#227'o'
   end
   object Label5: TLabel
     Left = 40
-    Top = 229
+    Top = 253
     Width = 99
     Height = 13
     Caption = 'Pre'#231'o de venda (R$)'
   end
+  object Label6: TLabel
+    Left = 40
+    Top = 60
+    Width = 33
+    Height = 13
+    Caption = 'C'#243'digo'
+  end
   object TituloInput: TEdit
     Left = 40
-    Top = 85
-    Width = 225
-    Height = 21
-    CharCase = ecUpperCase
-    TabOrder = 0
-  end
-  object EditoraInput: TEdit
-    Left = 40
-    Top = 131
+    Top = 125
     Width = 225
     Height = 21
     CharCase = ecUpperCase
     TabOrder = 1
   end
+  object EditoraInput: TEdit
+    Left = 40
+    Top = 171
+    Width = 225
+    Height = 21
+    CharCase = ecUpperCase
+    TabOrder = 2
+  end
   object AnoPublicacao: TDateTimePicker
     Left = 40
-    Top = 195
+    Top = 219
     Width = 87
     Height = 21
     Date = 44663.000000000000000000
     Time = 0.670588252316520100
-    TabOrder = 2
+    TabOrder = 3
   end
   object PrecoInput: TEdit
     Left = 40
-    Top = 248
+    Top = 272
     Width = 158
     Height = 21
     CharCase = ecUpperCase
     NumbersOnly = True
-    TabOrder = 3
+    TabOrder = 4
+  end
+  object SalvarBtn: TButton
+    Left = 353
+    Top = 252
+    Width = 240
+    Height = 54
+    Caption = 'Salvar'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+    OnClick = SalvarBtnClick
+  end
+  object CodigoInput: TEdit
+    Left = 40
+    Top = 79
+    Width = 64
+    Height = 21
+    CharCase = ecUpperCase
+    Enabled = False
+    TabOrder = 0
   end
   object Categorias: TRadioGroup
     Left = 313
-    Top = 66
+    Top = 56
     Width = 280
     Height = 169
     Caption = 'Selecione uma categoria'
@@ -104,33 +138,20 @@ object Form1: TForm1
       'NENHUMA'
       'A'#199#195'O'
       'AVENTURA'
+      'C'#202'NCIA E TECNOLOGIA'
       'FIC'#199#195'O CIENT'#205'FICA'
       'SUSPENSE'
-      'TERROR'
-      'DESENVOLVIMENTO PESSOAL'
-      'TECNOLOGIA')
+      'TERROR')
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 6
   end
-  object AdicionarBtn: TButton
-    Left = 353
-    Top = 252
-    Width = 240
-    Height = 54
-    Caption = 'Salvar'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -19
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 5
-  end
-  object Modo: TEdit
+  object ModoInput: TEdit
     Left = 40
-    Top = 285
+    Top = 309
     Width = 25
     Height = 21
-    TabOrder = 6
+    CharCase = ecUpperCase
+    TabOrder = 7
+    Visible = False
   end
 end

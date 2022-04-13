@@ -58,12 +58,12 @@ begin
 
     q1.SQL.Add('insert into clientes2 ');
     q1.SQL.Add('values');
-    q1.SQL.Add('(:codigo, :nome_completo, :email, :cpf, :telefone)');
+    q1.SQL.Add('(:codigo, :cpf, :nome_completo, :email, :telefone)');
 
     q1.ParamByName('codigo').Value := codUsuario;
+    q1.ParamByName('cpf').Value := cpfInput.Text;
     q1.ParamByName('nome_completo').Value := nome_completoInput.Text;
     q1.ParamByName('email').Value := emailInput.Text;
-    q1.ParamByName('cpf').Value := cpfInput.Text;
     q1.ParamByName('telefone').Value := telefoneInput.Text;
 
     try

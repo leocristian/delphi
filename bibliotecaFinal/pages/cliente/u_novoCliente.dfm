@@ -105,6 +105,7 @@ object NovoCliente: TNovoCliente
     Width = 119
     Height = 21
     CharCase = ecUpperCase
+    NumbersOnly = True
     TabOrder = 3
   end
 end
