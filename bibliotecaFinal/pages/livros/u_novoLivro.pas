@@ -73,7 +73,7 @@ begin
     try
       q1.ExecSQL;
       ShowMessage('Livro adicionado com sucesso!');
-      FormLivros.grid_vendasDBTableView1.DataController.RefreshExternalData;
+      FormLivros.grid_livrosDBTableView1.DataController.RefreshExternalData;
     except
       ShowMessage('Erro ao cadastrar livro');
     end;

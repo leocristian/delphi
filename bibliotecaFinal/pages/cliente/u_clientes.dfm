@@ -22,13 +22,12 @@ object FormClientes: TFormClientes
     Height = 65
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = -32
-    ExplicitTop = 8
     object BuscaInput: TEdit
       Left = 135
       Top = 23
       Width = 146
       Height = 21
+      CharCase = ecUpperCase
       TabOrder = 0
     end
     object bt_busca: TButton
@@ -38,6 +37,16 @@ object FormClientes: TFormClientes
       Height = 41
       Caption = 'Pesquisar'
       TabOrder = 1
+      OnClick = bt_buscaClick
+    end
+    object bt_mostrarTudo: TButton
+      Left = 448
+      Top = 13
+      Width = 97
+      Height = 41
+      Caption = 'Mostrar todos'
+      TabOrder = 2
+      OnClick = bt_mostrarTudoClick
     end
   end
   object grid_clientes: TcxGrid
@@ -48,7 +57,6 @@ object FormClientes: TFormClientes
     Align = alClient
     PopupMenu = PopupClientes
     TabOrder = 1
-    ExplicitTop = 71
     object grid_clientesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -96,12 +104,6 @@ object FormClientes: TFormClientes
       object grid_clientesDBTableView1nome_completo: TcxGridDBColumn
         DataBinding.FieldName = 'nome_completo'
       end
-      object grid_clientesDBTableView1email: TcxGridDBColumn
-        DataBinding.FieldName = 'email'
-      end
-      object grid_clientesDBTableView1telefone: TcxGridDBColumn
-        DataBinding.FieldName = 'telefone'
-      end
     end
     object grid_clientesLevel1: TcxGridLevel
       GridView = grid_clientesDBTableView1
@@ -117,7 +119,8 @@ object FormClientes: TFormClientes
     Text = 'C'#211'DIGO'
     Items.Strings = (
       'C'#211'DIGO'
-      'NOME OU EMAIL')
+      'NOME COMPLETO'
+      'CPF')
   end
   object PopupClientes: TPopupMenu
     Left = 576
@@ -125,6 +128,10 @@ object FormClientes: TFormClientes
     object VisualizarCliente: TMenuItem
       Caption = 'Visualizar cliente selecionado'
       OnClick = VisualizarClienteClick
+    end
+    object AdicionarCliente: TMenuItem
+      Caption = 'Adicionar novo cliente'
+      OnClick = AdicionarClienteClick
     end
     object AlterarCliente: TMenuItem
       Caption = 'Alterar cliente selecionado'

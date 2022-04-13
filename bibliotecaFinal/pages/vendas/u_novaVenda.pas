@@ -110,6 +110,7 @@ procedure TNovaVendaForm.MostrarForm(Sender: TObject);
 begin
   AbrirForm(NovaVendaForm);
 
+  ClienteInput.SetFocus;
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
 end;

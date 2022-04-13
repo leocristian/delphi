@@ -74,11 +74,10 @@ object NovoLivroForm: TNovoLivroForm
       'NENHUMA'
       'A'#199#195'O'
       'AVENTURA'
+      'C'#202'NCIA E TECNOLOGIA'
       'FIC'#199#195'O CIENT'#205'FICA'
       'SUSPENSE'
-      'TERROR'
-      'DESENVOLVIMENTO PESSOAL'
-      'TECNOLOGIA')
+      'TERROR')
     ParentFont = False
     TabOrder = 4
   end

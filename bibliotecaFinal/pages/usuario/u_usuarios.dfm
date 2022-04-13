@@ -25,7 +25,8 @@ object FormUsuarios: TFormUsuarios
     Height = 439
     Align = alClient
     PopupMenu = PopupUsuarios
-    TabOrder = 0
+    TabOrder = 4
+    ExplicitTop = 63
     object grid_usuariosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -61,21 +62,21 @@ object FormUsuarios: TFormUsuarios
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
       OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
+      Styles.Header = cxStyle1
       object grid_usuariosDBTableView1codigo: TcxGridDBColumn
+        Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
       end
       object grid_usuariosDBTableView1nome_completo: TcxGridDBColumn
+        Caption = 'Nome completo'
         DataBinding.FieldName = 'nome_completo'
         Width = 261
       end
       object grid_usuariosDBTableView1email: TcxGridDBColumn
+        Caption = 'Email'
         DataBinding.FieldName = 'email'
-      end
-      object grid_usuariosDBTableView1login: TcxGridDBColumn
-        DataBinding.FieldName = 'login'
-      end
-      object grid_usuariosDBTableView1senha: TcxGridDBColumn
-        DataBinding.FieldName = 'senha'
       end
     end
     object grid_usuariosLevel1: TcxGridLevel
@@ -88,39 +89,50 @@ object FormUsuarios: TFormUsuarios
     Width = 829
     Height = 57
     Align = alTop
-    TabOrder = 1
-    object bt_busca: TButton
-      Left = 312
-      Top = 10
-      Width = 97
-      Height = 41
-      Caption = 'Pesquisar'
-      TabOrder = 0
-      OnClick = bt_buscaClick
-    end
-    object SelecaoBusca: TComboBox
-      Left = 16
-      Top = 19
-      Width = 113
-      Height = 21
-      CharCase = ecUpperCase
-      TabOrder = 1
-      Text = 'C'#211'DIGO'
-      Items.Strings = (
-        'C'#211'DIGO'
-        'NOME COMPLETO'
-        'EMAIL')
-    end
+    TabOrder = 5
+    ExplicitTop = -6
+  end
+  object bt_busca: TButton
+    Left = 312
+    Top = 10
+    Width = 97
+    Height = 41
+    Caption = 'Pesquisar'
+    TabOrder = 2
+    OnClick = bt_buscaClick
+  end
+  object bt_mostrarTudo: TButton
+    Left = 440
+    Top = 10
+    Width = 97
+    Height = 41
+    Caption = 'Mostrar todos'
+    TabOrder = 3
+    OnClick = bt_mostrarTudoClick
   end
   object BuscaInput: TEdit
     Left = 135
     Top = 19
     Width = 130
     Height = 21
-    TabOrder = 2
+    CharCase = ecUpperCase
+    TabOrder = 1
+  end
+  object SelecaoBusca: TComboBox
+    Left = 16
+    Top = 19
+    Width = 113
+    Height = 21
+    CharCase = ecUpperCase
+    TabOrder = 0
+    Text = 'C'#211'DIGO'
+    Items.Strings = (
+      'C'#211'DIGO'
+      'NOME COMPLETO'
+      'EMAIL')
   end
   object PopupUsuarios: TPopupMenu
-    Left = 528
+    Left = 600
     Top = 8
     object VisualizarUsuario: TMenuItem
       Caption = 'Visualizar usu'#225'rio selecionado'
@@ -142,12 +154,25 @@ object FormUsuarios: TFormUsuarios
     TableName = 'usuarios2'
     Connection = dm1.con1
     Active = True
-    Left = 616
+    Left = 672
     Top = 8
   end
   object ds_usuarios: TDataSource
     DataSet = tb_usuarios
-    Left = 688
+    Left = 736
     Top = 8
+  end
+  object cxStyleRepository1: TcxStyleRepository
+    Left = 736
+    Top = 72
+    PixelsPerInch = 96
+    object cxStyle1: TcxStyle
+      AssignedValues = [svFont]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+    end
   end
 end

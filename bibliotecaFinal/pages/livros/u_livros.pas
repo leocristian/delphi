@@ -16,9 +16,9 @@ type
     Panel1: TPanel;
     BuscaInput: TEdit;
     bt_busca: TButton;
-    grid_vendas: TcxGrid;
-    grid_vendasDBTableView1: TcxGridDBTableView;
-    grid_vendasLevel1: TcxGridLevel;
+    grid_livros: TcxGrid;
+    grid_livrosDBTableView1: TcxGridDBTableView;
+    grid_livrosLevel1: TcxGridLevel;
     SelecaoBusca: TComboBox;
     tb_livros: TUniTable;
     PopupLivros: TPopupMenu;
@@ -30,13 +30,15 @@ type
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;
     ds_livros: TDataSource;
-    grid_vendasDBTableView1codigo: TcxGridDBColumn;
-    grid_vendasDBTableView1titulo: TcxGridDBColumn;
-    grid_vendasDBTableView1editora: TcxGridDBColumn;
-    grid_vendasDBTableView1ano_publicacao: TcxGridDBColumn;
-    grid_vendasDBTableView1preco: TcxGridDBColumn;
-    grid_vendasDBTableView1categoria: TcxGridDBColumn;
+    grid_livrosDBTableView1codigo: TcxGridDBColumn;
+    grid_livrosDBTableView1titulo: TcxGridDBColumn;
+    grid_livrosDBTableView1editora: TcxGridDBColumn;
+    grid_livrosDBTableView1preco: TcxGridDBColumn;
+    grid_livrosDBTableView1categoria: TcxGridDBColumn;
+    bt_mostrarTudo: TButton;
     procedure NovoLivroClick(Sender: TObject);
+    procedure bt_buscaClick(Sender: TObject);
+    procedure bt_mostrarTudoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,6 +53,51 @@ implementation
 {$R *.dfm}
 
 uses u_novoLivro;
+
+procedure TFormLivros.bt_buscaClick(Sender: TObject);
+var
+  buscaInfo: String;
+
+begin
+
+  buscaInfo := BuscaInput.Text;
+
+  if Self.SelecaoBusca.Text = 'CÓDIGO' then
+  begin
+
+    ds_livros.DataSet.Filter := 'codigo = ' + buscaInfo;
+    ds_livros.DataSet.Filtered := True;
+  end
+  else if Self.SelecaoBusca.Text = 'CATEGORIA' then
+  begin
+
+    ds_livros.DataSet.Filter := 'categoria like ' + QuotedStr('%' + buscaInfo + '%');
+    ds_livros.DataSet.Filtered := True;
+  end
+  else if Self.SelecaoBusca.Text = 'EDITORA' then
+  begin
+
+    ds_livros.DataSet.Filter := 'editora like ' + QuotedStr('%' + buscaInfo + '%');
+    ds_livros.DataSet.Filtered := True;
+  end
+  else if Self.SelecaoBusca.Text = 'TITULO' then
+  begin
+
+    ds_livros.DataSet.Filter := 'titulo like ' + QuotedStr('%' + buscaInfo + '%');
+    ds_livros.DataSet.Filtered := True;
+  end
+  else ShowMessage('Campo de busca inválido');
+
+  grid_livrosDBTableView1.DataController.RefreshExternalData;
+  buscaInput.Text := '';
+
+end;
+
+procedure TFormLivros.bt_mostrarTudoClick(Sender: TObject);
+begin
+  ds_livros.DataSet.Filtered := False;
+  grid_livrosDBTableView1.DataController.RefreshExternalData;
+end;
 
 procedure TFormLivros.NovoLivroClick(Sender: TObject);
 begin

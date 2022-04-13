@@ -101,7 +101,7 @@ object NovaVendaForm: TNovaVendaForm
     Top = 88
     Width = 217
     Height = 21
-    CharCase = ecLowerCase
+    CharCase = ecUpperCase
     TabOrder = 1
   end
   object ClienteInput: TEdit
@@ -219,7 +219,7 @@ object NovaVendaForm: TNovaVendaForm
         DataType = ftString
         Size = 20
       end>
-    Left = 336
+    Left = 360
     Top = 16
     Data = {
       040004000600636F6469676F03000000000000000600746974756C6F01001400
@@ -228,7 +228,7 @@ object NovaVendaForm: TNovaVendaForm
   end
   object vds_livrosVenda: TDataSource
     DataSet = vtb_livrosVenda
-    Left = 400
+    Left = 440
     Top = 16
   end
   object ds_livrosVenda: TDataSource

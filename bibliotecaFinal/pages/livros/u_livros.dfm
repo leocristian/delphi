@@ -21,25 +21,35 @@ object FormLivros: TFormLivros
     Height = 65
     Align = alTop
     TabOrder = 0
-    ExplicitTop = 8
-    ExplicitWidth = 826
+    ExplicitTop = -6
     object BuscaInput: TEdit
       Left = 135
       Top = 23
       Width = 146
       Height = 21
+      CharCase = ecUpperCase
       TabOrder = 0
     end
     object bt_busca: TButton
-      Left = 336
-      Top = 13
+      Left = 312
+      Top = 18
       Width = 97
       Height = 41
       Caption = 'Pesquisar'
       TabOrder = 1
+      OnClick = bt_buscaClick
+    end
+    object bt_mostrarTudo: TButton
+      Left = 415
+      Top = 18
+      Width = 105
+      Height = 41
+      Caption = 'Mostrar todos'
+      TabOrder = 2
+      OnClick = bt_mostrarTudoClick
     end
   end
-  object grid_vendas: TcxGrid
+  object grid_livros: TcxGrid
     Left = 0
     Top = 65
     Width = 862
@@ -49,7 +59,7 @@ object FormLivros: TFormLivros
     TabOrder = 1
     ExplicitLeft = -48
     ExplicitTop = 13
-    object grid_vendasDBTableView1: TcxGridDBTableView
+    object grid_livrosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
       Navigator.Buttons.PriorPage.Visible = True
@@ -87,28 +97,25 @@ object FormLivros: TFormLivros
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
       Styles.Header = cxStyle1
-      object grid_vendasDBTableView1codigo: TcxGridDBColumn
+      object grid_livrosDBTableView1codigo: TcxGridDBColumn
         DataBinding.FieldName = 'codigo'
       end
-      object grid_vendasDBTableView1titulo: TcxGridDBColumn
+      object grid_livrosDBTableView1titulo: TcxGridDBColumn
         DataBinding.FieldName = 'titulo'
       end
-      object grid_vendasDBTableView1editora: TcxGridDBColumn
+      object grid_livrosDBTableView1editora: TcxGridDBColumn
         DataBinding.FieldName = 'editora'
       end
-      object grid_vendasDBTableView1ano_publicacao: TcxGridDBColumn
-        DataBinding.FieldName = 'ano_publicacao'
-      end
-      object grid_vendasDBTableView1categoria: TcxGridDBColumn
+      object grid_livrosDBTableView1categoria: TcxGridDBColumn
         DataBinding.FieldName = 'categoria'
         Width = 130
       end
-      object grid_vendasDBTableView1preco: TcxGridDBColumn
+      object grid_livrosDBTableView1preco: TcxGridDBColumn
         DataBinding.FieldName = 'preco'
       end
     end
-    object grid_vendasLevel1: TcxGridLevel
-      GridView = grid_vendasDBTableView1
+    object grid_livrosLevel1: TcxGridLevel
+      GridView = grid_livrosDBTableView1
     end
   end
   object SelecaoBusca: TComboBox
@@ -121,8 +128,9 @@ object FormLivros: TFormLivros
     Text = 'C'#211'DIGO'
     Items.Strings = (
       'C'#211'DIGO'
-      'TITULO'
-      'CATEGORIA')
+      'CATEGORIA'
+      'EDITORA'
+      'TITULO')
   end
   object tb_livros: TUniTable
     TableName = 'livros'
@@ -152,7 +160,7 @@ object FormLivros: TFormLivros
     end
   end
   object cxStyleRepository1: TcxStyleRepository
-    Left = 560
+    Left = 568
     Top = 16
     PixelsPerInch = 96
     object cxStyle1: TcxStyle
