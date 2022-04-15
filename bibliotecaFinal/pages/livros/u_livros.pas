@@ -76,7 +76,7 @@ begin
     indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
     codLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
 
-    q1.SQL.Add('select * from livros ');
+    q1.SQL.Add('select * from livros2 ');
     q1.SQL.Add('where ');
     q1.SQL.Add('codigo = :codigo');
 
@@ -89,8 +89,9 @@ begin
       MostrarLivroForm.CodigoInput.Text := q1.FieldByName('codigo').Value;
       MostrarLivroForm.TituloInput.Text := q1.FieldByName('titulo').Value;
       MostrarLivroForm.EditoraInput.Text :=  q1.FieldByName('editora').Value;
-      MostrarLivroForm.AnoPublicacao.Date := q1.FieldByName('ano_publicacao').Value;
-      MostrarLivroForm.PrecoInput.Text := q1.FieldByName('preco').Value;
+      MostrarLivroForm.AnoPublicacao.Date := StrToDate(q1.FieldByName('ano_publicacao').Value);
+      MostrarLivroForm.PrecoInput.Text := FloatToStr(q1.FieldByName('preco').Value);
+      MostrarLivroForm.CategoriaInput.Text := q1.FieldByName('categoria').Value;
 
       MostrarLivroForm.ModoInput.Text := 'A';
     end;
@@ -181,8 +182,9 @@ begin
       MostrarLivroForm.CodigoInput.Text := q1.FieldByName('codigo').Value;
       MostrarLivroForm.TituloInput.Text := q1.FieldByName('titulo').Value;
       MostrarLivroForm.EditoraInput.Text :=  q1.FieldByName('editora').Value;
-      MostrarLivroForm.AnoPublicacao.Date := q1.FieldByName('ano_publicacao').Value;
-      MostrarLivroForm.PrecoInput.Text := q1.FieldByName('preco').Value;
+      MostrarLivroForm.AnoPublicacao.Date := StrToDate(q1.FieldByName('ano_publicacao').Value);
+      MostrarLivroForm.PrecoInput.Text := FloatToStr(q1.FieldByName('preco').Value);
+      MostrarLivroForm.CategoriaInput.Text := q1.FieldByName('categoria').Value;
 
       MostrarLivroForm.ModoInput.Text := 'V';
     end;

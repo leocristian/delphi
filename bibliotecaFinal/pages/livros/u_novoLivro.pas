@@ -45,7 +45,12 @@ var
   codLivro: Integer;
 
 begin
-  try
+  if ExisteInputsVazios(NovoLivroForm) then
+  begin
+    ShowMessage('Preencha todos os campos!');
+  end
+  else
+  begin
     q1.Close;
     q1.SQL.Text := 'select nextval(''tb_livros_cod_seq'') as codProximo';
     q1.Open;
@@ -62,7 +67,7 @@ begin
     q1.ParamByName('codigo').Value := codLivro;
     q1.ParamByName('titulo').Value := TituloInput.Text;
     q1.ParamByName('editora').Value := EditoraInput.Text;
-    q1.ParamByName('anoPublicacao').Value := DateToStr(AnoPublicacao.Date);
+    q1.ParamByName('anoPublicacao').Value := AnoPublicacao.Date;
     q1.ParamByName('preco').Value := PrecoInput.Text;
 
     categoria := Categorias.Items[Categorias.ItemIndex];
@@ -73,13 +78,13 @@ begin
       q1.ExecSQL;
       ShowMessage('Livro adicionado com sucesso!');
       FormLivros.grid_livrosDBTableView1.DataController.RefreshExternalData;
+      Self.Close;
+      FreeAndNil(q1)
     except
-      ShowMessage('Erro ao cadastrar livro');
+    ShowMessage('Erro ao cadastrar livro');
     end;
-
-  finally
-    Self.Close;
   end;
+
 end;
 
 procedure TNovoLivroForm.FormCreate(Sender: TObject);

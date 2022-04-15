@@ -21,7 +21,6 @@ type
     usuarios: TMenuItem;
     clientes: TMenuItem;
     Outros1: TMenuItem;
-    editoras: TMenuItem;
     livros: TMenuItem;
     vendas: TMenuItem;
     relatorioVendas: TMenuItem;
@@ -70,6 +69,7 @@ end;
 procedure TFormPrincipal.encerrarClick(Sender: TObject);
 begin
   FormPrincipal.Visible := False;
+  LoginForm.LoginInput.SetFocus;
 end;
 
 procedure TFormPrincipal.livrosClick(Sender: TObject);

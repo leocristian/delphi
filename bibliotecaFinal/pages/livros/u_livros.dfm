@@ -113,12 +113,15 @@ object FormLivros: TFormLivros
       end
       object grid_livrosDBTableView1titulo: TcxGridDBColumn
         DataBinding.FieldName = 'titulo'
+        Width = 180
       end
       object grid_livrosDBTableView1editora: TcxGridDBColumn
         DataBinding.FieldName = 'editora'
+        Width = 164
       end
       object grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn
         DataBinding.FieldName = 'ano_publicacao'
+        Width = 106
       end
       object grid_livrosDBTableView1preco: TcxGridDBColumn
         DataBinding.FieldName = 'preco'

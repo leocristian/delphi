@@ -20,8 +20,9 @@ type
     SalvarBtn: TButton;
     Label6: TLabel;
     CodigoInput: TEdit;
-    Categorias: TRadioGroup;
     ModoInput: TEdit;
+    CategoriaInput: TComboBox;
+    Label7: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure SalvarBtnClick(Sender: TObject);
@@ -57,13 +58,13 @@ begin
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
 
-  ShowMessage(ModoInput.Text);
   if ModoInput.Text = 'V' then
   begin
     TituloInput.Enabled := False;
     EditoraInput.Enabled := False;
     AnoPublicacao.Enabled := False;
     PrecoInput.Enabled := False;
+    CategoriaInput.Enabled := False;
     SalvarBtn.Visible := False;
   end
   else
@@ -72,6 +73,7 @@ begin
     EditoraInput.Enabled := True;
     AnoPublicacao.Enabled := True;
     PrecoInput.Enabled := True;
+    CategoriaInput.Enabled := True;
     SalvarBtn.Visible := True;
   end;
 
@@ -95,12 +97,9 @@ begin
     q1.ParamByName('codigo').Value := CodigoInput.Text;
     q1.ParamByName('titulo').Value := TituloInput.Text;
     q1.ParamByName('editora').Value := EditoraInput.Text;
-    q1.ParamByName('anoPublicacao').Value := DateToStr(AnoPublicacao.Date);
+    q1.ParamByName('anoPublicacao').Value := AnoPublicacao.Date;
     q1.ParamByName('preco').Value := PrecoInput.Text;
-
-    categoria := Categorias.Items[Categorias.ItemIndex];
-
-    q1.ParamByName('categoria').Value := categoria;
+    q1.ParamByName('categoria').Value := CategoriaInput.Text;
 
     try
       q1.ExecSQL;
