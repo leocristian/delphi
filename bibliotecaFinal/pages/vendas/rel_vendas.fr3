@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<TfrxReport Version="2022.2" DataSet="rel_vendasDataset" DataSetName="frxDBDataset1" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="167935" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44667,5463625926" ReportOptions.Description.Text="" ReportOptions.LastChange="44667,5489967245" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end.">
+  <Datasets>
+    <item DataSet="rel_vendasDataset" DataSetName="frxDBDataset1"/>
+  </Datasets>
+  <TfrxDataPage Name="Data" HGuides.Text="" VGuides.Text="" Height="1000" Left="0" Top="0" Width="1000"/>
+  <TfrxReportPage Name="Page1" HGuides.Text="" VGuides.Text="" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" Frame.Typ="0" MirrorMode="0">
+    <TfrxPageHeader Name="PageHeader1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Height="22,67718" Left="0" Top="18,89765" Width="718,1107"/>
+    <TfrxMasterData Name="MasterData1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Height="71,81107" Left="0" Top="102,04731" Width="718,1107" ColumnWidth="0" ColumnGap="0" RowCount="0">
+      <TfrxMemoView Name="frxDBDataset1codigo" IndexTag="1" AllowVectorExport="True" Left="30,23624" Top="30,23624" Width="79,37013" Height="18,89765" DataField="codigo" DataSet="rel_vendasDataset" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;codigo&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset1vendedor" IndexTag="1" AllowVectorExport="True" Left="132,28355" Top="30,23624" Width="132,28355" Height="18,89765" DataField="vendedor" DataSet="rel_vendasDataset" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;vendedor&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset1cliente" IndexTag="1" AllowVectorExport="True" Left="272,12616" Top="30,23624" Width="151,1812" Height="18,89765" DataField="cliente" DataSet="rel_vendasDataset" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;cliente&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset1valor_total" IndexTag="1" AllowVectorExport="True" Left="442,20501" Top="30,23624" Width="79,37013" Height="18,89765" DataField="valor_total" DataSet="rel_vendasDataset" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;valor_total&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset1data_venda" IndexTag="1" AllowVectorExport="True" Left="604,7248" Top="30,23624" Width="79,37013" Height="18,89765" DataField="data_venda" DataSet="rel_vendasDataset" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;data_venda&#34;]"/>
+    </TfrxMasterData>
+  </TfrxReportPage>
+</TfrxReport>

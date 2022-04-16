@@ -21,8 +21,6 @@ object FormVendas: TFormVendas
     Height = 65
     Align = alTop
     TabOrder = 0
-    ExplicitTop = 8
-    ExplicitWidth = 826
     object BuscaInput: TEdit
       Left = 135
       Top = 23
@@ -47,10 +45,6 @@ object FormVendas: TFormVendas
     Align = alClient
     PopupMenu = PopupVendas
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 60
-    ExplicitWidth = 826
-    ExplicitHeight = 439
     object grid_vendasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -133,6 +127,7 @@ object FormVendas: TFormVendas
     Top = 16
     object VisualizarVenda: TMenuItem
       Caption = 'Visualizar venda selecionada'
+      OnClick = VisualizarVendaClick
     end
     object NovaVenda: TMenuItem
       Caption = 'Realizar nova venda'
@@ -140,6 +135,7 @@ object FormVendas: TFormVendas
     end
     object AlterarVenda: TMenuItem
       Caption = 'Alterar venda selecionada'
+      OnClick = AlterarVendaClick
     end
     object N2: TMenuItem
       Caption = '-'

@@ -2,7 +2,7 @@ object EscolhaLivroForm: TEscolhaLivroForm
   Left = 0
   Top = 0
   Caption = 'EscolhaLivroForm'
-  ClientHeight = 414
+  ClientHeight = 401
   ClientWidth = 676
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

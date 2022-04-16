@@ -19,7 +19,8 @@ uses
   u_livros in 'livros\u_livros.pas' {FormLivros},
   u_novoLivro in 'livros\u_novoLivro.pas' {NovoLivroForm},
   u_mostrarLivro in 'livros\u_mostrarLivro.pas' {MostrarLivroForm},
-  u_novoCliente in 'cliente\u_novoCliente.pas' {NovoCliente};
+  u_novoCliente in 'cliente\u_novoCliente.pas' {NovoCliente},
+  u_mostrarVenda in 'vendas\u_mostrarVenda.pas' {MostrarVendaForm};
 
 {$R *.res}
 
@@ -42,5 +43,6 @@ begin
   Application.CreateForm(TNovoLivroForm, NovoLivroForm);
   Application.CreateForm(TMostrarLivroForm, MostrarLivroForm);
   Application.CreateForm(TNovoCliente, NovoCliente);
+  Application.CreateForm(TMostrarVendaForm, MostrarVendaForm);
   Application.Run;
 end.

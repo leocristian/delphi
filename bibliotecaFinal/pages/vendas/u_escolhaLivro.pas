@@ -9,7 +9,7 @@ uses
   cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   cxDBData, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGridLevel, cxClasses, cxGridCustomView, cxGrid;
+  cxGridLevel, cxClasses, cxGridCustomView, cxGrid, Uni, Vcl.Buttons;
 
 type
   TEscolhaLivroForm = class(TForm)
@@ -42,7 +42,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_forms, u_novaVenda;
+uses u_forms, u_dm1, u_novaVenda;
 
 procedure TEscolhaLivroForm.AbrirForm(Sender: TObject);
 begin
@@ -65,27 +65,58 @@ end;
 procedure TEscolhaLivroForm.ConfirmarClick(Sender: TObject);
 var
   indexLivro: Integer;
+
+  titulo: String;
+  anoPublicacao: String;
   codLivro: Integer;
   precoLivro: Float32;
 
+  q1: TUniQuery;
+
 begin
+
   indexLivro := cxGrid1DBTableView1.DataController.GetSelectedRowIndex(0);
+
   codLivro := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[0];
-
-
-  NovaVendaForm.vtb_livrosvenda.Append;
-  NovaVendaForm.vtb_livrosvenda['codigo'] := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[0];
-  NovaVendaForm.vtb_livrosvenda['titulo'] := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[1];
-  NovaVendaForm.vtb_livrosvenda['anoPublicacao'] := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[2];
-  NovaVendaForm.vtb_livrosvenda['preco'] := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[3];
-
+  titulo := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[1];
+  anoPublicacao := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[2];
   precoLivro := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[3];
+
   vendaControle.IncrementaValor(precoLivro);
 
+  NovaVendaForm.vtb_livrosvenda.Append;
+  NovaVendaForm.vtb_livrosvenda['codigo'] := codLivro;
+  NovaVendaForm.vtb_livrosvenda['titulo'] := titulo;
+  NovaVendaForm.vtb_livrosvenda['anoPublicacao'] := anoPublicacao;
+  NovaVendaForm.vtb_livrosvenda['preco'] := precoLivro;
+
+  try
+    q1 := TUniQuery.Create(nil);
+    q1.Connection := dm1.con1;
+
+    q1.Close;
+    q1.SQL.Clear;
+    q1.SQL.Text := 'select nextval(''tb_livrosVenda_cod_seq'') as codProximo';
+    q1.Open;
+
+    q1.Close;
+    q1.SQL.Clear;
+
+    q1.SQL.Add('insert into livros_venda2 (titulo, ano_publicacao, preco, numero_venda, codigo) ');
+    q1.SQL.Add('values ');
+    q1.SQL.Add('(:titulo, :ano_publicacao, :preco, :numero_venda, :codigo)');
+
+    q1.ParamByName('titulo').Value := titulo;
+    q1.ParamByName('ano_publicacao').Value := anoPublicacao;
+    q1.ParamByName('preco').Value := precoLivro;
+    q1.ParamByName('numero_venda').Value := codVenda;
+
+    q1.ExecSQL;
+  finally
+    FreeAndNil(q1);
+  end;
   NovaVendaForm.labelPreco.Caption := FloatToStr(vendaControle.valorAtual);
-
   EscolhaLivroForm.Close;
-
   NovaVendaForm.TituloInput.SetFocus;
 end;
 
