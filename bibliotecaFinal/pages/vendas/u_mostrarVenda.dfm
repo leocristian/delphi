@@ -1,9 +1,10 @@
 object MostrarVendaForm: TMostrarVendaForm
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'MostrarVendaForm'
-  ClientHeight = 530
-  ClientWidth = 755
+  ClientHeight = 540
+  ClientWidth = 765
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,6 +13,7 @@ object MostrarVendaForm: TMostrarVendaForm
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
@@ -82,7 +84,7 @@ object MostrarVendaForm: TMostrarVendaForm
     Height = 13
     Caption = 'Titulo do livro'
   end
-  object Label1: TLabel
+  object TituloPagina: TLabel
     Left = 40
     Top = 16
     Width = 219
@@ -140,6 +142,7 @@ object MostrarVendaForm: TMostrarVendaForm
     Height = 46
     Caption = 'Adicionar livro'
     TabOrder = 2
+    OnClick = AddLivroClick
   end
   object CodigoInput: TEdit
     Left = 40
@@ -159,62 +162,18 @@ object MostrarVendaForm: TMostrarVendaForm
     TabOrder = 5
     Visible = False
   end
-  object grid_livros: TcxGrid
-    Left = 40
-    Top = 184
-    Width = 707
-    Height = 237
-    PopupMenu = PopupMenu1
+  object grid_livros: TDBGrid
+    Left = 42
+    Top = 192
+    Width = 715
+    Height = 209
+    DataSource = vds_livrosVenda
     TabOrder = 6
-    object grid_livrosDBTableView1: TcxGridDBTableView
-      Navigator.Buttons.CustomButtons = <>
-      Navigator.Buttons.First.Visible = True
-      Navigator.Buttons.PriorPage.Visible = True
-      Navigator.Buttons.Prior.Visible = True
-      Navigator.Buttons.Next.Visible = True
-      Navigator.Buttons.NextPage.Visible = True
-      Navigator.Buttons.Last.Visible = True
-      Navigator.Buttons.Insert.Visible = True
-      Navigator.Buttons.Append.Visible = False
-      Navigator.Buttons.Delete.Visible = True
-      Navigator.Buttons.Edit.Visible = True
-      Navigator.Buttons.Post.Visible = True
-      Navigator.Buttons.Cancel.Visible = True
-      Navigator.Buttons.Refresh.Visible = True
-      Navigator.Buttons.SaveBookmark.Visible = True
-      Navigator.Buttons.GotoBookmark.Visible = True
-      Navigator.Buttons.Filter.Visible = True
-      ScrollbarAnnotations.CustomAnnotations = <>
-      DataController.DataSource = vds_livrosVenda
-      DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
-      DataController.Summary.SummaryGroups = <>
-      OptionsSelection.CellSelect = False
-      OptionsView.GroupByBox = False
-      OptionsView.Indicator = True
-      OptionsView.IndicatorWidth = 20
-      object grid_livrosDBTableView1titulo: TcxGridDBColumn
-        DataBinding.FieldName = 'titulo'
-      end
-      object grid_livrosDBTableView1editora: TcxGridDBColumn
-        DataBinding.FieldName = 'editora'
-      end
-      object grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn
-        DataBinding.FieldName = 'ano_publicacao'
-      end
-      object grid_livrosDBTableView1preco: TcxGridDBColumn
-        DataBinding.FieldName = 'preco'
-      end
-      object grid_livrosDBTableView1numero_venda: TcxGridDBColumn
-        DataBinding.FieldName = 'numero_venda'
-      end
-      object grid_livrosDBTableView1codigo: TcxGridDBColumn
-        DataBinding.FieldName = 'codigo'
-      end
-    end
-    object grid_livrosLevel1: TcxGridLevel
-      GridView = grid_livrosDBTableView1
-    end
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
   end
   object vtb_livrosVenda: TVirtualTable
     Active = True
@@ -263,8 +222,8 @@ object MostrarVendaForm: TMostrarVendaForm
     Top = 128
   end
   object PopupMenu1: TPopupMenu
-    Left = 600
-    Top = 224
+    Left = 536
+    Top = 136
     object removerLivro: TMenuItem
       Caption = 'Remover livro da venda'
       OnClick = removerLivroClick

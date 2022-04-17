@@ -93,8 +93,26 @@ begin
 end;
 
 procedure TFormVendas.NovaVendaClick(Sender: TObject);
+var
+  q1: TUniQuery;
+
 begin
-  NovaVendaForm.ShowModal;
+  q1 := TUniQuery.Create(nil);
+  q1.Connection := dm1.con1;
+
+  q1.Close;
+  q1.SQL.Clear;
+
+  q1.SQL.Text := 'select nextval(''tb_vendas_cod_seq'') as codProximo';
+  q1.Open;
+
+  codVenda := q1.FieldByName('codProximo').AsInteger;
+
+  MostrarVendaForm.CodigoInput.Text := IntToStr(codVenda);
+  MostrarVendaForm.ModoInput.Text := 'N';
+  MostrarVendaForm.ShowModal;
+
+  FreeAndNil(q1);
 end;
 
 procedure TFormVendas.VisualizarVendaClick(Sender: TObject);

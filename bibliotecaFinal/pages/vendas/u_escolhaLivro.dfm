@@ -1,9 +1,10 @@
 object EscolhaLivroForm: TEscolhaLivroForm
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'EscolhaLivroForm'
-  ClientHeight = 401
-  ClientWidth = 676
+  ClientHeight = 411
+  ClientWidth = 686
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,6 +13,7 @@ object EscolhaLivroForm: TEscolhaLivroForm
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  OnCreate = FormCreate
   OnKeyPress = AtivaNavegacao
   OnShow = AbrirForm
   PixelsPerInch = 96

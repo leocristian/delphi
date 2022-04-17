@@ -1,9 +1,10 @@
 object NovaVendaForm: TNovaVendaForm
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'NovaVendaForm'
-  ClientHeight = 539
-  ClientWidth = 751
+  ClientHeight = 549
+  ClientWidth = 761
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -196,6 +197,15 @@ object NovaVendaForm: TNovaVendaForm
         Title.Font.Style = [fsBold]
         Visible = True
       end>
+  end
+  object ModoInput: TEdit
+    Left = 40
+    Top = 507
+    Width = 25
+    Height = 21
+    CharCase = ecUpperCase
+    TabOrder = 5
+    Visible = False
   end
   object vtb_livrosVenda: TVirtualTable
     Active = True

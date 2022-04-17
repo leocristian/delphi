@@ -24,6 +24,7 @@ type
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure AbrirForm(Sender: TObject);
     procedure AdicionarUsuarioBtnClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -97,8 +98,17 @@ begin
           ShowMessage('Usuário cadastrado com sucesso!');
           Self.Close;
           LoginForm.LoginInput.SetFocus;
-        except
-          ShowMessage('Usuário já existe!!');
+        except on E: Exception do
+        begin
+          if E.Message = 'duplicate key value violates unique constraint "usuarios2_pkey"' then
+          begin
+            ShowMessage('Já existe um usuário com este login!');
+          end
+          else if E.Message = 'duplicate key value violates unique constraint "usuarios2_email_key"' then
+          begin
+            ShowMessage('Email já cadastrado!');
+          end;
+        end;
         end;
       end;
     finally
@@ -115,6 +125,12 @@ begin
     Perform(wm_nextdlgctl, 0, 0);
   end
   else if key = #27 then close;
+end;
+
+procedure TCadastroForm.Button1Click(Sender: TObject);
+begin
+  LimparInputs(CadastroForm);
+  Close;
 end;
 
 end.

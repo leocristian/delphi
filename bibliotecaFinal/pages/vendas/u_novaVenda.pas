@@ -25,6 +25,7 @@ type
     grid_livros: TDBGrid;
     ds_livrosVenda: TDataSource;
     tb_livrosVenda: TUniTable;
+    ModoInput: TEdit;
     procedure MostrarForm(Sender: TObject);
     procedure AtivarNavegacao(Sender: TObject; var Key: Char);
     procedure AddLivroClick(Sender: TObject);
@@ -37,10 +38,11 @@ type
   end;
 
 var
-  NovaVendaForm: TNovaVendaForm;
+  MostrarVendaForm: TNovaVendaForm;
   q1: TUniQuery;
   codVenda: Integer;
   vendaControle: TVendaControle;
+  qtdLivros: Integer;
 
 implementation
 
@@ -118,47 +120,56 @@ end;
 
 procedure TNovaVendaForm.MostrarForm(Sender: TObject);
 begin
-  AbrirForm(NovaVendaForm);
+  AbrirForm(MostrarVendaForm);
 
   ClienteInput.SetFocus;
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
+
+  qtdLivros := 0;
 end;
 
 procedure TNovaVendaForm.RealizarVendaBtnClick(Sender: TObject);
 
 begin
-  try
-    q1.Close;
-    q1.SQL.Clear;
+  if qtdLivros = 0 then
+  begin
+   ShowMessage('Insira pelo menos um livro na venda!');
+  end
+  else
+  begin
+    try
+      q1.Close;
+      q1.SQL.Clear;
 
-    q1.SQL.Add('insert into vendas ');
-    q1.SQL.Add('values (:codigo, :vendedor, :cliente, :valor_total, :data )');
+      q1.SQL.Add('insert into vendas ');
+      q1.SQL.Add('values (:codigo, :vendedor, :cliente, :valor_total, :data )');
 
-    q1.ParamByName('codigo').Value := codVenda;
-    q1.ParamByName('vendedor').Value := PerfilUsuario.NomeInput.Text;
-    q1.ParamByName('cliente').Value := ClienteInput.Text;
-    q1.ParamByName('valor_total').Value := labelPreco.Caption;
-    q1.ParamByName('data').Value := Now();
+      q1.ParamByName('codigo').Value := codVenda;
+      q1.ParamByName('vendedor').Value := PerfilUsuario.NomeInput.Text;
+      q1.ParamByName('cliente').Value := ClienteInput.Text;
+      q1.ParamByName('valor_total').Value := labelPreco.Caption;
+      q1.ParamByName('data').Value := Now();
 
-    case MessageBox(Application.Handle, 'Confirmar nova venda?', 'Confirmar venda', MB_YESNO) of
-    idYes:
-      begin
-        q1.ExecSQL;
-        ShowMessage('Venda realizada com sucesso');
-        Self.vtb_livrosVenda.Clear;
-        vendaControle.ZerarValor;
-        LimparInputs(NovaVendaForm);
-        LabelPreco.Caption := FloatToStr(vendaControle.valorAtual);
-        FormVendas.grid_vendasDBTableView1.DataController.RefreshExternalData;
+      case MessageBox(Application.Handle, 'Confirmar nova venda?', 'Confirmar venda', MB_YESNO) of
+      idYes:
+        begin
+          q1.ExecSQL;
+          ShowMessage('Venda realizada com sucesso');
+          FormVendas.grid_vendasDBTableView1.DataController.RefreshExternalData;
+        end;
+      idNo:
+        begin
+          ShowMessage('Operação cancelada!');
+        end;
       end;
-    idNo:
-      begin
-        ShowMessage('Operação cancelada!');
-      end;
+    finally
+      Self.vtb_livrosVenda.Clear;
+      vendaControle.ZerarValor;
+      LimparInputs(MostrarVendaForm);
+      LabelPreco.Caption := FloatToStr(vendaControle.valorAtual);
+      Self.Close;
     end;
-  finally
-    Self.Close;
   end;
 end;
 

@@ -123,5 +123,6 @@ object CadastroForm: TCadastroForm
     Height = 34
     Caption = 'Cancelar'
     TabOrder = 6
+    OnClick = Button1Click
   end
 end

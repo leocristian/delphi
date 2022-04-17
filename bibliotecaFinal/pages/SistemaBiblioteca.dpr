@@ -37,7 +37,7 @@ begin
   Application.CreateForm(TPerfilUsuario, PerfilUsuario);
   Application.CreateForm(TMostrarClientesForm, MostrarClientesForm);
   Application.CreateForm(TFormVendas, FormVendas);
-  Application.CreateForm(TNovaVendaForm, NovaVendaForm);
+  Application.CreateForm(TNovaVendaForm, MostrarVendaForm);
   Application.CreateForm(TEscolhaLivroForm, EscolhaLivroForm);
   Application.CreateForm(TFormLivros, FormLivros);
   Application.CreateForm(TNovoLivroForm, NovoLivroForm);
