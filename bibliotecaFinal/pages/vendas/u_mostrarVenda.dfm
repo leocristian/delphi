@@ -162,18 +162,57 @@ object MostrarVendaForm: TMostrarVendaForm
     TabOrder = 5
     Visible = False
   end
-  object grid_livros: TDBGrid
-    Left = 42
-    Top = 192
-    Width = 715
-    Height = 209
-    DataSource = vds_livrosVenda
+  object grid_livros: TcxGrid
+    Left = 40
+    Top = 184
+    Width = 717
+    Height = 237
+    PopupMenu = PopupMenu1
     TabOrder = 6
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'Tahoma'
-    TitleFont.Style = []
+    object grid_livrosDBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      Navigator.Buttons.First.Visible = True
+      Navigator.Buttons.PriorPage.Visible = True
+      Navigator.Buttons.Prior.Visible = True
+      Navigator.Buttons.Next.Visible = True
+      Navigator.Buttons.NextPage.Visible = True
+      Navigator.Buttons.Last.Visible = True
+      Navigator.Buttons.Insert.Visible = True
+      Navigator.Buttons.Append.Visible = False
+      Navigator.Buttons.Delete.Visible = True
+      Navigator.Buttons.Edit.Visible = True
+      Navigator.Buttons.Post.Visible = True
+      Navigator.Buttons.Cancel.Visible = True
+      Navigator.Buttons.Refresh.Visible = True
+      Navigator.Buttons.SaveBookmark.Visible = True
+      Navigator.Buttons.GotoBookmark.Visible = True
+      Navigator.Buttons.Filter.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.DataSource = vds_livrosVenda
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      OptionsSelection.CellSelect = False
+      OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
+      Styles.Header = EscolhaLivroForm.cxStyle1
+      object grid_livrosDBTableView1titulo: TcxGridDBColumn
+        Caption = 'T'#237'tulo'
+        DataBinding.FieldName = 'titulo'
+      end
+      object grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn
+        Caption = 'Ano de publica'#231#227'o'
+        DataBinding.FieldName = 'ano_publicacao'
+      end
+      object grid_livrosDBTableView1preco: TcxGridDBColumn
+        Caption = 'Pre'#231'o'
+        DataBinding.FieldName = 'preco'
+      end
+    end
+    object grid_livrosLevel1: TcxGridLevel
+      GridView = grid_livrosDBTableView1
+    end
   end
   object vtb_livrosVenda: TVirtualTable
     Active = True

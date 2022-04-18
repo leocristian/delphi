@@ -107,7 +107,7 @@ begin
   q1.ParamByName('titulo').Value := titulo;
   q1.ParamByName('ano_publicacao').Value := anoPublicacao;
   q1.ParamByName('preco').Value := precoLivro;
-  q1.ParamByName('numero_venda').Value := codVenda;
+  q1.ParamByName('numero_venda').Value := MostrarVendaForm.CodigoInput.Text;
   q1.ParamByName('codigo').Value := codLivro;
 
   q1.ExecSQL;

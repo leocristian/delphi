@@ -175,6 +175,7 @@ object FormLivros: TFormLivros
     end
     object ExcluirLivro: TMenuItem
       Caption = 'Excluir livro selecionado'
+      OnClick = ExcluirLivroClick
     end
   end
   object cxStyleRepository1: TcxStyleRepository

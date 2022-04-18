@@ -21,11 +21,13 @@ object FormVendas: TFormVendas
     Height = 65
     Align = alTop
     TabOrder = 0
+    ExplicitTop = -6
     object BuscaInput: TEdit
-      Left = 135
+      Left = 127
       Top = 23
       Width = 146
       Height = 21
+      CharCase = ecUpperCase
       TabOrder = 0
     end
     object bt_busca: TButton
@@ -35,6 +37,7 @@ object FormVendas: TFormVendas
       Height = 41
       Caption = 'Pesquisar'
       TabOrder = 1
+      OnClick = bt_buscaClick
     end
   end
   object grid_vendas: TcxGrid
@@ -113,7 +116,17 @@ object FormVendas: TFormVendas
     Text = 'C'#211'DIGO'
     Items.Strings = (
       'C'#211'DIGO'
-      'CLIENTE')
+      'CLIENTE'
+      'DATA')
+  end
+  object MostrarTodas: TButton
+    Left = 455
+    Top = 13
+    Width = 98
+    Height = 41
+    Caption = 'Mostrar todas'
+    TabOrder = 3
+    OnClick = MostrarTodasClick
   end
   object tb_vendas: TUniTable
     TableName = 'vendas'
@@ -140,12 +153,13 @@ object FormVendas: TFormVendas
     object N2: TMenuItem
       Caption = '-'
     end
-    object EstornarVenda: TMenuItem
-      Caption = 'Estornar venda  selecionada'
+    object ExcluirVenda: TMenuItem
+      Caption = 'Excluir venda selecionada'
+      OnClick = ExcluirVendaClick
     end
   end
   object cxStyleRepository1: TcxStyleRepository
-    Left = 560
+    Left = 592
     Top = 16
     PixelsPerInch = 96
     object cxStyle1: TcxStyle

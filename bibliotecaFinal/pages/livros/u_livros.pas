@@ -44,6 +44,7 @@ type
     procedure bt_mostrarTudoClick(Sender: TObject);
     procedure VisualizarLivroClick(Sender: TObject);
     procedure AlterarLivroClick(Sender: TObject);
+    procedure ExcluirLivroClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -76,7 +77,7 @@ begin
     indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
     codLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
 
-    q1.SQL.Add('select * from livros2 ');
+    q1.SQL.Add('select * from livros ');
     q1.SQL.Add('where ');
     q1.SQL.Add('codigo = :codigo');
 
@@ -145,6 +146,35 @@ procedure TFormLivros.bt_mostrarTudoClick(Sender: TObject);
 begin
   ds_livros.DataSet.Filtered := False;
   grid_livrosDBTableView1.DataController.RefreshExternalData;
+end;
+
+procedure TFormLivros.ExcluirLivroClick(Sender: TObject);
+var
+  indexLivro, codLivro: Integer;
+begin
+  q1.Close;
+  q1.SQL.Clear;
+
+  indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
+  codLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
+
+  q1.SQL.Add('delete from livros where codigo = :codigo');
+
+  q1.ParamByName('codigo').Value := codLivro;
+
+  case MessageBox(Application.Handle, 'Confirmar exclusão de livro?', 'Excluir livro', MB_YESNO) of
+  idYes:
+    begin
+      try
+        q1.ExecSQL;
+        ShowMessage('Livro excluído com sucesso!');
+        grid_livrosDBTableView1.DataController.RefreshExternalData;
+      except
+        ShowMessage('Erro ao excluir livro!');
+      end;
+    end;
+  idNo: ShowMessage('Operação cancelada!');
+  end;
 end;
 
 procedure TFormLivros.NovoLivroClick(Sender: TObject);

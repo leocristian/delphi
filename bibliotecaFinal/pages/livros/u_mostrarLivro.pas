@@ -58,6 +58,8 @@ begin
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
 
+  ShowMessage(ModoInput.Text);
+
   if ModoInput.Text = 'V' then
   begin
     TituloInput.Enabled := False;
@@ -67,7 +69,8 @@ begin
     CategoriaInput.Enabled := False;
     SalvarBtn.Visible := False;
   end
-  else
+  else if ModoInput.Text = 'A' then
+       
   begin
     TituloInput.Enabled := True;
     EditoraInput.Enabled := True;

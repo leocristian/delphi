@@ -52,7 +52,10 @@ begin
   else
   begin
     q1.Close;
+    q1.SQL.Clear;
+
     q1.SQL.Text := 'select nextval(''tb_livros_cod_seq'') as codProximo';
+
     q1.Open;
 
     codLivro := q1.FieldByname('codProximo').AsInteger;
@@ -67,7 +70,7 @@ begin
     q1.ParamByName('codigo').Value := codLivro;
     q1.ParamByName('titulo').Value := TituloInput.Text;
     q1.ParamByName('editora').Value := EditoraInput.Text;
-    q1.ParamByName('anoPublicacao').Value := AnoPublicacao.Date;
+    q1.ParamByName('anoPublicacao').Value := DateToStr(AnoPublicacao.Date);
     q1.ParamByName('preco').Value := PrecoInput.Text;
 
     categoria := Categorias.Items[Categorias.ItemIndex];
@@ -79,7 +82,6 @@ begin
       ShowMessage('Livro adicionado com sucesso!');
       FormLivros.grid_livrosDBTableView1.DataController.RefreshExternalData;
       Self.Close;
-      FreeAndNil(q1)
     except
     ShowMessage('Erro ao cadastrar livro');
     end;
@@ -105,6 +107,7 @@ end;
 procedure TNovoLivroForm.FormShow(Sender: TObject);
 begin
   LimparInputs(NovoLivroForm);
+  TituloInput.SetFocus;
 end;
 
 end.

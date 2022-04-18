@@ -26,7 +26,7 @@ type
     VisualizarVenda: TMenuItem;
     AlterarVenda: TMenuItem;
     N2: TMenuItem;
-    EstornarVenda: TMenuItem;
+    ExcluirVenda: TMenuItem;
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;
     ds_vendas: TDataSource;
@@ -36,9 +36,13 @@ type
     grid_vendasDBTableView1cliente: TcxGridDBColumn;
     grid_vendasDBTableView1valor_total: TcxGridDBColumn;
     grid_vendasDBTableView1data_venda: TcxGridDBColumn;
+    MostrarTodas: TButton;
     procedure NovaVendaClick(Sender: TObject);
     procedure VisualizarVendaClick(Sender: TObject);
     procedure AlterarVendaClick(Sender: TObject);
+    procedure ExcluirVendaClick(Sender: TObject);
+    procedure bt_buscaClick(Sender: TObject);
+    procedure MostrarTodasClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -60,36 +64,100 @@ var
 
 begin
    MostrarVendaForm.vtb_livrosVenda.Clear;
-  try
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
 
-    q1.Close;
-    q1.SQL.Clear;
+  q1.Close;
+  q1.SQL.Clear;
 
-    q1.SQL.Add('select * from vendas ');
-    q1.SQL.Add('where codigo = :codigo');
+  q1.SQL.Add('select * from vendas ');
+  q1.SQL.Add('where codigo = :codigo');
 
-    indexVenda := grid_vendasDBTableView1.DataController.GetSelectedRowIndex(0);
-    codVenda := grid_vendasDBTableView1.ViewData.Records[indexVenda].Values[0];
+  indexVenda := grid_vendasDBTableView1.DataController.GetSelectedRowIndex(0);
+  codVenda := grid_vendasDBTableView1.ViewData.Records[indexVenda].Values[0];
 
-    q1.ParamByName('codigo').Value := codVenda;
+  q1.ParamByName('codigo').Value := codVenda;
 
-    q1.Open;
+  q1.Open;
 
-    if q1.RecordCount > 0 then
-    begin
-      MostrarVendaForm.CodigoInput.Text := IntToStr(q1.FieldByName('codigo').Value);
-      MostrarVendaForm.ClienteInput.Text := q1.FieldByName('cliente').Value;
-      MostrarVendaForm.LabelPreco.Caption := q1.FieldByName('valor_total').Value;
-    end;
-
-  finally
-    MostrarVendaForm.ModoInput.Text := 'A';
-    MostrarVendaForm.ShowModal;
-
-    FreeAndNil(q1);
+  if q1.RecordCount > 0 then
+  begin
+    MostrarVendaForm.CodigoInput.Text := IntToStr(q1.FieldByName('codigo').Value);
+    MostrarVendaForm.ClienteInput.Text := q1.FieldByName('cliente').Value;
+    MostrarVendaForm.LabelPreco.Caption := q1.FieldByName('valor_total').Value;
   end;
+
+  MostrarVendaForm.ModoInput.Text := 'A';
+  MostrarVendaForm.ShowModal;
+end;
+
+procedure TFormVendas.bt_buscaClick(Sender: TObject);
+var
+  buscaInfo: String;
+
+begin
+
+  buscaInfo := BuscaInput.Text;
+
+  if Self.SelecaoBusca.Text = 'CÓDIGO' then
+  begin
+    ds_vendas.DataSet.Filter := 'codigo = ' + buscaInfo;
+  end
+  else if Self.SelecaoBusca.Text = 'CLIENTE' then
+  begin
+    ds_vendas.DataSet.Filter := 'cliente like ' + QuotedStr('%' + buscaInfo + '%');
+  end
+  else if Self.SelecaoBusca.Text = 'DATA' then
+  begin
+    ds_vendas.DataSet.Filter := 'data_venda like ' + QuotedStr('%' + buscaInfo + '%');
+  end
+  else ShowMessage('Campo de busca inválido!!');
+
+  if buscaInfo <> '' then
+  begin
+    ds_vendas.DataSet.Filtered := True;
+    grid_vendasDBTableView1.DataController.RefreshExternalData;
+    buscaInput.Text := '';
+  end
+  else
+  begin
+    ShowMessage('Informe uma palavra-chave válida!');
+  end;
+
+end;
+
+procedure TFormVendas.ExcluirVendaClick(Sender: TObject);
+var
+  indexVenda, codVenda: Integer;
+
+begin
+  q1.Close;
+  q1.SQL.Clear;
+
+  indexVenda := grid_vendasDBTableView1.DataController.GetSelectedRowIndex(0);
+  codVenda := grid_vendasDBTableView1.ViewData.Records[indexVenda].Values[0];
+
+  q1.SQL.Add('delete from vendas where codigo = :codigo');
+
+  q1.ParamByName('codigo').Value := codVenda;
+
+  case MessageBox(Application.Handle, 'Confirmar exclusão de venda?', 'Excluir venda', MB_YESNO) of
+  idYes:
+    begin
+      try
+        q1.ExecSQL;
+        ShowMessage('Venda excluída com sucesso!');
+        grid_vendasDBTableView1.DataController.RefreshExternalData;
+      except
+        ShowMessage('Erro ao excluir venda!');
+      end;
+    end;
+  idNo: ShowMessage('Operação cancelada!');
+  end;
+end;
+
+procedure TFormVendas.MostrarTodasClick(Sender: TObject);
+begin
+  ds_vendas.DataSet.Filtered := False;
+  grid_vendasDBTableView1.DataController.RefreshExternalData;
 end;
 
 procedure TFormVendas.NovaVendaClick(Sender: TObject);

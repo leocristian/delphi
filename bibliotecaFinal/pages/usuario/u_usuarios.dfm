@@ -26,9 +26,6 @@ object FormUsuarios: TFormUsuarios
     Align = alClient
     PopupMenu = PopupUsuarios
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = -15
-    ExplicitHeight = 439
     object grid_usuariosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -92,7 +89,6 @@ object FormUsuarios: TFormUsuarios
     Height = 81
     Align = alTop
     TabOrder = 2
-    ExplicitTop = 8
     object Label1: TLabel
       Left = 16
       Top = 20
@@ -112,8 +108,10 @@ object FormUsuarios: TFormUsuarios
       Top = 39
       Width = 130
       Height = 21
+      TabStop = False
       CharCase = ecUpperCase
       TabOrder = 0
+      OnClick = FocarInput
     end
     object bt_busca: TButton
       Left = 320
@@ -122,6 +120,7 @@ object FormUsuarios: TFormUsuarios
       Height = 41
       Caption = 'Pesquisar'
       TabOrder = 1
+      TabStop = False
       OnClick = bt_buscaClick
     end
     object bt_mostrarTudo: TButton
@@ -131,6 +130,7 @@ object FormUsuarios: TFormUsuarios
       Height = 41
       Caption = 'Mostrar todos'
       TabOrder = 2
+      TabStop = False
       OnClick = bt_mostrarTudoClick
     end
   end
@@ -141,6 +141,7 @@ object FormUsuarios: TFormUsuarios
     Height = 21
     CharCase = ecUpperCase
     TabOrder = 0
+    TabStop = False
     Text = 'C'#211'DIGO'
     Items.Strings = (
       'C'#211'DIGO'
