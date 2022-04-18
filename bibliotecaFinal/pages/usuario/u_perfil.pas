@@ -23,9 +23,11 @@ type
     NovaSenhaInput: TEdit;
     NovaSenhaCheckLabel: TLabel;
     NovaSenhaCheckInput: TEdit;
+    CancelarBtn: TButton;
     procedure MostrarPerfil(Sender: TObject);
     procedure AbrirForm(Sender: TObject; var Key: Char);
     procedure SalvarBtnClick(Sender: TObject);
+    procedure CancelarBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,6 +53,11 @@ begin
   else if key = #27 then close
 end;
 
+procedure TPerfilUsuario.CancelarBtnClick(Sender: TObject);
+begin
+  Close;
+end;
+
 procedure TPerfilUsuario.MostrarPerfil(Sender: TObject);
 begin
   if ModoInput.Text = 'V' then
@@ -62,6 +69,7 @@ begin
     NovaSenhaLabel.Visible := False;
     NovaSenhaCheckLabel.Visible := False;
     NovaSenhaInput.Visible := False;
+    CancelarBtn.Visible := False;
     NovaSenhaCheckInput.Visible := False;
   end
   else
@@ -71,6 +79,15 @@ begin
     EmailInput.Enabled := True;
     LoginInput.Enabled := True;
     SalvarBtn.Visible := True;
+    CancelarBtn.Visible := True;
+    NovaSenhaLabel.Visible := True;
+    NovaSenhaCheckLabel.Visible := True;
+
+    NovaSenhaInput.Text := '';
+    NovaSenhaCheckInput.Text := '';
+
+    NovaSenhaInput.Visible := True;
+    NovaSenhaCheckInput.Visible := true;
   end;
 end;
 
@@ -86,13 +103,21 @@ begin
   else
   begin
     try
+
+      if not testaemail(emailInput.Text) then
+      begin
+        ShowMessage('Email inválido!');
+        emailInput.SetFocus;
+        Exit;
+      end;
+
       q1 := TUniQuery.Create(nil);
       q1.Connection := dm1.con1;
 
       q1.Close;
       q1.SQL.Clear;
 
-      q1.SQL.Add('update usuarios2 set nome_completo = :nome_completo, email = :email, login = :login, senha = :senha');
+      q1.SQL.Add('update usuarios2 set nome_completo = :nome_completo, email = :email, login = :login, senha = md5(:senha)');
       q1.SQL.Add(' where codigo = :codigo');
 
       q1.ParamByName('nome_completo').Value := NomeInput.Text;
@@ -104,8 +129,10 @@ begin
       if NovasenhaInput.Text <> NovaSenhaCheckInput.Text then
       begin
         ShowMessage('Senhas não são iguais!');
+        NovaSenhaInput.SetFocus;
       end
       else
+      begin
         q1.ParamByName('senha').Value := 'segredo' + NovaSenhaInput.Text + 'segredo';
         try
           q1.ExecSQL;
@@ -115,6 +142,7 @@ begin
         except
           ShowMessage('Usuário já existe!');
         end;
+      end;
     finally
       FreeAndNil(q1);
     end;

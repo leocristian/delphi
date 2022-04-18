@@ -13,6 +13,7 @@ object FormClientes: TFormClientes
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -22,7 +23,6 @@ object FormClientes: TFormClientes
     Height = 81
     Align = alTop
     TabOrder = 0
-    ExplicitTop = 2
     object Label1: TLabel
       Left = 16
       Top = 14
@@ -44,6 +44,7 @@ object FormClientes: TFormClientes
       Height = 21
       CharCase = ecUpperCase
       TabOrder = 0
+      OnClick = BuscaInputClick
     end
     object bt_busca: TButton
       Left = 336
@@ -72,8 +73,8 @@ object FormClientes: TFormClientes
     Align = alClient
     PopupMenu = PopupClientes
     TabOrder = 1
-    ExplicitTop = 65
-    ExplicitHeight = 446
+    ExplicitLeft = 8
+    ExplicitTop = 73
     object grid_clientesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -177,8 +178,6 @@ object FormClientes: TFormClientes
   end
   object tb_clientes: TUniTable
     TableName = 'clientes2'
-    Connection = dm1.con1
-    Active = True
     Left = 656
     Top = 16
   end

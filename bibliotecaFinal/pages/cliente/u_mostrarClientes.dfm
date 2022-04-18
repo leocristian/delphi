@@ -1,9 +1,11 @@
 object MostrarClientesForm: TMostrarClientesForm
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'MostrarClientesForm'
-  ClientHeight = 345
-  ClientWidth = 362
+  ClientHeight = 355
+  ClientWidth = 372
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -70,6 +72,7 @@ object MostrarClientesForm: TMostrarClientesForm
     Width = 272
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 100
     TabOrder = 1
   end
   object EmailInput: TEdit
@@ -77,7 +80,8 @@ object MostrarClientesForm: TMostrarClientesForm
     Top = 205
     Width = 273
     Height = 21
-    CharCase = ecUpperCase
+    CharCase = ecLowerCase
+    MaxLength = 30
     TabOrder = 2
   end
   object TelefoneInput: TEdit
@@ -86,6 +90,7 @@ object MostrarClientesForm: TMostrarClientesForm
     Width = 177
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 11
     TabOrder = 3
   end
   object ModoInput: TEdit
@@ -117,11 +122,13 @@ object MostrarClientesForm: TMostrarClientesForm
     TabOrder = 6
   end
   object CpfInput: TEdit
-    Left = 136
+    Left = 137
     Top = 93
     Width = 185
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 11
+    NumbersOnly = True
     TabOrder = 0
   end
 end

@@ -67,6 +67,7 @@ begin
     EmailInput.Enabled := True;
     LoginInput.Enabled := True;
     SalvarBtn.Visible := True;
+    NomeInput.SetFocus;
   end;
 end;
 
@@ -76,6 +77,13 @@ var
 
 begin
   try
+    if not testaemail(EmailInput.Text) then
+    begin
+      ShowMessage('Email inválido!');
+      EmailInput.SetFocus;
+      Exit;
+    end;
+
     q1 := TUniQuery.Create(nil);
     q1.Connection := dm1.con1;
 

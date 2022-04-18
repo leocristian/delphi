@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Uni;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Uni, Vcl.ExtCtrls;
 
 type
   TCadastroForm = class(TForm)
@@ -18,13 +18,15 @@ type
     emailInput: TEdit;
     loginInput: TEdit;
     senhaInput: TEdit;
-    AdicionarUsuarioBtn: TButton;
     SenhaCheckInput: TEdit;
+    Panel2: TPanel;
+    AdicionarUsuarioBtn: TButton;
     Button1: TButton;
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure AbrirForm(Sender: TObject);
     procedure AdicionarUsuarioBtnClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -61,10 +63,19 @@ begin
   if ExisteInputsVazios(CadastroForm) then
   begin
     ShowMessage('Preencha todos os campos!');
+    nome_completoInput.SetFocus;
   end
   else
   begin
     try
+
+      if not testaemail(emailInput.Text) then
+      begin
+        ShowMessage('Email inválido!');
+        emailInput.SetFocus;
+        Exit;
+      end;
+
       q1 := TUniQuery.Create(nil);
       q1.Connection := dm1.con1;
 
@@ -97,17 +108,10 @@ begin
           q1.ExecSQL;
           ShowMessage('Usuário cadastrado com sucesso!');
           Self.Close;
-          LoginForm.LoginInput.SetFocus;
+          LimparInputs(CadastroForm);
         except on E: Exception do
         begin
-          if E.Message = 'duplicate key value violates unique constraint "usuarios2_pkey"' then
-          begin
-            ShowMessage('Já existe um usuário com este login!');
-          end
-          else if E.Message = 'duplicate key value violates unique constraint "usuarios2_email_key"' then
-          begin
-            ShowMessage('Email já cadastrado!');
-          end;
+          ShowMessage('Erro! ' + #13 + E.Message);
         end;
         end;
       end;
@@ -131,6 +135,11 @@ procedure TCadastroForm.Button1Click(Sender: TObject);
 begin
   LimparInputs(CadastroForm);
   Close;
+end;
+
+procedure TCadastroForm.FormActivate(Sender: TObject);
+begin
+  nome_completoInput.SetFocus;
 end;
 
 end.

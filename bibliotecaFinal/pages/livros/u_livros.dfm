@@ -12,6 +12,7 @@ object FormLivros: TFormLivros
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -21,6 +22,7 @@ object FormLivros: TFormLivros
     Height = 81
     Align = alTop
     TabOrder = 0
+    ExplicitTop = 8
     object Label1: TLabel
       Left = 16
       Top = 19
@@ -42,6 +44,7 @@ object FormLivros: TFormLivros
       Height = 21
       CharCase = ecUpperCase
       TabOrder = 0
+      OnClick = BuscaInputClick
     end
     object bt_busca: TButton
       Left = 312
@@ -70,6 +73,7 @@ object FormLivros: TFormLivros
     Align = alClient
     PopupMenu = PopupLivros
     TabOrder = 1
+    ExplicitTop = 73
     object grid_livrosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -150,8 +154,6 @@ object FormLivros: TFormLivros
   end
   object tb_livros: TUniTable
     TableName = 'livros'
-    Connection = dm1.con1
-    Active = True
     Left = 704
     Top = 16
   end

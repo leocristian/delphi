@@ -77,6 +77,7 @@ object MostrarLivroForm: TMostrarLivroForm
     Width = 248
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 50
     TabOrder = 1
   end
   object EditoraInput: TEdit
@@ -85,6 +86,7 @@ object MostrarLivroForm: TMostrarLivroForm
     Width = 225
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 30
     TabOrder = 2
   end
   object AnoPublicacao: TDateTimePicker
@@ -102,6 +104,7 @@ object MostrarLivroForm: TMostrarLivroForm
     Width = 105
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 7
     NumbersOnly = True
     TabOrder = 4
   end
@@ -144,6 +147,7 @@ object MostrarLivroForm: TMostrarLivroForm
     Top = 184
     Width = 207
     Height = 21
+    MaxLength = 40
     TabOrder = 5
     Text = 'NENHUMA'
     Items.Strings = (

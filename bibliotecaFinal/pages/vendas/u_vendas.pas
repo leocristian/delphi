@@ -43,6 +43,8 @@ type
     procedure ExcluirVendaClick(Sender: TObject);
     procedure bt_buscaClick(Sender: TObject);
     procedure MostrarTodasClick(Sender: TObject);
+    procedure BuscaInputClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -124,6 +126,11 @@ begin
 
 end;
 
+procedure TFormVendas.BuscaInputClick(Sender: TObject);
+begin
+  BuscaInput.SetFocus;
+end;
+
 procedure TFormVendas.ExcluirVendaClick(Sender: TObject);
 var
   indexVenda, codVenda: Integer;
@@ -132,8 +139,15 @@ begin
   q1.Close;
   q1.SQL.Clear;
 
+  q1.SQL.Add('delete from livros_venda2 where numero_venda = :numero_venda');
+
+  q1.ExecSQL;
+
   indexVenda := grid_vendasDBTableView1.DataController.GetSelectedRowIndex(0);
   codVenda := grid_vendasDBTableView1.ViewData.Records[indexVenda].Values[0];
+
+  q1.Close;
+  q1.SQL.Clear;
 
   q1.SQL.Add('delete from vendas where codigo = :codigo');
 
@@ -151,6 +165,24 @@ begin
       end;
     end;
   idNo: ShowMessage('Operação cancelada!');
+  end;
+end;
+
+procedure TFormVendas.FormCreate(Sender: TObject);
+begin
+  if dm1.con1.Connected = True then
+  begin
+    tb_vendas.Connection := dm1.con1;
+    tb_vendas.TableName := 'vendas';
+    tb_vendas.Active := True;
+  end
+  else
+  begin
+    dm1.con1.Connect;
+
+    tb_vendas.Connection := dm1.con1;
+    tb_vendas.TableName := 'vendas';
+    tb_vendas.Active := True;
   end;
 end;
 

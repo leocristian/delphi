@@ -87,6 +87,7 @@ object NovoLivroForm: TNovoLivroForm
     Width = 225
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 50
     TabOrder = 0
   end
   object EditoraInput: TEdit
@@ -95,6 +96,7 @@ object NovoLivroForm: TNovoLivroForm
     Width = 225
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 30
     TabOrder = 1
   end
   object AnoPublicacao: TDateTimePicker
@@ -112,6 +114,7 @@ object NovoLivroForm: TNovoLivroForm
     Width = 158
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 7
     NumbersOnly = True
     TabOrder = 3
   end

@@ -1,6 +1,7 @@
 object UsuarioForm: TUsuarioForm
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'UsuarioForm'
   ClientHeight = 265
@@ -64,6 +65,7 @@ object UsuarioForm: TUsuarioForm
     Width = 193
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 100
     TabOrder = 0
   end
   object EmailInput: TEdit
@@ -71,7 +73,8 @@ object UsuarioForm: TUsuarioForm
     Top = 141
     Width = 273
     Height = 21
-    CharCase = ecUpperCase
+    CharCase = ecLowerCase
+    MaxLength = 30
     TabOrder = 1
   end
   object LoginInput: TEdit
@@ -80,6 +83,7 @@ object UsuarioForm: TUsuarioForm
     Width = 177
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 30
     TabOrder = 2
   end
   object ModoInput: TEdit
@@ -92,8 +96,8 @@ object UsuarioForm: TUsuarioForm
     Visible = False
   end
   object SalvarBtn: TButton
-    Left = 231
-    Top = 168
+    Left = 238
+    Top = 173
     Width = 83
     Height = 49
     Caption = 'Salvar'

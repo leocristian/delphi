@@ -45,6 +45,8 @@ type
     procedure VisualizarLivroClick(Sender: TObject);
     procedure AlterarLivroClick(Sender: TObject);
     procedure ExcluirLivroClick(Sender: TObject);
+    procedure BuscaInputClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -148,6 +150,11 @@ begin
   grid_livrosDBTableView1.DataController.RefreshExternalData;
 end;
 
+procedure TFormLivros.BuscaInputClick(Sender: TObject);
+begin
+  BuscaInput.SetFocus;
+end;
+
 procedure TFormLivros.ExcluirLivroClick(Sender: TObject);
 var
   indexLivro, codLivro: Integer;
@@ -174,6 +181,24 @@ begin
       end;
     end;
   idNo: ShowMessage('Operação cancelada!');
+  end;
+end;
+
+procedure TFormLivros.FormCreate(Sender: TObject);
+begin
+  if dm1.con1.Connected = True then
+  begin
+    tb_livros.Connection := dm1.con1;
+    tb_livros.TableName := 'livros';
+    tb_livros.Active := True;
+  end
+  else
+  begin
+    dm1.con1.Connect;
+
+    tb_livros.Connection := dm1.con1;
+    tb_livros.TableName := 'livros';
+    tb_livros.Active := True;
   end;
 end;
 

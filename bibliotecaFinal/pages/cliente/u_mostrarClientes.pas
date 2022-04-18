@@ -79,6 +79,23 @@ var
 
 begin
   try
+
+    // Validar o cpf
+    if Not testacpf( Trim( cpfInput.Text ) ) then
+    begin
+      showmessage('Cpf inválido !');
+      cpfInput.SetFocus;
+      Exit;
+    end;
+
+    // Validar o email
+    if not testaemail(emailInput.Text) then
+    begin
+      ShowMessage('Email inválido!');
+      emailInput.SetFocus;
+      Exit;
+    end;
+
     q1 := TUniQuery.Create(nil);
     q1.Connection := dm1.con1;
 

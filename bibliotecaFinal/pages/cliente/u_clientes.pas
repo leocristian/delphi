@@ -42,6 +42,8 @@ type
     procedure bt_buscaClick(Sender: TObject);
     procedure AdicionarClienteClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);
+    procedure BuscaInputClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -145,6 +147,11 @@ begin
   grid_clientesDBTableView1.DataController.RefreshExternalData;
 end;
 
+procedure TFormClientes.BuscaInputClick(Sender: TObject);
+begin
+  BuscaInput.SetFocus;
+end;
+
 procedure TFormClientes.ExcluirClienteClick(Sender: TObject);
 var
   q1: TUniQuery;
@@ -190,6 +197,24 @@ begin
   end;
 end;
 
+
+procedure TFormClientes.FormCreate(Sender: TObject);
+begin
+  if dm1.con1.Connected = True then
+  begin
+    tb_clientes.Connection := dm1.con1;
+    tb_clientes.TableName := 'clientes2';
+    tb_clientes.Active := True;
+  end
+  else
+  begin
+    dm1.con1.Connect;
+
+    tb_clientes.Connection := dm1.con1;
+    tb_clientes.TableName := 'clientes2';
+    tb_clientes.Active := True;
+  end;
+end;
 
 procedure TFormClientes.VisualizarClienteClick(Sender: TObject);
 var

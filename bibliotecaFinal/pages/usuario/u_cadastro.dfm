@@ -1,9 +1,10 @@
 object CadastroForm: TCadastroForm
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Cadastre-se'
-  ClientHeight = 357
+  ClientHeight = 338
   ClientWidth = 293
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -13,8 +14,9 @@ object CadastroForm: TCadastroForm
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  Position = poDesktopCenter
+  OnActivate = FormActivate
   OnKeyPress = AtivaNavegacao
-  OnShow = AbrirForm
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -71,6 +73,7 @@ object CadastroForm: TCadastroForm
     Width = 208
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 100
     TabOrder = 0
   end
   object emailInput: TEdit
@@ -78,7 +81,8 @@ object CadastroForm: TCadastroForm
     Top = 142
     Width = 208
     Height = 21
-    CharCase = ecUpperCase
+    CharCase = ecLowerCase
+    MaxLength = 30
     TabOrder = 1
   end
   object loginInput: TEdit
@@ -87,6 +91,7 @@ object CadastroForm: TCadastroForm
     Width = 208
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 15
     TabOrder = 2
   end
   object senhaInput: TEdit
@@ -95,17 +100,9 @@ object CadastroForm: TCadastroForm
     Width = 97
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 50
     PasswordChar = '*'
     TabOrder = 3
-  end
-  object AdicionarUsuarioBtn: TButton
-    Left = 83
-    Top = 296
-    Width = 84
-    Height = 34
-    Caption = 'Cadastrar-se'
-    TabOrder = 5
-    OnClick = AdicionarUsuarioBtnClick
   end
   object SenhaCheckInput: TEdit
     Left = 150
@@ -113,16 +110,35 @@ object CadastroForm: TCadastroForm
     Width = 98
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 50
     PasswordChar = '*'
     TabOrder = 4
   end
-  object Button1: TButton
-    Left = 173
-    Top = 296
-    Width = 75
-    Height = 34
-    Caption = 'Cancelar'
-    TabOrder = 6
-    OnClick = Button1Click
+  object Panel2: TPanel
+    Left = 0
+    Top = 284
+    Width = 293
+    Height = 54
+    Align = alBottom
+    TabOrder = 5
+    ExplicitTop = 304
+    object AdicionarUsuarioBtn: TButton
+      Left = 61
+      Top = 3
+      Width = 80
+      Height = 34
+      Caption = 'Cadastrar-se'
+      TabOrder = 0
+      OnClick = AdicionarUsuarioBtnClick
+    end
+    object Button1: TButton
+      Left = 151
+      Top = 3
+      Width = 80
+      Height = 34
+      Caption = 'Cancelar'
+      TabOrder = 1
+      OnClick = Button1Click
+    end
   end
 end

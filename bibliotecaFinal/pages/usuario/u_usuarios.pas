@@ -42,6 +42,7 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure bt_buscaClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
 
   private
     { Private declarations }
@@ -187,6 +188,24 @@ end;
 procedure TFormUsuarios.FocarInput(Sender: TObject);
 begin
   Self.BuscaInput.SetFocus;
+end;
+
+procedure TFormUsuarios.FormCreate(Sender: TObject);
+begin
+  if dm1.con1.Connected = True then
+  begin
+    tb_usuarios.Connection := dm1.con1;
+    tb_usuarios.TableName := 'usuarios2';
+    tb_usuarios.Active := True;
+  end
+  else
+  begin
+    dm1.con1.Connect;
+
+    tb_usuarios.Connection := dm1.con1;
+    tb_usuarios.TableName := 'usuarios2';
+    tb_usuarios.Active := True;
+  end;
 end;
 
 procedure TFormUsuarios.FormKeyPress(Sender: TObject; var Key: Char);

@@ -103,6 +103,7 @@ object NovaVendaForm: TNovaVendaForm
     Width = 217
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 50
     TabOrder = 1
   end
   object ClienteInput: TEdit
@@ -111,6 +112,7 @@ object NovaVendaForm: TNovaVendaForm
     Width = 241
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 100
     TabOrder = 0
   end
   object RealizarVendaBtn: TButton

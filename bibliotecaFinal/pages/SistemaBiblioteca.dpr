@@ -27,22 +27,24 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.CreateForm(Tdm1, dm1);
   Application.CreateForm(TLoginForm, LoginForm);
   Application.CreateForm(TCadastroForm, CadastroForm);
-  Application.CreateForm(Tdm1, dm1);
   Application.CreateForm(TFormPrincipal, FormPrincipal);
   Application.CreateForm(TFormUsuarios, FormUsuarios);
-  Application.CreateForm(TFormClientes, FormClientes);
   Application.CreateForm(TUsuarioForm, UsuarioForm);
   Application.CreateForm(TPerfilUsuario, PerfilUsuario);
   Application.CreateForm(TMostrarClientesForm, MostrarClientesForm);
   Application.CreateForm(TFormVendas, FormVendas);
-  Application.CreateForm(TNovaVendaForm, MostrarVendaForm);
+  Application.CreateForm(TMostrarVendaForm, MostrarVendaForm);
   Application.CreateForm(TEscolhaLivroForm, EscolhaLivroForm);
   Application.CreateForm(TFormLivros, FormLivros);
   Application.CreateForm(TNovoLivroForm, NovoLivroForm);
   Application.CreateForm(TMostrarLivroForm, MostrarLivroForm);
   Application.CreateForm(TNovoCliente, NovoCliente);
   Application.CreateForm(TMostrarVendaForm, MostrarVendaForm);
+  Application.CreateForm(TFormClientes, FormClientes);
   Application.Run;
 end.
+
+

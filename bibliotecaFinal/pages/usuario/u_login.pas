@@ -37,6 +37,8 @@ type
     procedure CadastrarBtnClick(Sender: TObject);
     procedure Finalizar(Sender: TObject; var CanClose: Boolean);
     procedure LoginBtnClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -54,21 +56,6 @@ uses u_dm1, u_cadastro, Uni, u_principal, u_forms, u_perfil;
 
 procedure TLoginForm.AbrirForm(Sender: TObject);
 begin
-
-//  dm1.con1.Close;
-//  dm1.con1.ProviderName := 'PostgreSQL';
-//  dm1.con1.Port := 5432;
-//  dm1.con1.Username := 'postgres';
-//  dm1.con1.Password := 'admin';
-//  dm1.con1.Database := 'bibliotecaDB';
-//
-//  try
-//    dm1.con1.Open;
-//  except
-//    ShowMessage('Erro ao conectar no banco de dados!');
-//    Application.Terminate;
-//  end;
-
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
 
@@ -98,6 +85,31 @@ end;
 procedure TLoginForm.Finalizar(Sender: TObject; var CanClose: Boolean);
 begin
   dm1.con1.Close;
+end;
+
+procedure TLoginForm.FormActivate(Sender: TObject);
+begin
+  LoginInput.SetFocus;
+end;
+
+procedure TLoginForm.FormCreate(Sender: TObject);
+begin
+
+  dm1.con1.Close;
+  dm1.con1.ProviderName := 'PostgreSQL';
+  dm1.con1.Port := 5432;
+  dm1.con1.Username := 'postgres';
+  dm1.con1.Password := 'admin';
+  dm1.con1.Database := 'bibliotecaDB';
+
+  try
+    dm1.con1.Open;
+  except on E: Exception do
+    begin
+      ShowMessage('Erro ao conectar no banco de dados!' + #13 + E.Message);
+      Application.Terminate;
+    end;
+  end;
 end;
 
 procedure TLoginForm.LoginBtnClick(Sender: TObject);

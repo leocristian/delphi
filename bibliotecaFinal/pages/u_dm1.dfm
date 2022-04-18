@@ -23,13 +23,13 @@ object dm1: Tdm1
     DataSet = tb_vendas
     BCDToCurrency = False
     DataSetOptions = []
-    Left = 256
-    Top = 48
+    Left = 248
+    Top = 120
   end
   object ds_vendas: TDataSource
     DataSet = tb_vendas
-    Left = 240
-    Top = 112
+    Left = 248
+    Top = 168
   end
   object tb_vendas: TUniTable
     TableName = 'vendas'
@@ -55,8 +55,8 @@ object dm1: Tdm1
       'begin'
       ''
       'end.')
-    Left = 168
-    Top = 40
+    Left = 160
+    Top = 120
     Datasets = <
       item
         DataSet = rel_vendasDataset

@@ -14,6 +14,7 @@ object FormUsuarios: TFormUsuarios
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FocarInput
   PixelsPerInch = 96
@@ -26,6 +27,7 @@ object FormUsuarios: TFormUsuarios
     Align = alClient
     PopupMenu = PopupUsuarios
     TabOrder = 1
+    ExplicitTop = 87
     object grid_usuariosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -169,8 +171,6 @@ object FormUsuarios: TFormUsuarios
   end
   object tb_usuarios: TUniTable
     TableName = 'usuarios2'
-    Connection = dm1.con1
-    Active = True
     Left = 672
     Top = 8
   end
@@ -180,8 +180,8 @@ object FormUsuarios: TFormUsuarios
     Top = 8
   end
   object cxStyleRepository1: TcxStyleRepository
-    Left = 736
-    Top = 72
+    Left = 792
+    Top = 8
     PixelsPerInch = 96
     object cxStyle1: TcxStyle
       AssignedValues = [svFont]

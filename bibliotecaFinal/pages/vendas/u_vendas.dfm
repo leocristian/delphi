@@ -12,6 +12,7 @@ object FormVendas: TFormVendas
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -21,7 +22,6 @@ object FormVendas: TFormVendas
     Height = 65
     Align = alTop
     TabOrder = 0
-    ExplicitTop = -6
     object BuscaInput: TEdit
       Left = 127
       Top = 23
@@ -29,6 +29,7 @@ object FormVendas: TFormVendas
       Height = 21
       CharCase = ecUpperCase
       TabOrder = 0
+      OnClick = BuscaInputClick
     end
     object bt_busca: TButton
       Left = 336
@@ -130,8 +131,6 @@ object FormVendas: TFormVendas
   end
   object tb_vendas: TUniTable
     TableName = 'vendas'
-    Connection = dm1.con1
-    Active = True
     Left = 704
     Top = 16
   end

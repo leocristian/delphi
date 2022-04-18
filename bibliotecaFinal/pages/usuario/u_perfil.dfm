@@ -1,9 +1,11 @@
 object PerfilUsuario: TPerfilUsuario
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'PerfilUsuario'
-  ClientHeight = 356
-  ClientWidth = 341
+  ClientHeight = 344
+  ClientWidth = 321
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -77,6 +79,7 @@ object PerfilUsuario: TPerfilUsuario
     Width = 208
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 100
     TabOrder = 0
   end
   object EmailInput: TEdit
@@ -84,7 +87,8 @@ object PerfilUsuario: TPerfilUsuario
     Top = 141
     Width = 208
     Height = 21
-    CharCase = ecUpperCase
+    CharCase = ecLowerCase
+    MaxLength = 30
     TabOrder = 1
   end
   object LoginInput: TEdit
@@ -93,21 +97,22 @@ object PerfilUsuario: TPerfilUsuario
     Width = 208
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 30
     TabOrder = 2
   end
   object ModoInput: TEdit
-    Left = 56
-    Top = 300
+    Left = 40
+    Top = 293
     Width = 25
     Height = 21
     TabOrder = 6
     Visible = False
   end
   object SalvarBtn: TButton
-    Left = 181
+    Left = 71
     Top = 286
     Width = 83
-    Height = 49
+    Height = 35
     Caption = 'Salvar'
     TabOrder = 5
     OnClick = SalvarBtnClick
@@ -126,6 +131,7 @@ object PerfilUsuario: TPerfilUsuario
     Width = 105
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 50
     PasswordChar = '*'
     TabOrder = 3
   end
@@ -135,7 +141,17 @@ object PerfilUsuario: TPerfilUsuario
     Width = 97
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 50
     PasswordChar = '*'
     TabOrder = 4
+  end
+  object CancelarBtn: TButton
+    Left = 167
+    Top = 286
+    Width = 83
+    Height = 35
+    Caption = 'Cancelar'
+    TabOrder = 8
+    OnClick = CancelarBtnClick
   end
 end

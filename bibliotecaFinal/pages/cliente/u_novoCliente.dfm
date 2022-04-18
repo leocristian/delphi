@@ -1,9 +1,11 @@
 object NovoCliente: TNovoCliente
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'Novo cliente'
-  ClientHeight = 263
-  ClientWidth = 443
+  ClientHeight = 259
+  ClientWidth = 441
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,6 +16,9 @@ object NovoCliente: TNovoCliente
   OldCreateOrder = False
   OnKeyPress = FormKeyPress
   OnShow = FormShow
+  DesignSize = (
+    441
+    259)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -30,7 +35,7 @@ object NovoCliente: TNovoCliente
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 173
+    Left = 165
     Top = 62
     Width = 75
     Height = 13
@@ -58,11 +63,12 @@ object NovoCliente: TNovoCliente
     Caption = 'Telefone'
   end
   object nome_completoInput: TEdit
-    Left = 173
+    Left = 165
     Top = 81
     Width = 208
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 100
     TabOrder = 1
   end
   object emailInput: TEdit
@@ -70,34 +76,41 @@ object NovoCliente: TNovoCliente
     Top = 142
     Width = 208
     Height = 21
-    CharCase = ecUpperCase
+    CharCase = ecLowerCase
+    MaxLength = 30
     TabOrder = 2
   end
   object cpfInput: TEdit
-    Left = 48
+    Left = 40
     Top = 81
     Width = 119
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 11
     NumbersOnly = True
     TabOrder = 0
   end
   object AdicionarUsuarioBtn: TButton
-    Left = 203
-    Top = 200
+    Left = 135
+    Top = 209
     Width = 84
     Height = 34
+    Anchors = [akLeft, akBottom]
     Caption = 'Adicionar'
     TabOrder = 4
     OnClick = AdicionarUsuarioBtnClick
+    ExplicitTop = 212
   end
   object Button1: TButton
-    Left = 306
-    Top = 200
+    Left = 231
+    Top = 209
     Width = 75
     Height = 34
+    Anchors = [akLeft, akBottom]
     Caption = 'Cancelar'
     TabOrder = 5
+    OnClick = Button1Click
+    ExplicitTop = 212
   end
   object TelefoneInput: TEdit
     Left = 254
@@ -105,6 +118,7 @@ object NovoCliente: TNovoCliente
     Width = 119
     Height = 21
     CharCase = ecUpperCase
+    MaxLength = 11
     NumbersOnly = True
     TabOrder = 3
   end
