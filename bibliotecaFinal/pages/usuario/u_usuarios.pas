@@ -123,7 +123,7 @@ begin
   end
   else if Self.SelecaoBusca.Text = 'EMAIL' then
   begin
-    ds_usuarios.DataSet.Filter := 'email like ' + QuotedStr('%' + buscaInfo + '%');
+    ds_usuarios.DataSet.Filter := 'email like ' + QuotedStr('%' + LowerCase(buscaInfo) + '%');
   end
   else ShowMessage('Campo de busca inválido!!');
 

@@ -216,6 +216,20 @@ object MostrarVendaForm: TMostrarVendaForm
       GridView = grid_livrosDBTableView1
     end
   end
+  object ComprovanteBtn: TButton
+    Left = 40
+    Top = 434
+    Width = 177
+    Height = 54
+    Caption = 'Ver comprovante'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+  end
   object vtb_livrosVenda: TVirtualTable
     Active = True
     FieldDefs = <
@@ -263,8 +277,8 @@ object MostrarVendaForm: TMostrarVendaForm
     Top = 128
   end
   object PopupMenu1: TPopupMenu
-    Left = 536
-    Top = 136
+    Left = 464
+    Top = 128
     object removerLivro: TMenuItem
       Caption = 'Remover livro da venda'
       OnClick = removerLivroClick

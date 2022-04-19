@@ -10,12 +10,7 @@ type
   Tdm1 = class(TDataModule)
     ProvedorPG: TPostgreSQLUniProvider;
     con1: TUniConnection;
-    rel_vendasDataset: TfrxDBDataset;
-    ds_vendas: TDataSource;
-    tb_vendas: TUniTable;
-    rel_vendas: TfrxReport;
 
-    procedure AbrirRelatorioVendas;
   private
     { Private declarations }
   public
@@ -31,8 +26,4 @@ implementation
 
 {$R *.dfm}
 
-procedure Tdm1.AbrirRelatorioVendas;
-begin
-  rel_vendas.ShowReport();
-end;
 end.

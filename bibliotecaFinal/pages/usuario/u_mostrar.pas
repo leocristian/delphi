@@ -22,7 +22,6 @@ type
     procedure MostrarForm(Sender: TObject);
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure SalvarBtnClick(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,11 +45,6 @@ begin
     Perform(wm_nextdlgctl, 0, 0);
   end
   else if key = #27 then close
-end;
-
-procedure TUsuarioForm.FormActivate(Sender: TObject);
-begin
-  NomeInput.SetFocus;
 end;
 
 procedure TUsuarioForm.MostrarForm(Sender: TObject);

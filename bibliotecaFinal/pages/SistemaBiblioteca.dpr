@@ -20,7 +20,9 @@ uses
   u_novoLivro in 'livros\u_novoLivro.pas' {NovoLivroForm},
   u_mostrarLivro in 'livros\u_mostrarLivro.pas' {MostrarLivroForm},
   u_novoCliente in 'cliente\u_novoCliente.pas' {NovoCliente},
-  u_mostrarVenda in 'vendas\u_mostrarVenda.pas' {MostrarVendaForm};
+  u_mostrarVenda in 'vendas\u_mostrarVenda.pas' {MostrarVendaForm},
+  u_alterarSenha in 'usuario\u_alterarSenha.pas' {AlterarSenhaForm},
+  u_md5 in 'usuario\u_md5.pas';
 
 {$R *.res}
 
@@ -44,6 +46,7 @@ begin
   Application.CreateForm(TNovoCliente, NovoCliente);
   Application.CreateForm(TMostrarVendaForm, MostrarVendaForm);
   Application.CreateForm(TFormClientes, FormClientes);
+  Application.CreateForm(TAlterarSenhaForm, AlterarSenhaForm);
   Application.Run;
 end.
 

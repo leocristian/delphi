@@ -83,7 +83,6 @@ object FormPrincipal: TFormPrincipal
       end
       object relatorioVendas: TMenuItem
         Caption = 'Relat'#243'rio de vendas'
-        OnClick = relatorioVendasClick
       end
     end
     object sistema1: TMenuItem

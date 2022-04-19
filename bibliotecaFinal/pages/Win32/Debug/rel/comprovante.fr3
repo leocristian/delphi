@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<TfrxReport Version="2022.2" DataSet="ds_livrosVenda" DataSetName="frxDBDataset1" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="167935" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44670,6028995718" ReportOptions.Description.Text="" ReportOptions.LastChange="44670,6392839699" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end.">
+  <Datasets>
+    <item DataSet="ds_livrosVenda" DataSetName="frxDBDataset1"/>
+    <item DataSet="ds_vendas" DataSetName="frxDBDataset1"/>
+  </Datasets>
+  <TfrxDataPage Name="Data" HGuides.Text="" VGuides.Text="" Height="1000" Left="0" Top="0" Width="1000"/>
+  <TfrxReportPage Name="Page1" HGuides.Text="" VGuides.Text="" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" Frame.Typ="0" MirrorMode="0">
+    <TfrxMemoView Name="frxDBDataset1vendedor" IndexTag="1" AllowVectorExport="True" Left="45,35436" Top="170,07885" Width="166,29932" Height="18,89765" DataField="vendedor" DataSet="ds_livrosVenda" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;vendedor&#34;]"/>
+    <TfrxMemoView Name="frxDBDataset1cliente" IndexTag="1" AllowVectorExport="True" Left="37,7953" Top="52,91342" Width="154,96073" Height="18,89765" DataField="cliente" DataSet="ds_livrosVenda" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;cliente&#34;]"/>
+    <TfrxMemoView Name="frxDBDataset1valor_total" IndexTag="1" AllowVectorExport="True" Left="529,1342" Top="170,07885" Width="162,51979" Height="18,89765" DataField="valor_total" DataSet="ds_livrosVenda" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;valor_total&#34;]"/>
+    <TfrxMemoView Name="frxDBDataset1data_venda" IndexTag="1" AllowVectorExport="True" Left="525,35467" Top="11,33859" Width="181,41744" Height="18,89765" DataField="data_venda" DataSet="ds_livrosVenda" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;data_venda&#34;]"/>
+  </TfrxReportPage>
+</TfrxReport>
