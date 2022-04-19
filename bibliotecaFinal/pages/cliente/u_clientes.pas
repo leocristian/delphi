@@ -111,7 +111,12 @@ var
   buscaInfo: String;
 
 begin
-
+if BuscaInput.Text = '' then
+begin
+  ShowMessage('Informe uma palavra-chave válida');
+end
+else
+begin
   buscaInfo := BuscaInput.Text;
 
   if Self.SelecaoBusca.Text = 'CÓDIGO' then
@@ -130,14 +135,19 @@ begin
 
   if buscaInfo <> '' then
   begin
-    ds_clientes.DataSet.Filtered := True;
-    grid_clientesDBTableView1.DataController.RefreshExternalData;
-    buscaInput.Text := '';
+    try
+      ds_clientes.DataSet.Filtered := True;
+      grid_clientesDBTableView1.DataController.RefreshExternalData;
+      buscaInput.Text := '';
+    except on E:Exception do
+      ShowMessage('Erro!' + #13 + E.Message);
+    end;
   end
   else
   begin
     ShowMessage('Informe uma palavra-chave válida!');
   end;
+end;
 
 end;
 

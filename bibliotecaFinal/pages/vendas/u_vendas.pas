@@ -17,9 +17,6 @@ type
     Panel1: TPanel;
     BuscaInput: TEdit;
     bt_busca: TButton;
-    grid_vendas: TcxGrid;
-    grid_vendasDBTableView1: TcxGridDBTableView;
-    grid_vendasLevel1: TcxGridLevel;
     SelecaoBusca: TComboBox;
     tb_vendas: TUniTable;
     PopupVendas: TPopupMenu;
@@ -31,12 +28,17 @@ type
     cxStyle1: TcxStyle;
     ds_vendas: TDataSource;
     NovaVenda: TMenuItem;
+    MostrarTodas: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    grid_vendas: TcxGrid;
+    grid_vendasDBTableView1: TcxGridDBTableView;
     grid_vendasDBTableView1codigo: TcxGridDBColumn;
     grid_vendasDBTableView1vendedor: TcxGridDBColumn;
     grid_vendasDBTableView1cliente: TcxGridDBColumn;
     grid_vendasDBTableView1valor_total: TcxGridDBColumn;
     grid_vendasDBTableView1data_venda: TcxGridDBColumn;
-    MostrarTodas: TButton;
+    grid_vendasLevel1: TcxGridLevel;
     procedure NovaVendaClick(Sender: TObject);
     procedure VisualizarVendaClick(Sender: TObject);
     procedure AlterarVendaClick(Sender: TObject);
@@ -115,9 +117,13 @@ begin
 
   if buscaInfo <> '' then
   begin
-    ds_vendas.DataSet.Filtered := True;
-    grid_vendasDBTableView1.DataController.RefreshExternalData;
-    buscaInput.Text := '';
+    try
+      ds_vendas.DataSet.Filtered := True;
+      grid_vendasDBTableView1.DataController.RefreshExternalData;
+      buscaInput.Text := '';
+    except on E:Exception do
+      ShowMessage('Erro!' + #13 + E.Message);
+    end;
   end
   else
   begin

@@ -14,6 +14,7 @@ object UsuarioForm: TUsuarioForm
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  OnActivate = FormActivate
   OnKeyPress = AtivaNavegacao
   OnShow = MostrarForm
   PixelsPerInch = 96

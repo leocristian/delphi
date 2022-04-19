@@ -19,36 +19,75 @@ object FormVendas: TFormVendas
     Left = 0
     Top = 0
     Width = 805
-    Height = 65
+    Height = 89
     Align = alTop
     TabOrder = 0
+    ExplicitTop = -6
+    object Label1: TLabel
+      Left = 18
+      Top = 26
+      Width = 79
+      Height = 13
+      Caption = 'Campo de busca'
+    end
+    object Label2: TLabel
+      Left = 137
+      Top = 26
+      Width = 69
+      Height = 13
+      Caption = 'Palavra-chave'
+    end
     object BuscaInput: TEdit
-      Left = 127
-      Top = 23
+      Left = 137
+      Top = 45
       Width = 146
       Height = 21
       CharCase = ecUpperCase
-      TabOrder = 0
+      TabOrder = 1
       OnClick = BuscaInputClick
     end
     object bt_busca: TButton
-      Left = 336
-      Top = 13
+      Left = 346
+      Top = 24
       Width = 97
       Height = 41
       Caption = 'Pesquisar'
-      TabOrder = 1
+      TabOrder = 2
       OnClick = bt_buscaClick
+    end
+    object SelecaoBusca: TComboBox
+      Left = 18
+      Top = 45
+      Width = 113
+      Height = 21
+      CharCase = ecUpperCase
+      TabOrder = 0
+      Text = 'C'#211'DIGO'
+      Items.Strings = (
+        'C'#211'DIGO'
+        'CLIENTE'
+        'DATA')
+    end
+    object MostrarTodas: TButton
+      Left = 457
+      Top = 24
+      Width = 98
+      Height = 41
+      Caption = 'Mostrar todas'
+      TabOrder = 3
+      OnClick = MostrarTodasClick
     end
   end
   object grid_vendas: TcxGrid
     Left = 0
-    Top = 65
+    Top = 89
     Width = 805
-    Height = 575
+    Height = 551
     Align = alClient
     PopupMenu = PopupVendas
     TabOrder = 1
+    ExplicitTop = 65
+    ExplicitHeight = 575
     object grid_vendasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -88,46 +127,33 @@ object FormVendas: TFormVendas
       OptionsView.IndicatorWidth = 20
       Styles.Header = cxStyle1
       object grid_vendasDBTableView1codigo: TcxGridDBColumn
+        Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
       end
       object grid_vendasDBTableView1vendedor: TcxGridDBColumn
+        Caption = 'Vendedor'
         DataBinding.FieldName = 'vendedor'
+        Width = 168
       end
       object grid_vendasDBTableView1cliente: TcxGridDBColumn
+        Caption = 'Cliente'
         DataBinding.FieldName = 'cliente'
+        Width = 184
       end
       object grid_vendasDBTableView1valor_total: TcxGridDBColumn
+        Caption = 'Valor total'
         DataBinding.FieldName = 'valor_total'
+        Width = 169
       end
       object grid_vendasDBTableView1data_venda: TcxGridDBColumn
+        Caption = 'Data da venda'
         DataBinding.FieldName = 'data_venda'
+        Width = 159
       end
     end
     object grid_vendasLevel1: TcxGridLevel
       GridView = grid_vendasDBTableView1
     end
-  end
-  object SelecaoBusca: TComboBox
-    Left = 8
-    Top = 23
-    Width = 113
-    Height = 21
-    CharCase = ecUpperCase
-    TabOrder = 2
-    Text = 'C'#211'DIGO'
-    Items.Strings = (
-      'C'#211'DIGO'
-      'CLIENTE'
-      'DATA')
-  end
-  object MostrarTodas: TButton
-    Left = 455
-    Top = 13
-    Width = 98
-    Height = 41
-    Caption = 'Mostrar todas'
-    TabOrder = 3
-    OnClick = MostrarTodasClick
   end
   object tb_vendas: TUniTable
     TableName = 'vendas'

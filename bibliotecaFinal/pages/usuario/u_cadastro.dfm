@@ -121,7 +121,6 @@ object CadastroForm: TCadastroForm
     Height = 54
     Align = alBottom
     TabOrder = 5
-    ExplicitTop = 304
     object AdicionarUsuarioBtn: TButton
       Left = 61
       Top = 3

@@ -22,7 +22,6 @@ object FormLivros: TFormLivros
     Height = 81
     Align = alTop
     TabOrder = 0
-    ExplicitTop = 8
     object Label1: TLabel
       Left = 16
       Top = 19
@@ -43,7 +42,7 @@ object FormLivros: TFormLivros
       Width = 146
       Height = 21
       CharCase = ecUpperCase
-      TabOrder = 0
+      TabOrder = 1
       OnClick = BuscaInputClick
     end
     object bt_busca: TButton
@@ -52,7 +51,7 @@ object FormLivros: TFormLivros
       Width = 97
       Height = 41
       Caption = 'Pesquisar'
-      TabOrder = 1
+      TabOrder = 2
       OnClick = bt_buscaClick
     end
     object bt_mostrarTudo: TButton
@@ -61,8 +60,22 @@ object FormLivros: TFormLivros
       Width = 105
       Height = 41
       Caption = 'Mostrar todos'
-      TabOrder = 2
+      TabOrder = 3
       OnClick = bt_mostrarTudoClick
+    end
+    object SelecaoBusca: TComboBox
+      Left = 16
+      Top = 38
+      Width = 113
+      Height = 21
+      CharCase = ecUpperCase
+      TabOrder = 0
+      Text = 'C'#211'DIGO'
+      Items.Strings = (
+        'C'#211'DIGO'
+        'CATEGORIA'
+        'EDITORA'
+        'TITULO')
     end
   end
   object grid_livros: TcxGrid
@@ -73,7 +86,6 @@ object FormLivros: TFormLivros
     Align = alClient
     PopupMenu = PopupLivros
     TabOrder = 1
-    ExplicitTop = 73
     object grid_livrosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -137,20 +149,6 @@ object FormLivros: TFormLivros
     object grid_livrosLevel1: TcxGridLevel
       GridView = grid_livrosDBTableView1
     end
-  end
-  object SelecaoBusca: TComboBox
-    Left = 16
-    Top = 38
-    Width = 113
-    Height = 21
-    CharCase = ecUpperCase
-    TabOrder = 2
-    Text = 'C'#211'DIGO'
-    Items.Strings = (
-      'C'#211'DIGO'
-      'CATEGORIA'
-      'EDITORA'
-      'TITULO')
   end
   object tb_livros: TUniTable
     TableName = 'livros'

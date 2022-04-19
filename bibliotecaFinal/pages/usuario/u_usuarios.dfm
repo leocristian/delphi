@@ -26,8 +26,7 @@ object FormUsuarios: TFormUsuarios
     Height = 415
     Align = alClient
     PopupMenu = PopupUsuarios
-    TabOrder = 1
-    ExplicitTop = 87
+    TabOrder = 0
     object grid_usuariosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -90,65 +89,63 @@ object FormUsuarios: TFormUsuarios
     Width = 829
     Height = 81
     Align = alTop
-    TabOrder = 2
+    TabOrder = 1
+    ExplicitLeft = -16
+    ExplicitTop = 8
     object Label1: TLabel
       Left = 16
-      Top = 20
+      Top = 21
       Width = 79
       Height = 13
       Caption = 'Campo de busca'
     end
     object Label2: TLabel
       Left = 135
-      Top = 20
+      Top = 21
       Width = 69
       Height = 13
       Caption = 'Palavra-chave'
     end
     object BuscaInput: TEdit
       Left = 135
-      Top = 39
+      Top = 40
       Width = 130
       Height = 21
-      TabStop = False
       CharCase = ecUpperCase
-      TabOrder = 0
+      TabOrder = 1
       OnClick = FocarInput
     end
     object bt_busca: TButton
       Left = 320
-      Top = 19
+      Top = 20
       Width = 97
       Height = 41
       Caption = 'Pesquisar'
-      TabOrder = 1
-      TabStop = False
+      TabOrder = 2
       OnClick = bt_buscaClick
     end
     object bt_mostrarTudo: TButton
       Left = 440
-      Top = 19
+      Top = 20
       Width = 97
       Height = 41
       Caption = 'Mostrar todos'
-      TabOrder = 2
-      TabStop = False
+      TabOrder = 3
       OnClick = bt_mostrarTudoClick
     end
-  end
-  object SelecaoBusca: TComboBox
-    Left = 16
-    Top = 39
-    Width = 113
-    Height = 21
-    CharCase = ecUpperCase
-    TabOrder = 0
-    TabStop = False
-    Text = 'C'#211'DIGO'
-    Items.Strings = (
-      'C'#211'DIGO'
-      'NOME COMPLETO'
-      'EMAIL')
+    object SelecaoBusca: TComboBox
+      Left = 16
+      Top = 39
+      Width = 113
+      Height = 21
+      CharCase = ecUpperCase
+      TabOrder = 0
+      Text = 'C'#211'DIGO'
+      Items.Strings = (
+        'C'#211'DIGO'
+        'NOME COMPLETO'
+        'EMAIL')
+    end
   end
   object PopupUsuarios: TPopupMenu
     Left = 600

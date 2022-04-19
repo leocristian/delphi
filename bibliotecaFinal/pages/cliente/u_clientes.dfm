@@ -25,44 +25,57 @@ object FormClientes: TFormClientes
     TabOrder = 0
     object Label1: TLabel
       Left = 16
-      Top = 14
+      Top = 16
       Width = 79
       Height = 13
       Caption = 'Campo de busca'
     end
     object Label2: TLabel
       Left = 135
-      Top = 14
+      Top = 16
       Width = 69
       Height = 13
       Caption = 'Palavra-chave'
     end
     object BuscaInput: TEdit
       Left = 135
-      Top = 33
+      Top = 35
       Width = 146
       Height = 21
       CharCase = ecUpperCase
-      TabOrder = 0
+      TabOrder = 1
       OnClick = BuscaInputClick
     end
     object bt_busca: TButton
       Left = 336
-      Top = 21
+      Top = 23
       Width = 97
       Height = 41
       Caption = 'Pesquisar'
-      TabOrder = 1
+      TabOrder = 2
       OnClick = bt_buscaClick
     end
     object bt_mostrarTudo: TButton
       Left = 448
-      Top = 21
+      Top = 23
       Width = 97
       Height = 41
       Caption = 'Mostrar todos'
-      TabOrder = 2
+      TabOrder = 3
       OnClick = bt_mostrarTudoClick
+    end
+    object SelecaoBusca: TComboBox
+      Left = 16
+      Top = 35
+      Width = 113
+      Height = 21
+      CharCase = ecUpperCase
+      TabOrder = 0
+      Text = 'C'#211'DIGO'
+      Items.Strings = (
+        'C'#211'DIGO'
+        'NOME COMPLETO'
+        'CPF')
     end
   end
   object grid_clientes: TcxGrid
@@ -73,8 +86,6 @@ object FormClientes: TFormClientes
     Align = alClient
     PopupMenu = PopupClientes
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 73
     object grid_clientesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -114,31 +125,21 @@ object FormClientes: TFormClientes
       OptionsView.IndicatorWidth = 20
       Styles.Header = cxStyle1
       object grid_clientesDBTableView1codigo: TcxGridDBColumn
+        Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
       end
       object grid_clientesDBTableView1cpf: TcxGridDBColumn
+        Caption = 'CPF'
         DataBinding.FieldName = 'cpf'
       end
       object grid_clientesDBTableView1nome_completo: TcxGridDBColumn
+        Caption = 'Nome completo'
         DataBinding.FieldName = 'nome_completo'
       end
     end
     object grid_clientesLevel1: TcxGridLevel
       GridView = grid_clientesDBTableView1
     end
-  end
-  object SelecaoBusca: TComboBox
-    Left = 16
-    Top = 33
-    Width = 113
-    Height = 21
-    CharCase = ecUpperCase
-    TabOrder = 2
-    Text = 'C'#211'DIGO'
-    Items.Strings = (
-      'C'#211'DIGO'
-      'NOME COMPLETO'
-      'CPF')
   end
   object PopupClientes: TPopupMenu
     Left = 576

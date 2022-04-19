@@ -22,6 +22,7 @@ type
     procedure MostrarForm(Sender: TObject);
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure SalvarBtnClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,6 +46,11 @@ begin
     Perform(wm_nextdlgctl, 0, 0);
   end
   else if key = #27 then close
+end;
+
+procedure TUsuarioForm.FormActivate(Sender: TObject);
+begin
+  NomeInput.SetFocus;
 end;
 
 procedure TUsuarioForm.MostrarForm(Sender: TObject);
@@ -99,14 +105,21 @@ begin
     q1.ParamByName('codigo').Value := CodigoInput.Text;
 
     try
-      q1.ExecSQL;
-      ShowMessage('Usuário alterado com sucesso!');
-      Self.Close;
-      FormUsuarios.grid_usuariosDBTableView1.DataController.RefreshExternalData;
-    except
-      ShowMessage('Usuário já existe!');
+      case MessageBox(Application.Handle, 'Confirmar aleração de usuário?', 'Alterar usuário', MB_YESNO) of
+        idYes:
+        begin
+          q1.ExecSQL;
+          ShowMessage('Usuário alterado com sucesso!');
+          FormUsuarios.grid_usuariosDBTableView1.DataController.RefreshExternalData;
+        end;
+        idNo:
+          ShowMessage('Operação cancelada!');
+      end;
+    except on E:Exception do
+      ShowMessage('Erro!' + #13 + E.Message);
     end;
   finally
+    Self.Close;
     FreeAndNil(q1);
   end;
 end;

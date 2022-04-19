@@ -152,7 +152,7 @@ begin
       PerfilUsuario.EmailInput.Text := q1.FieldByName('email').Value;
       PerfilUsuario.LoginInput.Text := q1.FieldByName('login').Value;
 
-      showMessage('seja bem vindo: ' + nomeUsuario);
+      showMessage('Seja bem vindo: ' + nomeUsuario);
 
       FormPrincipal.Visible := True;
     end;

@@ -131,12 +131,14 @@ begin
     TituloInput.Clear;
     ClienteInput.Enabled := True;
     ClienteInput.Clear;
+    ClienteInput.SetFocus;
     AddLivro.Visible := True;
     SalvarBtn.Caption := 'Realizar venda';
     SalvarBtn.Visible := True;
     TituloLabel.Visible := True;
     LabelPreco.Caption := vendaControle.valorAtual.ToString;
-    grid_livros.Enabled := True;
+    grid_livros.Enabled := False;
+    vds_livrosVenda.edit;
     vtb_livrosVenda.Clear;
   end
   else if ModoInput.Text = 'V' then
@@ -199,6 +201,7 @@ begin
       ClienteInput.Enabled := True;
       AddLivro.Visible := True;
       SalvarBtn.Caption := 'Salvar alterações';
+      vds_livrosVenda.edit;
       SalvarBtn.Visible := True;
       TituloLabel.Visible := True;
       grid_livros.Enabled := True;
@@ -213,7 +216,7 @@ var
   precoLivro: String;
 
 begin
-
+  vds_livrosVenda.edit;
   indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
   tituloLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
   precoLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[2];

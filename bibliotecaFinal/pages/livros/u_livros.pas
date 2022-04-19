@@ -133,9 +133,13 @@ begin
 
   if buscaInfo <> '' then
   begin
-    ds_livros.DataSet.Filtered := True;
-    grid_livrosDBTableView1.DataController.RefreshExternalData;
-    buscaInput.Text := '';
+    try
+      ds_livros.DataSet.Filtered := True;
+      grid_livrosDBTableView1.DataController.RefreshExternalData;
+      buscaInput.Text := '';
+    except on E:Exception do
+      ShowMessage('Erro!' + #13 + E.Message);
+    end;
   end
   else
   begin
