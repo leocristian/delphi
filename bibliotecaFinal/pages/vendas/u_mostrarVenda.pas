@@ -38,7 +38,6 @@ type
     grid_livrosDBTableView1titulo: TcxGridDBColumn;
     grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn;
     grid_livrosDBTableView1preco: TcxGridDBColumn;
-    ComprovanteBtn: TButton;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure removerLivroClick(Sender: TObject);
@@ -142,7 +141,7 @@ begin
     grid_livros.Enabled := False;
     vds_livrosVenda.edit;
     vtb_livrosVenda.Clear;
-    ComprovanteBtn.Visible := False;
+//    ComprovanteBtn.Visible := False;
   end
   else if ModoInput.Text = 'V' then
     begin
@@ -175,7 +174,7 @@ begin
       SalvarBtn.visible := False;
       grid_livros.Enabled := False;
       TituloLabel.Visible := False;
-      ComprovanteBtn.Visible := True;
+//      ComprovanteBtn.Visible := True;
     end
     else if ModoInput.Text = 'A' then
     begin
@@ -209,7 +208,7 @@ begin
       SalvarBtn.Visible := True;
       TituloLabel.Visible := True;
       grid_livros.Enabled := True;
-      ComprovanteBtn.Visible := False;
+//      ComprovanteBtn.Visible := False;
       vendaControle.valorAtual := StrToInt(labelPreco.Caption);
     end;
 end;

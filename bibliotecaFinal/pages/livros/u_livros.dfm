@@ -7614,29 +7614,36 @@ object FormLivros: TFormLivros
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = 'Livro n'#227'o encontrado'
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
       Styles.Header = cxStyle1
       object grid_livrosDBTableView1codigo: TcxGridDBColumn
+        Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
       end
       object grid_livrosDBTableView1titulo: TcxGridDBColumn
+        Caption = 'T'#237'tulo'
         DataBinding.FieldName = 'titulo'
         Width = 180
       end
       object grid_livrosDBTableView1editora: TcxGridDBColumn
+        Caption = 'Editora'
         DataBinding.FieldName = 'editora'
         Width = 164
       end
       object grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn
+        Caption = 'Ano de publica'#231#227'o'
         DataBinding.FieldName = 'ano_publicacao'
         Width = 106
       end
       object grid_livrosDBTableView1preco: TcxGridDBColumn
+        Caption = 'Pre'#231'o'
         DataBinding.FieldName = 'preco'
       end
       object grid_livrosDBTableView1categoria: TcxGridDBColumn
+        Caption = 'Categoria'
         DataBinding.FieldName = 'categoria'
       end
     end
@@ -7663,6 +7670,9 @@ object FormLivros: TFormLivros
     object AlterarLivro: TMenuItem
       Caption = 'Alterar livro selecionado'
       OnClick = AlterarLivroClick
+    end
+    object RelatorioLivros: TMenuItem
+      Caption = 'Emitir relat'#243'rio'
     end
     object N2: TMenuItem
       Caption = '-'

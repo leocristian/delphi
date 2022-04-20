@@ -9,21 +9,18 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, Vcl.Menus, MemDS, DBAccess, Uni, Vcl.StdCtrls, cxGridLevel,
   cxClasses, cxGridCustomView, cxGridCustomTableView, cxGridTableView,
-  cxGridDBTableView, cxGrid, Vcl.ExtCtrls;
+  cxGridDBTableView, cxGrid, Vcl.ExtCtrls, frame_busca;
 
 type
   TFormUsuarios = class(TForm)
-    bt_busca: TButton;
     grid_usuarios: TcxGrid;
     grid_usuariosDBTableView1: TcxGridDBTableView;
     grid_usuariosLevel1: TcxGridLevel;
-    SelecaoBusca: TComboBox;
     PopupUsuarios: TPopupMenu;
     VisualizarUsuario: TMenuItem;
     AlterarUsuario: TMenuItem;
     N2: TMenuItem;
     ExcluirUsuario: TMenuItem;
-    BuscaInput: TEdit;
     tb_usuarios: TUniTable;
     ds_usuarios: TDataSource;
     grid_usuariosDBTableView1codigo: TcxGridDBColumn;
@@ -31,10 +28,8 @@ type
     grid_usuariosDBTableView1email: TcxGridDBColumn;
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;
-    bt_mostrarTudo: TButton;
-    Panel1: TPanel;
-    Label1: TLabel;
-    Label2: TLabel;
+    FrameBusca1: TFrameBusca;
+    RelatorioUsuarios: TMenuItem;
     procedure FocarInput(Sender: TObject);
     procedure VisualizarUsuarioClick(Sender: TObject);
     procedure AlterarUsuarioClick(Sender: TObject);
@@ -43,6 +38,7 @@ type
     procedure bt_buscaClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FrameBusca1BuscaInputClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -105,23 +101,17 @@ var
 
 begin
 
-if BuscaInput.Text = '' then
-begin
-  ShowMessage('Informe uma palavra-chave válida');
-end
-else
-begin
-  buscaInfo := BuscaInput.Text;
+  buscaInfo := FrameBusca1.BuscaInput.Text;
 
-  if Self.SelecaoBusca.Text = 'CÓDIGO' then
+  if FrameBusca1.SelecaoBusca.Text = 'CÓDIGO' then
   begin
     ds_usuarios.DataSet.Filter := 'codigo = ' + buscaInfo;
   end
-  else if Self.SelecaoBusca.Text = 'NOME COMPLETO' then
+  else if FrameBusca1.SelecaoBusca.Text = 'NOME COMPLETO' then
   begin
     ds_usuarios.DataSet.Filter := 'nome_completo like ' + QuotedStr('%' + buscaInfo + '%');
   end
-  else if Self.SelecaoBusca.Text = 'EMAIL' then
+  else if FrameBusca1.SelecaoBusca.Text = 'EMAIL' then
   begin
     ds_usuarios.DataSet.Filter := 'email like ' + QuotedStr('%' + LowerCase(buscaInfo) + '%');
   end
@@ -132,9 +122,12 @@ begin
     try
       ds_usuarios.DataSet.Filtered := True;
       grid_usuariosDBTableView1.DataController.RefreshExternalData;
-      buscaInput.Text := '';
+      FrameBusca1.BuscaInput.Text := '';
     except on E:Exception do
+    begin
       ShowMessage('Erro!' + #13 + E.Message);
+      FrameBusca1.BuscaInput.SetFocus;
+    end;
     end;
   end
   else
@@ -143,7 +136,6 @@ begin
   end;
 end;
 
-end;
 
 procedure TFormUsuarios.bt_mostrarTudoClick(Sender: TObject);
 begin
@@ -198,7 +190,7 @@ end;
 
 procedure TFormUsuarios.FocarInput(Sender: TObject);
 begin
-  Self.BuscaInput.SetFocus;
+  FrameBusca1.BuscaInput.SetFocus;
 end;
 
 procedure TFormUsuarios.FormCreate(Sender: TObject);
@@ -227,6 +219,11 @@ begin
     Perform(wm_nextdlgctl, 0, 0);
   end
   else if key = #27 then close;
+end;
+
+procedure TFormUsuarios.FrameBusca1BuscaInputClick(Sender: TObject);
+begin
+  FrameBusca1.BuscaInput.SetFocus;
 end;
 
 procedure TFormUsuarios.VisualizarUsuarioClick(Sender: TObject);

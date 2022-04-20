@@ -16,7 +16,9 @@ object CadastroForm: TCadastroForm
   OldCreateOrder = False
   Position = poDesktopCenter
   OnActivate = FormActivate
+  OnClose = FormClose
   OnKeyPress = AtivaNavegacao
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel

@@ -39,6 +39,7 @@ type
     grid_vendasDBTableView1valor_total: TcxGridDBColumn;
     grid_vendasDBTableView1data_venda: TcxGridDBColumn;
     grid_vendasLevel1: TcxGridLevel;
+    RelatorioVendas: TMenuItem;
     procedure NovaVendaClick(Sender: TObject);
     procedure VisualizarVendaClick(Sender: TObject);
     procedure AlterarVendaClick(Sender: TObject);

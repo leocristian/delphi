@@ -27,6 +27,8 @@ type
     procedure AdicionarUsuarioBtnClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -140,6 +142,16 @@ end;
 procedure TCadastroForm.FormActivate(Sender: TObject);
 begin
   nome_completoInput.SetFocus;
+end;
+
+procedure TCadastroForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  LimparInputs(CadastroForm);
+end;
+
+procedure TCadastroForm.FormShow(Sender: TObject);
+begin
+  LimparInputs(CadastroForm);
 end;
 
 end.

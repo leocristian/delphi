@@ -7225,7 +7225,6 @@ object FormVendas: TFormVendas
     Height = 89
     Align = alTop
     TabOrder = 0
-    ExplicitTop = -6
     object Label1: TLabel
       Left = 18
       Top = 26
@@ -7289,8 +7288,6 @@ object FormVendas: TFormVendas
     Align = alClient
     PopupMenu = PopupVendas
     TabOrder = 1
-    ExplicitTop = 65
-    ExplicitHeight = 575
     object grid_vendasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -7325,6 +7322,7 @@ object FormVendas: TFormVendas
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = 'Venda n'#227'o encontrada'
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -7377,6 +7375,9 @@ object FormVendas: TFormVendas
     object AlterarVenda: TMenuItem
       Caption = 'Alterar venda selecionada'
       OnClick = AlterarVendaClick
+    end
+    object RelatorioVendas: TMenuItem
+      Caption = 'Emitir relat'#243'rio'
     end
     object N2: TMenuItem
       Caption = '-'

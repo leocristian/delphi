@@ -2,6 +2,7 @@ object FormUsuarios: TFormUsuarios
   Left = 0
   Top = 0
   Align = alClient
+  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Tela de usu'#225'rios'
   ClientHeight = 496
@@ -1341,9 +1342,9 @@ object FormUsuarios: TFormUsuarios
   TextHeight = 13
   object grid_usuarios: TcxGrid
     Left = 0
-    Top = 81
+    Top = 95
     Width = 829
-    Height = 415
+    Height = 401
     Align = alClient
     PopupMenu = PopupUsuarios
     TabOrder = 0
@@ -1381,6 +1382,7 @@ object FormUsuarios: TFormUsuarios
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = 'Usu'#225'rio n'#227'o encontrado'
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -1403,71 +1405,33 @@ object FormUsuarios: TFormUsuarios
       GridView = grid_usuariosDBTableView1
     end
   end
-  object Panel1: TPanel
+  inline FrameBusca1: TFrameBusca
     Left = 0
     Top = 0
     Width = 829
-    Height = 81
+    Height = 95
     Align = alTop
     TabOrder = 1
-    object Label1: TLabel
-      Left = 16
-      Top = 21
-      Width = 79
-      Height = 13
-      Caption = 'Campo de busca'
-    end
-    object Label2: TLabel
-      Left = 135
-      Top = 21
-      Width = 69
-      Height = 13
-      Caption = 'Palavra-chave'
-    end
-    object BuscaInput: TEdit
-      Left = 135
-      Top = 40
-      Width = 130
-      Height = 21
-      CharCase = ecUpperCase
-      TabOrder = 1
-      OnClick = FocarInput
-    end
-    object bt_busca: TButton
-      Left = 320
-      Top = 20
-      Width = 97
-      Height = 41
-      Caption = 'Pesquisar'
-      TabOrder = 2
-      OnClick = bt_buscaClick
-    end
-    object bt_mostrarTudo: TButton
-      Left = 440
-      Top = 20
-      Width = 97
-      Height = 41
-      Caption = 'Mostrar todos'
-      TabOrder = 3
-      OnClick = bt_mostrarTudoClick
-    end
-    object SelecaoBusca: TComboBox
-      Left = 16
-      Top = 39
-      Width = 113
-      Height = 21
-      CharCase = ecUpperCase
-      TabOrder = 0
-      Text = 'C'#211'DIGO'
-      Items.Strings = (
-        'C'#211'DIGO'
-        'NOME COMPLETO'
-        'EMAIL')
+    ExplicitWidth = 829
+    inherited Panel1: TPanel
+      Width = 829
+      ExplicitLeft = 0
+      inherited BuscaInput: TEdit
+        OnClick = FrameBusca1BuscaInputClick
+      end
+      inherited bt_busca: TButton
+        OnClick = bt_buscaClick
+      end
+      inherited bt_mostrarTudo: TButton
+        Left = 432
+        OnClick = bt_mostrarTudoClick
+        ExplicitLeft = 432
+      end
     end
   end
   object PopupUsuarios: TPopupMenu
-    Left = 600
-    Top = 8
+    Left = 624
+    Top = 112
     object VisualizarUsuario: TMenuItem
       Caption = 'Visualizar usu'#225'rio selecionado'
       OnClick = VisualizarUsuarioClick
@@ -1475,6 +1439,9 @@ object FormUsuarios: TFormUsuarios
     object AlterarUsuario: TMenuItem
       Caption = 'Alterar usu'#225'rio selecionado'
       OnClick = AlterarUsuarioClick
+    end
+    object RelatorioUsuarios: TMenuItem
+      Caption = 'Emitir relat'#243'rio'
     end
     object N2: TMenuItem
       Caption = '-'
@@ -1486,17 +1453,17 @@ object FormUsuarios: TFormUsuarios
   end
   object tb_usuarios: TUniTable
     TableName = 'usuarios2'
-    Left = 672
-    Top = 8
+    Left = 680
+    Top = 112
   end
   object ds_usuarios: TDataSource
     DataSet = tb_usuarios
     Left = 736
-    Top = 8
+    Top = 120
   end
   object cxStyleRepository1: TcxStyleRepository
-    Left = 792
-    Top = 8
+    Left = 696
+    Top = 224
     PixelsPerInch = 96
     object cxStyle1: TcxStyle
       AssignedValues = [svFont]

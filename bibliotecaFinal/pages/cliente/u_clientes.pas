@@ -9,17 +9,13 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, Vcl.Menus, MemDS, DBAccess, Uni, Vcl.StdCtrls, cxGridLevel,
   cxClasses, cxGridCustomView, cxGridCustomTableView, cxGridTableView,
-  cxGridDBTableView, cxGrid, Vcl.ExtCtrls;
+  cxGridDBTableView, cxGrid, Vcl.ExtCtrls, frame_busca;
 
 type
   TFormClientes = class(TForm)
-    Panel1: TPanel;
-    BuscaInput: TEdit;
-    bt_busca: TButton;
     grid_clientes: TcxGrid;
     grid_clientesDBTableView1: TcxGridDBTableView;
     grid_clientesLevel1: TcxGridLevel;
-    SelecaoBusca: TComboBox;
     PopupClientes: TPopupMenu;
     VisualizarCliente: TMenuItem;
     AlterarCliente: TMenuItem;
@@ -33,9 +29,8 @@ type
     grid_clientesDBTableView1cpf: TcxGridDBColumn;
     grid_clientesDBTableView1nome_completo: TcxGridDBColumn;
     AdicionarCliente: TMenuItem;
-    bt_mostrarTudo: TButton;
-    Label1: TLabel;
-    Label2: TLabel;
+    FrameBusca1: TFrameBusca;
+    RelatorioClientes: TMenuItem;
     procedure VisualizarClienteClick(Sender: TObject);
     procedure AlterarClienteClick(Sender: TObject);
     procedure ExcluirClienteClick(Sender: TObject);
@@ -111,23 +106,18 @@ var
   buscaInfo: String;
 
 begin
-if BuscaInput.Text = '' then
-begin
-  ShowMessage('Informe uma palavra-chave válida');
-end
-else
-begin
-  buscaInfo := BuscaInput.Text;
 
-  if Self.SelecaoBusca.Text = 'CÓDIGO' then
+  buscaInfo := FrameBusca1.BuscaInput.Text;
+
+  if FrameBusca1.SelecaoBusca.Text = 'CÓDIGO' then
   begin
     ds_clientes.DataSet.Filter := 'codigo = ' + buscaInfo;
   end
-  else if Self.SelecaoBusca.Text = 'NOME COMPLETO' then
+  else if FrameBusca1.SelecaoBusca.Text = 'NOME COMPLETO' then
   begin
     ds_clientes.DataSet.Filter := 'nome_completo like ' + QuotedStr('%' + buscaInfo + '%');
   end
-  else if Self.SelecaoBusca.Text = 'CPF' then
+  else if FrameBusca1.SelecaoBusca.Text = 'CPF' then
   begin
     ds_clientes.DataSet.Filter := 'cpf like ' + QuotedStr('%' + buscaInfo + '%');
   end
@@ -138,7 +128,7 @@ begin
     try
       ds_clientes.DataSet.Filtered := True;
       grid_clientesDBTableView1.DataController.RefreshExternalData;
-      buscaInput.Text := '';
+      FrameBusca1.BuscaInput.Text := '';
     except on E:Exception do
       ShowMessage('Erro!' + #13 + E.Message);
     end;
@@ -149,8 +139,6 @@ begin
   end;
 end;
 
-end;
-
 procedure TFormClientes.bt_mostrarTudoClick(Sender: TObject);
 begin
   ds_clientes.DataSet.Filtered := False;
@@ -159,7 +147,7 @@ end;
 
 procedure TFormClientes.BuscaInputClick(Sender: TObject);
 begin
-  BuscaInput.SetFocus;
+  FrameBusca1.BuscaInput.SetFocus;
 end;
 
 procedure TFormClientes.ExcluirClienteClick(Sender: TObject);
@@ -224,6 +212,7 @@ begin
     tb_clientes.TableName := 'clientes2';
     tb_clientes.Active := True;
   end;
+  FrameBusca1.SelecaoBusca.Items[2] := 'CPF';
 end;
 
 procedure TFormClientes.VisualizarClienteClick(Sender: TObject);

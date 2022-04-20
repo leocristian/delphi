@@ -99,7 +99,6 @@ object NovoCliente: TNovoCliente
     Caption = 'Adicionar'
     TabOrder = 4
     OnClick = AdicionarUsuarioBtnClick
-    ExplicitTop = 212
   end
   object Button1: TButton
     Left = 231
@@ -110,7 +109,6 @@ object NovoCliente: TNovoCliente
     Caption = 'Cancelar'
     TabOrder = 5
     OnClick = Button1Click
-    ExplicitTop = 212
   end
   object TelefoneInput: TEdit
     Left = 254

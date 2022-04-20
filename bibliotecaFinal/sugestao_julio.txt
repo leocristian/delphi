@@ -1,0 +1,24 @@
+
+function confirma(texto:string):boolean;
+begin
+	result := ( messagedlg( texto , mtQuestion , mbYesNo, 0) = mrYes);
+
+end;
+
+
+
+--- 
+
+if confirma('Confirma ???') tehen
+begin
+....
+
+Aviso('Erro');
+
+RELATÓRIOS FASTREPORT PARA TODOS OS CADASTROS E PARA AS VENDAS - POPUP DIRETO NA GRID
+
+PERSISTÊNCIA -  SENHA.INI NA MESMA PASTA DO EXECUTÁVEL USAR TINIFILE
+SE ELE NÃO EXISTIR OU ESTIVER LIMPO, FOCO NO LOGIN AO ENTRAR
+SENÃO PREENCHE LOGIN E FOCA NA SENHA
+
+APRENDER A USAR FRAME    frame.edit1.text

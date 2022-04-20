@@ -47,16 +47,26 @@ begin
   if ExisteInputsVazios(NovoCliente) then
   begin
     ShowMessage('Preencha todos os campos!');
+    cpfInput.SetFocus;
   end
   else
   begin
     try
 //      // Validar o cpf
-      if Not testacpf( Trim( cpfInput.Text ) ) then
+      try
+        if Not testacpf( Trim( cpfInput.Text ) ) then
+        begin
+          showmessage('Cpf inválido !');
+          cpfInput.SetFocus;
+          Exit;
+        end;
+      except on E:Exception do
       begin
-        showmessage('Cpf inválido !');
+        ShowMessage('Preencha o campo do cpf completo!');
         cpfInput.SetFocus;
         Exit;
+      end;
+
       end;
 
       // Validar o email

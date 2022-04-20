@@ -3595,76 +3595,16 @@ object FormClientes: TFormClientes
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object Panel1: TPanel
-    Left = 0
-    Top = 0
-    Width = 831
-    Height = 81
-    Align = alTop
-    TabOrder = 0
-    object Label1: TLabel
-      Left = 16
-      Top = 16
-      Width = 79
-      Height = 13
-      Caption = 'Campo de busca'
-    end
-    object Label2: TLabel
-      Left = 135
-      Top = 16
-      Width = 69
-      Height = 13
-      Caption = 'Palavra-chave'
-    end
-    object BuscaInput: TEdit
-      Left = 135
-      Top = 35
-      Width = 146
-      Height = 21
-      CharCase = ecUpperCase
-      TabOrder = 1
-      OnClick = BuscaInputClick
-    end
-    object bt_busca: TButton
-      Left = 336
-      Top = 23
-      Width = 97
-      Height = 41
-      Caption = 'Pesquisar'
-      TabOrder = 2
-      OnClick = bt_buscaClick
-    end
-    object bt_mostrarTudo: TButton
-      Left = 448
-      Top = 23
-      Width = 97
-      Height = 41
-      Caption = 'Mostrar todos'
-      TabOrder = 3
-      OnClick = bt_mostrarTudoClick
-    end
-    object SelecaoBusca: TComboBox
-      Left = 16
-      Top = 35
-      Width = 113
-      Height = 21
-      CharCase = ecUpperCase
-      TabOrder = 0
-      Text = 'C'#211'DIGO'
-      Items.Strings = (
-        'C'#211'DIGO'
-        'NOME COMPLETO'
-        'CPF')
-    end
-  end
   object grid_clientes: TcxGrid
     Left = 0
-    Top = 81
+    Top = 95
     Width = 831
-    Height = 430
+    Height = 416
     Align = alClient
     PopupMenu = PopupClientes
-    TabOrder = 1
+    TabOrder = 0
+    ExplicitLeft = 8
+    ExplicitTop = 101
     object grid_clientesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -3699,6 +3639,7 @@ object FormClientes: TFormClientes
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = 'Cliente n'#227'o encontrado'
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -3722,9 +3663,31 @@ object FormClientes: TFormClientes
       GridView = grid_clientesDBTableView1
     end
   end
+  inline FrameBusca1: TFrameBusca
+    Left = 0
+    Top = 0
+    Width = 831
+    Height = 95
+    Align = alTop
+    TabOrder = 1
+    ExplicitLeft = 8
+    ExplicitTop = 8
+    inherited Panel1: TPanel
+      Width = 831
+      ExplicitLeft = -56
+      ExplicitTop = 14
+      ExplicitWidth = 831
+      inherited bt_busca: TButton
+        OnClick = bt_buscaClick
+      end
+      inherited bt_mostrarTudo: TButton
+        OnClick = bt_mostrarTudoClick
+      end
+    end
+  end
   object PopupClientes: TPopupMenu
-    Left = 576
-    Top = 16
+    Left = 616
+    Top = 128
     object VisualizarCliente: TMenuItem
       Caption = 'Visualizar cliente selecionado'
       OnClick = VisualizarClienteClick
@@ -3737,6 +3700,9 @@ object FormClientes: TFormClientes
       Caption = 'Alterar cliente selecionado'
       OnClick = AlterarClienteClick
     end
+    object RelatorioClientes: TMenuItem
+      Caption = 'Emitir relat'#243'rio'
+    end
     object N2: TMenuItem
       Caption = '-'
     end
@@ -3746,8 +3712,8 @@ object FormClientes: TFormClientes
     end
   end
   object cxStyleRepository1: TcxStyleRepository
-    Left = 752
-    Top = 368
+    Left = 736
+    Top = 208
     PixelsPerInch = 96
     object cxStyle1: TcxStyle
       AssignedValues = [svFont]
@@ -3760,12 +3726,12 @@ object FormClientes: TFormClientes
   end
   object tb_clientes: TUniTable
     TableName = 'clientes2'
-    Left = 656
-    Top = 16
+    Left = 672
+    Top = 136
   end
   object ds_clientes: TDataSource
     DataSet = tb_clientes
-    Left = 736
-    Top = 16
+    Left = 728
+    Top = 112
   end
 end

@@ -8,21 +8,22 @@ uses
 
 type
   TMostrarLivroForm = class(TForm)
+    Panel1: TPanel;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
     TituloInput: TEdit;
     EditoraInput: TEdit;
     AnoPublicacao: TDateTimePicker;
-    Label5: TLabel;
     PrecoInput: TEdit;
-    SalvarBtn: TButton;
-    Label6: TLabel;
     CodigoInput: TEdit;
-    ModoInput: TEdit;
     CategoriaInput: TComboBox;
-    Label7: TLabel;
+    SalvarBtn: TButton;
+    ModoInput: TEdit;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure SalvarBtnClick(Sender: TObject);
@@ -62,21 +63,26 @@ begin
 
   if ModoInput.Text = 'V' then
   begin
-    TituloInput.Enabled := False;
-    EditoraInput.Enabled := False;
-    AnoPublicacao.Enabled := False;
-    PrecoInput.Enabled := False;
-    CategoriaInput.Enabled := False;
+//    TituloInput.Enabled := False;
+//    EditoraInput.Enabled := False;
+//    AnoPublicacao.Enabled := False;
+//    PrecoInput.Enabled := False;
+//    CategoriaInput.Enabled := False;
+
+    panel1.Enabled := False;
+
     SalvarBtn.Visible := False;
   end
   else if ModoInput.Text = 'A' then
        
   begin
-    TituloInput.Enabled := True;
-    EditoraInput.Enabled := True;
-    AnoPublicacao.Enabled := True;
-    PrecoInput.Enabled := True;
-    CategoriaInput.Enabled := True;
+//    TituloInput.Enabled := True;
+//    EditoraInput.Enabled := True;
+//    AnoPublicacao.Enabled := True;
+//    PrecoInput.Enabled := True;
+//    CategoriaInput.Enabled := True;
+     panel1.Enabled := True;
+
     SalvarBtn.Visible := True;
   end;
 

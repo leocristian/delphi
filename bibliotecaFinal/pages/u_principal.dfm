@@ -81,9 +81,6 @@ object FormPrincipal: TFormPrincipal
       object N2: TMenuItem
         Caption = '-'
       end
-      object relatorioVendas: TMenuItem
-        Caption = 'Relat'#243'rio de vendas'
-      end
     end
     object sistema1: TMenuItem
       Caption = 'Sistema'

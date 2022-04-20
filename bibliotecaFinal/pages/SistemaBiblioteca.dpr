@@ -22,7 +22,8 @@ uses
   u_novoCliente in 'cliente\u_novoCliente.pas' {NovoCliente},
   u_mostrarVenda in 'vendas\u_mostrarVenda.pas' {MostrarVendaForm},
   u_alterarSenha in 'usuario\u_alterarSenha.pas' {AlterarSenhaForm},
-  u_md5 in 'usuario\u_md5.pas';
+  u_md5 in 'usuario\u_md5.pas',
+  frame_busca in 'frames\frame_busca.pas' {FrameBusca: TFrame};
 
 {$R *.res}
 

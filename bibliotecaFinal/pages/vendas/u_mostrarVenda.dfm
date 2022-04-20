@@ -195,6 +195,7 @@ object MostrarVendaForm: TMostrarVendaForm
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = 'Livro n'#227'o encontrado'
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -215,20 +216,6 @@ object MostrarVendaForm: TMostrarVendaForm
     object grid_livrosLevel1: TcxGridLevel
       GridView = grid_livrosDBTableView1
     end
-  end
-  object ComprovanteBtn: TButton
-    Left = 40
-    Top = 434
-    Width = 177
-    Height = 54
-    Caption = 'Ver comprovante'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 7
   end
   object vtb_livrosVenda: TVirtualTable
     Active = True

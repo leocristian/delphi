@@ -23,7 +23,6 @@ type
     Outros1: TMenuItem;
     livros: TMenuItem;
     vendas: TMenuItem;
-    relatorioVendas: TMenuItem;
     AlterarPerfil: TMenuItem;
     encerrar: TMenuItem;
     N1: TMenuItem;

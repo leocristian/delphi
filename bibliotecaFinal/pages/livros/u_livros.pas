@@ -39,6 +39,7 @@ type
     grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn;
     grid_livrosDBTableView1preco: TcxGridDBColumn;
     grid_livrosDBTableView1categoria: TcxGridDBColumn;
+    RelatorioLivros: TMenuItem;
     procedure NovoLivroClick(Sender: TObject);
     procedure bt_buscaClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);
