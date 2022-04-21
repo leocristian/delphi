@@ -4,24 +4,27 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
 
 type
   TUsuarioForm = class(TForm)
+    panel_usuarioSelecionado: TPanel;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    Label5: TLabel;
     NomeInput: TEdit;
     EmailInput: TEdit;
     LoginInput: TEdit;
     ModoInput: TEdit;
     SalvarBtn: TButton;
     CodigoInput: TEdit;
-    Label5: TLabel;
+    CancelarBtn: TButton;
     procedure MostrarForm(Sender: TObject);
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure SalvarBtnClick(Sender: TObject);
+    procedure CancelarBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -47,6 +50,11 @@ begin
   else if key = #27 then close
 end;
 
+procedure TUsuarioForm.CancelarBtnClick(Sender: TObject);
+begin
+  close;
+end;
+
 procedure TUsuarioForm.MostrarForm(Sender: TObject);
 begin
   AbrirForm(UsuarioForm);
@@ -56,18 +64,16 @@ begin
 
   if ModoInput.Text = 'V' then
   begin
-    NomeInput.Enabled := False;
-    EmailInput.Enabled := False;
-    LoginInput.Enabled := False;
+    panel_usuarioSelecionado.Enabled := False;
     SalvarBtn.Visible := False;
+    CancelarBtn.Visible := False;
   end
   else
   begin
-    NomeInput.Enabled := True;
-    EmailInput.Enabled := True;
-    LoginInput.Enabled := True;
+    panel_usuarioSelecionado.Enabled := True;
     SalvarBtn.Visible := True;
-    NomeInput.SetFocus;
+    CancelarBtn.Visible := True;
+    LoginInput.SetFocus;
   end;
 end;
 

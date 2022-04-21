@@ -4,7 +4,7 @@ object AlterarSenhaForm: TAlterarSenhaForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'AlterarSenhaForm'
-  ClientHeight = 312
+  ClientHeight = 311
   ClientWidth = 290
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -14,12 +14,11 @@ object AlterarSenhaForm: TAlterarSenhaForm
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
-  OnActivate = FormActivate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   DesignSize = (
     290
-    312)
+    311)
   PixelsPerInch = 96
   TextHeight = 13
   object NovaSenhaLabel: TLabel
@@ -88,7 +87,7 @@ object AlterarSenhaForm: TAlterarSenhaForm
   end
   object AlterarSenhaBtn: TButton
     Left = 54
-    Top = 265
+    Top = 264
     Width = 88
     Height = 39
     Anchors = [akLeft, akBottom]
@@ -96,18 +95,18 @@ object AlterarSenhaForm: TAlterarSenhaForm
     Caption = 'Confirmar'
     TabOrder = 3
     OnClick = AlterarSenhaBtnClick
-    ExplicitTop = 274
+    ExplicitTop = 265
   end
-  object Button1: TButton
+  object CancelarBtn: TButton
     Left = 148
-    Top = 265
+    Top = 264
     Width = 88
     Height = 39
     Anchors = [akLeft, akBottom]
     Cancel = True
     Caption = 'Cancelar'
     TabOrder = 4
-    OnClick = Button1Click
-    ExplicitTop = 274
+    OnClick = CancelarBtnClick
+    ExplicitTop = 265
   end
 end

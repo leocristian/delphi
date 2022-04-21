@@ -16,11 +16,10 @@ type
     Label2: TLabel;
     SenhaAtualInput: TEdit;
     AlterarSenhaBtn: TButton;
-    Button1: TButton;
-    procedure FormActivate(Sender: TObject);
+    CancelarBtn: TButton;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
-    procedure Button1Click(Sender: TObject);
+    procedure CancelarBtnClick(Sender: TObject);
     procedure AlterarSenhaBtnClick(Sender: TObject);
   private
     { Private declarations }
@@ -108,14 +107,9 @@ begin
   end;
 end;
 
-procedure TAlterarSenhaForm.Button1Click(Sender: TObject);
+procedure TAlterarSenhaForm.CancelarBtnClick(Sender: TObject);
 begin
   Close;
-end;
-
-procedure TAlterarSenhaForm.FormActivate(Sender: TObject);
-begin
-  SenhaAtualInput.SetFocus;
 end;
 
 procedure TAlterarSenhaForm.FormKeyPress(Sender: TObject; var Key: Char);
@@ -132,6 +126,7 @@ procedure TAlterarSenhaForm.FormShow(Sender: TObject);
 begin
   LimparInputs(AlterarSenhaForm);
   AbrirForm(AlterarSenhaForm);
+  SenhaAtualInput.SetFocus;
 end;
 
 end.

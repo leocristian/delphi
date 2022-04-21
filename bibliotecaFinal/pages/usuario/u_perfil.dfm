@@ -4,8 +4,8 @@ object PerfilUsuario: TPerfilUsuario
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Perfil do usu'#225'rio'
-  ClientHeight = 353
-  ClientWidth = 328
+  ClientHeight = 350
+  ClientWidth = 301
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -6539,125 +6539,137 @@ object PerfilUsuario: TPerfilUsuario
   OnShow = MostrarPerfil
   PixelsPerInch = 96
   TextHeight = 13
-  object Label1: TLabel
-    Left = 56
-    Top = 14
-    Width = 91
-    Height = 23
-    Caption = 'Seu perfil'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -19
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
-  object Label2: TLabel
-    Left = 56
-    Top = 58
-    Width = 73
-    Height = 13
-    Caption = 'Nome completo'
-  end
-  object Label3: TLabel
-    Left = 56
-    Top = 104
-    Width = 24
-    Height = 13
-    Caption = 'Email'
-  end
-  object Label4: TLabel
-    Left = 56
-    Top = 160
-    Width = 25
-    Height = 13
-    Caption = 'Login'
-  end
-  object Label5: TLabel
-    Left = 190
-    Top = 14
-    Width = 33
-    Height = 13
-    Caption = 'C'#243'digo'
-  end
-  object NomeInput: TEdit
-    Left = 56
-    Top = 77
-    Width = 208
-    Height = 21
-    CharCase = ecUpperCase
-    MaxLength = 100
-    TabOrder = 0
-  end
-  object EmailInput: TEdit
-    Left = 56
-    Top = 125
-    Width = 208
-    Height = 21
-    CharCase = ecLowerCase
-    MaxLength = 30
-    TabOrder = 1
-  end
-  object LoginInput: TEdit
-    Left = 56
-    Top = 179
-    Width = 208
-    Height = 21
-    CharCase = ecUpperCase
-    MaxLength = 30
-    TabOrder = 2
-  end
-  object CodigoInput: TEdit
-    Left = 190
-    Top = 33
-    Width = 74
-    Height = 21
-    Enabled = False
-    TabOrder = 3
-  end
   object Panel1: TPanel
     Left = 0
-    Top = 233
-    Width = 328
+    Top = 230
+    Width = 301
     Height = 120
     Align = alBottom
-    TabOrder = 4
-    ExplicitTop = 304
+    TabOrder = 1
+    ExplicitTop = 324
+    ExplicitWidth = 321
     object SalvarBtn: TButton
-      Left = 78
+      Left = 66
       Top = 13
       Width = 83
       Height = 35
       Caption = 'Salvar'
-      TabOrder = 0
+      TabOrder = 1
       OnClick = SalvarBtnClick
     end
     object CancelarBtn: TButton
-      Left = 167
+      Left = 155
       Top = 13
       Width = 83
       Height = 35
       Caption = 'Cancelar'
-      TabOrder = 1
+      TabOrder = 2
       OnClick = CancelarBtnClick
     end
     object ModoInput: TEdit
-      Left = 47
+      Left = 35
       Top = 24
       Width = 25
       Height = 21
-      TabOrder = 2
+      TabOrder = 0
       Visible = False
     end
     object AlterarSenhaBtn: TButton
-      Left = 167
-      Top = 72
+      Left = 155
+      Top = 70
       Width = 132
       Height = 41
       Caption = 'Alterar senha'
       Style = bsCommandLink
       TabOrder = 3
       OnClick = AlterarSenhaBtnClick
+    end
+  end
+  object panel_perfil: TPanel
+    Left = 0
+    Top = 0
+    Width = 301
+    Height = 230
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 0
+    ExplicitWidth = 319
+    ExplicitHeight = 249
+    object Label1: TLabel
+      Left = 47
+      Top = 14
+      Width = 91
+      Height = 23
+      Caption = 'Seu perfil'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 47
+      Top = 58
+      Width = 73
+      Height = 13
+      Caption = 'Nome completo'
+    end
+    object Label3: TLabel
+      Left = 47
+      Top = 106
+      Width = 24
+      Height = 13
+      Caption = 'Email'
+    end
+    object Label4: TLabel
+      Left = 47
+      Top = 160
+      Width = 25
+      Height = 13
+      Caption = 'Login'
+    end
+    object Label5: TLabel
+      Left = 183
+      Top = 14
+      Width = 33
+      Height = 13
+      Caption = 'C'#243'digo'
+    end
+    object NomeInput: TEdit
+      Left = 47
+      Top = 77
+      Width = 208
+      Height = 21
+      CharCase = ecUpperCase
+      MaxLength = 100
+      TabOrder = 0
+    end
+    object EmailInput: TEdit
+      Left = 47
+      Top = 125
+      Width = 208
+      Height = 21
+      CharCase = ecLowerCase
+      MaxLength = 30
+      TabOrder = 1
+    end
+    object LoginInput: TEdit
+      Left = 47
+      Top = 179
+      Width = 208
+      Height = 21
+      CharCase = ecUpperCase
+      MaxLength = 30
+      TabOrder = 2
+    end
+    object CodigoInput: TEdit
+      Left = 181
+      Top = 33
+      Width = 74
+      Height = 21
+      Enabled = False
+      TabOrder = 3
     end
   end
 end

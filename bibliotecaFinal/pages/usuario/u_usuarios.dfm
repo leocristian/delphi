@@ -1415,17 +1415,15 @@ object FormUsuarios: TFormUsuarios
     ExplicitWidth = 829
     inherited Panel1: TPanel
       Width = 829
-      ExplicitLeft = 0
+      ExplicitWidth = 829
       inherited BuscaInput: TEdit
-        OnClick = FrameBusca1BuscaInputClick
+        OnClick = nil
       end
       inherited bt_busca: TButton
         OnClick = bt_buscaClick
       end
       inherited bt_mostrarTudo: TButton
-        Left = 432
         OnClick = bt_mostrarTudoClick
-        ExplicitLeft = 432
       end
     end
   end

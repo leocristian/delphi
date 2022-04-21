@@ -38,7 +38,6 @@ type
     procedure bt_buscaClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure FrameBusca1BuscaInputClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -53,7 +52,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_mostrar;
+uses u_dm1, u_mostrar, u_forms;
 
 procedure TFormUsuarios.AlterarUsuarioClick(Sender: TObject);
 var
@@ -148,7 +147,6 @@ var
   q1: TUniQuery;
   indexUsuario: Integer;
   codUsuario: Integer;
-  msgExcluir: String;
 
 begin
   try
@@ -165,23 +163,15 @@ begin
 
     q1.ParamByName('codigo').Value := codUsuario;
 
-    msgExcluir := 'Confirmar exclusão do usuário ' + IntToStr(codUsuario) + '?';
-
     try
-
-      case
-        MessageBox(Application.Handle, 'Confirmar exclusão de usuário?', 'Excluir usuário', MB_YESNO) of
-        idYes:
-          begin
-            q1.ExecSQL;
-            ShowMessage('Usuário excluído com sucesso! código: ' + IntToStr(codUsuario));
-            Self.grid_usuariosDBTableView1.DataController.RefreshExternalData;
-          end;
-        idNo: ShowMessage('Operação cancelada!');
+      if confirma('Confirmar exclusão de usuário?') then
+      begin
+        q1.ExecSQL;
+        MessageDlg('Usuário excluído com sucesso!', mtConfirmation, [mbOk], 0);
+        Self.grid_usuariosDBTableView1.DataController.RefreshExternalData;
       end;
-
     except
-      ShowMessage('Erro ao excluir usuário!');
+      erro('Erro ao excluir usuário');
     end;
   finally
     FreeAndNil(q1);
@@ -219,11 +209,6 @@ begin
     Perform(wm_nextdlgctl, 0, 0);
   end
   else if key = #27 then close;
-end;
-
-procedure TFormUsuarios.FrameBusca1BuscaInputClick(Sender: TObject);
-begin
-  FrameBusca1.BuscaInput.SetFocus;
 end;
 
 procedure TFormUsuarios.VisualizarUsuarioClick(Sender: TObject);

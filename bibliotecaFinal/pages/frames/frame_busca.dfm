@@ -12,8 +12,6 @@ object FrameBusca: TFrameBusca
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = -461
-    ExplicitWidth = 829
     object Label1: TLabel
       Left = 16
       Top = 21
@@ -35,9 +33,10 @@ object FrameBusca: TFrameBusca
       Height = 21
       CharCase = ecUpperCase
       TabOrder = 1
+      OnClick = BuscaInputClick
     end
     object bt_busca: TButton
-      Left = 320
+      Left = 337
       Top = 20
       Width = 97
       Height = 41
@@ -57,7 +56,9 @@ object FrameBusca: TFrameBusca
       Top = 39
       Width = 113
       Height = 21
+      Style = csDropDownList
       CharCase = ecUpperCase
+      ItemIndex = 0
       TabOrder = 0
       Text = 'C'#211'DIGO'
       Items.Strings = (

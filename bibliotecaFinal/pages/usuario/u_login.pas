@@ -118,6 +118,14 @@ var
   nomeUsuario: String;
 
 begin
+
+  if ExisteInputsVazios(LoginForm) then
+  begin
+    aviso('Preencha todos os campos!');
+    LoginInput.SetFocus;
+    Exit;
+  end;
+
   try
     q1 := TUniQuery.Create(nil);
     q1.Connection := dm1.con1;
@@ -140,7 +148,7 @@ begin
   finally
     if nomeUsuario = '' then
     begin
-      ShowMessage('Usuário não encontrado!');
+      erro('Usuário não encontrado!');
       LoginForm.LoginInput.SetFocus;
     end
     else

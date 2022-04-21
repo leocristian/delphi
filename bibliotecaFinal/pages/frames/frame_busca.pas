@@ -15,6 +15,7 @@ type
     bt_busca: TButton;
     bt_mostrarTudo: TButton;
     SelecaoBusca: TComboBox;
+    procedure BuscaInputClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -24,5 +25,10 @@ type
 implementation
 
 {$R *.dfm}
+
+procedure TFrameBusca.BuscaInputClick(Sender: TObject);
+begin
+  BuscaInput.SetFocus;
+end;
 
 end.

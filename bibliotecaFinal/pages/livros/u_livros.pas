@@ -9,17 +9,13 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, Vcl.Menus, MemDS, DBAccess, Uni, Vcl.StdCtrls, cxGridLevel,
-  cxGridCustomView, cxGrid, Vcl.ExtCtrls;
+  cxGridCustomView, cxGrid, Vcl.ExtCtrls, frame_busca;
 
 type
   TFormLivros = class(TForm)
-    Panel1: TPanel;
-    BuscaInput: TEdit;
-    bt_busca: TButton;
     grid_livros: TcxGrid;
     grid_livrosDBTableView1: TcxGridDBTableView;
     grid_livrosLevel1: TcxGridLevel;
-    SelecaoBusca: TComboBox;
     tb_livros: TUniTable;
     PopupLivros: TPopupMenu;
     VisualizarLivro: TMenuItem;
@@ -30,9 +26,6 @@ type
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;
     ds_livros: TDataSource;
-    bt_mostrarTudo: TButton;
-    Label1: TLabel;
-    Label2: TLabel;
     grid_livrosDBTableView1codigo: TcxGridDBColumn;
     grid_livrosDBTableView1titulo: TcxGridDBColumn;
     grid_livrosDBTableView1editora: TcxGridDBColumn;
@@ -40,13 +33,13 @@ type
     grid_livrosDBTableView1preco: TcxGridDBColumn;
     grid_livrosDBTableView1categoria: TcxGridDBColumn;
     RelatorioLivros: TMenuItem;
+    FrameBusca1: TFrameBusca;
     procedure NovoLivroClick(Sender: TObject);
     procedure bt_buscaClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);
     procedure VisualizarLivroClick(Sender: TObject);
     procedure AlterarLivroClick(Sender: TObject);
     procedure ExcluirLivroClick(Sender: TObject);
-    procedure BuscaInputClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -61,7 +54,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_novoLivro, u_dm1, u_mostrarLivro;
+uses u_novoLivro, u_dm1, u_mostrarLivro, u_forms;
 
 procedure TFormLivros.AlterarLivroClick(Sender: TObject);
 var
@@ -112,39 +105,43 @@ var
 
 begin
 
-  buscaInfo := BuscaInput.Text;
+  buscaInfo := FrameBusca1.BuscaInput.Text;
 
-  if Self.SelecaoBusca.Text = 'CÓDIGO' then
+  if buscaInfo = '' then
+  begin
+    aviso('Informe uma palavra-chave válida!');
+    FrameBusca1.SetFocus;
+    Exit;
+  end;
+
+  if FrameBusca1.SelecaoBusca.Text = 'CÓDIGO' then
   begin
     ds_livros.DataSet.Filter := 'codigo = ' + buscaInfo;
   end
-  else if Self.SelecaoBusca.Text = 'CATEGORIA' then
+  else if FrameBusca1.SelecaoBusca.Text = 'CATEGORIA' then
   begin
     ds_livros.DataSet.Filter := 'categoria like ' + QuotedStr('%' + buscaInfo + '%');
   end
-  else if Self.SelecaoBusca.Text = 'EDITORA' then
+  else if FrameBusca1.SelecaoBusca.Text = 'EDITORA' then
   begin
     ds_livros.DataSet.Filter := 'editora like ' + QuotedStr('%' + buscaInfo + '%');
   end
-  else if Self.SelecaoBusca.Text = 'TITULO' then
+  else if FrameBusca1.SelecaoBusca.Text = 'TITULO' then
   begin
     ds_livros.DataSet.Filter := 'titulo like ' + QuotedStr('%' + buscaInfo + '%');
   end
-  else ShowMessage('Campo de busca inválido');
-
-  if buscaInfo <> '' then
-  begin
-    try
-      ds_livros.DataSet.Filtered := True;
-      grid_livrosDBTableView1.DataController.RefreshExternalData;
-      buscaInput.Text := '';
-    except on E:Exception do
-      ShowMessage('Erro!' + #13 + E.Message);
-    end;
-  end
   else
   begin
-    ShowMessage('Informe uma palavra-chave válida');
+    aviso('Campo de busca inválido!');
+    Exit;
+  end;
+
+  try
+    ds_livros.DataSet.Filtered := True;
+    grid_livrosDBTableView1.DataController.RefreshExternalData;
+    FrameBusca1.buscaInput.Text := '';
+  except on E:Exception do
+    ShowMessage('Erro!' + #13 + E.Message);
   end;
 
 end;
@@ -153,11 +150,6 @@ procedure TFormLivros.bt_mostrarTudoClick(Sender: TObject);
 begin
   ds_livros.DataSet.Filtered := False;
   grid_livrosDBTableView1.DataController.RefreshExternalData;
-end;
-
-procedure TFormLivros.BuscaInputClick(Sender: TObject);
-begin
-  BuscaInput.SetFocus;
 end;
 
 procedure TFormLivros.ExcluirLivroClick(Sender: TObject);

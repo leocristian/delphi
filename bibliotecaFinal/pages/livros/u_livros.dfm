@@ -7509,77 +7509,16 @@ object FormLivros: TFormLivros
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object Panel1: TPanel
-    Left = 0
-    Top = 0
-    Width = 862
-    Height = 81
-    Align = alTop
-    TabOrder = 0
-    object Label1: TLabel
-      Left = 16
-      Top = 19
-      Width = 79
-      Height = 13
-      Caption = 'Campo de busca'
-    end
-    object Label2: TLabel
-      Left = 135
-      Top = 19
-      Width = 69
-      Height = 13
-      Caption = 'Palavra-chave'
-    end
-    object BuscaInput: TEdit
-      Left = 135
-      Top = 38
-      Width = 146
-      Height = 21
-      CharCase = ecUpperCase
-      TabOrder = 1
-      OnClick = BuscaInputClick
-    end
-    object bt_busca: TButton
-      Left = 312
-      Top = 18
-      Width = 97
-      Height = 41
-      Caption = 'Pesquisar'
-      TabOrder = 2
-      OnClick = bt_buscaClick
-    end
-    object bt_mostrarTudo: TButton
-      Left = 415
-      Top = 18
-      Width = 105
-      Height = 41
-      Caption = 'Mostrar todos'
-      TabOrder = 3
-      OnClick = bt_mostrarTudoClick
-    end
-    object SelecaoBusca: TComboBox
-      Left = 16
-      Top = 38
-      Width = 113
-      Height = 21
-      CharCase = ecUpperCase
-      TabOrder = 0
-      Text = 'C'#211'DIGO'
-      Items.Strings = (
-        'C'#211'DIGO'
-        'CATEGORIA'
-        'EDITORA'
-        'TITULO')
-    end
-  end
   object grid_livros: TcxGrid
     Left = 0
-    Top = 81
+    Top = 95
     Width = 862
-    Height = 602
+    Height = 588
     Align = alClient
     PopupMenu = PopupLivros
-    TabOrder = 1
+    TabOrder = 0
+    ExplicitLeft = 32
+    ExplicitTop = 55
     object grid_livrosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -7651,14 +7590,44 @@ object FormLivros: TFormLivros
       GridView = grid_livrosDBTableView1
     end
   end
+  inline FrameBusca1: TFrameBusca
+    Left = 0
+    Top = 0
+    Width = 862
+    Height = 95
+    Align = alTop
+    TabOrder = 1
+    ExplicitLeft = 8
+    ExplicitTop = 8
+    inherited Panel1: TPanel
+      Width = 862
+      ExplicitLeft = -128
+      ExplicitWidth = 862
+      inherited bt_busca: TButton
+        OnClick = bt_buscaClick
+      end
+      inherited bt_mostrarTudo: TButton
+        Left = 423
+        OnClick = bt_mostrarTudoClick
+        ExplicitLeft = 423
+      end
+      inherited SelecaoBusca: TComboBox
+        Items.Strings = (
+          'C'#211'DIGO'
+          'CATEGORIA'
+          'EDITORA'
+          'T'#205'TULO')
+      end
+    end
+  end
   object tb_livros: TUniTable
     TableName = 'livros'
-    Left = 704
-    Top = 16
+    Left = 720
+    Top = 272
   end
   object PopupLivros: TPopupMenu
-    Left = 640
-    Top = 16
+    Left = 720
+    Top = 216
     object VisualizarLivro: TMenuItem
       Caption = 'Visualizar livro selecionado'
       OnClick = VisualizarLivroClick
@@ -7683,8 +7652,8 @@ object FormLivros: TFormLivros
     end
   end
   object cxStyleRepository1: TcxStyleRepository
-    Left = 568
-    Top = 16
+    Left = 720
+    Top = 160
     PixelsPerInch = 96
     object cxStyle1: TcxStyle
       AssignedValues = [svFont]
@@ -7697,7 +7666,7 @@ object FormLivros: TFormLivros
   end
   object ds_livros: TDataSource
     DataSet = tb_livros
-    Left = 760
-    Top = 16
+    Left = 720
+    Top = 320
   end
 end

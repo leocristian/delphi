@@ -8,20 +8,21 @@ uses
 
 type
   TPerfilUsuario = class(TForm)
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    NomeInput: TEdit;
-    EmailInput: TEdit;
-    LoginInput: TEdit;
-    CodigoInput: TEdit;
-    Label5: TLabel;
     Panel1: TPanel;
     SalvarBtn: TButton;
     CancelarBtn: TButton;
     ModoInput: TEdit;
     AlterarSenhaBtn: TButton;
+    panel_perfil: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    NomeInput: TEdit;
+    EmailInput: TEdit;
+    LoginInput: TEdit;
+    CodigoInput: TEdit;
     procedure MostrarPerfil(Sender: TObject);
     procedure AbrirForm(Sender: TObject; var Key: Char);
     procedure SalvarBtnClick(Sender: TObject);
@@ -67,22 +68,14 @@ procedure TPerfilUsuario.MostrarPerfil(Sender: TObject);
 begin
   if ModoInput.Text = 'V' then
   begin
-    NomeInput.Enabled := False;
-    EmailInput.Enabled := False;
-    LoginInput.Enabled := False;
-    SalvarBtn.Visible := False;
-    AlterarSenhaBtn.Visible := False;
-    CancelarBtn.Visible := False;
+    panel_perfil.Enabled := False;
+    Panel1.Visible := False;
   end
   else
   begin
-    NomeInput.Enabled := True;
+    panel_perfil.Enabled := True;
+    Panel1.Visible := True;
     NomeInput.SetFocus;
-    EmailInput.Enabled := True;
-    LoginInput.Enabled := True;
-    SalvarBtn.Visible := True;
-    CancelarBtn.Visible := True;
-    AlterarSenhaBtn.Visible := True;
   end;
 end;
 

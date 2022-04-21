@@ -29,8 +29,8 @@ type
     grid_clientesDBTableView1cpf: TcxGridDBColumn;
     grid_clientesDBTableView1nome_completo: TcxGridDBColumn;
     AdicionarCliente: TMenuItem;
-    FrameBusca1: TFrameBusca;
     RelatorioClientes: TMenuItem;
+    FrameBusca1: TFrameBusca;
     procedure VisualizarClienteClick(Sender: TObject);
     procedure AlterarClienteClick(Sender: TObject);
     procedure ExcluirClienteClick(Sender: TObject);
@@ -39,6 +39,7 @@ type
     procedure bt_mostrarTudoClick(Sender: TObject);
     procedure BuscaInputClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -52,7 +53,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_mostrarClientes, u_novoCliente;
+uses u_dm1, u_mostrarClientes, u_novoCliente, u_forms;
 
 procedure TFormClientes.AdicionarClienteClick(Sender: TObject);
 begin
@@ -109,6 +110,13 @@ begin
 
   buscaInfo := FrameBusca1.BuscaInput.Text;
 
+  if buscaInfo = '' then
+  begin
+    aviso('Informe uma palavra-chave válida!');
+    FrameBusca1.BuscaInput.SetFocus;
+    exit;
+  end;
+
   if FrameBusca1.SelecaoBusca.Text = 'CÓDIGO' then
   begin
     ds_clientes.DataSet.Filter := 'codigo = ' + buscaInfo;
@@ -121,21 +129,16 @@ begin
   begin
     ds_clientes.DataSet.Filter := 'cpf like ' + QuotedStr('%' + buscaInfo + '%');
   end
-  else ShowMessage('Campo de busca inválido!!');
-
-  if buscaInfo <> '' then
-  begin
-    try
-      ds_clientes.DataSet.Filtered := True;
-      grid_clientesDBTableView1.DataController.RefreshExternalData;
-      FrameBusca1.BuscaInput.Text := '';
-    except on E:Exception do
-      ShowMessage('Erro!' + #13 + E.Message);
-    end;
-  end
   else
   begin
-    ShowMessage('Informe uma palavra-chave válida!');
+    erro('Campo de busca inválido!');
+  end;
+  try
+    ds_clientes.DataSet.Filtered := True;
+    grid_clientesDBTableView1.DataController.RefreshExternalData;
+    FrameBusca1.BuscaInput.Text := '';
+  except on E:Exception do
+    erro('Erro!' + #13 + E.Message);
   end;
 end;
 
@@ -212,7 +215,16 @@ begin
     tb_clientes.TableName := 'clientes2';
     tb_clientes.Active := True;
   end;
-  FrameBusca1.SelecaoBusca.Items[2] := 'CPF';
+end;
+
+procedure TFormClientes.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close;
 end;
 
 procedure TFormClientes.VisualizarClienteClick(Sender: TObject);

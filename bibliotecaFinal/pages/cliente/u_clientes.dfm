@@ -3591,8 +3591,10 @@ object FormClientes: TFormClientes
     3813098625BF16FC4838AFF13E4F71A549F2B19DE2B3AB484B9FF0E2E503D26A
     EAF17199C4E6C61713DB4FD6A077F22F7F2EFF1FC3C9727A18049DD100000000
     49454E44AE426082}
+  KeyPreview = True
   OldCreateOrder = False
   OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 13
   object grid_clientes: TcxGrid
@@ -3603,8 +3605,6 @@ object FormClientes: TFormClientes
     Align = alClient
     PopupMenu = PopupClientes
     TabOrder = 0
-    ExplicitLeft = 8
-    ExplicitTop = 101
     object grid_clientesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -3670,18 +3670,22 @@ object FormClientes: TFormClientes
     Height = 95
     Align = alTop
     TabOrder = 1
-    ExplicitLeft = 8
+    ExplicitLeft = 32
     ExplicitTop = 8
+    ExplicitWidth = 831
     inherited Panel1: TPanel
       Width = 831
-      ExplicitLeft = -56
-      ExplicitTop = 14
-      ExplicitWidth = 831
       inherited bt_busca: TButton
         OnClick = bt_buscaClick
       end
       inherited bt_mostrarTudo: TButton
         OnClick = bt_mostrarTudoClick
+      end
+      inherited SelecaoBusca: TComboBox
+        Items.Strings = (
+          'C'#211'DIGO'
+          'NOME COMPLETO'
+          'CPF')
       end
     end
   end

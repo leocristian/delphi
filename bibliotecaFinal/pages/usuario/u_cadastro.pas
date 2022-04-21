@@ -64,7 +64,7 @@ var
 begin
   if ExisteInputsVazios(CadastroForm) then
   begin
-    ShowMessage('Preencha todos os campos!');
+    erro('Preencha todos os campos!');
     nome_completoInput.SetFocus;
   end
   else
@@ -73,7 +73,7 @@ begin
 
       if not testaemail(emailInput.Text) then
       begin
-        ShowMessage('Email inválido!');
+        aviso('Email inválido!');
         emailInput.SetFocus;
         Exit;
       end;
@@ -107,13 +107,16 @@ begin
       begin
         q1.ParamByName('senha').Value := 'segredo' + senhaInput.Text + 'segredo';
         try
-          q1.ExecSQL;
-          ShowMessage('Usuário cadastrado com sucesso!');
-          Self.Close;
-          LimparInputs(CadastroForm);
+          if confirma('Confirmar cadastro?') then
+          begin
+            q1.ExecSQL;
+            ShowMessage('Usuário cadastrado com sucesso!');
+            Self.Close;
+            LimparInputs(CadastroForm);
+          end;
         except on E: Exception do
         begin
-          ShowMessage('Erro! ' + #13 + E.Message);
+          erro('Erro! ' + #13 + E.Message);
         end;
         end;
       end;
