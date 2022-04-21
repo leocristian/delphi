@@ -139,6 +139,8 @@ var
   mousePointer: TPoint;
 begin
 
+  LimparInputs(NovoCliente);
+
   mousePointer := Mouse.CursorPos;
   NovoCliente.Left := mousePointer.X - 100;
   NovoCliente.Top := mousePointer.Y - 100;

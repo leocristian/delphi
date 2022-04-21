@@ -3684,7 +3684,7 @@ object FormClientes: TFormClientes
       inherited SelecaoBusca: TComboBox
         Items.Strings = (
           'C'#211'DIGO'
-          'NOME COMPLETO'
+          'NOME_COMPLETO'
           'CPF')
       end
     end

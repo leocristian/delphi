@@ -4,26 +4,29 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Uni, u_dm1;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Uni, u_dm1, Vcl.ExtCtrls;
 
 type
   TMostrarClientesForm = class(TForm)
+    panel_cliente: TPanel;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
     NomeInput: TEdit;
     EmailInput: TEdit;
     TelefoneInput: TEdit;
     ModoInput: TEdit;
     SalvarBtn: TButton;
     CodigoInput: TEdit;
-    Label6: TLabel;
     CpfInput: TEdit;
+    CancelarBtn: TButton;
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure MostrarForm(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
+    procedure CancelarBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,6 +52,12 @@ begin
   else if key = #27 then close;
 end;
 
+procedure TMostrarClientesForm.CancelarBtnClick(Sender: TObject);
+begin
+  LimparInputs(MostrarClientesForm);
+  Close;
+end;
+
 procedure TMostrarClientesForm.MostrarForm(Sender: TObject);
 begin
   AbrirForm(MostrarClientesForm);
@@ -58,19 +67,16 @@ begin
 
   if ModoInput.Text = 'V' then
   begin
-    NomeInput.Enabled := False;
-    EmailInput.Enabled := False;
-    CpfInput.Enabled := False;
-    TelefoneInput.Enabled := False;
+    panel_cliente.Enabled := False;
     SalvarBtn.Visible := False;
+    CancelarBtn.Visible := False;
   end
   else
   begin
-    NomeInput.Enabled := True;
-    EmailInput.Enabled := True;
-    CpfInput.Enabled := True;
-    TelefoneInput.Enabled := True;
+    panel_cliente.Enabled := True;
     SalvarBtn.Visible := True;
+    CancelarBtn.Visible := True;
+    CpfInput.SetFocus;
   end;
 end;
 procedure TMostrarClientesForm.SalvarBtnClick(Sender: TObject);
@@ -79,11 +85,10 @@ var
 
 begin
   try
-
     // Validar o cpf
     if Not testacpf( Trim( cpfInput.Text ) ) then
     begin
-      showmessage('Cpf inválido !');
+      erro('Cpf inválido !');
       cpfInput.SetFocus;
       Exit;
     end;
@@ -91,7 +96,7 @@ begin
     // Validar o email
     if not testaemail(emailInput.Text) then
     begin
-      ShowMessage('Email inválido!');
+      erro('Email inválido!');
       emailInput.SetFocus;
       Exit;
     end;
@@ -112,12 +117,16 @@ begin
     q1.ParamByName('codigo').Value := CodigoInput.Text;
 
     try
-      q1.ExecSQL;
-      ShowMessage('Cliente alterado com sucesso!');
-      Self.Close;
-      FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
+      if confirma('Confirmar alteração de cliente?') then
+      begin
+        q1.ExecSQL;
+        MessageDlg('Cliente alterado com sucesso!', mtConfirmation, [mbOk], 0);
+        Self.Close;
+        FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
+      end;
     except
-      ShowMessage('Cliente já existe!');
+      erro('Cliente já existe!');
+      CpfInput.SetFocus;
     end;
   finally
     FreeAndNil(q1);

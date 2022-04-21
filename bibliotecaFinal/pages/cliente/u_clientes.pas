@@ -121,25 +121,23 @@ begin
   begin
     ds_clientes.DataSet.Filter := 'codigo = ' + buscaInfo;
   end
-  else if FrameBusca1.SelecaoBusca.Text = 'NOME COMPLETO' then
-  begin
-    ds_clientes.DataSet.Filter := 'nome_completo like ' + QuotedStr('%' + buscaInfo + '%');
-  end
-  else if FrameBusca1.SelecaoBusca.Text = 'CPF' then
-  begin
-    ds_clientes.DataSet.Filter := 'cpf like ' + QuotedStr('%' + buscaInfo + '%');
-  end
   else
   begin
-    erro('Campo de busca inválido!');
+    ds_clientes.DataSet.Filter := LowerCase(FrameBusca1.SelecaoBusca.Text) +  ' like ' + QuotedStr('%' + buscaInfo + '%');
   end;
+
   try
     ds_clientes.DataSet.Filtered := True;
     grid_clientesDBTableView1.DataController.RefreshExternalData;
     FrameBusca1.BuscaInput.Text := '';
   except on E:Exception do
-    erro('Erro!' + #13 + E.Message);
+    if E.Message.Contains('not found') then
+    begin
+      erro('Digite apenas números para buscar por código!');
+      FrameBusca1.BuscaInput.SetFocus;
+    end;
   end;
+
 end;
 
 procedure TFormClientes.bt_mostrarTudoClick(Sender: TObject);

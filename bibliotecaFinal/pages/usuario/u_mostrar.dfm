@@ -4,8 +4,8 @@ object UsuarioForm: TUsuarioForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'UsuarioForm'
-  ClientHeight = 308
-  ClientWidth = 368
+  ClientHeight = 301
+  ClientWidth = 363
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,15 +21,15 @@ object UsuarioForm: TUsuarioForm
   object panel_usuarioSelecionado: TPanel
     Left = 0
     Top = 0
-    Width = 368
-    Height = 308
+    Width = 363
+    Height = 301
     Align = alClient
     TabOrder = 0
-    ExplicitTop = -8
-    ExplicitHeight = 336
+    ExplicitWidth = 368
+    ExplicitHeight = 308
     object Label1: TLabel
-      Left = 48
-      Top = 32
+      Left = 49
+      Top = 34
       Width = 192
       Height = 23
       Caption = 'Usu'#225'rio selecionado'
@@ -41,36 +41,36 @@ object UsuarioForm: TUsuarioForm
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 56
-      Top = 175
+      Left = 57
+      Top = 177
       Width = 73
       Height = 13
       Caption = 'Nome completo'
     end
     object Label3: TLabel
-      Left = 55
-      Top = 120
+      Left = 56
+      Top = 122
       Width = 24
       Height = 13
       Caption = 'Email'
     end
     object Label4: TLabel
-      Left = 135
-      Top = 74
+      Left = 136
+      Top = 76
       Width = 25
       Height = 13
       Caption = 'Login'
     end
     object Label5: TLabel
-      Left = 56
-      Top = 74
+      Left = 57
+      Top = 76
       Width = 33
       Height = 13
       Caption = 'C'#243'digo'
     end
     object NomeInput: TEdit
-      Left = 55
-      Top = 194
+      Left = 56
+      Top = 196
       Width = 256
       Height = 21
       CharCase = ecUpperCase
@@ -78,8 +78,8 @@ object UsuarioForm: TUsuarioForm
       TabOrder = 2
     end
     object EmailInput: TEdit
-      Left = 55
-      Top = 139
+      Left = 56
+      Top = 141
       Width = 257
       Height = 21
       CharCase = ecLowerCase
@@ -87,8 +87,8 @@ object UsuarioForm: TUsuarioForm
       TabOrder = 1
     end
     object LoginInput: TEdit
-      Left = 135
-      Top = 93
+      Left = 136
+      Top = 95
       Width = 177
       Height = 21
       CharCase = ecUpperCase
@@ -96,8 +96,8 @@ object UsuarioForm: TUsuarioForm
       TabOrder = 0
     end
     object ModoInput: TEdit
-      Left = 63
-      Top = 238
+      Left = 64
+      Top = 240
       Width = 25
       Height = 21
       TabStop = False
@@ -106,8 +106,8 @@ object UsuarioForm: TUsuarioForm
       Visible = False
     end
     object SalvarBtn: TButton
-      Left = 94
-      Top = 233
+      Left = 95
+      Top = 235
       Width = 83
       Height = 32
       Caption = 'Salvar'
@@ -115,8 +115,8 @@ object UsuarioForm: TUsuarioForm
       OnClick = SalvarBtnClick
     end
     object CodigoInput: TEdit
-      Left = 55
-      Top = 93
+      Left = 56
+      Top = 95
       Width = 74
       Height = 21
       CharCase = ecUpperCase
@@ -124,8 +124,8 @@ object UsuarioForm: TUsuarioForm
       TabOrder = 6
     end
     object CancelarBtn: TButton
-      Left = 190
-      Top = 233
+      Left = 191
+      Top = 235
       Width = 83
       Height = 32
       Caption = 'Cancelar'
