@@ -1348,6 +1348,7 @@ object FormUsuarios: TFormUsuarios
     Align = alClient
     PopupMenu = PopupUsuarios
     TabOrder = 0
+    ExplicitTop = 87
     object grid_usuariosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -1381,12 +1382,13 @@ object FormUsuarios: TFormUsuarios
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
       OptionsSelection.CellSelect = False
-      OptionsView.NoDataToDisplayInfoText = 'Usu'#225'rio n'#227'o encontrado'
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
-      Styles.Header = cxStyle1
+      Styles.ContentEven = frame_cxGrid1.linhas
+      Styles.Header = frame_cxGrid1.cabecalho
       object grid_usuariosDBTableView1codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
@@ -1417,7 +1419,7 @@ object FormUsuarios: TFormUsuarios
       Width = 829
       ExplicitWidth = 829
       inherited BuscaInput: TEdit
-        OnClick = nil
+        OnClick = FrameBusca1BuscaInputClick
       end
       inherited bt_busca: TButton
         OnClick = bt_buscaClick
@@ -1425,6 +1427,22 @@ object FormUsuarios: TFormUsuarios
       inherited bt_mostrarTudo: TButton
         OnClick = bt_mostrarTudoClick
       end
+    end
+  end
+  inline frame_cxGrid1: Tframe_cxGrid
+    Left = 621
+    Top = 24
+    Width = 92
+    Height = 65
+    TabOrder = 2
+    ExplicitLeft = 621
+    ExplicitTop = 24
+    ExplicitWidth = 92
+    ExplicitHeight = 65
+    inherited estilo_padrao: TcxStyleRepository
+      Left = 24
+      Top = 8
+      PixelsPerInch = 96
     end
   end
   object PopupUsuarios: TPopupMenu
@@ -1440,6 +1458,7 @@ object FormUsuarios: TFormUsuarios
     end
     object RelatorioUsuarios: TMenuItem
       Caption = 'Emitir relat'#243'rio'
+      OnClick = RelatorioUsuariosClick
     end
     object N2: TMenuItem
       Caption = '-'
@@ -1459,17 +1478,260 @@ object FormUsuarios: TFormUsuarios
     Left = 736
     Top = 120
   end
-  object cxStyleRepository1: TcxStyleRepository
-    Left = 696
-    Top = 224
-    PixelsPerInch = 96
-    object cxStyle1: TcxStyle
-      AssignedValues = [svFont]
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
+  object rel_usuarios: TfrxReport
+    Version = '2022.2'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 44672.923133240740000000
+    ReportOptions.LastChange = 44673.739033043980000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 616
+    Top = 200
+    Datasets = <
+      item
+        DataSet = ds_rel_usuarios
+        DataSetName = 'frxDBDataset1'
+      end>
+    Variables = <
+      item
+        Name = ' var_usuarios'
+        Value = Null
+      end
+      item
+        Name = 'nome_completo'
+        Value = ''
+      end
+      item
+        Name = 'codigo'
+        Value = ''
+      end
+      item
+        Name = 'login'
+        Value = ''
+      end
+      item
+        Name = 'email'
+        Value = ''
+      end>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
     end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
+        Height = 34.015770000000000000
+        Top = 166.299320000000000000
+        Width = 718.110700000000000000
+        DataSet = ds_rel_usuarios
+        DataSetName = 'frxDBDataset1'
+        RowCount = 0
+        object frxDBDataset1frxDBDataset1: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 34.015770000000000000
+          Top = 11.338590000000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          DataSet = ds_rel_usuarios
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."codigo"]')
+        end
+        object Memo7: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 188.976500000000000000
+          Top = 7.559060000000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          DataSet = ds_rel_usuarios
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."login"]')
+        end
+        object Memo8: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 328.819110000000000000
+          Top = 7.559060000000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          DataSet = ds_rel_usuarios
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."nome_completo"]')
+        end
+        object Memo9: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 521.575140000000000000
+          Top = 3.779530000000000000
+          Width = 143.622140000000000000
+          Height = 18.897650000000000000
+          DataSet = ds_rel_usuarios
+          DataSetName = 'frxDBDataset1'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."email"]')
+        end
+      end
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
+        Height = 86.929190000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          AllowVectorExport = True
+          Left = 34.015770000000000000
+          Width = 287.244280000000000000
+          Height = 34.015770000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -27
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Relat'#243'rio de usu'#225'rios')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          AllowVectorExport = True
+          Left = 34.015770000000000000
+          Top = 60.472480000000000000
+          Width = 71.811070000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -19
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'C'#243'digo')
+          ParentFont = False
+        end
+        object Memo3: TfrxMemoView
+          AllowVectorExport = True
+          Left = 192.756030000000000000
+          Top = 60.472480000000000000
+          Width = 56.692950000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -19
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Login')
+          ParentFont = False
+        end
+        object Memo4: TfrxMemoView
+          AllowVectorExport = True
+          Left = 328.819110000000000000
+          Top = 60.472480000000000000
+          Width = 147.401670000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -19
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Nome completo')
+          ParentFont = False
+        end
+        object Memo5: TfrxMemoView
+          AllowVectorExport = True
+          Left = 521.575140000000000000
+          Top = 60.472480000000000000
+          Width = 56.692950000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -19
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Email')
+          ParentFont = False
+        end
+      end
+      object PageFooter1: TfrxPageFooter
+        FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
+        Height = 22.677180000000000000
+        Top = 260.787570000000000000
+        Width = 718.110700000000000000
+        object Memo6: TfrxMemoView
+          AllowVectorExport = True
+          Top = 3.779530000000000000
+          Width = 718.110700000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '________________________________________________________________' +
+              '_________________________________')
+          ParentFont = False
+        end
+      end
+    end
+  end
+  object ds_rel_usuarios: TfrxDBDataset
+    UserName = 'frxDBDataset1'
+    CloseDataSource = False
+    BCDToCurrency = False
+    DataSetOptions = []
+    Left = 720
+    Top = 208
   end
 end

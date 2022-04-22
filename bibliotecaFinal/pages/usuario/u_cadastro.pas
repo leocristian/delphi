@@ -64,7 +64,7 @@ var
 begin
   if ExisteInputsVazios(CadastroForm) then
   begin
-    erro('Preencha todos os campos!');
+    aviso('Preencha todos os campos!');
     nome_completoInput.SetFocus;
   end
   else
@@ -101,7 +101,8 @@ begin
 
       if senhaInput.Text <> SenhaCheckInput.Text then
       begin
-        ShowMessage('Senhas não são iguais!');
+        aviso('Senhas não são iguais!');
+        senhaInput.SetFocus;
       end
       else
       begin
@@ -110,13 +111,21 @@ begin
           if confirma('Confirmar cadastro?') then
           begin
             q1.ExecSQL;
-            ShowMessage('Usuário cadastrado com sucesso!');
+            mensagem('Usuário cadastrado com sucesso!');
             Self.Close;
             LimparInputs(CadastroForm);
           end;
         except on E: Exception do
         begin
-          erro('Erro! ' + #13 + E.Message);
+          if E.Message.Contains('usuarios2_pkey') then
+          begin
+            erro('Usuário já existe!');
+            LoginInput.SetFocus;
+          end
+          else
+          begin
+            erro(E.Message);
+          end;
         end;
         end;
       end;

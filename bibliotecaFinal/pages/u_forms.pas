@@ -11,9 +11,11 @@ procedure LimparInputs(const owner: TWinControl);
 function ExisteInputsVazios(const owner: TWinControl): Boolean;
 function testacpf(cpf:string):boolean;
 function testaemail(aStr: string): Boolean;
+
 function confirma(texto: String): Boolean;
 procedure aviso(texto: String);
 procedure erro(texto: String);
+procedure mensagem(texto: String);
 
 implementation
 procedure AbrirForm(const objForm: TForm);
@@ -160,10 +162,14 @@ end;
 
 procedure aviso(texto: String);
 begin
-  MessageDlg(Texto, mtWarning, [mbOk], 0);
+  MessageDlg(texto, mtWarning, [mbOk], 0);
 end;
 procedure erro(texto: String);
 begin
-  MessageDlg(Texto, mtError, [mbOk], 0);
+  MessageDlg(texto, mtError, [mbOk], 0);
+end;
+procedure mensagem(texto: String);
+begin
+  MessageDlg(texto, mtConfirmation, [mbOk], 0);
 end;
 end.

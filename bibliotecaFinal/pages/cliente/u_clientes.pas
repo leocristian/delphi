@@ -9,28 +9,30 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, Vcl.Menus, MemDS, DBAccess, Uni, Vcl.StdCtrls, cxGridLevel,
   cxClasses, cxGridCustomView, cxGridCustomTableView, cxGridTableView,
-  cxGridDBTableView, cxGrid, Vcl.ExtCtrls, frame_busca;
+  cxGridDBTableView, cxGrid, Vcl.ExtCtrls, frame_busca, frame_estilo, frxClass,
+  frxDBSet;
 
 type
   TFormClientes = class(TForm)
-    grid_clientes: TcxGrid;
-    grid_clientesDBTableView1: TcxGridDBTableView;
-    grid_clientesLevel1: TcxGridLevel;
     PopupClientes: TPopupMenu;
     VisualizarCliente: TMenuItem;
     AlterarCliente: TMenuItem;
     N2: TMenuItem;
     ExcluirCliente: TMenuItem;
-    cxStyleRepository1: TcxStyleRepository;
-    cxStyle1: TcxStyle;
     tb_clientes: TUniTable;
     ds_clientes: TDataSource;
-    grid_clientesDBTableView1codigo: TcxGridDBColumn;
-    grid_clientesDBTableView1cpf: TcxGridDBColumn;
-    grid_clientesDBTableView1nome_completo: TcxGridDBColumn;
     AdicionarCliente: TMenuItem;
     RelatorioClientes: TMenuItem;
     FrameBusca1: TFrameBusca;
+    grid_clientes: TcxGrid;
+    grid_clientesDBTableView1: TcxGridDBTableView;
+    grid_clientesDBTableView1codigo: TcxGridDBColumn;
+    grid_clientesDBTableView1cpf: TcxGridDBColumn;
+    grid_clientesDBTableView1nome_completo: TcxGridDBColumn;
+    grid_clientesLevel1: TcxGridLevel;
+    frame_cxGrid1: Tframe_cxGrid;
+    rel_clientes: TfrxReport;
+    ds_rel_clientes: TfrxDBDataset;
     procedure VisualizarClienteClick(Sender: TObject);
     procedure AlterarClienteClick(Sender: TObject);
     procedure ExcluirClienteClick(Sender: TObject);
@@ -40,6 +42,7 @@ type
     procedure BuscaInputClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure RelatorioClientesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -156,7 +159,6 @@ var
   q1: TUniQuery;
   indexCliente: Integer;
   codCliente: Integer;
-  msgExcluir: String;
 
 begin
   try
@@ -173,19 +175,13 @@ begin
 
     q1.ParamByName('codigo').Value := codCliente;
 
-    msgExcluir := 'Confirmar exclusão do usuário ' + IntToStr(codCliente) + '?';
-
     try
 
-      case
-        MessageBox(Application.Handle, 'Confirmar exclusão de cliente?', 'Excluir cliente', MB_YESNO) of
-        idYes:
-          begin
-            q1.ExecSQL;
-            ShowMessage('Cliente excluído com sucesso! código: ' + IntToStr(codCliente));
-            Self.grid_clientesDBTableView1.DataController.RefreshExternalData;
-          end;
-        idNo: ShowMessage('Operação cancelada!');
+      if confirma('Tem certeza qua deseja excluir permanentemente o cliente selecionado?') then
+      begin
+        q1.ExecSQL;
+        mensagem('Cliente excluído com sucesso!');
+        Self.grid_clientesDBTableView1.DataController.RefreshExternalData;
       end;
 
     except
@@ -223,6 +219,12 @@ begin
     Perform(wm_nextdlgctl, 0, 0);
   end
   else if key = #27 then close;
+end;
+
+procedure TFormClientes.RelatorioClientesClick(Sender: TObject);
+begin
+  ds_rel_clientes.DataSource := ds_clientes;
+  rel_clientes.ShowReport;
 end;
 
 procedure TFormClientes.VisualizarClienteClick(Sender: TObject);

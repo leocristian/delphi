@@ -46,7 +46,7 @@ var
 begin
   if ExisteInputsVazios(NovoCliente) then
   begin
-    ShowMessage('Preencha todos os campos!');
+    aviso('Preencha todos os campos!');
     cpfInput.SetFocus;
   end
   else
@@ -56,13 +56,13 @@ begin
       try
         if Not testacpf( Trim( cpfInput.Text ) ) then
         begin
-          showmessage('Cpf inválido !');
+          aviso('Cpf inválido !');
           cpfInput.SetFocus;
           Exit;
         end;
       except on E:Exception do
       begin
-        ShowMessage('Preencha o campo do cpf completo!');
+        aviso('Preencha o campo do cpf completo!');
         cpfInput.SetFocus;
         Exit;
       end;
@@ -72,7 +72,7 @@ begin
       // Validar o email
       if not testaemail(emailInput.Text) then
       begin
-        ShowMessage('Email inválido!');
+        aviso('Email inválido!');
         emailInput.SetFocus;
         Exit;
       end;
@@ -100,18 +100,26 @@ begin
       q1.ParamByName('telefone').Value := telefoneInput.Text;
 
       try
-        q1.ExecSQL;
-        ShowMessage('Cliente cadastrado com sucesso!');
-        Self.Close;
-        FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
-        limparInputs(NovoCliente);
-      except
-
-        on e:exception do
+        if confirma('Confirmar cadastro de cliente?') then
         begin
-          ShowMessage( 'Erro!'+#13+e.Message );
+          q1.ExecSQL;
+          mensagem('Cliente cadastrado com sucesso!');
+          Self.Close;
+          FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
         end;
-      end;
+       except on E: Exception do
+        begin
+          if E.Message.Contains('clientes2_pkey') then
+          begin
+            erro('Cliente já existe!');
+            cpfInput.SetFocus;
+          end
+          else
+          begin
+            erro(E.Message);
+          end;
+        end;
+        end;
 
     finally
       FreeAndNil(q1);

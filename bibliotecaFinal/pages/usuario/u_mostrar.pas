@@ -82,45 +82,57 @@ var
   q1: TUniQuery;
 
 begin
-  try
-    if not testaemail(EmailInput.Text) then
-    begin
-      ShowMessage('Email inválido!');
-      EmailInput.SetFocus;
-      Exit;
-    end;
 
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
-
-    q1.Close;
-    q1.SQL.Clear;
-
-    q1.SQL.Add('update usuarios2 set nome_completo = :nome_completo, email = :email, login = :login');
-    q1.SQL.Add(' where codigo = :codigo');
-
-    q1.ParamByName('nome_completo').Value := NomeInput.Text;
-    q1.ParamByName('email').Value := EmailInput.Text;
-    q1.ParamByName('login').Value := LoginInput.Text;
-    q1.ParamByName('codigo').Value := CodigoInput.Text;
-
+  if ExisteInputsVazios(UsuarioForm) then
+  begin
+    aviso('Preencha todos os campos!');
+    LoginInput.SetFocus;
+  end
+  else
+  begin
     try
-      case MessageBox(Application.Handle, 'Confirmar aleração de usuário?', 'Alterar usuário', MB_YESNO) of
-        idYes:
+      if not testaemail(EmailInput.Text) then
+      begin
+        aviso('Email inválido!');
+        EmailInput.SetFocus;
+        Exit;
+      end;
+
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.Close;
+      q1.SQL.Clear;
+
+      q1.SQL.Add('update usuarios2 set nome_completo = :nome_completo, email = :email, login = :login');
+      q1.SQL.Add(' where codigo = :codigo');
+
+      q1.ParamByName('nome_completo').Value := NomeInput.Text;
+      q1.ParamByName('email').Value := EmailInput.Text;
+      q1.ParamByName('login').Value := LoginInput.Text;
+      q1.ParamByName('codigo').Value := CodigoInput.Text;
+
+      try
+        if confirma('Confirmar alteração?') then
         begin
           q1.ExecSQL;
-          ShowMessage('Usuário alterado com sucesso!');
+          mensagem('Usuário alterado com sucesso!');
+          close;
           FormUsuarios.grid_usuariosDBTableView1.DataController.RefreshExternalData;
         end;
-        idNo:
-          ShowMessage('Operação cancelada!');
+      except on E:Exception do
+        if E.Message.Contains('usuarios2_pkey') then
+        begin
+          erro('Usuário já existe!');
+        end
+        else
+        begin
+          erro('Erro!' + #13 + E.Message);
+        end;
       end;
-    except on E:Exception do
-      ShowMessage('Erro!' + #13 + E.Message);
+    finally
+      FreeAndNil(q1);
     end;
-  finally
-    Self.Close;
-    FreeAndNil(q1);
   end;
 end;
 

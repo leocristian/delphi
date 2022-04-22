@@ -25,8 +25,6 @@ object UsuarioForm: TUsuarioForm
     Height = 301
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 368
-    ExplicitHeight = 308
     object Label1: TLabel
       Left = 49
       Top = 34

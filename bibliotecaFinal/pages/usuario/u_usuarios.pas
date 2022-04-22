@@ -9,7 +9,13 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, Vcl.Menus, MemDS, DBAccess, Uni, Vcl.StdCtrls, cxGridLevel,
   cxClasses, cxGridCustomView, cxGridCustomTableView, cxGridTableView,
-  cxGridDBTableView, cxGrid, Vcl.ExtCtrls, frame_busca;
+  cxGridDBTableView, cxGrid, Vcl.ExtCtrls, frame_busca, frxClass, frxDBSet,
+  dxPSGlbl, dxPSUtl, dxPSEngn, dxPrnPg, dxBkgnd, dxWrap, dxPrnDev,
+  dxPSCompsProvider, dxPSFillPatterns, dxPSEdgePatterns, dxPSPDFExportCore,
+  dxPSPDFExport, cxDrawTextUtils, dxPSPrVwStd, dxPSPrVwAdv, dxPSPrVwRibbon,
+  dxPScxPageControlProducer, dxPScxGridLnk, dxPScxGridLayoutViewLnk,
+  dxPScxEditorProducers, dxPScxExtEditorProducers, dxPSCore, dxPScxCommon,
+  frame_estilo;
 
 type
   TFormUsuarios = class(TForm)
@@ -26,10 +32,11 @@ type
     grid_usuariosDBTableView1codigo: TcxGridDBColumn;
     grid_usuariosDBTableView1nome_completo: TcxGridDBColumn;
     grid_usuariosDBTableView1email: TcxGridDBColumn;
-    cxStyleRepository1: TcxStyleRepository;
-    cxStyle1: TcxStyle;
     FrameBusca1: TFrameBusca;
     RelatorioUsuarios: TMenuItem;
+    rel_usuarios: TfrxReport;
+    ds_rel_usuarios: TfrxDBDataset;
+    frame_cxGrid1: Tframe_cxGrid;
     procedure FocarInput(Sender: TObject);
     procedure VisualizarUsuarioClick(Sender: TObject);
     procedure AlterarUsuarioClick(Sender: TObject);
@@ -38,6 +45,8 @@ type
     procedure bt_buscaClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FrameBusca1BuscaInputClick(Sender: TObject);
+    procedure RelatorioUsuariosClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -102,6 +111,13 @@ begin
 
   buscaInfo := FrameBusca1.BuscaInput.Text;
 
+  if buscaInfo = '' then
+  begin
+    aviso('Informe uma palavra-chave válida!');
+    FrameBusca1.BuscaInput.SetFocus;
+    exit;
+  end;
+
   if FrameBusca1.SelecaoBusca.Text = 'CÓDIGO' then
   begin
     ds_usuarios.DataSet.Filter := 'codigo = ' + buscaInfo;
@@ -113,28 +129,21 @@ begin
   else if FrameBusca1.SelecaoBusca.Text = 'EMAIL' then
   begin
     ds_usuarios.DataSet.Filter := 'email like ' + QuotedStr('%' + LowerCase(buscaInfo) + '%');
-  end
-  else ShowMessage('Campo de busca inválido!!');
+  end;
 
-  if buscaInfo <> '' then
-  begin
-    try
-      ds_usuarios.DataSet.Filtered := True;
-      grid_usuariosDBTableView1.DataController.RefreshExternalData;
-      FrameBusca1.BuscaInput.Text := '';
-    except on E:Exception do
+  try
+    ds_usuarios.DataSet.Filtered := True;
+    grid_usuariosDBTableView1.DataController.RefreshExternalData;
+    FrameBusca1.BuscaInput.Text := '';
+  except on E:Exception do
+    if E.Message.Contains('not found') then
     begin
-      ShowMessage('Erro!' + #13 + E.Message);
+      erro('Digite apenas números para buscar por código!');
       FrameBusca1.BuscaInput.SetFocus;
     end;
-    end;
-  end
-  else
-  begin
-    ShowMessage('Informe uma palavra-chave válida!');
   end;
-end;
 
+end;
 
 procedure TFormUsuarios.bt_mostrarTudoClick(Sender: TObject);
 begin
@@ -209,6 +218,17 @@ begin
     Perform(wm_nextdlgctl, 0, 0);
   end
   else if key = #27 then close;
+end;
+
+procedure TFormUsuarios.FrameBusca1BuscaInputClick(Sender: TObject);
+begin
+  FrameBusca1.BuscaInput.SetFocus;
+end;
+
+procedure TFormUsuarios.RelatorioUsuariosClick(Sender: TObject);
+begin
+  ds_rel_usuarios.DataSource := ds_usuarios;
+  rel_usuarios.ShowReport(true);
 end;
 
 procedure TFormUsuarios.VisualizarUsuarioClick(Sender: TObject);

@@ -95,7 +95,6 @@ object AlterarSenhaForm: TAlterarSenhaForm
     Caption = 'Confirmar'
     TabOrder = 3
     OnClick = AlterarSenhaBtnClick
-    ExplicitTop = 265
   end
   object CancelarBtn: TButton
     Left = 148
@@ -107,6 +106,5 @@ object AlterarSenhaForm: TAlterarSenhaForm
     Caption = 'Cancelar'
     TabOrder = 4
     OnClick = CancelarBtnClick
-    ExplicitTop = 265
   end
 end

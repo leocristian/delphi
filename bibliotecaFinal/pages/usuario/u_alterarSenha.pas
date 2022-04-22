@@ -61,49 +61,40 @@ begin
 
     if senhaAtualBD <> senhaAtualinputHash then
     begin
-      ShowMessage('Senha atual incorreta!');
+      aviso('Senha atual incorreta!');
       SenhaAtualInput.SetFocus;
     end
     else
     begin
       if NovaSenhaInput.Text <> NovaSenhaCheckInput.Text then
       begin
-        ShowMessage('Senhas diferentes!');
+        aviso('Senhas diferentes!');
         NovaSenhaInput.SetFocus;
       end
       else
       begin
-        case MEssageBox(Application.Handle, 'Confirmar alteração de senha?', 'Alterar senha', MB_YESNO) of
-          idYes:
+        q1.Close;
+        q1.SQL.Clear;
+
+        q1.SQL.Add('update usuarios2 set senha = :novaSenha where codigo = :codigo');
+
+        q1.ParamByName('novaSenha').Value :=  MD5String('segredo' + NovaSenhaInput.Text + 'segredo');
+        q1.ParamByName('codigo').Value := codUsuario;
+
+        try
+          if confirma('Confirmar alteração de senha?') then
           begin
-            q1.Close;
-            q1.SQL.Clear;
-
-            q1.SQL.Add('update usuarios2 set senha = :novaSenha where codigo = :codigo');
-
-            q1.ParamByName('novaSenha').Value :=  MD5String('segredo' + NovaSenhaInput.Text + 'segredo');
-            q1.ParamByName('codigo').Value := codUsuario;
-
-            try
-              q1.ExecSQL;
-              ShowMessage('Senha alterada com sucesso!');
-            except on E:Exception do
-              ShowMessage('Erro!' + #13 + E.Message);
-            end;
-
+            q1.ExecSQL;
+            mensagem('Senha alterada com sucesso!');
+            Close;
           end;
-          idNo:
-          begin
-            ShowMessage('Operação cancelada!');
-          end;
+        except on E:Exception do
+          erro('Erro!' + #13 + E.Message);
         end;
-        Close;
-        FreeAndNil(q1);
       end;
     end;
-
   finally
-
+    FreeAndNil(q1);
   end;
 end;
 

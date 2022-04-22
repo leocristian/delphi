@@ -106,7 +106,7 @@ begin
     dm1.con1.Open;
   except on E: Exception do
     begin
-      ShowMessage('Erro ao conectar no banco de dados!' + #13 + E.Message);
+      erro('Erro ao conectar no banco de dados!' + #13 + E.Message);
       Application.Terminate;
     end;
   end;
@@ -148,7 +148,7 @@ begin
   finally
     if nomeUsuario = '' then
     begin
-      erro('Usuário não encontrado!');
+      aviso('Usuário não encontrado!');
       LoginForm.LoginInput.SetFocus;
     end
     else
@@ -160,7 +160,7 @@ begin
       PerfilUsuario.EmailInput.Text := q1.FieldByName('email').Value;
       PerfilUsuario.LoginInput.Text := q1.FieldByName('login').Value;
 
-      showMessage('Seja bem vindo: ' + nomeUsuario);
+      mensagem('Seja bem vindo: ' + nomeUsuario);
 
       FormPrincipal.Visible := True;
     end;

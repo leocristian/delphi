@@ -38,12 +38,16 @@ type
     grid_livrosDBTableView1titulo: TcxGridDBColumn;
     grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn;
     grid_livrosDBTableView1preco: TcxGridDBColumn;
+    ComprovanteBtn: TButton;
+    rel_comprovante: TfrxReport;
+    ds_rel_clientes: TfrxDBDataset;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure removerLivroClick(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
     procedure AddLivroClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure ComprovanteBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -100,6 +104,18 @@ begin
   end;
 end;
 
+procedure TMostrarVendaForm.ComprovanteBtnClick(Sender: TObject);
+begin
+  rel_comprovante.Variables['numero_venda'] := CodigoInput.Text;
+  rel_comprovante.Variables['vendedor'] := QuotedStr(PerfilUsuario.NomeInput.Text);
+  rel_comprovante.Variables['cliente'] := quotedStr(ClienteInput.Text);
+  rel_comprovante.Variables['valor'] := labelPreco.Caption;
+  rel_comprovante.Variables['data'] := quotedStr('14/07/1999');
+
+  rel_comprovante.ShowReport;
+
+end;
+
 procedure TMostrarVendaForm.FormCreate(Sender: TObject);
 begin
   q1 := TUniquery.Create(nil);
@@ -141,7 +157,7 @@ begin
     grid_livros.Enabled := False;
     vds_livrosVenda.edit;
     vtb_livrosVenda.Clear;
-//    ComprovanteBtn.Visible := False;
+    ComprovanteBtn.Visible := False;
   end
   else if ModoInput.Text = 'V' then
     begin
@@ -174,7 +190,7 @@ begin
       SalvarBtn.visible := False;
       grid_livros.Enabled := False;
       TituloLabel.Visible := False;
-//      ComprovanteBtn.Visible := True;
+      ComprovanteBtn.Visible := True;
     end
     else if ModoInput.Text = 'A' then
     begin

@@ -7218,76 +7218,16 @@ object FormVendas: TFormVendas
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object Panel1: TPanel
-    Left = 0
-    Top = 0
-    Width = 805
-    Height = 89
-    Align = alTop
-    TabOrder = 0
-    object Label1: TLabel
-      Left = 18
-      Top = 26
-      Width = 79
-      Height = 13
-      Caption = 'Campo de busca'
-    end
-    object Label2: TLabel
-      Left = 137
-      Top = 26
-      Width = 69
-      Height = 13
-      Caption = 'Palavra-chave'
-    end
-    object BuscaInput: TEdit
-      Left = 137
-      Top = 45
-      Width = 146
-      Height = 21
-      CharCase = ecUpperCase
-      TabOrder = 1
-      OnClick = BuscaInputClick
-    end
-    object bt_busca: TButton
-      Left = 346
-      Top = 24
-      Width = 97
-      Height = 41
-      Caption = 'Pesquisar'
-      TabOrder = 2
-      OnClick = bt_buscaClick
-    end
-    object SelecaoBusca: TComboBox
-      Left = 18
-      Top = 45
-      Width = 113
-      Height = 21
-      CharCase = ecUpperCase
-      TabOrder = 0
-      Text = 'C'#211'DIGO'
-      Items.Strings = (
-        'C'#211'DIGO'
-        'CLIENTE'
-        'DATA')
-    end
-    object MostrarTodas: TButton
-      Left = 457
-      Top = 24
-      Width = 98
-      Height = 41
-      Caption = 'Mostrar todas'
-      TabOrder = 3
-      OnClick = MostrarTodasClick
-    end
-  end
   object grid_vendas: TcxGrid
     Left = 0
-    Top = 89
+    Top = 95
     Width = 805
-    Height = 551
+    Height = 545
     Align = alClient
     PopupMenu = PopupVendas
-    TabOrder = 1
+    TabOrder = 0
+    ExplicitTop = 89
+    ExplicitHeight = 551
     object grid_vendasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -7356,14 +7296,42 @@ object FormVendas: TFormVendas
       GridView = grid_vendasDBTableView1
     end
   end
+  inline FrameBusca1: TFrameBusca
+    Left = 0
+    Top = 0
+    Width = 805
+    Height = 95
+    Align = alTop
+    TabOrder = 1
+    ExplicitLeft = 8
+    ExplicitTop = 8
+    inherited Panel1: TPanel
+      Width = 805
+      ExplicitLeft = -88
+      ExplicitTop = 14
+      ExplicitWidth = 805
+      inherited bt_busca: TButton
+        OnClick = bt_buscaClick
+      end
+      inherited bt_mostrarTudo: TButton
+        OnClick = MostrarTodasClick
+      end
+      inherited SelecaoBusca: TComboBox
+        Items.Strings = (
+          'C'#211'DIGO'
+          'CLIENTE'
+          'DATA')
+      end
+    end
+  end
   object tb_vendas: TUniTable
     TableName = 'vendas'
-    Left = 704
-    Top = 16
+    Left = 680
+    Top = 240
   end
   object PopupVendas: TPopupMenu
-    Left = 640
-    Top = 16
+    Left = 688
+    Top = 160
     object VisualizarVenda: TMenuItem
       Caption = 'Visualizar venda selecionada'
       OnClick = VisualizarVendaClick
@@ -7388,8 +7356,8 @@ object FormVendas: TFormVendas
     end
   end
   object cxStyleRepository1: TcxStyleRepository
-    Left = 592
-    Top = 16
+    Left = 632
+    Top = 160
     PixelsPerInch = 96
     object cxStyle1: TcxStyle
       AssignedValues = [svFont]
@@ -7402,7 +7370,7 @@ object FormVendas: TFormVendas
   end
   object ds_vendas: TDataSource
     DataSet = tb_vendas
-    Left = 760
-    Top = 16
+    Left = 720
+    Top = 256
   end
 end

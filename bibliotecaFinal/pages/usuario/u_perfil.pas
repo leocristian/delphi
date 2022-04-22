@@ -86,7 +86,7 @@ var
 begin
   if ExisteInputsVazios(PerfilUsuario) then
   begin
-    ShowMessage('Preencha todos os campos!');
+    aviso('Preencha todos os campos!');
   end
   else
   begin
@@ -114,13 +114,27 @@ begin
       q1.ParamByName('codigo').Value := CodigoInput.Text;
 
       try
-        q1.ExecSQL;
-        ShowMessage('Perfil alterado com sucesso!');
-        Self.Close;
-        FormUsuarios.grid_usuariosDBTableView1.DataController.RefreshExternalData;
-      except
-        ShowMessage('Usuário já existe!');
-      end;
+        if confirma('Confirmar alteração?') then
+        begin
+          q1.ExecSQL;
+          mensagem('Perfil alterado com sucesso!');
+          Self.Close;
+          FormUsuarios.grid_usuariosDBTableView1.DataController.RefreshExternalData;
+        end;
+
+       except on E: Exception do
+        begin
+          if E.Message.Contains('usuarios2_pkey') then
+          begin
+            erro('Usuário já existe!');
+            LoginInput.SetFocus;
+          end
+          else
+          begin
+            erro(E.Message);
+          end;
+        end;
+        end;
     finally
       FreeAndNil(q1);
     end;

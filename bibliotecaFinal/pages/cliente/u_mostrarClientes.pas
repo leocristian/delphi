@@ -84,53 +84,61 @@ var
   q1: TUniQuery;
 
 begin
-  try
-    // Validar o cpf
-    if Not testacpf( Trim( cpfInput.Text ) ) then
+  if ExisteInputsVazios(MostrarClientesForm) then
     begin
-      erro('Cpf inválido !');
+      aviso('Preencha todos os campos!');
       cpfInput.SetFocus;
-      Exit;
-    end;
-
-    // Validar o email
-    if not testaemail(emailInput.Text) then
+    end
+  else
     begin
-      erro('Email inválido!');
-      emailInput.SetFocus;
-      Exit;
-    end;
-
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
-
-    q1.Close;
-    q1.SQL.Clear;
-
-    q1.SQL.Add('update clientes2 set nome_completo = :nome_completo, email = :email, cpf = :cpf, telefone = :telefone');
-    q1.SQL.Add(' where codigo = :codigo');
-
-    q1.ParamByName('nome_completo').Value := NomeInput.Text;
-    q1.ParamByName('email').Value := EmailInput.Text;
-    q1.ParamByName('cpf').Value := CpfInput.Text;
-    q1.ParamByName('telefone').Value := TelefoneInput.Text;
-    q1.ParamByName('codigo').Value := CodigoInput.Text;
-
     try
-      if confirma('Confirmar alteração de cliente?') then
+      // Validar o cpf
+      if Not testacpf( Trim( cpfInput.Text ) ) then
       begin
-        q1.ExecSQL;
-        MessageDlg('Cliente alterado com sucesso!', mtConfirmation, [mbOk], 0);
-        Self.Close;
-        FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
+        erro('Cpf inválido !');
+        cpfInput.SetFocus;
+        Exit;
       end;
-    except
-      erro('Cliente já existe!');
-      CpfInput.SetFocus;
+
+      // Validar o email
+      if not testaemail(emailInput.Text) then
+      begin
+        erro('Email inválido!');
+        emailInput.SetFocus;
+        Exit;
+      end;
+
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.Close;
+      q1.SQL.Clear;
+
+      q1.SQL.Add('update clientes2 set nome_completo = :nome_completo, email = :email, cpf = :cpf, telefone = :telefone');
+      q1.SQL.Add(' where codigo = :codigo');
+
+      q1.ParamByName('nome_completo').Value := NomeInput.Text;
+      q1.ParamByName('email').Value := EmailInput.Text;
+      q1.ParamByName('cpf').Value := CpfInput.Text;
+      q1.ParamByName('telefone').Value := TelefoneInput.Text;
+      q1.ParamByName('codigo').Value := CodigoInput.Text;
+
+      try
+        if confirma('Confirmar alteração de cliente?') then
+        begin
+          q1.ExecSQL;
+          MessageDlg('Cliente alterado com sucesso!', mtConfirmation, [mbOk], 0);
+          Self.Close;
+          FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
+        end;
+      except
+        erro('Cliente já existe!');
+        CpfInput.SetFocus;
+      end;
+    finally
+      FreeAndNil(q1);
     end;
-  finally
-    FreeAndNil(q1);
-  end;
+    end;
 end;
 
 end.

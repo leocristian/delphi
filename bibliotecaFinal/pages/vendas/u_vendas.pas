@@ -10,14 +10,10 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   cxDBData, cxClasses, Vcl.Menus, DBAccess, Uni, cxGridLevel,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridCustomView,
-  cxGrid, Vcl.ExtCtrls;
+  cxGrid, Vcl.ExtCtrls, frame_busca;
 
 type
   TFormVendas = class(TForm)
-    Panel1: TPanel;
-    BuscaInput: TEdit;
-    bt_busca: TButton;
-    SelecaoBusca: TComboBox;
     tb_vendas: TUniTable;
     PopupVendas: TPopupMenu;
     VisualizarVenda: TMenuItem;
@@ -28,9 +24,6 @@ type
     cxStyle1: TcxStyle;
     ds_vendas: TDataSource;
     NovaVenda: TMenuItem;
-    MostrarTodas: TButton;
-    Label1: TLabel;
-    Label2: TLabel;
     grid_vendas: TcxGrid;
     grid_vendasDBTableView1: TcxGridDBTableView;
     grid_vendasDBTableView1codigo: TcxGridDBColumn;
@@ -40,6 +33,7 @@ type
     grid_vendasDBTableView1data_venda: TcxGridDBColumn;
     grid_vendasLevel1: TcxGridLevel;
     RelatorioVendas: TMenuItem;
+    FrameBusca1: TFrameBusca;
     procedure NovaVendaClick(Sender: TObject);
     procedure VisualizarVendaClick(Sender: TObject);
     procedure AlterarVendaClick(Sender: TObject);
@@ -61,7 +55,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_novaVenda, u_mostrarVenda;
+uses u_dm1, u_novaVenda, u_mostrarVenda, u_forms;
 
 procedure TFormVendas.AlterarVendaClick(Sender: TObject);
 var
@@ -100,42 +94,46 @@ var
 
 begin
 
-  buscaInfo := BuscaInput.Text;
+  buscaInfo := FrameBusca1.BuscaInput.Text;
 
-  if Self.SelecaoBusca.Text = 'CÓDIGO' then
+  if buscaInfo = '' then
+  begin
+    aviso('Informe uma palavra-chave válida!');
+    FrameBusca1.BuscaInput.SetFocus;
+    Exit;
+  end;
+
+  if FrameBusca1.SelecaoBusca.Text = 'CÓDIGO' then
   begin
     ds_vendas.DataSet.Filter := 'codigo = ' + buscaInfo;
   end
-  else if Self.SelecaoBusca.Text = 'CLIENTE' then
+  else if FrameBusca1.SelecaoBusca.Text = 'CLIENTE' then
   begin
     ds_vendas.DataSet.Filter := 'cliente like ' + QuotedStr('%' + buscaInfo + '%');
   end
-  else if Self.SelecaoBusca.Text = 'DATA' then
+  else if FrameBusca1.SelecaoBusca.Text = 'DATA' then
   begin
     ds_vendas.DataSet.Filter := 'data_venda like ' + QuotedStr('%' + buscaInfo + '%');
   end
-  else ShowMessage('Campo de busca inválido!!');
+  else;
 
-  if buscaInfo <> '' then
-  begin
-    try
-      ds_vendas.DataSet.Filtered := True;
-      grid_vendasDBTableView1.DataController.RefreshExternalData;
-      buscaInput.Text := '';
-    except on E:Exception do
-      ShowMessage('Erro!' + #13 + E.Message);
+  try
+    ds_vendas.DataSet.Filtered := True;
+    grid_vendasDBTableView1.DataController.RefreshExternalData;
+    FrameBusca1.BuscaInput.Text := '';
+  except on E:Exception do
+    if E.Message.Contains('not found') then
+    begin
+      erro('Digite apenas números para buscar por código!');
+      FrameBusca1.BuscaInput.SetFocus;
     end;
-  end
-  else
-  begin
-    ShowMessage('Informe uma palavra-chave válida!');
   end;
 
 end;
 
 procedure TFormVendas.BuscaInputClick(Sender: TObject);
 begin
-  BuscaInput.SetFocus;
+  FrameBusca1.BuscaInput.SetFocus;
 end;
 
 procedure TFormVendas.ExcluirVendaClick(Sender: TObject);

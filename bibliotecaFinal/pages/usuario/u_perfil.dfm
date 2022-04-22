@@ -6546,8 +6546,6 @@ object PerfilUsuario: TPerfilUsuario
     Height = 120
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 324
-    ExplicitWidth = 321
     object SalvarBtn: TButton
       Left = 66
       Top = 13
@@ -6593,8 +6591,6 @@ object PerfilUsuario: TPerfilUsuario
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 319
-    ExplicitHeight = 249
     object Label1: TLabel
       Left = 47
       Top = 14

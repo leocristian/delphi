@@ -26,9 +26,6 @@ object MostrarClientesForm: TMostrarClientesForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = -64
-    ExplicitWidth = 407
-    ExplicitHeight = 385
     object Label1: TLabel
       Left = 50
       Top = 41
