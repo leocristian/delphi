@@ -40,7 +40,7 @@ type
     grid_livrosDBTableView1preco: TcxGridDBColumn;
     ComprovanteBtn: TButton;
     rel_comprovante: TfrxReport;
-    ds_rel_clientes: TfrxDBDataset;
+    ds_rel_livrosVenda: TfrxDBDataset;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure removerLivroClick(Sender: TObject);
@@ -112,8 +112,10 @@ begin
   rel_comprovante.Variables['valor'] := labelPreco.Caption;
   rel_comprovante.Variables['data'] := quotedStr('14/07/1999');
 
-  rel_comprovante.ShowReport;
+  ds_rel_livrosVenda.DataSource := vds_livrosVenda;
+  rel_comprovante.DataSet := ds_rel_livrosVenda;
 
+  rel_comprovante.ShowReport(true);
 end;
 
 procedure TMostrarVendaForm.FormCreate(Sender: TObject);
