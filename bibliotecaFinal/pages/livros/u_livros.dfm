@@ -7517,9 +7517,6 @@ object FormLivros: TFormLivros
     Align = alClient
     PopupMenu = PopupLivros
     TabOrder = 0
-    ExplicitLeft = 32
-    ExplicitTop = 55
-    ExplicitHeight = 588
     object grid_livrosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -7558,8 +7555,6 @@ object FormLivros: TFormLivros
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
-      Styles.ContentEven = frame_cxGrid1.linhas
-      Styles.Header = frame_cxGrid1.cabecalho
       object grid_livrosDBTableView1codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
@@ -7599,11 +7594,9 @@ object FormLivros: TFormLivros
     Height = 95
     Align = alTop
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 8
+    ExplicitWidth = 862
     inherited Panel1: TPanel
       Width = 862
-      ExplicitLeft = -128
       ExplicitWidth = 862
       inherited bt_busca: TButton
         OnClick = bt_buscaClick
@@ -7618,18 +7611,6 @@ object FormLivros: TFormLivros
           'EDITORA'
           'T'#205'TULO')
       end
-    end
-  end
-  inline frame_cxGrid1: Tframe_cxGrid
-    Left = 640
-    Top = 10
-    Width = 95
-    Height = 79
-    TabOrder = 2
-    ExplicitLeft = 640
-    ExplicitTop = 10
-    inherited estilo_padrao: TcxStyleRepository
-      PixelsPerInch = 96
     end
   end
   object tb_livros: TUniTable
@@ -7671,7 +7652,7 @@ object FormLivros: TFormLivros
     Top = 184
   end
   object rel_livros: TfrxReport
-    Version = '2022.2'
+    Version = '2022.2.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]

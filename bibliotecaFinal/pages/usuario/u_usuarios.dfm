@@ -1348,7 +1348,7 @@ object FormUsuarios: TFormUsuarios
     Align = alClient
     PopupMenu = PopupUsuarios
     TabOrder = 0
-    ExplicitTop = 87
+    ExplicitTop = 101
     object grid_usuariosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -1387,8 +1387,8 @@ object FormUsuarios: TFormUsuarios
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
-      Styles.ContentEven = frame_cxGrid1.linhas
-      Styles.Header = frame_cxGrid1.cabecalho
+      Styles.ContentEven = frame_estilo_grid1.linhas
+      Styles.Header = frame_estilo_grid1.cabecalho
       object grid_usuariosDBTableView1codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
@@ -1417,6 +1417,8 @@ object FormUsuarios: TFormUsuarios
     ExplicitWidth = 829
     inherited Panel1: TPanel
       Width = 829
+      ExplicitLeft = -3
+      ExplicitTop = 8
       ExplicitWidth = 829
       inherited BuscaInput: TEdit
         OnClick = FrameBusca1BuscaInputClick
@@ -1429,19 +1431,17 @@ object FormUsuarios: TFormUsuarios
       end
     end
   end
-  inline frame_cxGrid1: Tframe_cxGrid
-    Left = 621
-    Top = 24
-    Width = 92
-    Height = 65
+  inline frame_estilo_grid1: Tframe_estilo_grid
+    Left = 543
+    Top = 8
+    Width = 130
+    Height = 72
     TabOrder = 2
-    ExplicitLeft = 621
-    ExplicitTop = 24
-    ExplicitWidth = 92
-    ExplicitHeight = 65
+    ExplicitLeft = 543
+    ExplicitTop = 8
     inherited estilo_padrao: TcxStyleRepository
-      Left = 24
-      Top = 8
+      Left = 48
+      Top = 24
       PixelsPerInch = 96
     end
   end
@@ -1479,7 +1479,7 @@ object FormUsuarios: TFormUsuarios
     Top = 120
   end
   object rel_usuarios: TfrxReport
-    Version = '2022.2'
+    Version = '2022.2.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]

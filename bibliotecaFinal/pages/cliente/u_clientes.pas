@@ -9,8 +9,8 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, Vcl.Menus, MemDS, DBAccess, Uni, Vcl.StdCtrls, cxGridLevel,
   cxClasses, cxGridCustomView, cxGridCustomTableView, cxGridTableView,
-  cxGridDBTableView, cxGrid, Vcl.ExtCtrls, frame_busca, frame_estilo, frxClass,
-  frxDBSet;
+  cxGridDBTableView, cxGrid, Vcl.ExtCtrls, frame_busca, frxClass,
+  frxDBSet, frame_grid;
 
 type
   TFormClientes = class(TForm)
@@ -30,9 +30,10 @@ type
     grid_clientesDBTableView1cpf: TcxGridDBColumn;
     grid_clientesDBTableView1nome_completo: TcxGridDBColumn;
     grid_clientesLevel1: TcxGridLevel;
-    frame_cxGrid1: Tframe_cxGrid;
+//    frame_cxGrid1: Tframe_cxGrid;
     rel_clientes: TfrxReport;
     ds_rel_clientes: TfrxDBDataset;
+    frame_estilo_grid1: Tframe_estilo_grid;
     procedure VisualizarClienteClick(Sender: TObject);
     procedure AlterarClienteClick(Sender: TObject);
     procedure ExcluirClienteClick(Sender: TObject);
@@ -80,7 +81,7 @@ begin
     indexCliente := grid_clientesDBTableView1.DataController.GetSelectedRowIndex(0);
     codCliente := grid_clientesDBTableView1.ViewData.Records[indexCliente].Values[0];
 
-    q1.SQL.Add('select * from clientes2 ');
+    q1.SQL.Add('select * from clientes ');
     q1.SQL.Add('where ');
     q1.SQL.Add('codigo = :codigo');
 
@@ -171,7 +172,7 @@ begin
     indexCliente := grid_clientesDBTableView1.DataController.GetSelectedRowIndex(0);
     codCliente := grid_clientesDBTableView1.ViewData.Records[indexCliente].Values[0];
 
-    q1.SQL.Add('delete from clientes2 where codigo = :codigo');
+    q1.SQL.Add('delete from clientes where codigo = :codigo');
 
     q1.ParamByName('codigo').Value := codCliente;
 
@@ -198,7 +199,7 @@ begin
   if dm1.con1.Connected = True then
   begin
     tb_clientes.Connection := dm1.con1;
-    tb_clientes.TableName := 'clientes2';
+    tb_clientes.TableName := 'clientes';
     tb_clientes.Active := True;
   end
   else
@@ -206,7 +207,7 @@ begin
     dm1.con1.Connect;
 
     tb_clientes.Connection := dm1.con1;
-    tb_clientes.TableName := 'clientes2';
+    tb_clientes.TableName := 'clientes';
     tb_clientes.Active := True;
   end;
 end;
@@ -244,7 +245,7 @@ begin
     indexCliente := grid_clientesDBTableView1.DataController.GetSelectedRowIndex(0);
     codCliente := grid_clientesDBTableView1.ViewData.Records[indexCliente].Values[0];
 
-    q1.SQL.Add('select * from clientes2 ');
+    q1.SQL.Add('select * from clientes ');
     q1.SQL.Add('where ');
     q1.SQL.Add('codigo = :codigo');
 

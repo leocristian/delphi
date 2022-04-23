@@ -68,7 +68,7 @@ object NovoCliente: TNovoCliente
     Width = 208
     Height = 21
     CharCase = ecUpperCase
-    MaxLength = 100
+    MaxLength = 60
     TabOrder = 1
   end
   object emailInput: TEdit

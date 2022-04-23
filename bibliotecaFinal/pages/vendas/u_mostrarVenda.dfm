@@ -287,7 +287,7 @@ object MostrarVendaForm: TMostrarVendaForm
     end
   end
   object rel_comprovante: TfrxReport
-    Version = '2022.2'
+    Version = '2022.2.3'
     DataSet = ds_rel_livrosVenda
     DataSetName = 'frxDBDataset1'
     DotMatrixReport = False

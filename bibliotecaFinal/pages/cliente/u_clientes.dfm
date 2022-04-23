@@ -4,7 +4,7 @@ object FormClientes: TFormClientes
   Align = alClient
   BorderStyle = bsSingle
   Caption = 'Tela de clientes'
-  ClientHeight = 337
+  ClientHeight = 338
   ClientWidth = 862
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -3604,10 +3604,10 @@ object FormClientes: TFormClientes
     Height = 95
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 785
+    ExplicitWidth = 862
     inherited Panel1: TPanel
       Width = 862
-      ExplicitWidth = 785
+      ExplicitWidth = 862
       inherited bt_busca: TButton
         OnClick = bt_buscaClick
       end
@@ -3626,11 +3626,11 @@ object FormClientes: TFormClientes
     Left = 0
     Top = 95
     Width = 862
-    Height = 242
+    Height = 243
     Align = alClient
     PopupMenu = PopupClientes
     TabOrder = 1
-    ExplicitTop = 101
+    ExplicitHeight = 242
     object grid_clientesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -3669,8 +3669,8 @@ object FormClientes: TFormClientes
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
-      Styles.ContentEven = frame_cxGrid1.linhas
-      Styles.Header = frame_cxGrid1.cabecalho
+      Styles.ContentEven = frame_estilo_grid1.linhas
+      Styles.Header = frame_estilo_grid1.cabecalho
       object grid_clientesDBTableView1codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
@@ -3690,19 +3690,15 @@ object FormClientes: TFormClientes
       GridView = grid_clientesDBTableView1
     end
   end
-  inline frame_cxGrid1: Tframe_cxGrid
-    Left = 736
+  inline frame_estilo_grid1: Tframe_estilo_grid
+    Left = 608
     Top = 8
-    Width = 73
-    Height = 53
+    Width = 130
+    Height = 72
     TabOrder = 2
-    ExplicitLeft = 736
+    ExplicitLeft = 608
     ExplicitTop = 8
-    ExplicitWidth = 73
-    ExplicitHeight = 53
     inherited estilo_padrao: TcxStyleRepository
-      Left = 24
-      Top = 8
       PixelsPerInch = 96
     end
   end
@@ -3745,7 +3741,7 @@ object FormClientes: TFormClientes
     Top = 112
   end
   object rel_clientes: TfrxReport
-    Version = '2022.2'
+    Version = '2022.2.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]

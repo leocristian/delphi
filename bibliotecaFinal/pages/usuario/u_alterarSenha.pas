@@ -51,7 +51,7 @@ begin
     q1.Close;
     q1.SQL.Clear;
 
-    q1.SQL.Add('select senha from usuarios2 where codigo = :codigo');
+    q1.SQL.Add('select senha from usuarios where codigo = :codigo');
     q1.ParamByName('codigo').Value := codUsuario;
 
     q1.Open;
@@ -76,7 +76,7 @@ begin
         q1.Close;
         q1.SQL.Clear;
 
-        q1.SQL.Add('update usuarios2 set senha = :novaSenha where codigo = :codigo');
+        q1.SQL.Add('update usuarios set senha = :novaSenha where codigo = :codigo');
 
         q1.ParamByName('novaSenha').Value :=  MD5String('segredo' + NovaSenhaInput.Text + 'segredo');
         q1.ParamByName('codigo').Value := codUsuario;

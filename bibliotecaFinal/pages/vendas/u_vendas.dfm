@@ -7226,8 +7226,6 @@ object FormVendas: TFormVendas
     Align = alClient
     PopupMenu = PopupVendas
     TabOrder = 0
-    ExplicitTop = 89
-    ExplicitHeight = 551
     object grid_vendasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -7266,7 +7264,6 @@ object FormVendas: TFormVendas
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
-      Styles.Header = cxStyle1
       object grid_vendasDBTableView1codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
@@ -7303,12 +7300,9 @@ object FormVendas: TFormVendas
     Height = 95
     Align = alTop
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 8
+    ExplicitWidth = 805
     inherited Panel1: TPanel
       Width = 805
-      ExplicitLeft = -88
-      ExplicitTop = 14
       ExplicitWidth = 805
       inherited bt_busca: TButton
         OnClick = bt_buscaClick
@@ -7353,19 +7347,6 @@ object FormVendas: TFormVendas
     object ExcluirVenda: TMenuItem
       Caption = 'Excluir venda selecionada'
       OnClick = ExcluirVendaClick
-    end
-  end
-  object cxStyleRepository1: TcxStyleRepository
-    Left = 632
-    Top = 160
-    PixelsPerInch = 96
-    object cxStyle1: TcxStyle
-      AssignedValues = [svFont]
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
     end
   end
   object ds_vendas: TDataSource

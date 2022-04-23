@@ -167,7 +167,7 @@ begin
       q1.Close;
       q1.SQL.Clear;
 
-      q1.SQL.Add('select * from livros_venda2 ');
+      q1.SQL.Add('select * from livros_venda ');
       q1.SQL.Add('where numero_venda = :numero_venda');
 
       q1.ParamByName('numero_venda').Value := StrToInt(CodigoInput.Text);
@@ -199,7 +199,7 @@ begin
       q1.Close;
       q1.SQL.Clear;
 
-      q1.SQL.Add('select * from livros_venda2 ');
+      q1.SQL.Add('select * from livros_venda ');
       q1.SQL.Add('where numero_venda = :numero_venda');
 
       q1.ParamByName('numero_venda').Value := StrToInt(CodigoInput.Text);
@@ -226,7 +226,7 @@ begin
       SalvarBtn.Visible := True;
       TituloLabel.Visible := True;
       grid_livros.Enabled := True;
-//      ComprovanteBtn.Visible := False;
+      ComprovanteBtn.Visible := False;
       vendaControle.valorAtual := StrToInt(labelPreco.Caption);
     end;
 end;
@@ -246,7 +246,7 @@ begin
   q1.Close;
   q1.SQL.Clear;
 
-  q1.SQL.Add('delete from livros_venda2 ');
+  q1.SQL.Add('delete from livros_venda ');
   q1.SQL.Add('where titulo = :titulo');
 
   q1.ParamByName('titulo').Value := tituloLivro;
@@ -286,7 +286,7 @@ begin
       q1.Close;
       q1.SQL.Clear;
 
-      q1.SQL.Add('select nome_completo from clientes2 where nome_completo like :nome');
+      q1.SQL.Add('select nome_completo from clientes where nome_completo like :nome');
       q1.ParamByName('nome').Value := '%' + ClienteInput.Text + '%';
 
       q1.ExecSQL;

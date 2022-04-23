@@ -42,7 +42,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_forms, u_login;
+uses u_dm1, u_forms, u_login, u_md5;
 
 procedure TCadastroForm.AbrirForm(Sender: TObject);
 var
@@ -90,9 +90,9 @@ begin
       q1.Close;
       q1.SQL.Clear;
 
-      q1.SQL.Add('insert into usuarios2 ');
+      q1.SQL.Add('insert into usuarios ');
       q1.SQL.Add('values');
-      q1.SQL.Add('(:codigo, :nome_completo, :email, :login, md5(:senha))');
+      q1.SQL.Add('(:codigo, :nome_completo, :email, :login, :senha)');
 
       q1.ParamByName('codigo').Value := codUsuario;
       q1.ParamByName('nome_completo').Value := nome_completoInput.Text;
@@ -106,7 +106,7 @@ begin
       end
       else
       begin
-        q1.ParamByName('senha').Value := 'segredo' + senhaInput.Text + 'segredo';
+        q1.ParamByName('senha').Value :=  MD5String('segredo' + senhaInput.Text + 'segredo');
         try
           if confirma('Confirmar cadastro?') then
           begin
@@ -117,7 +117,7 @@ begin
           end;
         except on E: Exception do
         begin
-          if E.Message.Contains('usuarios2_pkey') then
+          if E.Message.Contains('usuarios_pkey') then
           begin
             erro('Usuário já existe!');
             LoginInput.SetFocus;

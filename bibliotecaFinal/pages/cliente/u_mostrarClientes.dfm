@@ -80,7 +80,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Width = 264
       Height = 21
       CharCase = ecUpperCase
-      MaxLength = 100
+      MaxLength = 60
       TabOrder = 1
     end
     object EmailInput: TEdit

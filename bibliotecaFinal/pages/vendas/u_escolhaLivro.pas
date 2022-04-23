@@ -69,6 +69,7 @@ var
   indexLivro: Integer;
 
   titulo: String;
+  editora: String;
   anoPublicacao: String;
   codLivro: Integer;
   precoLivro: Float32;
@@ -100,15 +101,18 @@ begin
   q1.Close;
   q1.SQL.Clear;
 
-  q1.SQL.Add('insert into livros_venda2 (titulo, ano_publicacao, preco, numero_venda, codigo) ');
+  q1.SQL.Add('insert into livros_venda (codigo, titulo, editora, ano_publicacao, preco, categoria, numero_venda) ');
   q1.SQL.Add('values ');
-  q1.SQL.Add('(:titulo, :ano_publicacao, :preco, :numero_venda, :codigo)');
+  q1.SQL.Add('(:codigo, :titulo, :editora, :ano_publicacao, :preco, :categoria, :numero_venda)');
 
+  q1.ParamByName('codigo').Value := codLivro;
   q1.ParamByName('titulo').Value := titulo;
+  q1.ParamByName('editora').Value := 'ALTA BOOKS';
   q1.ParamByName('ano_publicacao').Value := anoPublicacao;
   q1.ParamByName('preco').Value := precoLivro;
+  q1.ParamByName('categoria').Value := 'AVENTURA';
   q1.ParamByName('numero_venda').Value := MostrarVendaForm.CodigoInput.Text;
-  q1.ParamByName('codigo').Value := codLivro;
+
 
   q1.ExecSQL;
   qtdLivros := qtdLivros + 1;

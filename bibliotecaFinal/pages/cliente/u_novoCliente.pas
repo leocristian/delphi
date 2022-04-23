@@ -89,7 +89,7 @@ begin
       q1.Close;
       q1.SQL.Clear;
 
-      q1.SQL.Add('insert into clientes2 ');
+      q1.SQL.Add('insert into clientes ');
       q1.SQL.Add('values');
       q1.SQL.Add('(:codigo, :cpf, :nome_completo, :email, :telefone)');
 
@@ -109,7 +109,7 @@ begin
         end;
        except on E: Exception do
         begin
-          if E.Message.Contains('clientes2_pkey') then
+          if E.Message.Contains('clientes_pkey') then
           begin
             erro('Cliente já existe!');
             cpfInput.SetFocus;

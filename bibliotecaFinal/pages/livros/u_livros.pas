@@ -9,7 +9,7 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, Vcl.Menus, MemDS, DBAccess, Uni, Vcl.StdCtrls, cxGridLevel,
-  cxGridCustomView, cxGrid, Vcl.ExtCtrls, frame_busca, frame_estilo, frxClass,
+  cxGridCustomView, cxGrid, Vcl.ExtCtrls, frame_busca, frxClass,
   frxDBSet;
 
 type
@@ -35,7 +35,6 @@ type
     FrameBusca1: TFrameBusca;
     rel_livros: TfrxReport;
     ds_rel_livros: TfrxDBDataset;
-    frame_cxGrid1: Tframe_cxGrid;
     procedure NovoLivroClick(Sender: TObject);
     procedure bt_buscaClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);

@@ -20,8 +20,6 @@ type
     AlterarVenda: TMenuItem;
     N2: TMenuItem;
     ExcluirVenda: TMenuItem;
-    cxStyleRepository1: TcxStyleRepository;
-    cxStyle1: TcxStyle;
     ds_vendas: TDataSource;
     NovaVenda: TMenuItem;
     grid_vendas: TcxGrid;

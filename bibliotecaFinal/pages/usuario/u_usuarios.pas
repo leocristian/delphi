@@ -15,7 +15,7 @@ uses
   dxPSPDFExport, cxDrawTextUtils, dxPSPrVwStd, dxPSPrVwAdv, dxPSPrVwRibbon,
   dxPScxPageControlProducer, dxPScxGridLnk, dxPScxGridLayoutViewLnk,
   dxPScxEditorProducers, dxPScxExtEditorProducers, dxPSCore, dxPScxCommon,
-  frame_estilo;
+  frame_grid;
 
 type
   TFormUsuarios = class(TForm)
@@ -36,7 +36,7 @@ type
     RelatorioUsuarios: TMenuItem;
     rel_usuarios: TfrxReport;
     ds_rel_usuarios: TfrxDBDataset;
-    frame_cxGrid1: Tframe_cxGrid;
+    frame_estilo_grid1: Tframe_estilo_grid;
     procedure FocarInput(Sender: TObject);
     procedure VisualizarUsuarioClick(Sender: TObject);
     procedure AlterarUsuarioClick(Sender: TObject);
@@ -61,7 +61,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_mostrar, u_forms;
+uses u_dm1, u_mostrar, u_forms, frame_estilo;
 
 procedure TFormUsuarios.AlterarUsuarioClick(Sender: TObject);
 var
@@ -80,7 +80,7 @@ begin
     indexUsuario := grid_usuariosDBTableView1.DataController.GetSelectedRowIndex(0);
     codUsuario := grid_usuariosDBTableView1.ViewData.Records[indexUsuario].Values[0];
 
-    q1.SQL.Add('select * from usuarios2 ');
+    q1.SQL.Add('select * from usuarios ');
     q1.SQL.Add('where ');
     q1.SQL.Add('codigo = :codigo');
 
@@ -168,7 +168,7 @@ begin
     indexUsuario := grid_usuariosDBTableView1.DataController.GetSelectedRowIndex(0);
     codUsuario := grid_usuariosDBTableView1.ViewData.Records[indexUsuario].Values[0];
 
-    q1.SQL.Add('delete from usuarios2 where codigo = :codigo');
+    q1.SQL.Add('delete from usuarios where codigo = :codigo');
 
     q1.ParamByName('codigo').Value := codUsuario;
 
@@ -197,7 +197,7 @@ begin
   if dm1.con1.Connected = True then
   begin
     tb_usuarios.Connection := dm1.con1;
-    tb_usuarios.TableName := 'usuarios2';
+    tb_usuarios.TableName := 'usuarios';
     tb_usuarios.Active := True;
   end
   else
@@ -205,7 +205,7 @@ begin
     dm1.con1.Connect;
 
     tb_usuarios.Connection := dm1.con1;
-    tb_usuarios.TableName := 'usuarios2';
+    tb_usuarios.TableName := 'usuarios';
     tb_usuarios.Active := True;
   end;
 end;
@@ -248,7 +248,7 @@ begin
     indexUsuario := grid_usuariosDBTableView1.DataController.GetSelectedRowIndex(0);
     codUsuario := grid_usuariosDBTableView1.ViewData.Records[indexUsuario].Values[0];
 
-    q1.SQL.Add('select * from usuarios2 ');
+    q1.SQL.Add('select * from usuarios ');
     q1.SQL.Add('where ');
     q1.SQL.Add('codigo = :codigo');
 

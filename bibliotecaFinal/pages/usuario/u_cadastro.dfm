@@ -75,7 +75,7 @@ object CadastroForm: TCadastroForm
     Width = 208
     Height = 21
     CharCase = ecUpperCase
-    MaxLength = 100
+    MaxLength = 60
     TabOrder = 0
   end
   object emailInput: TEdit

@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.jpeg,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, IniFiles;
 
 type
   TUsuarioLogado = class
@@ -41,6 +41,7 @@ type
     procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
+    i: TIniFile;
   public
     { Public declarations }
   end;
@@ -59,7 +60,16 @@ begin
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
 
-  LoginInput.SetFocus;
+  if i.ReadString('usuario', 'login', '' ) = '' then
+  begin
+    LoginInput.SetFocus;
+  end
+  else
+  begin
+    LoginInput.Text := i.ReadString('usuario', 'login', '' );
+    SenhaInput.SetFocus;
+  end;
+
 end;
 
 procedure TLoginForm.AtivaNavegacao(Sender: TObject; var Key: Char);
@@ -94,15 +104,16 @@ end;
 
 procedure TLoginForm.FormCreate(Sender: TObject);
 begin
-
-  dm1.con1.Close;
-  dm1.con1.ProviderName := 'PostgreSQL';
-  dm1.con1.Port := 5432;
-  dm1.con1.Username := 'postgres';
-  dm1.con1.Password := 'admin';
-  dm1.con1.Database := 'bibliotecaDB';
+  // Carregar o arquivo login.ini
+  i := TIniFile.Create(ExtractFilePath(Application.ExeName) + 'login.ini');
 
   try
+    dm1.con1.Close;
+    dm1.con1.ProviderName := 'PostgreSQL';
+    dm1.con1.Port := 5432;
+    dm1.con1.Username := 'postgres';
+    dm1.con1.Password := 'admin';
+    dm1.con1.Database := 'bibliotecaDB';
     dm1.con1.Open;
   except on E: Exception do
     begin
@@ -133,7 +144,7 @@ begin
     q1.Close;
     q1.SQL.Clear;
 
-    q1.SQL.Add('select * from usuarios2 ');
+    q1.SQL.Add('select * from usuarios ');
     q1.SQL.Add('where login = :login and senha = md5(:senha)');
 
     q1.ParamByName('login').Value := LoginInput.Text;
@@ -153,7 +164,6 @@ begin
     end
     else
     begin
-      LimparInputs(LoginForm);
 
       PerfilUsuario.CodigoInput.Text := q1.FieldByName('codigo').Value;
       PerfilUsuario.NomeInput.Text := q1.FieldByName('nome_completo').Value;
@@ -162,6 +172,7 @@ begin
 
       mensagem('Seja bem vindo: ' + nomeUsuario);
 
+      i.WriteString('usuario', 'login', LoginInput.Text);
       FormPrincipal.Visible := True;
     end;
     FreeAndNil(q1);

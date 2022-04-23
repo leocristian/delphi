@@ -543,7 +543,7 @@ object LoginForm: TLoginForm
     Width = 175
     Height = 21
     CharCase = ecUpperCase
-    MaxLength = 30
+    MaxLength = 15
     TabOrder = 0
   end
   object SenhaInput: TEdit

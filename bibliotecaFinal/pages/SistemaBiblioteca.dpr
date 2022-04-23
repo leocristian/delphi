@@ -23,7 +23,8 @@ uses
   u_mostrarVenda in 'vendas\u_mostrarVenda.pas' {MostrarVendaForm},
   u_alterarSenha in 'usuario\u_alterarSenha.pas' {AlterarSenhaForm},
   u_md5 in 'usuario\u_md5.pas',
-  frame_busca in 'frames\frame_busca.pas' {FrameBusca: TFrame};
+  frame_busca in 'frames\frame_busca.pas' {FrameBusca: TFrame},
+  frame_estilo in 'frames\frame_estilo.pas' {frame_cxGrid: TFrame};
 
 {$R *.res}
 
