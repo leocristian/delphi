@@ -173,6 +173,8 @@ begin
       mensagem('Seja bem vindo: ' + nomeUsuario);
 
       i.WriteString('usuario', 'login', LoginInput.Text);
+      SenhaInput.Clear;
+
       FormPrincipal.Visible := True;
     end;
     FreeAndNil(q1);

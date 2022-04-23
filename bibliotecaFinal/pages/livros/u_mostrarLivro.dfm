@@ -2,8 +2,8 @@ object MostrarLivroForm: TMostrarLivroForm
   Left = 0
   Top = 0
   Caption = 'MostrarLivroForm'
-  ClientHeight = 326
-  ClientWidth = 387
+  ClientHeight = 303
+  ClientWidth = 471
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,19 +15,19 @@ object MostrarLivroForm: TMostrarLivroForm
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   DesignSize = (
-    387
-    326)
+    471
+    303)
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 387
+    Width = 471
     Height = 241
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 421
+    ExplicitWidth = 387
     object Label1: TLabel
       Left = 24
       Top = 16
@@ -42,7 +42,7 @@ object MostrarLivroForm: TMostrarLivroForm
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 94
+      Left = 142
       Top = 60
       Width = 64
       Height = 13
@@ -56,18 +56,11 @@ object MostrarLivroForm: TMostrarLivroForm
       Caption = 'Editora'
     end
     object Label4: TLabel
-      Left = 255
+      Left = 303
       Top = 112
       Width = 87
       Height = 13
       Caption = 'Ano de publica'#231#227'o'
-    end
-    object Label5: TLabel
-      Left = 24
-      Top = 165
-      Width = 99
-      Height = 13
-      Caption = 'Pre'#231'o de venda (R$)'
     end
     object Label6: TLabel
       Left = 24
@@ -77,16 +70,36 @@ object MostrarLivroForm: TMostrarLivroForm
       Caption = 'C'#243'digo'
     end
     object Label7: TLabel
-      Left = 135
-      Top = 165
+      Left = 183
+      Top = 176
       Width = 47
       Height = 13
       Caption = 'Categoria'
     end
+    object Label5: TLabel
+      Left = 24
+      Top = 176
+      Width = 75
+      Height = 13
+      Caption = 'Pre'#231'o de venda'
+    end
+    object Label8: TLabel
+      Left = 24
+      Top = 195
+      Width = 15
+      Height = 16
+      Caption = 'R$'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
     object TituloInput: TEdit
-      Left = 94
+      Left = 128
       Top = 79
-      Width = 248
+      Width = 262
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 50
@@ -95,43 +108,33 @@ object MostrarLivroForm: TMostrarLivroForm
     object EditoraInput: TEdit
       Left = 24
       Top = 131
-      Width = 225
+      Width = 257
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 30
       TabOrder = 2
     end
     object AnoPublicacao: TDateTimePicker
-      Left = 255
+      Left = 303
       Top = 131
       Width = 87
       Height = 21
       Date = 44663.000000000000000000
       Time = 0.670588252316520100
-      TabOrder = 3
-    end
-    object PrecoInput: TEdit
-      Left = 24
-      Top = 184
-      Width = 105
-      Height = 21
-      CharCase = ecUpperCase
-      MaxLength = 7
-      NumbersOnly = True
       TabOrder = 4
     end
     object CodigoInput: TEdit
       Left = 24
       Top = 79
-      Width = 64
+      Width = 75
       Height = 21
       CharCase = ecUpperCase
       Enabled = False
       TabOrder = 0
     end
     object CategoriaInput: TComboBox
-      Left = 135
-      Top = 184
+      Left = 183
+      Top = 195
       Width = 207
       Height = 21
       MaxLength = 40
@@ -146,32 +149,52 @@ object MostrarLivroForm: TMostrarLivroForm
         'SUSPENSE'
         'TERROR')
     end
+    object PrecoInput: TEdit
+      Left = 45
+      Top = 195
+      Width = 121
+      Height = 21
+      MaxLength = 5
+      TabOrder = 3
+      OnKeyPress = PrecoInputKeyPress
+    end
   end
   object SalvarBtn: TButton
-    Left = 200
-    Top = 277
-    Width = 142
-    Height = 44
+    Left = 129
+    Top = 260
+    Width = 103
+    Height = 35
     Anchors = [akLeft, akBottom]
     Caption = 'Salvar'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -19
+    Font.Height = -13
     Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
+    Font.Style = []
     ParentFont = False
     TabOrder = 1
     OnClick = SalvarBtnClick
-    ExplicitTop = 303
+    ExplicitTop = 319
   end
   object ModoInput: TEdit
-    Left = 79
-    Top = 271
+    Left = 74
+    Top = 247
     Width = 25
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
     TabOrder = 2
     Visible = False
+  end
+  object CabcelarBtn: TButton
+    Left = 238
+    Top = 260
+    Width = 103
+    Height = 35
+    Anchors = [akLeft, akBottom]
+    Caption = 'Cancelar'
+    TabOrder = 3
+    OnClick = CabcelarBtnClick
+    ExplicitTop = 319
   end
 end

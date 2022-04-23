@@ -26,6 +26,7 @@ object MostrarClientesForm: TMostrarClientesForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitLeft = 8
     object Label1: TLabel
       Left = 50
       Top = 41
@@ -68,7 +69,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Caption = 'C'#243'digo'
     end
     object Label6: TLabel
-      Left = 130
+      Left = 160
       Top = 83
       Width = 19
       Height = 13
@@ -81,7 +82,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 60
-      TabOrder = 1
+      TabOrder = 0
     end
     object EmailInput: TEdit
       Left = 51
@@ -90,7 +91,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Height = 21
       CharCase = ecLowerCase
       MaxLength = 30
-      TabOrder = 2
+      TabOrder = 1
     end
     object TelefoneInput: TEdit
       Left = 50
@@ -99,7 +100,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 11
-      TabOrder = 3
+      TabOrder = 2
     end
     object ModoInput: TEdit
       Left = 59
@@ -108,7 +109,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Height = 21
       TabStop = False
       CharCase = ecUpperCase
-      TabOrder = 6
+      TabOrder = 5
       Visible = False
     end
     object SalvarBtn: TButton
@@ -117,28 +118,18 @@ object MostrarClientesForm: TMostrarClientesForm
       Width = 74
       Height = 35
       Caption = 'Salvar'
-      TabOrder = 4
+      TabOrder = 3
       OnClick = SalvarBtnClick
     end
     object CodigoInput: TEdit
       Left = 50
       Top = 102
-      Width = 74
+      Width = 87
       Height = 21
       CharCase = ecUpperCase
       Enabled = False
       ReadOnly = True
-      TabOrder = 7
-    end
-    object CpfInput: TEdit
-      Left = 130
-      Top = 102
-      Width = 185
-      Height = 21
-      CharCase = ecUpperCase
-      MaxLength = 11
-      NumbersOnly = True
-      TabOrder = 0
+      TabOrder = 6
     end
     object CancelarBtn: TButton
       Left = 190
@@ -146,8 +137,18 @@ object MostrarClientesForm: TMostrarClientesForm
       Width = 74
       Height = 34
       Caption = 'Cancelar'
-      TabOrder = 5
+      TabOrder = 4
       OnClick = CancelarBtnClick
+    end
+    object CpfInput: TMaskEdit
+      Left = 160
+      Top = 102
+      Width = 154
+      Height = 21
+      EditMask = '000.000.000-99;0;_'
+      MaxLength = 14
+      TabOrder = 7
+      Text = ''
     end
   end
 end

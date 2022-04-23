@@ -16,6 +16,7 @@ function confirma(texto: String): Boolean;
 procedure aviso(texto: String);
 procedure erro(texto: String);
 procedure mensagem(texto: String);
+Procedure FormatarComoMoeda( Componente : TObject; var Key: Char );
 
 implementation
 procedure AbrirForm(const objForm: TForm);
@@ -171,5 +172,41 @@ end;
 procedure mensagem(texto: String);
 begin
   MessageDlg(texto, mtConfirmation, [mbOk], 0);
+end;
+
+Procedure FormatarComoMoeda( Componente : TObject; var Key: Char );
+var
+   str_valor  : String;
+   dbl_valor  : double;
+begin
+
+   { verificando se estamos recebendo o TEdit realmente }
+   IF Componente is TEdit THEN
+   BEGIN
+      { se tecla pressionada e' um numero, backspace ou del deixa passar }
+      IF ( Key in ['0'..'9', #8, #9] ) THEN
+      BEGIN
+         { guarda valor do TEdit com que vamos trabalhar }
+         str_valor := TEdit( Componente ).Text ;
+         { verificando se nao esta vazio }
+         IF str_valor = EmptyStr THEN str_valor := '0,00' ;
+         { se valor numerico ja insere na string temporaria }
+         IF Key in ['0'..'9'] THEN str_valor := Concat( str_valor, Key ) ;
+         { retira pontos e virgulas se tiver! }
+         str_valor := Trim( StringReplace( str_valor, '.', '', [rfReplaceAll, rfIgnoreCase] ) ) ;
+         str_valor := Trim( StringReplace( str_valor, ',', '', [rfReplaceAll, rfIgnoreCase] ) ) ;
+         {inserindo 2 casas decimais}
+         dbl_valor := StrToFloat( str_valor ) ;
+         dbl_valor := ( dbl_valor / 100 ) ;
+
+         {reseta posicao do tedit}
+         TEdit( Componente ).SelStart := Length( TEdit( Componente ).Text );
+         {retornando valor tratado ao TEdit}
+         TEdit( Componente ).Text := FormatFloat( '###,##0.00', dbl_valor ) ;
+      END;
+      {se nao e' key relevante entao reseta}
+      IF NOT( Key in [#8, #9] ) THEN key := #0;
+   END;
+
 end;
 end.

@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Uni;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Uni,
+  Vcl.Mask;
 
 type
   TNovoLivroForm = class(TForm)
@@ -16,13 +17,15 @@ type
     TituloInput: TEdit;
     EditoraInput: TEdit;
     AnoPublicacao: TDateTimePicker;
+    AdicionarBtn: TButton;
     Label5: TLabel;
     PrecoInput: TEdit;
-    AdicionarBtn: TButton;
+    Label6: TLabel;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure AdicionarBtnClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure PrecoInputKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -47,7 +50,7 @@ var
 begin
   if ExisteInputsVazios(NovoLivroForm) then
   begin
-    ShowMessage('Preencha todos os campos!');
+    aviso('Preencha todos os campos!');
   end
   else
   begin
@@ -77,16 +80,27 @@ begin
 
     q1.ParamByName('categoria').Value := categoria;
 
-    try
-      q1.ExecSQL;
-      ShowMessage('Livro adicionado com sucesso!');
-      FormLivros.grid_livrosDBTableView1.DataController.RefreshExternalData;
-      Self.Close;
-    except
-    ShowMessage('Erro ao cadastrar livro');
+    if confirma('Confirmar cadastro de livro?') then
+    begin
+      try
+        q1.ExecSQL;
+        mensagem('Livro adicionado com sucesso!');
+        FormLivros.grid_livrosDBTableView1.DataController.RefreshExternalData;
+        Self.Close;
+      except on E: Exception do
+        if E.Message.Contains('livros_pkey') then
+        begin
+          erro('Livro já existe!');
+          TituloInput.SetFocus;
+        end
+        else
+        begin
+          erro(E.Message);
+        end;
+      end;
     end;
-  end;
 
+  end;
 end;
 
 procedure TNovoLivroForm.FormCreate(Sender: TObject);
@@ -108,6 +122,11 @@ procedure TNovoLivroForm.FormShow(Sender: TObject);
 begin
   LimparInputs(NovoLivroForm);
   TituloInput.SetFocus;
+end;
+
+procedure TNovoLivroForm.PrecoInputKeyPress(Sender: TObject; var Key: Char);
+begin
+  FormatarComoMoeda(PrecoInput, Key);
 end;
 
 end.

@@ -13,20 +13,24 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
-    Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
     TituloInput: TEdit;
     EditoraInput: TEdit;
     AnoPublicacao: TDateTimePicker;
-    PrecoInput: TEdit;
     CodigoInput: TEdit;
     CategoriaInput: TComboBox;
     SalvarBtn: TButton;
     ModoInput: TEdit;
+    CabcelarBtn: TButton;
+    Label5: TLabel;
+    PrecoInput: TEdit;
+    Label8: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure SalvarBtnClick(Sender: TObject);
+    procedure CabcelarBtnClick(Sender: TObject);
+    procedure PrecoInputKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -41,6 +45,11 @@ implementation
 {$R *.dfm}
 
 uses u_forms, u_dm1, u_livros;
+
+procedure TMostrarLivroForm.CabcelarBtnClick(Sender: TObject);
+begin
+  close;
+end;
 
 procedure TMostrarLivroForm.FormKeyPress(Sender: TObject; var Key: Char);
 begin
@@ -59,67 +68,76 @@ begin
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
 
-  ShowMessage(ModoInput.Text);
-
   if ModoInput.Text = 'V' then
   begin
-//    TituloInput.Enabled := False;
-//    EditoraInput.Enabled := False;
-//    AnoPublicacao.Enabled := False;
-//    PrecoInput.Enabled := False;
-//    CategoriaInput.Enabled := False;
-
     panel1.Enabled := False;
-
     SalvarBtn.Visible := False;
   end
   else if ModoInput.Text = 'A' then
-       
   begin
-//    TituloInput.Enabled := True;
-//    EditoraInput.Enabled := True;
-//    AnoPublicacao.Enabled := True;
-//    PrecoInput.Enabled := True;
-//    CategoriaInput.Enabled := True;
      panel1.Enabled := True;
-
     SalvarBtn.Visible := True;
   end;
 
 end;
+procedure TMostrarLivroForm.PrecoInputKeyPress(Sender: TObject; var Key: Char);
+begin
+  FormatarComoMoeda(PrecoInput, Key);
+end;
+
 procedure TMostrarLivroForm.SalvarBtnClick(Sender: TObject);
 var
   q1: TUniQuery;
   categoria: String;
 
 begin
-  try
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
-
-    q1.Close;
-    q1.SQL.Clear;
-    q1.SQl.Add('update livros set');
-    q1.SQL.Add(' titulo = :titulo, editora = :editora, ano_publicacao = :anoPublicacao, preco = :preco, categoria = :categoria');
-    q1.SQL.Add('where codigo = :codigo');
-
-    q1.ParamByName('codigo').Value := CodigoInput.Text;
-    q1.ParamByName('titulo').Value := TituloInput.Text;
-    q1.ParamByName('editora').Value := EditoraInput.Text;
-    q1.ParamByName('anoPublicacao').Value := AnoPublicacao.Date;
-    q1.ParamByName('preco').Value := PrecoInput.Text;
-    q1.ParamByName('categoria').Value := CategoriaInput.Text;
-
+  if ExisteInputsVazios(MostrarLivroForm) then
+  begin
+    aviso('Preencha todos os campos!');
+  end
+  else
+  begin
     try
-      q1.ExecSQL;
-      ShowMessage('Livro alterado com sucesso!');
-      Self.Close;
-      FormLivros.grid_livrosDBTableView1.DataController.RefreshExternalData;
-    except
-      ShowMessage('Erro ao alterar livro!');
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.Close;
+      q1.SQL.Clear;
+
+      q1.SQl.Add('update livros set');
+      q1.SQL.Add(' titulo = :titulo, editora = :editora, ano_publicacao = :anoPublicacao, preco = :preco, categoria = :categoria');
+      q1.SQL.Add('where codigo = :codigo');
+
+      mensagem(datetostr(AnoPublicacao.Date));
+      q1.ParamByName('codigo').Value := CodigoInput.Text;
+      q1.ParamByName('titulo').Value := TituloInput.Text;
+      q1.ParamByName('editora').Value := EditoraInput.Text;
+      q1.ParamByName('anoPublicacao').Value := AnoPublicacao.Date;
+      q1.ParamByName('preco').Value := PrecoInput.Text;
+      q1.ParamByName('categoria').Value := CategoriaInput.Text;
+
+      if confirma('Confirmar alteração de livro?') then
+      begin
+        try
+          q1.ExecSQL;
+          mensagem('Livro alterado com sucesso!');
+          Self.Close;
+          FormLivros.grid_livrosDBTableView1.DataController.RefreshExternalData;
+        except on e:exception do
+          if e.Message.Contains('livros_pkey') then
+          begin
+            erro('Livro já existe');
+          end
+          else
+          begin
+            erro(e.Message);
+          end;
+        end;
+      end;
+
+    finally
+      FreeAndNil(q1);
     end;
-  finally
-    FreeAndNil(q1);
   end;
 end;
 

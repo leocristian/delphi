@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Uni;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Uni, Vcl.Mask;
 
 type
   TNovoCliente = class(TForm)
@@ -14,11 +14,11 @@ type
     Label4: TLabel;
     nome_completoInput: TEdit;
     emailInput: TEdit;
-    cpfInput: TEdit;
     AdicionarUsuarioBtn: TButton;
     Button1: TButton;
     Label7: TLabel;
     TelefoneInput: TEdit;
+    CpfInput: TMaskEdit;
     procedure AdicionarUsuarioBtnClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
@@ -99,16 +99,15 @@ begin
       q1.ParamByName('email').Value := emailInput.Text;
       q1.ParamByName('telefone').Value := telefoneInput.Text;
 
-      try
-        if confirma('Confirmar cadastro de cliente?') then
-        begin
+
+      if confirma('Confirmar cadastro de cliente?') then
+      begin
+        try
           q1.ExecSQL;
           mensagem('Cliente cadastrado com sucesso!');
           Self.Close;
           FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
-        end;
-       except on E: Exception do
-        begin
+        except on E: Exception do
           if E.Message.Contains('clientes_pkey') then
           begin
             erro('Cliente já existe!');
@@ -119,7 +118,7 @@ begin
             erro(E.Message);
           end;
         end;
-        end;
+      end;
 
     finally
       FreeAndNil(q1);

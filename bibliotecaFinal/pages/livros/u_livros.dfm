@@ -7555,6 +7555,8 @@ object FormLivros: TFormLivros
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
+      Styles.ContentEven = frame_estilo_grid1.linhas
+      Styles.Header = frame_estilo_grid1.cabecalho
       object grid_livrosDBTableView1codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
@@ -7572,7 +7574,7 @@ object FormLivros: TFormLivros
       object grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn
         Caption = 'Ano de publica'#231#227'o'
         DataBinding.FieldName = 'ano_publicacao'
-        Width = 106
+        Width = 133
       end
       object grid_livrosDBTableView1preco: TcxGridDBColumn
         Caption = 'Pre'#231'o'
@@ -7611,6 +7613,18 @@ object FormLivros: TFormLivros
           'EDITORA'
           'T'#205'TULO')
       end
+    end
+  end
+  inline frame_estilo_grid1: Tframe_estilo_grid
+    Left = 632
+    Top = 8
+    Width = 130
+    Height = 72
+    TabOrder = 2
+    ExplicitLeft = 632
+    ExplicitTop = 8
+    inherited estilo_padrao: TcxStyleRepository
+      PixelsPerInch = 96
     end
   end
   object tb_livros: TUniTable

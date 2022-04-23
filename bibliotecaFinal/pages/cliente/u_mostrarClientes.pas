@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Uni, u_dm1, Vcl.ExtCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Uni, u_dm1, Vcl.ExtCtrls,
+  Vcl.Mask;
 
 type
   TMostrarClientesForm = class(TForm)
@@ -21,8 +22,8 @@ type
     ModoInput: TEdit;
     SalvarBtn: TButton;
     CodigoInput: TEdit;
-    CpfInput: TEdit;
     CancelarBtn: TButton;
+    CpfInput: TMaskEdit;
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure MostrarForm(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
@@ -114,7 +115,7 @@ begin
       q1.Close;
       q1.SQL.Clear;
 
-      q1.SQL.Add('update clientes2 set nome_completo = :nome_completo, email = :email, cpf = :cpf, telefone = :telefone');
+      q1.SQL.Add('update clientes set nome_completo = :nome_completo, email = :email, cpf = :cpf, telefone = :telefone');
       q1.SQL.Add(' where codigo = :codigo');
 
       q1.ParamByName('nome_completo').Value := NomeInput.Text;
@@ -131,9 +132,17 @@ begin
           Self.Close;
           FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
         end;
-      except
-        erro('Cliente já existe!');
-        CpfInput.SetFocus;
+      except on e:exception do
+        if e.Message.Contains('clientes_pkey') then
+        begin
+          erro('Cliente já existe!');
+          CpfInput.SetFocus;
+        end
+        else
+        begin
+          erro(e.Message);
+        end;
+
       end;
     finally
       FreeAndNil(q1);

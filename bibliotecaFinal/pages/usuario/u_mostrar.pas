@@ -104,7 +104,7 @@ begin
       q1.Close;
       q1.SQL.Clear;
 
-      q1.SQL.Add('update usuarios2 set nome_completo = :nome_completo, email = :email, login = :login');
+      q1.SQL.Add('update usuarios set nome_completo = :nome_completo, email = :email, login = :login');
       q1.SQL.Add(' where codigo = :codigo');
 
       q1.ParamByName('nome_completo').Value := NomeInput.Text;
@@ -121,9 +121,10 @@ begin
           FormUsuarios.grid_usuariosDBTableView1.DataController.RefreshExternalData;
         end;
       except on E:Exception do
-        if E.Message.Contains('usuarios2_pkey') then
+        if E.Message.Contains('usuarios_pkey') then
         begin
           erro('Usuário já existe!');
+          LoginInput.SetFocus;
         end
         else
         begin

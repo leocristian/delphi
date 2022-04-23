@@ -69,7 +69,7 @@ object NovoCliente: TNovoCliente
     Height = 21
     CharCase = ecUpperCase
     MaxLength = 60
-    TabOrder = 1
+    TabOrder = 0
   end
   object emailInput: TEdit
     Left = 42
@@ -78,17 +78,7 @@ object NovoCliente: TNovoCliente
     Height = 21
     CharCase = ecLowerCase
     MaxLength = 30
-    TabOrder = 2
-  end
-  object cpfInput: TEdit
-    Left = 42
-    Top = 85
-    Width = 119
-    Height = 21
-    CharCase = ecUpperCase
-    MaxLength = 11
-    NumbersOnly = True
-    TabOrder = 0
+    TabOrder = 1
   end
   object AdicionarUsuarioBtn: TButton
     Left = 122
@@ -97,7 +87,7 @@ object NovoCliente: TNovoCliente
     Height = 34
     Anchors = [akLeft, akBottom]
     Caption = 'Adicionar'
-    TabOrder = 4
+    TabOrder = 3
     OnClick = AdicionarUsuarioBtnClick
   end
   object Button1: TButton
@@ -107,7 +97,7 @@ object NovoCliente: TNovoCliente
     Height = 34
     Anchors = [akLeft, akBottom]
     Caption = 'Cancelar'
-    TabOrder = 5
+    TabOrder = 4
     OnClick = Button1Click
   end
   object TelefoneInput: TEdit
@@ -118,6 +108,16 @@ object NovoCliente: TNovoCliente
     CharCase = ecUpperCase
     MaxLength = 11
     NumbersOnly = True
-    TabOrder = 3
+    TabOrder = 2
+  end
+  object CpfInput: TMaskEdit
+    Left = 43
+    Top = 85
+    Width = 116
+    Height = 21
+    EditMask = '000.000.000-99;0;_'
+    MaxLength = 14
+    TabOrder = 5
+    Text = ''
   end
 end

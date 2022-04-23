@@ -10,7 +10,7 @@ uses
   Data.DB, cxDBData, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, Vcl.Menus, MemDS, DBAccess, Uni, Vcl.StdCtrls, cxGridLevel,
   cxGridCustomView, cxGrid, Vcl.ExtCtrls, frame_busca, frxClass,
-  frxDBSet;
+  frxDBSet, frame_grid;
 
 type
   TFormLivros = class(TForm)
@@ -35,6 +35,7 @@ type
     FrameBusca1: TFrameBusca;
     rel_livros: TfrxReport;
     ds_rel_livros: TfrxDBDataset;
+    frame_estilo_grid1: Tframe_estilo_grid;
     procedure NovoLivroClick(Sender: TObject);
     procedure bt_buscaClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);
@@ -167,19 +168,17 @@ begin
 
   q1.ParamByName('codigo').Value := codLivro;
 
-  case MessageBox(Application.Handle, 'Confirmar exclusão de livro?', 'Excluir livro', MB_YESNO) of
-  idYes:
-    begin
-      try
-        q1.ExecSQL;
-        ShowMessage('Livro excluído com sucesso!');
-        grid_livrosDBTableView1.DataController.RefreshExternalData;
-      except
-        ShowMessage('Erro ao excluir livro!');
-      end;
+  if confirma('Confirmar exclusão de livro?') then
+  begin
+    try
+      q1.ExecSQL;
+      mensagem('Livro excluído com sucesso!');
+      grid_livrosDBTableView1.DataController.RefreshExternalData;
+    except on e:exception do
+      erro(e.Message);
     end;
-  idNo: ShowMessage('Operação cancelada!');
   end;
+
 end;
 
 procedure TFormLivros.FormCreate(Sender: TObject);
