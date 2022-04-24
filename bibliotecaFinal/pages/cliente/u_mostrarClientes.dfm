@@ -26,8 +26,7 @@ object MostrarClientesForm: TMostrarClientesForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = 8
-    object Label1: TLabel
+    object LabelTitulo: TLabel
       Left = 50
       Top = 41
       Width = 186
@@ -93,15 +92,6 @@ object MostrarClientesForm: TMostrarClientesForm
       MaxLength = 30
       TabOrder = 1
     end
-    object TelefoneInput: TEdit
-      Left = 50
-      Top = 252
-      Width = 264
-      Height = 21
-      CharCase = ecUpperCase
-      MaxLength = 11
-      TabOrder = 2
-    end
     object ModoInput: TEdit
       Left = 59
       Top = 301
@@ -109,7 +99,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Height = 21
       TabStop = False
       CharCase = ecUpperCase
-      TabOrder = 5
+      TabOrder = 4
       Visible = False
     end
     object SalvarBtn: TButton
@@ -117,8 +107,9 @@ object MostrarClientesForm: TMostrarClientesForm
       Top = 294
       Width = 74
       Height = 35
+      Cursor = crHandPoint
       Caption = 'Salvar'
-      TabOrder = 3
+      TabOrder = 2
       OnClick = SalvarBtnClick
     end
     object CodigoInput: TEdit
@@ -129,15 +120,16 @@ object MostrarClientesForm: TMostrarClientesForm
       CharCase = ecUpperCase
       Enabled = False
       ReadOnly = True
-      TabOrder = 6
+      TabOrder = 5
     end
     object CancelarBtn: TButton
       Left = 190
       Top = 295
       Width = 74
       Height = 34
+      Cursor = crHandPoint
       Caption = 'Cancelar'
-      TabOrder = 4
+      TabOrder = 3
       OnClick = CancelarBtnClick
     end
     object CpfInput: TMaskEdit
@@ -146,6 +138,16 @@ object MostrarClientesForm: TMostrarClientesForm
       Width = 154
       Height = 21
       EditMask = '000.000.000-99;0;_'
+      MaxLength = 14
+      TabOrder = 6
+      Text = ''
+    end
+    object TelefoneInput: TMaskEdit
+      Left = 50
+      Top = 252
+      Width = 261
+      Height = 21
+      EditMask = '!\(99\)00000-0000;0;_'
       MaxLength = 14
       TabOrder = 7
       Text = ''

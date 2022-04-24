@@ -135,6 +135,7 @@ begin
     ds_usuarios.DataSet.Filtered := True;
     grid_usuariosDBTableView1.DataController.RefreshExternalData;
     FrameBusca1.BuscaInput.Text := '';
+    grid_usuariosDBTableView1.OptionsView.NoDataToDisplayInfoText := '';
   except on E:Exception do
     if E.Message.Contains('not found') then
     begin

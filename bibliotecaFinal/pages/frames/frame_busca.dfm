@@ -40,6 +40,7 @@ object FrameBusca: TFrameBusca
       Top = 20
       Width = 97
       Height = 41
+      Cursor = crHandPoint
       Caption = 'Pesquisar'
       TabOrder = 2
     end
@@ -48,6 +49,7 @@ object FrameBusca: TFrameBusca
       Top = 20
       Width = 97
       Height = 41
+      Cursor = crHandPoint
       Caption = 'Mostrar todos'
       TabOrder = 3
     end
@@ -56,6 +58,7 @@ object FrameBusca: TFrameBusca
       Top = 39
       Width = 113
       Height = 21
+      Cursor = crHandPoint
       Style = csDropDownList
       CharCase = ecUpperCase
       ItemIndex = 0

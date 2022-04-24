@@ -85,8 +85,12 @@ begin
           EscolhaLivroForm.vtb_livrosEncontrados.Append;
           EscolhaLivroForm.vtb_livrosEncontrados['codigo'] := q1.FieldByName('codigo').AsInteger;
           EscolhaLivroForm.vtb_livrosEncontrados['titulo'] := q1.FieldByName('titulo').AsString;
+          EscolhaLivroForm.vtb_livrosEncontrados['editora'] := q1.FieldByName('editora').AsString;
           EscolhaLivroForm.vtb_livrosEncontrados['anoPublicacao'] := q1.FieldByName('ano_publicacao').AsString;
           EscolhaLivroForm.vtb_livrosEncontrados['preco'] := q1.FieldByName('preco').AsFloat;
+          EscolhaLivroForm.vtb_livrosEncontrados['categoria'] := q1.FieldByName('categoria').AsString;
+          EscolhaLivroForm.vtb_livrosEncontrados['qtdEstoque'] := q1.FieldByName('qtd_estoque').AsInteger;
+          ShowMessage(q1.FieldByName('categoria').AsString);
           q1.Next;
         end;
 

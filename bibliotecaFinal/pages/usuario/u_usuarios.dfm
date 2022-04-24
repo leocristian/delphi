@@ -5,8 +5,8 @@ object FormUsuarios: TFormUsuarios
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Tela de usu'#225'rios'
-  ClientHeight = 496
-  ClientWidth = 829
+  ClientHeight = 373
+  ClientWidth = 710
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -1343,12 +1343,11 @@ object FormUsuarios: TFormUsuarios
   object grid_usuarios: TcxGrid
     Left = 0
     Top = 95
-    Width = 829
-    Height = 401
+    Width = 710
+    Height = 278
     Align = alClient
     PopupMenu = PopupUsuarios
     TabOrder = 0
-    ExplicitTop = 101
     object grid_usuariosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -1410,16 +1409,14 @@ object FormUsuarios: TFormUsuarios
   inline FrameBusca1: TFrameBusca
     Left = 0
     Top = 0
-    Width = 829
+    Width = 710
     Height = 95
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 829
+    ExplicitWidth = 710
     inherited Panel1: TPanel
-      Width = 829
-      ExplicitLeft = -3
-      ExplicitTop = 8
-      ExplicitWidth = 829
+      Width = 710
+      ExplicitWidth = 710
       inherited BuscaInput: TEdit
         OnClick = FrameBusca1BuscaInputClick
       end
@@ -1446,8 +1443,8 @@ object FormUsuarios: TFormUsuarios
     end
   end
   object PopupUsuarios: TPopupMenu
-    Left = 624
-    Top = 112
+    Left = 64
+    Top = 296
     object VisualizarUsuario: TMenuItem
       Caption = 'Visualizar usu'#225'rio selecionado'
       OnClick = VisualizarUsuarioClick
@@ -1470,13 +1467,13 @@ object FormUsuarios: TFormUsuarios
   end
   object tb_usuarios: TUniTable
     TableName = 'usuarios2'
-    Left = 680
-    Top = 112
+    Left = 126
+    Top = 296
   end
   object ds_usuarios: TDataSource
     DataSet = tb_usuarios
-    Left = 736
-    Top = 120
+    Left = 188
+    Top = 296
   end
   object rel_usuarios: TfrxReport
     Version = '2022.2.3'
@@ -1493,8 +1490,8 @@ object FormUsuarios: TFormUsuarios
       'begin'
       ''
       'end.')
-    Left = 616
-    Top = 200
+    Left = 312
+    Top = 296
     Datasets = <
       item
         DataSet = ds_rel_usuarios
@@ -1543,8 +1540,8 @@ object FormUsuarios: TFormUsuarios
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 34.015770000000000000
-        Top = 166.299320000000000000
+        Height = 139.842610000000000000
+        Top = 139.842610000000000000
         Width = 718.110700000000000000
         DataSet = ds_rel_usuarios
         DataSetName = 'frxDBDataset1'
@@ -1552,54 +1549,146 @@ object FormUsuarios: TFormUsuarios
         object frxDBDataset1frxDBDataset1: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 34.015770000000000000
-          Top = 11.338590000000000000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
+          Left = 90.708720000000000000
+          Top = 15.118120000000000000
+          Width = 215.433210000000000000
+          Height = 22.677180000000000000
           DataSet = ds_rel_usuarios
           DataSetName = 'frxDBDataset1'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBDataset1."codigo"]')
+          ParentFont = False
         end
         object Memo7: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 188.976500000000000000
-          Top = 7.559060000000000000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
+          Left = 79.370130000000000000
+          Top = 37.795300000000000000
+          Width = 302.362400000000000000
+          Height = 22.677180000000000000
           DataSet = ds_rel_usuarios
           DataSetName = 'frxDBDataset1'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
           Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBDataset1."login"]')
+          ParentFont = False
         end
         object Memo8: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 328.819110000000000000
-          Top = 7.559060000000000000
-          Width = 94.488250000000000000
+          Left = 154.960730000000000000
+          Top = 60.472480000000000000
+          Width = 498.897960000000000000
           Height = 18.897650000000000000
           DataSet = ds_rel_usuarios
           DataSetName = 'frxDBDataset1'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
           Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBDataset1."nome_completo"]')
+          ParentFont = False
         end
         object Memo9: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 521.575140000000000000
-          Top = 3.779530000000000000
-          Width = 143.622140000000000000
+          Left = 79.370130000000000000
+          Top = 86.929190000000000000
+          Width = 306.141930000000000000
           Height = 18.897650000000000000
           DataSet = ds_rel_usuarios
           DataSetName = 'frxDBDataset1'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
           Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBDataset1."email"]')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          AllowVectorExport = True
+          Left = 15.118120000000000000
+          Top = 15.118120000000000000
+          Width = 71.811070000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clTeal
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'C'#243'digo:')
+          ParentFont = False
+        end
+        object Memo3: TfrxMemoView
+          AllowVectorExport = True
+          Left = 15.118120000000000000
+          Top = 37.795300000000000000
+          Width = 60.472480000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clTeal
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Login:')
+          ParentFont = False
+        end
+        object Memo4: TfrxMemoView
+          AllowVectorExport = True
+          Left = 15.118120000000000000
+          Top = 60.472480000000000000
+          Width = 136.063080000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clTeal
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Nome completo:')
+          ParentFont = False
+        end
+        object Memo5: TfrxMemoView
+          AllowVectorExport = True
+          Left = 15.118120000000000000
+          Top = 86.929190000000000000
+          Width = 60.472480000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clTeal
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Email:')
+          ParentFont = False
         end
       end
       object ReportTitle1: TfrxReportTitle
@@ -1609,12 +1698,12 @@ object FormUsuarios: TFormUsuarios
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 86.929190000000000000
+        Height = 60.472480000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
           AllowVectorExport = True
-          Left = 34.015770000000000000
+          Left = 15.118120000000000000
           Width = 287.244280000000000000
           Height = 34.015770000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1627,102 +1716,6 @@ object FormUsuarios: TFormUsuarios
             'Relat'#243'rio de usu'#225'rios')
           ParentFont = False
         end
-        object Memo2: TfrxMemoView
-          AllowVectorExport = True
-          Left = 34.015770000000000000
-          Top = 60.472480000000000000
-          Width = 71.811070000000000000
-          Height = 18.897650000000000000
-          StretchMode = smMaxHeight
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clRed
-          Font.Height = -19
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Frame.Typ = []
-          Memo.UTF8W = (
-            'C'#243'digo')
-          ParentFont = False
-        end
-        object Memo3: TfrxMemoView
-          AllowVectorExport = True
-          Left = 192.756030000000000000
-          Top = 60.472480000000000000
-          Width = 56.692950000000000000
-          Height = 18.897650000000000000
-          StretchMode = smMaxHeight
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clRed
-          Font.Height = -19
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Frame.Typ = []
-          Memo.UTF8W = (
-            'Login')
-          ParentFont = False
-        end
-        object Memo4: TfrxMemoView
-          AllowVectorExport = True
-          Left = 328.819110000000000000
-          Top = 60.472480000000000000
-          Width = 147.401670000000000000
-          Height = 18.897650000000000000
-          StretchMode = smMaxHeight
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clRed
-          Font.Height = -19
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Frame.Typ = []
-          Memo.UTF8W = (
-            'Nome completo')
-          ParentFont = False
-        end
-        object Memo5: TfrxMemoView
-          AllowVectorExport = True
-          Left = 521.575140000000000000
-          Top = 60.472480000000000000
-          Width = 56.692950000000000000
-          Height = 18.897650000000000000
-          StretchMode = smMaxHeight
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clRed
-          Font.Height = -19
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Frame.Typ = []
-          Memo.UTF8W = (
-            'Email')
-          ParentFont = False
-        end
-      end
-      object PageFooter1: TfrxPageFooter
-        FillType = ftBrush
-        FillGap.Top = 0
-        FillGap.Left = 0
-        FillGap.Bottom = 0
-        FillGap.Right = 0
-        Frame.Typ = []
-        Height = 22.677180000000000000
-        Top = 260.787570000000000000
-        Width = 718.110700000000000000
-        object Memo6: TfrxMemoView
-          AllowVectorExport = True
-          Top = 3.779530000000000000
-          Width = 718.110700000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Frame.Typ = []
-          Memo.UTF8W = (
-            
-              '________________________________________________________________' +
-              '_________________________________')
-          ParentFont = False
-        end
       end
     end
   end
@@ -1731,7 +1724,7 @@ object FormUsuarios: TFormUsuarios
     CloseDataSource = False
     BCDToCurrency = False
     DataSetOptions = []
-    Left = 720
-    Top = 208
+    Left = 250
+    Top = 296
   end
 end

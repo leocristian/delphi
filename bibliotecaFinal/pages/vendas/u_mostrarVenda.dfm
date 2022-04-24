@@ -140,9 +140,15 @@ object MostrarVendaForm: TMostrarVendaForm
   object AddLivro: TButton
     Left = 606
     Top = 76
-    Width = 91
+    Width = 131
     Height = 46
     Caption = 'Adicionar livro'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 2
     OnClick = AddLivroClick
   end
@@ -199,7 +205,6 @@ object MostrarVendaForm: TMostrarVendaForm
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
-      Styles.Header = EscolhaLivroForm.cxStyle1
       object grid_livrosDBTableView1titulo: TcxGridDBColumn
         Caption = 'T'#237'tulo'
         DataBinding.FieldName = 'titulo'

@@ -28,9 +28,7 @@ object MostrarLivroForm: TMostrarLivroForm
     BevelOuter = bvNone
     Caption = 'qtd_estoque'
     TabOrder = 0
-    ExplicitLeft = -48
-    ExplicitTop = -24
-    object Label1: TLabel
+    object LabelTitulo: TLabel
       Left = 64
       Top = 32
       Width = 175
@@ -123,20 +121,12 @@ object MostrarLivroForm: TMostrarLivroForm
       MaxLength = 30
       TabOrder = 2
     end
-    object AnoPublicacao: TDateTimePicker
-      Left = 64
-      Top = 192
-      Width = 159
-      Height = 21
-      Date = 44663.000000000000000000
-      Time = 0.670588252316520100
-      TabOrder = 3
-    end
     object CodigoInput: TEdit
       Left = 64
       Top = 95
       Width = 75
       Height = 21
+      Cursor = crNo
       CharCase = ecUpperCase
       Enabled = False
       TabOrder = 0
@@ -146,6 +136,10 @@ object MostrarLivroForm: TMostrarLivroForm
       Top = 243
       Width = 207
       Height = 21
+      Cursor = crHandPoint
+      Style = csDropDownList
+      CharCase = ecUpperCase
+      ItemIndex = 0
       MaxLength = 40
       TabOrder = 5
       Text = 'NENHUMA'
@@ -176,12 +170,23 @@ object MostrarLivroForm: TMostrarLivroForm
       NumbersOnly = True
       TabOrder = 6
     end
+    object AnoPublicacaoInput: TMaskEdit
+      Left = 64
+      Top = 192
+      Width = 157
+      Height = 21
+      EditMask = '!99/99/0000;1;_'
+      MaxLength = 10
+      TabOrder = 3
+      Text = '  /  /    '
+    end
   end
   object SalvarBtn: TButton
     Left = 129
     Top = 330
     Width = 103
     Height = 35
+    Cursor = crHandPoint
     Anchors = [akLeft, akBottom]
     Caption = 'Salvar'
     Font.Charset = DEFAULT_CHARSET
@@ -192,7 +197,6 @@ object MostrarLivroForm: TMostrarLivroForm
     ParentFont = False
     TabOrder = 2
     OnClick = SalvarBtnClick
-    ExplicitTop = 314
   end
   object ModoInput: TEdit
     Left = 82
@@ -209,10 +213,10 @@ object MostrarLivroForm: TMostrarLivroForm
     Top = 330
     Width = 103
     Height = 35
+    Cursor = crHandPoint
     Anchors = [akLeft, akBottom]
     Caption = 'Cancelar'
     TabOrder = 3
     OnClick = CancelarBtnClick
-    ExplicitTop = 314
   end
 end

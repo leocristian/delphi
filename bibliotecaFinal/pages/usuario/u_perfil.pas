@@ -105,7 +105,7 @@ begin
       q1.Close;
       q1.SQL.Clear;
 
-      q1.SQL.Add('update usuarios2 set nome_completo = :nome_completo, email = :email, login = :login');
+      q1.SQL.Add('update usuarios set nome_completo = :nome_completo, email = :email, login = :login');
       q1.SQL.Add(' where codigo = :codigo');
 
       q1.ParamByName('nome_completo').Value := NomeInput.Text;

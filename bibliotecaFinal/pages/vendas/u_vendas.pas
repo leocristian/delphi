@@ -10,7 +10,7 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   cxDBData, cxClasses, Vcl.Menus, DBAccess, Uni, cxGridLevel,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridCustomView,
-  cxGrid, Vcl.ExtCtrls, frame_busca;
+  cxGrid, Vcl.ExtCtrls, frame_busca, frxClass, frxDBSet, frame_grid;
 
 type
   TFormVendas = class(TForm)
@@ -32,6 +32,9 @@ type
     grid_vendasLevel1: TcxGridLevel;
     RelatorioVendas: TMenuItem;
     FrameBusca1: TFrameBusca;
+    rel_vendas: TfrxReport;
+    ds_rel_vendas: TfrxDBDataset;
+    frame_estilo_grid1: Tframe_estilo_grid;
     procedure NovaVendaClick(Sender: TObject);
     procedure VisualizarVendaClick(Sender: TObject);
     procedure AlterarVendaClick(Sender: TObject);
@@ -40,6 +43,7 @@ type
     procedure MostrarTodasClick(Sender: TObject);
     procedure BuscaInputClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure RelatorioVendasClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -119,6 +123,7 @@ begin
     ds_vendas.DataSet.Filtered := True;
     grid_vendasDBTableView1.DataController.RefreshExternalData;
     FrameBusca1.BuscaInput.Text := '';
+    grid_vendasDBTableView1.OptionsView.NoDataToDisplayInfoText := '';
   except on E:Exception do
     if E.Message.Contains('not found') then
     begin
@@ -217,6 +222,12 @@ begin
   MostrarVendaForm.ShowModal;
 
   FreeAndNil(q1);
+end;
+
+procedure TFormVendas.RelatorioVendasClick(Sender: TObject);
+begin
+  ds_rel_vendas.DataSource := ds_vendas;
+  rel_vendas.ShowReport;
 end;
 
 procedure TFormVendas.VisualizarVendaClick(Sender: TObject);

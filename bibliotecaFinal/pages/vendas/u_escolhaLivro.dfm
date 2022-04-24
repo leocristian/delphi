@@ -3,8 +3,8 @@ object EscolhaLivroForm: TEscolhaLivroForm
   Top = 0
   BorderStyle = bsSingle
   Caption = 'EscolhaLivroForm'
-  ClientHeight = 411
-  ClientWidth = 686
+  ClientHeight = 435
+  ClientWidth = 956
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -33,13 +33,13 @@ object EscolhaLivroForm: TEscolhaLivroForm
   end
   object Confirmar: TButton
     Left = 32
-    Top = 328
-    Width = 113
-    Height = 41
+    Top = 368
+    Width = 137
+    Height = 49
     Caption = 'Confirmar'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
@@ -48,9 +48,9 @@ object EscolhaLivroForm: TEscolhaLivroForm
   end
   object cxGrid1: TcxGrid
     Left = 32
-    Top = 88
-    Width = 593
-    Height = 217
+    Top = 86
+    Width = 897
+    Height = 251
     TabOrder = 1
     object cxGrid1DBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
@@ -91,26 +91,45 @@ object EscolhaLivroForm: TEscolhaLivroForm
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
-      Styles.Header = cxStyle1
+      Styles.ContentEven = frame_estilo_grid1.linhas
+      Styles.Header = frame_estilo_grid1.cabecalho
       object cxGrid1DBTableView1codigo: TcxGridDBColumn
-        Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
       end
       object cxGrid1DBTableView1titulo: TcxGridDBColumn
-        Caption = 'T'#237'tulo'
         DataBinding.FieldName = 'titulo'
       end
+      object cxGrid1DBTableView1editora: TcxGridDBColumn
+        DataBinding.FieldName = 'editora'
+      end
       object cxGrid1DBTableView1anoPublicacao: TcxGridDBColumn
-        Caption = 'Ano de publica'#231#227'o'
         DataBinding.FieldName = 'anoPublicacao'
       end
       object cxGrid1DBTableView1preco: TcxGridDBColumn
-        Caption = 'Pre'#231'o'
         DataBinding.FieldName = 'preco'
+      end
+      object cxGrid1DBTableView1categoria: TcxGridDBColumn
+        DataBinding.FieldName = 'categoria'
+      end
+      object cxGrid1DBTableView1qtdEstoque: TcxGridDBColumn
+        Caption = 'Qtd. em estoque'
+        DataBinding.FieldName = 'qtdEstoque'
       end
     end
     object cxGrid1Level1: TcxGridLevel
       GridView = cxGrid1DBTableView1
+    end
+  end
+  inline frame_estilo_grid1: Tframe_estilo_grid
+    Left = 704
+    Top = 8
+    Width = 130
+    Height = 72
+    TabOrder = 2
+    ExplicitLeft = 704
+    ExplicitTop = 8
+    inherited estilo_padrao: TcxStyleRepository
+      PixelsPerInch = 96
     end
   end
   object vtb_livrosEncontrados: TVirtualTable
@@ -127,6 +146,11 @@ object EscolhaLivroForm: TEscolhaLivroForm
         Size = 20
       end
       item
+        Name = 'editora'
+        DataType = ftString
+        Size = 20
+      end
+      item
         Name = 'anoPublicacao'
         DataType = ftString
         Size = 20
@@ -135,30 +159,29 @@ object EscolhaLivroForm: TEscolhaLivroForm
         Name = 'preco'
         DataType = ftString
         Size = 20
+      end
+      item
+        Name = 'categoria'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'qtdEstoque'
+        DataType = ftString
+        Size = 20
       end>
     Left = 352
     Top = 16
     Data = {
-      040004000600636F6469676F01001400000000000600746974756C6F01001400
-      000000000D00616E6F5075626C69636163616F01001400000000000500707265
-      636F0100140000000000000000000000}
+      040007000600636F6469676F01001400000000000600746974756C6F01001400
+      000000000700656469746F726101001400000000000D00616E6F5075626C6963
+      6163616F01001400000000000500707265636F01001400000000000900636174
+      65676F72696101001400000000000A007174644573746F717565010014000000
+      0000000000000000}
   end
   object vds_livrosEncontrados: TDataSource
     DataSet = vtb_livrosEncontrados
     Left = 472
     Top = 16
-  end
-  object cxStyleRepository1: TcxStyleRepository
-    Left = 608
-    Top = 32
-    PixelsPerInch = 96
-    object cxStyle1: TcxStyle
-      AssignedValues = [svFont]
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-    end
   end
 end

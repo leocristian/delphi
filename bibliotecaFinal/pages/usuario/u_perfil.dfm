@@ -6551,6 +6551,7 @@ object PerfilUsuario: TPerfilUsuario
       Top = 13
       Width = 83
       Height = 35
+      Cursor = crHandPoint
       Caption = 'Salvar'
       TabOrder = 1
       OnClick = SalvarBtnClick
@@ -6560,6 +6561,7 @@ object PerfilUsuario: TPerfilUsuario
       Top = 13
       Width = 83
       Height = 35
+      Cursor = crHandPoint
       Caption = 'Cancelar'
       TabOrder = 2
       OnClick = CancelarBtnClick
@@ -6577,6 +6579,7 @@ object PerfilUsuario: TPerfilUsuario
       Top = 70
       Width = 132
       Height = 41
+      Cursor = crHandPoint
       Caption = 'Alterar senha'
       Style = bsCommandLink
       TabOrder = 3
@@ -6664,6 +6667,7 @@ object PerfilUsuario: TPerfilUsuario
       Top = 33
       Width = 74
       Height = 21
+      Cursor = crNo
       Enabled = False
       TabOrder = 3
     end

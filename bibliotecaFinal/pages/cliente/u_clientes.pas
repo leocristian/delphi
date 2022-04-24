@@ -60,8 +60,30 @@ implementation
 uses u_dm1, u_mostrarClientes, u_novoCliente, u_forms;
 
 procedure TFormClientes.AdicionarClienteClick(Sender: TObject);
+var
+  q1: TUniQuery;
 begin
-  NovoCliente.ShowModal;
+  try
+    q1 := TUniQuery.Create(nil);
+    q1.Connection := dm1.con1;
+
+    q1.Close;
+    q1.SQL.Clear;
+
+    q1.SQL.Text := 'select nextval(''tb_clientes_cod_seq'') as codProximo';
+    q1.Open;
+
+    LimparInputs(MostrarClientesForm);
+
+    MostrarClientesForm.CodigoInput.Text := q1.FieldByName('codProximo').AsString;
+    MostrarClientesForm.ModoInput.Text := 'N';
+    MostrarClientesForm.CpfInput.Clear;
+    MostrarClientesForm.TelefoneInput.Clear;
+    MostrarClientesForm.ShowModal;
+  finally
+    FreeAndNil(q1);
+  end;
+
 end;
 
 procedure TFormClientes.AlterarClienteClick(Sender: TObject);
@@ -134,6 +156,7 @@ begin
     ds_clientes.DataSet.Filtered := True;
     grid_clientesDBTableView1.DataController.RefreshExternalData;
     FrameBusca1.BuscaInput.Text := '';
+    grid_clientesDBTableView1.OptionsView.NoDataToDisplayInfoText := '';
   except on E:Exception do
     if E.Message.Contains('not found') then
     begin

@@ -90,7 +90,7 @@ begin
       MostrarLivroForm.CodigoInput.Text := q1.FieldByName('codigo').Value;
       MostrarLivroForm.TituloInput.Text := q1.FieldByName('titulo').Value;
       MostrarLivroForm.EditoraInput.Text :=  q1.FieldByName('editora').Value;
-      MostrarLivroForm.AnoPublicacao.Date := StrToDate(q1.FieldByName('ano_publicacao').Value);
+      MostrarLivroForm.AnoPublicacaoInput.Text := q1.FieldByName('ano_publicacao').Value;
       MostrarLivroForm.PrecoInput.Text := FloatToStr(q1.FieldByName('preco').Value);
       MostrarLivroForm.CategoriaInput.Text := q1.FieldByName('categoria').Value;
 
@@ -139,6 +139,7 @@ begin
     ds_livros.DataSet.Filtered := True;
     grid_livrosDBTableView1.DataController.RefreshExternalData;
     FrameBusca1.buscaInput.Text := '';
+    grid_livrosDBTableView1.OptionsView.NoDataToDisplayInfoText := '';
   except on E:Exception do
     if E.Message.Contains('not found') then
     begin
@@ -201,8 +202,26 @@ begin
 end;
 
 procedure TFormLivros.NovoLivroClick(Sender: TObject);
+var
+  q1: TUniQuery;
 begin
-  NovoLivroForm.ShowModal;
+  try
+    q1 := TUniQuery.Create(nil);
+    q1.Connection := dm1.con1;
+
+    q1.Close;
+    q1.SQL.Clear;
+
+    q1.SQL.Text := 'select nextval(''tb_livros_cod_seq'') as codProximo';
+    q1.Open;
+
+    LimparInputs(MostrarLivroForm);
+    MostrarLivroForm.ModoInput.Text := 'N';
+    MostrarLivroForm.CodigoInput.Text := q1.FieldByName('codProximo').AsString;
+    MostrarLivroForm.ShowModal;
+  finally
+    FreeAndNil(q1);
+  end;
 end;
 
 procedure TFormLivros.RelatorioLivrosClick(Sender: TObject);
@@ -241,7 +260,7 @@ begin
       MostrarLivroForm.CodigoInput.Text := q1.FieldByName('codigo').Value;
       MostrarLivroForm.TituloInput.Text := q1.FieldByName('titulo').Value;
       MostrarLivroForm.EditoraInput.Text :=  q1.FieldByName('editora').Value;
-      MostrarLivroForm.AnoPublicacao.Date := StrToDate(q1.FieldByName('ano_publicacao').Value);
+      MostrarLivroForm.AnoPublicacaoInput.Text := q1.FieldByName('ano_publicacao').Value;
       MostrarLivroForm.PrecoInput.Text := FloatToStr(q1.FieldByName('preco').Value);
       MostrarLivroForm.CategoriaInput.Text := q1.FieldByName('categoria').Value;
       MostrarLivroForm.QtdEstoqueInput.Text := q1.FieldByName('qtd_estoque').Value;

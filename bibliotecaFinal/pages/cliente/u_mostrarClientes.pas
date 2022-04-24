@@ -10,7 +10,7 @@ uses
 type
   TMostrarClientesForm = class(TForm)
     panel_cliente: TPanel;
-    Label1: TLabel;
+    LabelTitulo: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
@@ -18,12 +18,12 @@ type
     Label6: TLabel;
     NomeInput: TEdit;
     EmailInput: TEdit;
-    TelefoneInput: TEdit;
     ModoInput: TEdit;
     SalvarBtn: TButton;
     CodigoInput: TEdit;
     CancelarBtn: TButton;
     CpfInput: TMaskEdit;
+    TelefoneInput: TMaskEdit;
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure MostrarForm(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
@@ -72,13 +72,23 @@ begin
     SalvarBtn.Visible := False;
     CancelarBtn.Visible := False;
   end
-  else
+  else if ModoInput.Text = 'A' then
   begin
     panel_cliente.Enabled := True;
+    LabelTitulo.Caption := 'Alterar cliente';
+    SalvarBtn.Visible := True;
+    CancelarBtn.Visible := True;
+    CpfInput.SetFocus;
+  end
+  else if ModoInput.Text = 'N' then
+  begin
+    panel_cliente.Enabled := True;
+    LabelTitulo.Caption := 'Adicionar novo cliente';
     SalvarBtn.Visible := True;
     CancelarBtn.Visible := True;
     CpfInput.SetFocus;
   end;
+
 end;
 procedure TMostrarClientesForm.SalvarBtnClick(Sender: TObject);
 var
@@ -109,40 +119,81 @@ begin
         Exit;
       end;
 
-      q1 := TUniQuery.Create(nil);
-      q1.Connection := dm1.con1;
-
-      q1.Close;
-      q1.SQL.Clear;
-
-      q1.SQL.Add('update clientes set nome_completo = :nome_completo, email = :email, cpf = :cpf, telefone = :telefone');
-      q1.SQL.Add(' where codigo = :codigo');
-
-      q1.ParamByName('nome_completo').Value := NomeInput.Text;
-      q1.ParamByName('email').Value := EmailInput.Text;
-      q1.ParamByName('cpf').Value := CpfInput.Text;
-      q1.ParamByName('telefone').Value := TelefoneInput.Text;
-      q1.ParamByName('codigo').Value := CodigoInput.Text;
-
-      try
-        if confirma('Confirmar alteração de cliente?') then
+      if ModoInput.Text = 'A' then
         begin
-          q1.ExecSQL;
-          MessageDlg('Cliente alterado com sucesso!', mtConfirmation, [mbOk], 0);
-          Self.Close;
-          FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
+        q1 := TUniQuery.Create(nil);
+        q1.Connection := dm1.con1;
+
+        q1.Close;
+        q1.SQL.Clear;
+
+        q1.SQL.Add('update clientes set nome_completo = :nome_completo, email = :email, cpf = :cpf, telefone = :telefone');
+        q1.SQL.Add(' where codigo = :codigo');
+
+        q1.ParamByName('nome_completo').Value := NomeInput.Text;
+        q1.ParamByName('email').Value := EmailInput.Text;
+        q1.ParamByName('cpf').Value := CpfInput.Text;
+        q1.ParamByName('telefone').Value := TelefoneInput.Text;
+        q1.ParamByName('codigo').Value := CodigoInput.Text;
+
+        try
+          if confirma('Confirmar alteração de cliente?') then
+          begin
+            q1.ExecSQL;
+            MessageDlg('Cliente alterado com sucesso!', mtConfirmation, [mbOk], 0);
+            Self.Close;
+            FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
+          end;
+        except on e:exception do
+          if e.Message.Contains('clientes_pkey') then
+          begin
+            erro('Cliente já existe!');
+            CpfInput.SetFocus;
+          end
+          else
+          begin
+            erro(e.Message);
+          end;
+
         end;
-      except on e:exception do
-        if e.Message.Contains('clientes_pkey') then
-        begin
-          erro('Cliente já existe!');
-          CpfInput.SetFocus;
-        end
-        else
-        begin
-          erro(e.Message);
-        end;
+      end
+      else if ModoInput.Text = 'N' then
+      begin
+        q1 := TUniQuery.Create(nil);
+        q1.Connection := dm1.con1;
 
+        q1.Close;
+        q1.SQL.Clear;
+
+        q1.SQL.Add('insert into clientes ');
+        q1.SQL.Add('values');
+        q1.SQL.Add('(:codigo, :cpf, :nome_completo, :email, :telefone)');
+
+        q1.ParamByName('codigo').Value := CodigoInput.Text;
+        q1.ParamByName('cpf').Value := cpfInput.Text;
+        q1.ParamByName('nome_completo').Value := NomeInput.Text;
+        q1.ParamByName('email').Value := emailInput.Text;
+        q1.ParamByName('telefone').Value := telefoneInput.Text;
+
+        if confirma('Confirmar cadastro de cliente?') then
+        begin
+          try
+            q1.ExecSQL;
+            mensagem('Cliente cadastrado com sucesso!');
+            Self.Close;
+            FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
+          except on E: Exception do
+            if E.Message.Contains('clientes_pkey') then
+            begin
+              erro('Cliente já existe!');
+              cpfInput.SetFocus;
+            end
+            else
+            begin
+              erro(E.Message);
+            end;
+          end;
+        end;
       end;
     finally
       FreeAndNil(q1);

@@ -9,7 +9,7 @@ uses
   cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   cxDBData, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGridLevel, cxClasses, cxGridCustomView, cxGrid, Uni, Vcl.Buttons;
+  cxGridLevel, cxClasses, cxGridCustomView, cxGrid, Uni, Vcl.Buttons, frame_grid;
 
 type
   TEscolhaLivroForm = class(TForm)
@@ -22,10 +22,12 @@ type
     cxGrid1: TcxGrid;
     cxGrid1DBTableView1codigo: TcxGridDBColumn;
     cxGrid1DBTableView1titulo: TcxGridDBColumn;
+    cxGrid1DBTableView1editora: TcxGridDBColumn;
     cxGrid1DBTableView1anoPublicacao: TcxGridDBColumn;
     cxGrid1DBTableView1preco: TcxGridDBColumn;
-    cxStyleRepository1: TcxStyleRepository;
-    cxStyle1: TcxStyle;
+    cxGrid1DBTableView1categoria: TcxGridDBColumn;
+    cxGrid1DBTableView1qtdEstoque: TcxGridDBColumn;
+    frame_estilo_grid1: Tframe_estilo_grid;
     procedure AbrirForm(Sender: TObject);
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure ConfirmarClick(Sender: TObject);
@@ -68,11 +70,13 @@ procedure TEscolhaLivroForm.ConfirmarClick(Sender: TObject);
 var
   indexLivro: Integer;
 
+  codLivro: Integer;
   titulo: String;
   editora: String;
   anoPublicacao: String;
-  codLivro: Integer;
   precoLivro: Float32;
+  categoria: String;
+  qtdEstoque: Integer;
 
 begin
 
@@ -80,14 +84,18 @@ begin
 
   codLivro := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[0];
   titulo := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[1];
-  anoPublicacao := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[2];
-  precoLivro := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[3];
+  editora := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[2];
+  anoPublicacao := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[3];
+  precoLivro := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[4];
+  categoria := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[5];
+  qtdEstoque := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[6];
 
   vendaControle.IncrementaValor(precoLivro);
 
   MostrarVendaForm.vtb_livrosvenda.Append;
   MostrarVendaForm.vtb_livrosvenda['codigo'] := codLivro;
   MostrarVendaForm.vtb_livrosvenda['titulo'] := titulo;
+  MostrarVendaForm.vtb_livrosvenda['editora'] := anoPublicacao;
   MostrarVendaForm.vtb_livrosvenda['ano_publicacao'] := anoPublicacao;
   MostrarVendaForm.vtb_livrosvenda['preco'] := precoLivro;
 
