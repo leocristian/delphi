@@ -4,7 +4,7 @@ object FormLivros: TFormLivros
   Align = alClient
   Caption = 'Tela de livros'
   ClientHeight = 517
-  ClientWidth = 862
+  ClientWidth = 866
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -7509,14 +7509,53 @@ object FormLivros: TFormLivros
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
+  inline FrameBusca1: TFrameBusca
+    Left = 0
+    Top = 0
+    Width = 866
+    Height = 95
+    Align = alTop
+    TabOrder = 0
+    ExplicitWidth = 862
+    inherited Panel1: TPanel
+      Width = 866
+      ExplicitWidth = 862
+      inherited bt_busca: TButton
+        OnClick = bt_buscaClick
+      end
+      inherited bt_mostrarTudo: TButton
+        OnClick = bt_mostrarTudoClick
+      end
+      inherited SelecaoBusca: TComboBox
+        Items.Strings = (
+          'C'#211'DIGO'
+          'CATEGORIA'
+          'EDITORA'
+          'T'#205'TULO')
+      end
+    end
+  end
+  inline frame_estilo_grid1: Tframe_estilo_grid
+    Left = 632
+    Top = 8
+    Width = 130
+    Height = 72
+    TabOrder = 1
+    ExplicitLeft = 632
+    ExplicitTop = 8
+    inherited estilo_padrao: TcxStyleRepository
+      PixelsPerInch = 96
+    end
+  end
   object grid_livros: TcxGrid
     Left = 0
     Top = 95
-    Width = 862
+    Width = 866
     Height = 422
     Align = alClient
     PopupMenu = PopupLivros
-    TabOrder = 0
+    TabOrder = 2
+    ExplicitTop = 101
     object grid_livrosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -7583,48 +7622,17 @@ object FormLivros: TFormLivros
       object grid_livrosDBTableView1categoria: TcxGridDBColumn
         Caption = 'Categoria'
         DataBinding.FieldName = 'categoria'
+        Width = 129
+      end
+      object grid_livrosDBTableView1qtd_estoque: TcxGridDBColumn
+        AlternateCaption = 'Qtd. em estoque'
+        Caption = 'Qtd. em estoque'
+        DataBinding.FieldName = 'qtd_estoque'
+        Width = 106
       end
     end
     object grid_livrosLevel1: TcxGridLevel
       GridView = grid_livrosDBTableView1
-    end
-  end
-  inline FrameBusca1: TFrameBusca
-    Left = 0
-    Top = 0
-    Width = 862
-    Height = 95
-    Align = alTop
-    TabOrder = 1
-    ExplicitWidth = 862
-    inherited Panel1: TPanel
-      Width = 862
-      ExplicitWidth = 862
-      inherited bt_busca: TButton
-        OnClick = bt_buscaClick
-      end
-      inherited bt_mostrarTudo: TButton
-        OnClick = bt_mostrarTudoClick
-      end
-      inherited SelecaoBusca: TComboBox
-        Items.Strings = (
-          'C'#211'DIGO'
-          'CATEGORIA'
-          'EDITORA'
-          'T'#205'TULO')
-      end
-    end
-  end
-  inline frame_estilo_grid1: Tframe_estilo_grid
-    Left = 632
-    Top = 8
-    Width = 130
-    Height = 72
-    TabOrder = 2
-    ExplicitLeft = 632
-    ExplicitTop = 8
-    inherited estilo_padrao: TcxStyleRepository
-      PixelsPerInch = 96
     end
   end
   object tb_livros: TUniTable

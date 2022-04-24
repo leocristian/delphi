@@ -14,9 +14,6 @@ uses
 
 type
   TFormLivros = class(TForm)
-    grid_livros: TcxGrid;
-    grid_livrosDBTableView1: TcxGridDBTableView;
-    grid_livrosLevel1: TcxGridLevel;
     tb_livros: TUniTable;
     PopupLivros: TPopupMenu;
     VisualizarLivro: TMenuItem;
@@ -25,17 +22,21 @@ type
     N2: TMenuItem;
     ExcluirLivro: TMenuItem;
     ds_livros: TDataSource;
+    RelatorioLivros: TMenuItem;
+    FrameBusca1: TFrameBusca;
+    rel_livros: TfrxReport;
+    ds_rel_livros: TfrxDBDataset;
+    frame_estilo_grid1: Tframe_estilo_grid;
+    grid_livros: TcxGrid;
+    grid_livrosDBTableView1: TcxGridDBTableView;
     grid_livrosDBTableView1codigo: TcxGridDBColumn;
     grid_livrosDBTableView1titulo: TcxGridDBColumn;
     grid_livrosDBTableView1editora: TcxGridDBColumn;
     grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn;
     grid_livrosDBTableView1preco: TcxGridDBColumn;
     grid_livrosDBTableView1categoria: TcxGridDBColumn;
-    RelatorioLivros: TMenuItem;
-    FrameBusca1: TFrameBusca;
-    rel_livros: TfrxReport;
-    ds_rel_livros: TfrxDBDataset;
-    frame_estilo_grid1: Tframe_estilo_grid;
+    grid_livrosLevel1: TcxGridLevel;
+    grid_livrosDBTableView1qtd_estoque: TcxGridDBColumn;
     procedure NovoLivroClick(Sender: TObject);
     procedure bt_buscaClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);
@@ -243,6 +244,7 @@ begin
       MostrarLivroForm.AnoPublicacao.Date := StrToDate(q1.FieldByName('ano_publicacao').Value);
       MostrarLivroForm.PrecoInput.Text := FloatToStr(q1.FieldByName('preco').Value);
       MostrarLivroForm.CategoriaInput.Text := q1.FieldByName('categoria').Value;
+      MostrarLivroForm.QtdEstoqueInput.Text := q1.FieldByName('qtd_estoque').Value;
 
       MostrarLivroForm.ModoInput.Text := 'V';
     end;

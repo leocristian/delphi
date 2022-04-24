@@ -2,7 +2,7 @@ object MostrarLivroForm: TMostrarLivroForm
   Left = 0
   Top = 0
   Caption = 'MostrarLivroForm'
-  ClientHeight = 303
+  ClientHeight = 373
   ClientWidth = 471
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,21 +16,23 @@ object MostrarLivroForm: TMostrarLivroForm
   OnShow = FormShow
   DesignSize = (
     471
-    303)
+    373)
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
     Top = 0
     Width = 471
-    Height = 241
+    Height = 297
     Align = alTop
     BevelOuter = bvNone
+    Caption = 'qtd_estoque'
     TabOrder = 0
-    ExplicitWidth = 387
+    ExplicitLeft = -48
+    ExplicitTop = -24
     object Label1: TLabel
-      Left = 24
-      Top = 16
+      Left = 64
+      Top = 32
       Width = 175
       Height = 24
       Caption = 'Livro selecionado'
@@ -42,50 +44,50 @@ object MostrarLivroForm: TMostrarLivroForm
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 142
-      Top = 60
+      Left = 159
+      Top = 76
       Width = 64
       Height = 13
       Caption = 'T'#237'tulo do livro'
     end
     object Label3: TLabel
-      Left = 24
-      Top = 112
+      Left = 64
+      Top = 122
       Width = 34
       Height = 13
       Caption = 'Editora'
     end
     object Label4: TLabel
-      Left = 303
-      Top = 112
+      Left = 64
+      Top = 173
       Width = 87
       Height = 13
       Caption = 'Ano de publica'#231#227'o'
     end
     object Label6: TLabel
-      Left = 24
-      Top = 60
+      Left = 64
+      Top = 76
       Width = 33
       Height = 13
       Caption = 'C'#243'digo'
     end
     object Label7: TLabel
-      Left = 183
-      Top = 176
+      Left = 64
+      Top = 224
       Width = 47
       Height = 13
       Caption = 'Categoria'
     end
     object Label5: TLabel
-      Left = 24
-      Top = 176
+      Left = 265
+      Top = 173
       Width = 75
       Height = 13
       Caption = 'Pre'#231'o de venda'
     end
     object Label8: TLabel
-      Left = 24
-      Top = 195
+      Left = 265
+      Top = 192
       Width = 15
       Height = 16
       Caption = 'R$'
@@ -96,9 +98,16 @@ object MostrarLivroForm: TMostrarLivroForm
       Font.Style = []
       ParentFont = False
     end
+    object Label9: TLabel
+      Left = 286
+      Top = 224
+      Width = 113
+      Height = 13
+      Caption = 'Quantidade no estoque'
+    end
     object TituloInput: TEdit
-      Left = 128
-      Top = 79
+      Left = 145
+      Top = 95
       Width = 262
       Height = 21
       CharCase = ecUpperCase
@@ -106,26 +115,26 @@ object MostrarLivroForm: TMostrarLivroForm
       TabOrder = 1
     end
     object EditoraInput: TEdit
-      Left = 24
-      Top = 131
-      Width = 257
+      Left = 64
+      Top = 139
+      Width = 343
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 30
       TabOrder = 2
     end
     object AnoPublicacao: TDateTimePicker
-      Left = 303
-      Top = 131
-      Width = 87
+      Left = 64
+      Top = 192
+      Width = 159
       Height = 21
       Date = 44663.000000000000000000
       Time = 0.670588252316520100
-      TabOrder = 4
+      TabOrder = 3
     end
     object CodigoInput: TEdit
-      Left = 24
-      Top = 79
+      Left = 64
+      Top = 95
       Width = 75
       Height = 21
       CharCase = ecUpperCase
@@ -133,8 +142,8 @@ object MostrarLivroForm: TMostrarLivroForm
       TabOrder = 0
     end
     object CategoriaInput: TComboBox
-      Left = 183
-      Top = 195
+      Left = 64
+      Top = 243
       Width = 207
       Height = 21
       MaxLength = 40
@@ -150,18 +159,27 @@ object MostrarLivroForm: TMostrarLivroForm
         'TERROR')
     end
     object PrecoInput: TEdit
-      Left = 45
-      Top = 195
+      Left = 286
+      Top = 192
       Width = 121
       Height = 21
       MaxLength = 5
-      TabOrder = 3
+      TabOrder = 4
       OnKeyPress = PrecoInputKeyPress
+    end
+    object QtdEstoqueInput: TEdit
+      Left = 286
+      Top = 243
+      Width = 121
+      Height = 21
+      MaxLength = 5
+      NumbersOnly = True
+      TabOrder = 6
     end
   end
   object SalvarBtn: TButton
     Left = 129
-    Top = 260
+    Top = 330
     Width = 103
     Height = 35
     Anchors = [akLeft, akBottom]
@@ -172,29 +190,29 @@ object MostrarLivroForm: TMostrarLivroForm
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 2
     OnClick = SalvarBtnClick
-    ExplicitTop = 319
+    ExplicitTop = 314
   end
   object ModoInput: TEdit
-    Left = 74
-    Top = 247
+    Left = 82
+    Top = 321
     Width = 25
     Height = 21
     TabStop = False
     CharCase = ecUpperCase
-    TabOrder = 2
+    TabOrder = 1
     Visible = False
   end
-  object CabcelarBtn: TButton
+  object CancelarBtn: TButton
     Left = 238
-    Top = 260
+    Top = 330
     Width = 103
     Height = 35
     Anchors = [akLeft, akBottom]
     Caption = 'Cancelar'
     TabOrder = 3
-    OnClick = CabcelarBtnClick
-    ExplicitTop = 319
+    OnClick = CancelarBtnClick
+    ExplicitTop = 314
   end
 end

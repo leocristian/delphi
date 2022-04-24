@@ -21,6 +21,8 @@ type
     Label5: TLabel;
     PrecoInput: TEdit;
     Label6: TLabel;
+    Label7: TLabel;
+    QtdEstoqueInput: TEdit;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure AdicionarBtnClick(Sender: TObject);
@@ -68,7 +70,7 @@ begin
 
     q1.SQL.Add('insert into livros ');
     q1.SQL.Add('values');
-    q1.SQL.Add('(:codigo, :titulo, :editora, :anoPublicacao, :preco, :categoria)');
+    q1.SQL.Add('(:codigo, :titulo, :editora, :anoPublicacao, :preco, :categoria, :qtdEstoque)');
 
     q1.ParamByName('codigo').Value := codLivro;
     q1.ParamByName('titulo').Value := TituloInput.Text;
@@ -79,6 +81,7 @@ begin
     categoria := Categorias.Items[Categorias.ItemIndex];
 
     q1.ParamByName('categoria').Value := categoria;
+    q1.ParamByName('qtdEstoque').Value := QtdEstoqueInput.Text;
 
     if confirma('Confirmar cadastro de livro?') then
     begin

@@ -22,14 +22,16 @@ type
     CategoriaInput: TComboBox;
     SalvarBtn: TButton;
     ModoInput: TEdit;
-    CabcelarBtn: TButton;
+    CancelarBtn: TButton;
     Label5: TLabel;
     PrecoInput: TEdit;
     Label8: TLabel;
+    Label9: TLabel;
+    QtdEstoqueInput: TEdit;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure SalvarBtnClick(Sender: TObject);
-    procedure CabcelarBtnClick(Sender: TObject);
+    procedure CancelarBtnClick(Sender: TObject);
     procedure PrecoInputKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
@@ -46,7 +48,7 @@ implementation
 
 uses u_forms, u_dm1, u_livros;
 
-procedure TMostrarLivroForm.CabcelarBtnClick(Sender: TObject);
+procedure TMostrarLivroForm.CancelarBtnClick(Sender: TObject);
 begin
   close;
 end;
@@ -72,11 +74,13 @@ begin
   begin
     panel1.Enabled := False;
     SalvarBtn.Visible := False;
+    CancelarBtn.Visible := False;
   end
   else if ModoInput.Text = 'A' then
   begin
-     panel1.Enabled := True;
+    panel1.Enabled := True;
     SalvarBtn.Visible := True;
+    CancelarBtn.Visible := True;
   end;
 
 end;
@@ -105,7 +109,7 @@ begin
       q1.SQL.Clear;
 
       q1.SQl.Add('update livros set');
-      q1.SQL.Add(' titulo = :titulo, editora = :editora, ano_publicacao = :anoPublicacao, preco = :preco, categoria = :categoria');
+      q1.SQL.Add(' titulo = :titulo, editora = :editora, ano_publicacao = :anoPublicacao, preco = :preco, categoria = :categoria, qtd_estoque = :qtdEstoque');
       q1.SQL.Add('where codigo = :codigo');
 
       mensagem(datetostr(AnoPublicacao.Date));
@@ -115,6 +119,7 @@ begin
       q1.ParamByName('anoPublicacao').Value := AnoPublicacao.Date;
       q1.ParamByName('preco').Value := PrecoInput.Text;
       q1.ParamByName('categoria').Value := CategoriaInput.Text;
+      q1.ParamByName('qtdEstoque').Value := QtdEstoqueInput.Text;
 
       if confirma('Confirmar alteração de livro?') then
       begin

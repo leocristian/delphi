@@ -2,7 +2,7 @@ object NovoLivroForm: TNovoLivroForm
   Left = 0
   Top = 0
   Caption = 'NovoLivroForm'
-  ClientHeight = 337
+  ClientHeight = 345
   ClientWidth = 630
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -52,15 +52,15 @@ object NovoLivroForm: TNovoLivroForm
     Caption = 'Ano de publica'#231#227'o'
   end
   object Label5: TLabel
-    Left = 40
-    Top = 235
+    Left = 144
+    Top = 176
     Width = 75
     Height = 13
     Caption = 'Pre'#231'o de venda'
   end
   object Label6: TLabel
-    Left = 40
-    Top = 256
+    Left = 144
+    Top = 195
     Width = 15
     Height = 16
     Caption = 'R$'
@@ -70,6 +70,13 @@ object NovoLivroForm: TNovoLivroForm
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
+  end
+  object Label7: TLabel
+    Left = 40
+    Top = 233
+    Width = 121
+    Height = 13
+    Caption = 'Quantidade no estoque'
   end
   object Categorias: TRadioGroup
     Left = 313
@@ -92,7 +99,7 @@ object NovoLivroForm: TNovoLivroForm
       'SUSPENSE'
       'TERROR')
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 5
   end
   object TituloInput: TEdit
     Left = 40
@@ -123,7 +130,7 @@ object NovoLivroForm: TNovoLivroForm
   end
   object AdicionarBtn: TButton
     Left = 353
-    Top = 256
+    Top = 267
     Width = 240
     Height = 54
     Caption = 'Adicionar livro'
@@ -133,16 +140,25 @@ object NovoLivroForm: TNovoLivroForm
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 6
     OnClick = AdicionarBtnClick
   end
   object PrecoInput: TEdit
-    Left = 61
-    Top = 254
-    Width = 121
+    Left = 165
+    Top = 195
+    Width = 100
     Height = 21
     MaxLength = 5
     TabOrder = 3
     OnKeyPress = PrecoInputKeyPress
+  end
+  object QtdEstoqueInput: TEdit
+    Left = 40
+    Top = 252
+    Width = 121
+    Height = 21
+    MaxLength = 5
+    NumbersOnly = True
+    TabOrder = 4
   end
 end
