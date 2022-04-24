@@ -7597,6 +7597,7 @@ object FormLivros: TFormLivros
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
       Styles.ContentEven = frame_estilo_grid1.linhas
+      Styles.IncSearch = frame_estilo_grid1.busca
       Styles.Header = frame_estilo_grid1.cabecalho
       object grid_livrosDBTableView1codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'

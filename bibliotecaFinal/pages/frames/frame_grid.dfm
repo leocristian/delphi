@@ -20,5 +20,9 @@ object frame_estilo_grid: Tframe_estilo_grid
       AssignedValues = [svColor]
       Color = clInactiveCaption
     end
+    object busca: TcxStyle
+      AssignedValues = [svColor]
+      Color = clWhite
+    end
   end
 end

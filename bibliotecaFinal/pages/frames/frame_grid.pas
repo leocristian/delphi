@@ -11,6 +11,7 @@ type
     estilo_padrao: TcxStyleRepository;
     cabecalho: TcxStyle;
     linhas: TcxStyle;
+    busca: TcxStyle;
   private
     { Private declarations }
   public
