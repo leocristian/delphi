@@ -7226,9 +7226,6 @@ object FormVendas: TFormVendas
     Align = alClient
     PopupMenu = PopupVendas
     TabOrder = 0
-    ExplicitLeft = 8
-    ExplicitTop = 101
-    ExplicitHeight = 268
     object grid_vendasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -7262,6 +7259,8 @@ object FormVendas: TFormVendas
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = grid_vendasDBTableView1vendedor
       OptionsSelection.CellSelect = False
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
@@ -7304,10 +7303,10 @@ object FormVendas: TFormVendas
     Height = 95
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 805
+    ExplicitWidth = 704
     inherited Panel1: TPanel
       Width = 704
-      ExplicitWidth = 805
+      ExplicitWidth = 704
       inherited bt_busca: TButton
         OnClick = bt_buscaClick
       end

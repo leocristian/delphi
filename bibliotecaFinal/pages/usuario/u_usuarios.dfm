@@ -1382,6 +1382,7 @@ object FormUsuarios: TFormUsuarios
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = grid_usuariosDBTableView1nome_completo
       OptionsSelection.CellSelect = False
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True

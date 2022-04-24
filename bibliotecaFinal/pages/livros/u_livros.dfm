@@ -7590,6 +7590,8 @@ object FormLivros: TFormLivros
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = grid_livrosDBTableView1titulo
       OptionsSelection.CellSelect = False
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
