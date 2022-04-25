@@ -157,7 +157,7 @@ end;
 
 function confirma(texto: String): Boolean;
 begin
-  Result := (MessageDlg(texto, mtWarning, mbYesNo, 0) = mrYes);
+  Result := (MessageDlg(texto, mtConfirmation, mbYesNo, 0) = mrYes);
 end;
 
 procedure aviso(texto: String);

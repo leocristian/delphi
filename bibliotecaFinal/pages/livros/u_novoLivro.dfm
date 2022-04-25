@@ -74,7 +74,7 @@ object NovoLivroForm: TNovoLivroForm
   object Label7: TLabel
     Left = 40
     Top = 233
-    Width = 121
+    Width = 113
     Height = 13
     Caption = 'Quantidade no estoque'
   end
@@ -150,7 +150,6 @@ object NovoLivroForm: TNovoLivroForm
     Height = 21
     MaxLength = 5
     TabOrder = 3
-    OnKeyPress = PrecoInputKeyPress
   end
   object QtdEstoqueInput: TEdit
     Left = 40

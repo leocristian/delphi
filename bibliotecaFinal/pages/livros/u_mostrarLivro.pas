@@ -177,7 +177,7 @@ begin
             end
             else
             begin
-              erro(e.Message);
+              erro('Data inválida!' + e.Message);
             end;
           end;
         end;
@@ -220,10 +220,11 @@ begin
               erro('Livro já existe!');
               TituloInput.SetFocus;
             end
-            else
+            else if e.Message.Contains('date/time field value out of range') then
             begin
-              erro(E.Message);
-            end;
+              aviso('Data inválida! ');
+            end
+            else erro(e.Message);
           end;
         end;
 

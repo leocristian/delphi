@@ -27,7 +27,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure AdicionarBtnClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure PrecoInputKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -125,11 +124,6 @@ procedure TNovoLivroForm.FormShow(Sender: TObject);
 begin
   LimparInputs(NovoLivroForm);
   TituloInput.SetFocus;
-end;
-
-procedure TNovoLivroForm.PrecoInputKeyPress(Sender: TObject; var Key: Char);
-begin
-  FormatarComoMoeda(PrecoInput, Key);
 end;
 
 end.

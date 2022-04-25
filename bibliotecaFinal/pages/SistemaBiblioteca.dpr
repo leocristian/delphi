@@ -13,19 +13,19 @@ uses
   u_perfil in 'usuario\u_perfil.pas' {PerfilUsuario},
   u_mostrarClientes in 'cliente\u_mostrarClientes.pas' {MostrarClientesForm},
   u_vendas in 'vendas\u_vendas.pas' {FormVendas},
-  u_novaVenda in 'vendas\u_novaVenda.pas' {NovaVendaForm},
   u_vendaControle in 'vendas\u_vendaControle.pas',
   u_escolhaLivro in 'vendas\u_escolhaLivro.pas' {EscolhaLivroForm},
   u_livros in 'livros\u_livros.pas' {FormLivros},
-  u_novoLivro in 'livros\u_novoLivro.pas' {NovoLivroForm},
   u_mostrarLivro in 'livros\u_mostrarLivro.pas' {MostrarLivroForm},
-  u_novoCliente in 'cliente\u_novoCliente.pas' {NovoCliente},
   u_mostrarVenda in 'vendas\u_mostrarVenda.pas' {MostrarVendaForm},
   u_alterarSenha in 'usuario\u_alterarSenha.pas' {AlterarSenhaForm},
   u_md5 in 'usuario\u_md5.pas',
   frame_busca in 'frames\frame_busca.pas' {FrameBusca: TFrame},
   frame_estilo in 'frames\frame_estilo.pas' {frame_cxGrid: TFrame},
-  frame_grid in 'frames\frame_grid.pas' {frame_estilo_grid: TFrame};
+  frame_grid in 'frames\frame_grid.pas' {frame_estilo_grid: TFrame},
+  u_novoLivro in 'livros\u_novoLivro.pas' {NovoLivroForm},
+  u_novaVenda in 'vendas\u_novaVenda.pas' {NovaVendaForm},
+  u_novoCliente in 'cliente\u_novoCliente.pas' {NovoCliente};
 
 {$R *.res}
 
@@ -44,12 +44,12 @@ begin
   Application.CreateForm(TMostrarVendaForm, MostrarVendaForm);
   Application.CreateForm(TEscolhaLivroForm, EscolhaLivroForm);
   Application.CreateForm(TFormLivros, FormLivros);
-  Application.CreateForm(TNovoLivroForm, NovoLivroForm);
   Application.CreateForm(TMostrarLivroForm, MostrarLivroForm);
-  Application.CreateForm(TNovoCliente, NovoCliente);
   Application.CreateForm(TMostrarVendaForm, MostrarVendaForm);
   Application.CreateForm(TFormClientes, FormClientes);
   Application.CreateForm(TAlterarSenhaForm, AlterarSenhaForm);
+  Application.CreateForm(TNovoLivroForm, NovoLivroForm);
+  Application.CreateForm(TNovoCliente, NovoCliente);
   Application.Run;
 end.
 

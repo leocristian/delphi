@@ -143,10 +143,6 @@
             <Form>FormVendas</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="vendas\u_novaVenda.pas">
-            <Form>NovaVendaForm</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="vendas\u_vendaControle.pas"/>
         <DCCReference Include="vendas\u_escolhaLivro.pas">
             <Form>EscolhaLivroForm</Form>
@@ -156,16 +152,8 @@
             <Form>FormLivros</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="livros\u_novoLivro.pas">
-            <Form>NovoLivroForm</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="livros\u_mostrarLivro.pas">
             <Form>MostrarLivroForm</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="cliente\u_novoCliente.pas">
-            <Form>NovoCliente</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="vendas\u_mostrarVenda.pas">
@@ -189,6 +177,17 @@
             <Form>frame_estilo_grid</Form>
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="livros\u_novoLivro.pas">
+            <Form>NovoLivroForm</Form>
+        </DCCReference>
+        <DCCReference Include="vendas\u_novaVenda.pas">
+            <Form>NovaVendaForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="cliente\u_novoCliente.pas">
+            <Form>NovoCliente</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
