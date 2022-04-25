@@ -157,8 +157,9 @@ object MostrarLivroForm: TMostrarLivroForm
       Top = 192
       Width = 121
       Height = 21
-      MaxLength = 6
+      MaxLength = 5
       TabOrder = 4
+      OnChange = PrecoInputChange
       OnKeyPress = PrecoInputKeyPress
     end
     object QtdEstoqueInput: TEdit

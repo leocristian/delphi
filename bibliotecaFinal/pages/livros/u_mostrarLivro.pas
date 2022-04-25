@@ -34,6 +34,7 @@ type
     procedure SalvarBtnClick(Sender: TObject);
     procedure CancelarBtnClick(Sender: TObject);
     procedure PrecoInputKeyPress(Sender: TObject; var Key: Char);
+    procedure PrecoInputChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -97,9 +98,37 @@ begin
   end;
 
 end;
+procedure TMostrarLivroForm.PrecoInputChange(Sender: TObject);
+var
+   s : string;
+   v : double;
+   I : integer;
+begin
+   //1º Passo : se o edit estiver vazio, nada pode ser feito.
+   If (PrecoInput.Text = emptystr) then
+      PrecoInput.Text := '0,00';
+
+   //2º Passo : obter o texto do edit, SEM a virgula e SEM o ponto decimal:
+   s := '';
+   for I := 1 to length(PrecoInput.Text) do
+   if (PrecoInput.text[I] in ['0'..'9']) then
+      s := s + PrecoInput.text[I];
+
+   //3º Passo : fazer com que o conteúdo do edit apresente 2 casas decimais:
+   v := strtofloat(s);
+   v := (v /100); // para criar 2 casa decimais
+
+   //4º Passo : Formata o valor de (V) para aceitar valores do tipo 0,10.
+   PrecoInput.text := FormatFloat('###,##0.00',v);
+   PrecoInput.SelStart := 0;
+end;
+
 procedure TMostrarLivroForm.PrecoInputKeyPress(Sender: TObject; var Key: Char);
 begin
-  FormatarComoMoeda(PrecoInput, Key);
+  if NOT (Key in ['0'..'9', #8, #9]) then
+   key := #0;
+   //Função para posicionar o cursor sempre na direita
+   PrecoInput.selstart := Length(PrecoInput.text);
 end;
 
 procedure TMostrarLivroForm.SalvarBtnClick(Sender: TObject);
@@ -173,7 +202,6 @@ begin
         q1.ParamByName('codigo').Value := CodigoInput.Text;
         q1.ParamByName('titulo').Value := TituloInput.Text;
         q1.ParamByName('editora').Value := EditoraInput.Text;
-        ShowMessage(AnoPublicacaoInput.Text);
         q1.ParamByName('anoPublicacao').Value := AnoPublicacaoInput.Text;
         q1.ParamByName('preco').Value := PrecoInput.Text;
         q1.ParamByName('categoria').Value := CategoriaInput.Text;
