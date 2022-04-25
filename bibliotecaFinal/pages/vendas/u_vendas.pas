@@ -64,7 +64,7 @@ var
   indexVenda, codVenda: Integer;
 
 begin
-   FormVenda.vtb_livrosVenda.Clear;
+  FormVenda.vtb_livrosVenda.Clear;
 
   q1.Close;
   q1.SQL.Clear;
@@ -84,9 +84,35 @@ begin
     FormVenda.CodigoInput.Text := IntToStr(q1.FieldByName('codigo').Value);
     FormVenda.ClienteInput.Text := q1.FieldByName('cliente').Value;
     FormVenda.ValorVenda.Caption := q1.FieldByName('valor_total').Value;
-  end;
+    FormVenda.ModoInput.Text := 'A';
 
-  FormVenda.ModoInput.Text := 'A';
+    q1.Close;
+    q1.SQL.Clear;
+
+    q1.SQL.Add('select * from livros_venda ');
+    q1.SQL.Add('where numero_venda = :numero_venda');
+
+    q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
+
+    q1.Open;
+    q1.First;
+
+    FormVenda.vtb_livrosVenda.Clear;
+
+    while not q1.Eof do
+    begin
+      FormVenda.vtb_livrosVenda.Append;
+      FormVenda.vtb_livrosvenda['codigo'] := q1.FieldByName('codigo').Value;
+      FormVenda.vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
+      FormVenda.vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
+      FormVenda.vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
+      FormVenda.vtb_livrosvenda['preco'] := q1.FieldByName('preco').Value;
+      FormVenda.vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
+      FormVenda.vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
+
+      q1.Next;
+    end;
+  end;
   FormVenda.ShowModal;
 end;
 
@@ -269,8 +295,12 @@ begin
       q1.SQL.Add('select * from livros_venda ');
       q1.SQL.Add('where numero_venda = :numero_venda');
 
+      q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
+
       q1.Open;
       q1.First;
+
+      FormVenda.vtb_livrosVenda.Clear;
 
       while not q1.Eof do
       begin
