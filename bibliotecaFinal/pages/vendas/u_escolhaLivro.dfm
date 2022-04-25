@@ -33,9 +33,10 @@ object EscolhaLivroForm: TEscolhaLivroForm
   end
   object Confirmar: TButton
     Left = 32
-    Top = 368
+    Top = 370
     Width = 137
     Height = 49
+    Cursor = crHandPoint
     Caption = 'Confirmar'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText

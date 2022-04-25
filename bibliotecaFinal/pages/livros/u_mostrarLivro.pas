@@ -129,7 +129,6 @@ begin
         q1.ParamByName('codigo').Value := CodigoInput.Text;
         q1.ParamByName('titulo').Value := TituloInput.Text;
         q1.ParamByName('editora').Value := EditoraInput.Text;
-        ShowMessage(AnoPublicacaoInput.Text);
         q1.ParamByName('anoPublicacao').Value := AnoPublicacaoInput.Text;
         q1.ParamByName('preco').Value := PrecoInput.Text;
         q1.ParamByName('categoria').Value := CategoriaInput.Text;

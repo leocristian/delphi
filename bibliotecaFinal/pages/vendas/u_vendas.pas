@@ -150,7 +150,7 @@ begin
   indexVenda := grid_vendasDBTableView1.DataController.GetSelectedRowIndex(0);
   codVenda := grid_vendasDBTableView1.ViewData.Records[indexVenda].Values[0];
 
-  q1.SQL.Add('delete from livros_venda2 where numero_venda = :numero_venda');
+  q1.SQL.Add('delete from livros_venda where numero_venda = :numero_venda');
   q1.ParamByName('numero_venda').Value := codVenda;
 
   q1.ExecSQL;
@@ -162,18 +162,15 @@ begin
 
   q1.ParamByName('codigo').Value := codVenda;
 
-  case MessageBox(Application.Handle, 'Confirmar exclusão de venda?', 'Excluir venda', MB_YESNO) of
-  idYes:
-    begin
-      try
-        q1.ExecSQL;
-        ShowMessage('Venda excluída com sucesso!');
-        grid_vendasDBTableView1.DataController.RefreshExternalData;
-      except
-        ShowMessage('Erro ao excluir venda!');
-      end;
+  if confirma('Confirmar exclusão de venda?') then
+  begin
+    try
+      q1.ExecSQL;
+      mensagem('Venda excluída com sucesso!');
+      grid_vendasDBTableView1.DataController.RefreshExternalData;
+    except on e:Exception do
+      Erro(e.Message);
     end;
-  idNo: ShowMessage('Operação cancelada!');
   end;
 end;
 
@@ -206,22 +203,25 @@ var
   q1: TUniQuery;
 
 begin
-  q1 := TUniQuery.Create(nil);
-  q1.Connection := dm1.con1;
+  try
+    q1 := TUniQuery.Create(nil);
+    q1.Connection := dm1.con1;
 
-  q1.Close;
-  q1.SQL.Clear;
+    q1.Close;
+    q1.SQL.Clear;
 
-  q1.SQL.Text := 'select nextval(''tb_vendas_cod_seq'') as codProximo';
-  q1.Open;
+    q1.SQL.Text := 'select nextval(''tb_vendas_cod_seq'') as codProximo';
+    q1.Open;
 
-  codVenda := q1.FieldByName('codProximo').AsInteger;
+    LimparInputs(MostrarVendaForm);
 
-  MostrarVendaForm.CodigoInput.Text := IntToStr(codVenda);
-  MostrarVendaForm.ModoInput.Text := 'N';
-  MostrarVendaForm.ShowModal;
+    MostrarVendaForm.CodigoInput.Text := q1.FieldByName('codProximo').AsString;
+    MostrarVendaForm.ModoInput.Text := 'N';
+    MostrarVendaForm.ShowModal;
 
-  FreeAndNil(q1);
+  finally
+    FreeAndNil(q1);
+  end;
 end;
 
 procedure TFormVendas.RelatorioVendasClick(Sender: TObject);

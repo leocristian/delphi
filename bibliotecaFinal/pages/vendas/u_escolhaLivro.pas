@@ -77,6 +77,7 @@ var
   precoLivro: Float32;
   categoria: String;
   qtdEstoque: Integer;
+  qtdEscolhida: String;
 
 begin
 
@@ -90,14 +91,16 @@ begin
   categoria := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[5];
   qtdEstoque := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[6];
 
-  vendaControle.IncrementaValor(precoLivro);
+  qtdEscolhida := inputBox('Escolher quantidade.', 'Digite a quantidade de livros.', '1');
 
   MostrarVendaForm.vtb_livrosvenda.Append;
   MostrarVendaForm.vtb_livrosvenda['codigo'] := codLivro;
   MostrarVendaForm.vtb_livrosvenda['titulo'] := titulo;
-  MostrarVendaForm.vtb_livrosvenda['editora'] := anoPublicacao;
+  MostrarVendaForm.vtb_livrosvenda['editora'] := editora;
   MostrarVendaForm.vtb_livrosvenda['ano_publicacao'] := anoPublicacao;
-  MostrarVendaForm.vtb_livrosvenda['preco'] := precoLivro;
+  MostrarVendaForm.vtb_livrosvenda['preco'] := FormatFloat('0,00', precoLivro);
+  MostrarVendaForm.vtb_livrosvenda['categoria'] := categoria;
+  MostrarVendaForm.vtb_livrosvenda['qtdEscolhida'] := qtdEscolhida;
 
   q1.Close;
   q1.SQL.Clear;
@@ -109,22 +112,23 @@ begin
   q1.Close;
   q1.SQL.Clear;
 
-  q1.SQL.Add('insert into livros_venda (codigo, titulo, editora, ano_publicacao, preco, categoria, numero_venda) ');
+  q1.SQL.Add('insert into livros_venda (codigo, titulo, editora, ano_publicacao, preco, categoria, numero_venda, qtd_escolhida) ');
   q1.SQL.Add('values ');
-  q1.SQL.Add('(:codigo, :titulo, :editora, :ano_publicacao, :preco, :categoria, :numero_venda)');
+  q1.SQL.Add('(:codigo, :titulo, :editora, :ano_publicacao, :preco, :categoria, :numero_venda, :qtd_escolhida)');
 
   q1.ParamByName('codigo').Value := codLivro;
   q1.ParamByName('titulo').Value := titulo;
-  q1.ParamByName('editora').Value := 'ALTA BOOKS';
+  q1.ParamByName('editora').Value := editora;
   q1.ParamByName('ano_publicacao').Value := anoPublicacao;
-  q1.ParamByName('preco').Value := precoLivro;
-  q1.ParamByName('categoria').Value := 'AVENTURA';
+  q1.ParamByName('preco').Value := FormatFloat('0,00', precoLivro);
+  q1.ParamByName('categoria').Value := categoria;
   q1.ParamByName('numero_venda').Value := MostrarVendaForm.CodigoInput.Text;
-
+  q1.ParamByName('qtd_escolhida').Value := qtdEscolhida;
 
   q1.ExecSQL;
   qtdLivros := qtdLivros + 1;
 
+  vendaControle.IncrementaValor(StrToFloat(FormatFloat('0,00', precoLivro)) * StrToFloat(qtdEscolhida));
   MostrarVendaForm.labelPreco.Caption := FloatToStr(vendaControle.valorAtual);
   EscolhaLivroForm.Close;
   MostrarVendaForm.TituloInput.SetFocus;

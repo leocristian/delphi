@@ -10,37 +10,43 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   cxDBData, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxGridLevel, cxClasses, cxGridCustomView, cxGrid, Vcl.Menus, Uni, u_vendaControle,
-  frxClass, frxDBSet;
+  frxClass, frxDBSet, Vcl.ExtCtrls, frame_grid;
 
 type
   TMostrarVendaForm = class(TForm)
-    vtb_livrosVenda: TVirtualTable;
     Label2: TLabel;
-    Label3: TLabel;
     labelPreco: TLabel;
-    Label5: TLabel;
     Label4: TLabel;
-    TituloLabel: TLabel;
-    TituloInput: TEdit;
     ClienteInput: TEdit;
     SalvarBtn: TButton;
     AddLivro: TButton;
-    TituloPagina: TLabel;
     Label7: TLabel;
     CodigoInput: TEdit;
     ModoInput: TEdit;
-    vds_livrosVenda: TDataSource;
-    PopupMenu1: TPopupMenu;
-    removerLivro: TMenuItem;
     grid_livrosDBTableView1: TcxGridDBTableView;
     grid_livrosLevel1: TcxGridLevel;
     grid_livros: TcxGrid;
-    grid_livrosDBTableView1titulo: TcxGridDBColumn;
-    grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn;
-    grid_livrosDBTableView1preco: TcxGridDBColumn;
     ComprovanteBtn: TButton;
     rel_comprovante: TfrxReport;
     ds_rel_livrosVenda: TfrxDBDataset;
+    Panel1: TPanel;
+    Label5: TLabel;
+    Label3: TLabel;
+    TituloPagina: TLabel;
+    TituloLabel: TLabel;
+    TituloInput: TEdit;
+    PopupMenu1: TPopupMenu;
+    removerLivro: TMenuItem;
+    vtb_livrosVenda: TVirtualTable;
+    vds_livrosVenda: TDataSource;
+    frame_estilo_grid1: Tframe_estilo_grid;
+    grid_livrosDBTableView1codigo: TcxGridDBColumn;
+    grid_livrosDBTableView1titulo: TcxGridDBColumn;
+    grid_livrosDBTableView1editora: TcxGridDBColumn;
+    grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn;
+    grid_livrosDBTableView1preco: TcxGridDBColumn;
+    grid_livrosDBTableView1categoria: TcxGridDBColumn;
+    grid_livrosDBTableView1qtdEscolhida: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure removerLivroClick(Sender: TObject);
@@ -117,7 +123,6 @@ begin
   rel_comprovante.Variables['data'] := quotedStr('14/07/1999');
 
   ds_rel_livrosVenda.DataSource := vds_livrosVenda;
-  rel_comprovante.DataSet := ds_rel_livrosVenda;
 
   rel_comprovante.ShowReport(true);
 end;
@@ -149,18 +154,15 @@ begin
 
   if ModoInput.Text = 'N' then
   begin
-    TituloPagina.Caption := 'Realizar nova venda';
+    panel1.Enabled := True;
     TituloInput.Visible := True;
-    TituloInput.Clear;
-    ClienteInput.Enabled := True;
-    ClienteInput.Clear;
     ClienteInput.SetFocus;
     AddLivro.Visible := True;
     SalvarBtn.Caption := 'Realizar venda';
     SalvarBtn.Visible := True;
     TituloLabel.Visible := True;
+    vendaControle.ZerarValor;
     LabelPreco.Caption := vendaControle.valorAtual.ToString;
-    grid_livros.Enabled := False;
     vds_livrosVenda.edit;
     vtb_livrosVenda.Clear;
     ComprovanteBtn.Visible := False;
@@ -181,20 +183,21 @@ begin
       while not q1.Eof do
       begin
         vtb_livrosVenda.Append;
+        vtb_livrosvenda['codigo'] := q1.FieldByName('codigo').Value;
         vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
         vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
         vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
         vtb_livrosvenda['preco'] := q1.FieldByName('preco').Value;
-        vtb_livrosvenda['numero_venda'] := q1.FieldByName('numero_venda').Value;
+        vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
+        vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
 
         q1.Next;
       end;
+      Panel1.Enabled := False;
       TituloPagina.Caption := 'Venda selecionada';
       TituloInput.Visible := False;
-      ClienteInput.Enabled := False;
       AddLivro.Visible := False;
       SalvarBtn.visible := False;
-      grid_livros.Enabled := False;
       TituloLabel.Visible := False;
       ComprovanteBtn.Visible := True;
     end
@@ -213,23 +216,24 @@ begin
       while not q1.Eof do
       begin
         vtb_livrosVenda.Append;
+        vtb_livrosvenda['codigo'] := q1.FieldByName('codigo').Value;
         vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
         vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
         vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
         vtb_livrosvenda['preco'] := q1.FieldByName('preco').Value;
-        vtb_livrosvenda['numero_venda'] := q1.FieldByName('numero_venda').Value;
+        vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
+        vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
 
         q1.Next;
       end;
+      Panel1.Enabled := True;
       TituloPagina.Caption := 'Alterar venda selecionada';
       TituloInput.Visible := True;
-      ClienteInput.Enabled := True;
       AddLivro.Visible := True;
       SalvarBtn.Caption := 'Salvar alterações';
       vds_livrosVenda.edit;
       SalvarBtn.Visible := True;
       TituloLabel.Visible := True;
-      grid_livros.Enabled := True;
       ComprovanteBtn.Visible := False;
       vendaControle.valorAtual := StrToInt(labelPreco.Caption);
     end;
@@ -240,27 +244,43 @@ var
   indexLivro: Integer;
   tituloLivro: String;
   precoLivro: String;
+  qtdEscolhida: String;
+  valorAtualizado: Float32;
 
 begin
   vds_livrosVenda.edit;
   indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
-  tituloLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
-  precoLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[2];
+  tituloLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[1];
+  precoLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[4];
+  qtdEscolhida := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[6];
 
-  q1.Close;
-  q1.SQL.Clear;
+  try
+    q1.Close;
+    q1.SQL.Clear;
 
-  q1.SQL.Add('delete from livros_venda ');
-  q1.SQL.Add('where titulo = :titulo');
+    q1.SQL.Add('delete from livros_venda ');
+    q1.SQL.Add('where titulo = :titulo');
+    q1.ParamByName('titulo').Value := tituloLivro;
 
-  q1.ParamByName('titulo').Value := tituloLivro;
+    if confirma('Confirmar remoção de livro da venda?') then
+    begin
+      try
+        q1.ExecSQL;
+      except on e:Exception do
+        erro(e.Message);
+      end;
+    end;
 
-  q1.ExecSQL;
-  vtb_livrosVenda.FieldByName('titulo').AsString := tituloLivro;
-  vtb_livrosVenda.Delete;
+  finally
+    vtb_livrosVenda.FieldByName('titulo').AsString := tituloLivro;
+    vtb_livrosVenda.Delete;
 
-  labelPreco.Caption := IntToStr(StrToInt(labelPreco.Caption) - StrToInt(precoLivro));
-  vendaControle.valorAtual := StrToInt(labelPreco.Caption);
+    mensagem('Livro removido com sucesso!');
+
+    valorAtualizado := StrToFloat(labelPreco.Caption) - (StrToFloat(precoLivro) * StrToInt(qtdEscolhida));
+    labelPreco.Caption := FloatToStr(valorAtualizado);
+    vendaControle.valorAtual := StrToInt(labelPreco.Caption);
+  end;
 
 end;
 procedure TMostrarVendaForm.SalvarBtnClick(Sender: TObject);
@@ -280,10 +300,14 @@ begin
       q1.ParamByName('valor_total').Value := labelPreco.Caption;
       q1.ParamByName('codigo').Value := StrToInt(CodigoInput.Text);
 
-      q1.execSQL;
-      ShowMessage('Venda alterada com sucesso!');
-      vendaControle.ZerarValor;
-      Self.Close;
+      if confirma('Confirmar nova venda?') then
+      begin
+        q1.ExecSQL;
+        mensagem('Venda alterada com sucesso!');
+        FormVendas.grid_vendasDBTableView1.DataController.RefreshExternalData;
+        vendaControle.ZerarValor;
+        Self.Close;
+      end;
     end
     else if ModoInput.Text = 'N' then
     begin
@@ -310,25 +334,18 @@ begin
         q1.ParamByName('valor_total').Value := labelPreco.Caption;
         q1.ParamByName('data').Value := Now();
 
-        case MessageBox(Application.Handle, 'Confirmar nova venda?', 'Confirmar venda', MB_YESNO) of
-        idYes:
-          begin
-            q1.ExecSQL;
-            ShowMessage('Venda realizada com sucesso');
-            FormVendas.grid_vendasDBTableView1.DataController.RefreshExternalData;
-
-            vendaControle.ZerarValor;
-            Self.Close;
-          end;
-        idNo:
-          begin
-            ShowMessage('Operação cancelada!');
-          end;
+        if confirma('Confirmar nova venda?') then
+        begin
+          q1.ExecSQL;
+          mensagem('Venda realizada com sucesso!');
+          FormVendas.grid_vendasDBTableView1.DataController.RefreshExternalData;
+          vendaControle.ZerarValor;
+          Self.Close;
         end;
       end
       else
       begin
-        ShowMessage('Cliente nao encontrado!');
+        erro('Cliente não encontrado!');
       end;
     end;
 end;

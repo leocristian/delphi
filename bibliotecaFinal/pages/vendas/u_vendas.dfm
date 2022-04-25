@@ -7443,14 +7443,16 @@ object FormVendas: TFormVendas
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 177.637910000000000000
+        Height = 173.858380000000000000
         Top = 151.181200000000000000
         Width = 718.110700000000000000
+        DataSet = ds_rel_vendas
+        DataSetName = 'frxDBDataset1'
         RowCount = 0
         object Memo2: TfrxMemoView
           AllowVectorExport = True
           Left = 11.338590000000000000
-          Top = 11.338590000000000000
+          Top = 15.118120000000000000
           Width = 68.031540000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7466,7 +7468,7 @@ object FormVendas: TFormVendas
         object Memo3: TfrxMemoView
           AllowVectorExport = True
           Left = 11.338590000000000000
-          Top = 37.795300000000000000
+          Top = 41.574830000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7482,7 +7484,7 @@ object FormVendas: TFormVendas
         object Memo4: TfrxMemoView
           AllowVectorExport = True
           Left = 11.338590000000000000
-          Top = 64.252010000000000000
+          Top = 68.031540000000000000
           Width = 158.740260000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7498,7 +7500,7 @@ object FormVendas: TFormVendas
         object Memo5: TfrxMemoView
           AllowVectorExport = True
           Left = 11.338590000000000000
-          Top = 90.708720000000000000
+          Top = 94.488250000000000000
           Width = 143.622140000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7514,7 +7516,7 @@ object FormVendas: TFormVendas
         object Memo6: TfrxMemoView
           AllowVectorExport = True
           Left = 11.338590000000000000
-          Top = 117.165430000000000000
+          Top = 120.944960000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7531,7 +7533,7 @@ object FormVendas: TFormVendas
           IndexTag = 1
           AllowVectorExport = True
           Left = 90.708720000000000000
-          Top = 11.338590000000000000
+          Top = 15.118120000000000000
           Width = 241.889920000000000000
           Height = 18.897650000000000000
           DataSet = ds_rel_vendas
@@ -7550,7 +7552,7 @@ object FormVendas: TFormVendas
           IndexTag = 1
           AllowVectorExport = True
           Left = 139.842610000000000000
-          Top = 37.795300000000000000
+          Top = 41.574830000000000000
           Width = 241.889920000000000000
           Height = 18.897650000000000000
           DataSet = ds_rel_vendas
@@ -7569,7 +7571,7 @@ object FormVendas: TFormVendas
           IndexTag = 1
           AllowVectorExport = True
           Left = 173.858380000000000000
-          Top = 64.252010000000000000
+          Top = 68.031540000000000000
           Width = 510.236550000000000000
           Height = 18.897650000000000000
           DataSet = ds_rel_vendas
@@ -7588,7 +7590,7 @@ object FormVendas: TFormVendas
           IndexTag = 1
           AllowVectorExport = True
           Left = 162.519790000000000000
-          Top = 90.708720000000000000
+          Top = 94.488250000000000000
           Width = 521.575140000000000000
           Height = 18.897650000000000000
           DataSet = ds_rel_vendas
@@ -7607,7 +7609,7 @@ object FormVendas: TFormVendas
           IndexTag = 1
           AllowVectorExport = True
           Left = 113.385900000000000000
-          Top = 117.165430000000000000
+          Top = 120.944960000000000000
           Width = 241.889920000000000000
           Height = 18.897650000000000000
           DataSet = ds_rel_vendas

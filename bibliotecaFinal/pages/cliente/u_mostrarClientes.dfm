@@ -81,7 +81,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 60
-      TabOrder = 0
+      TabOrder = 1
     end
     object EmailInput: TEdit
       Left = 51
@@ -90,7 +90,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Height = 21
       CharCase = ecLowerCase
       MaxLength = 30
-      TabOrder = 1
+      TabOrder = 2
     end
     object ModoInput: TEdit
       Left = 59
@@ -99,7 +99,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Height = 21
       TabStop = False
       CharCase = ecUpperCase
-      TabOrder = 4
+      TabOrder = 6
       Visible = False
     end
     object SalvarBtn: TButton
@@ -109,7 +109,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Height = 35
       Cursor = crHandPoint
       Caption = 'Salvar'
-      TabOrder = 2
+      TabOrder = 4
       OnClick = SalvarBtnClick
     end
     object CodigoInput: TEdit
@@ -120,7 +120,7 @@ object MostrarClientesForm: TMostrarClientesForm
       CharCase = ecUpperCase
       Enabled = False
       ReadOnly = True
-      TabOrder = 5
+      TabOrder = 7
     end
     object CancelarBtn: TButton
       Left = 190
@@ -129,7 +129,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Height = 34
       Cursor = crHandPoint
       Caption = 'Cancelar'
-      TabOrder = 3
+      TabOrder = 5
       OnClick = CancelarBtnClick
     end
     object CpfInput: TMaskEdit
@@ -139,7 +139,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Height = 21
       EditMask = '000.000.000-99;0;_'
       MaxLength = 14
-      TabOrder = 6
+      TabOrder = 0
       Text = ''
     end
     object TelefoneInput: TMaskEdit
@@ -149,7 +149,7 @@ object MostrarClientesForm: TMostrarClientesForm
       Height = 21
       EditMask = '!\(99\)00000-0000;0;_'
       MaxLength = 14
-      TabOrder = 7
+      TabOrder = 3
       Text = ''
     end
   end

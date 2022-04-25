@@ -157,7 +157,7 @@ object MostrarLivroForm: TMostrarLivroForm
       Top = 192
       Width = 121
       Height = 21
-      MaxLength = 5
+      MaxLength = 6
       TabOrder = 4
       OnKeyPress = PrecoInputKeyPress
     end
