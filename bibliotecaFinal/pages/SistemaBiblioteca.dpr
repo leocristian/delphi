@@ -25,7 +25,8 @@ uses
   frame_grid in 'frames\frame_grid.pas' {frame_estilo_grid: TFrame},
   u_novoLivro in 'livros\u_novoLivro.pas' {NovoLivroForm},
   u_novaVenda in 'vendas\u_novaVenda.pas' {NovaVendaForm},
-  u_novoCliente in 'cliente\u_novoCliente.pas' {NovoCliente};
+  u_novoCliente in 'cliente\u_novoCliente.pas' {NovoCliente},
+  u_mostrarVenda2 in 'vendas\u_mostrarVenda2.pas' {FormVenda};
 
 {$R *.res}
 
@@ -50,6 +51,7 @@ begin
   Application.CreateForm(TAlterarSenhaForm, AlterarSenhaForm);
   Application.CreateForm(TNovoLivroForm, NovoLivroForm);
   Application.CreateForm(TNovoCliente, NovoCliente);
+  Application.CreateForm(TFormVenda, FormVenda);
   Application.Run;
 end.
 

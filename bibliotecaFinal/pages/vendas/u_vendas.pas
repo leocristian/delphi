@@ -57,14 +57,14 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_novaVenda, u_mostrarVenda, u_forms;
+uses u_dm1, u_novaVenda, u_mostrarVenda, u_forms, u_mostrarVenda2;
 
 procedure TFormVendas.AlterarVendaClick(Sender: TObject);
 var
   indexVenda, codVenda: Integer;
 
 begin
-   MostrarVendaForm.vtb_livrosVenda.Clear;
+   FormVenda.vtb_livrosVenda.Clear;
 
   q1.Close;
   q1.SQL.Clear;
@@ -81,13 +81,13 @@ begin
 
   if q1.RecordCount > 0 then
   begin
-    MostrarVendaForm.CodigoInput.Text := IntToStr(q1.FieldByName('codigo').Value);
-    MostrarVendaForm.ClienteInput.Text := q1.FieldByName('cliente').Value;
-    MostrarVendaForm.LabelPreco.Caption := q1.FieldByName('valor_total').Value;
+    FormVenda.CodigoInput.Text := IntToStr(q1.FieldByName('codigo').Value);
+    FormVenda.ClienteInput.Text := q1.FieldByName('cliente').Value;
+    FormVenda.ValorVenda.Caption := q1.FieldByName('valor_total').Value;
   end;
 
-  MostrarVendaForm.ModoInput.Text := 'A';
-  MostrarVendaForm.ShowModal;
+  FormVenda.ModoInput.Text := 'A';
+  FormVenda.ShowModal;
 end;
 
 procedure TFormVendas.bt_buscaClick(Sender: TObject);
@@ -203,6 +203,7 @@ var
   q1: TUniQuery;
 
 begin
+
   try
     q1 := TUniQuery.Create(nil);
     q1.Connection := dm1.con1;
@@ -213,11 +214,12 @@ begin
     q1.SQL.Text := 'select nextval(''tb_vendas_cod_seq'') as codProximo';
     q1.Open;
 
-    LimparInputs(MostrarVendaForm);
+    LimparInputs(FormVenda);
 
-    MostrarVendaForm.CodigoInput.Text := q1.FieldByName('codProximo').AsString;
-    MostrarVendaForm.ModoInput.Text := 'N';
-    MostrarVendaForm.ShowModal;
+    FormVenda.CodigoInput.Text := q1.FieldByName('codProximo').AsString;
+    FormVenda.ModoInput.Text := 'N';
+
+    FormVenda.ShowModal;
 
   finally
     FreeAndNil(q1);
@@ -237,7 +239,6 @@ var
   codVenda: Integer;
 
 begin
-  MostrarVendaForm.vtb_livrosVenda.Clear;
   try
     q1 := TUniQuery.Create(nil);
     q1.Connection := dm1.con1;
@@ -257,15 +258,37 @@ begin
 
     if q1.RecordCount > 0 then
     begin
-      MostrarVendaForm.CodigoInput.Text := IntToStr(q1.FieldByName('codigo').Value);
-      MostrarVendaForm.ClienteInput.Text := q1.FieldByName('cliente').Value;
-      MostrarVendaForm.LabelPreco.Caption := q1.FieldByName('valor_total').Value;
+      FormVenda.CodigoInput.Text := IntTostr(q1.FieldByName('codigo').Value);
+      FormVenda.ClienteInput.Text := q1.FieldByName('cliente').Value;
+      FormVenda.ValorVenda.Caption := q1.FieldByName('valor_total').Value;
+      FormVenda.ModoInput.Text := 'V';
+
+      q1.Close;
+      q1.SQL.Clear;
+
+      q1.SQL.Add('select * from livros_venda ');
+      q1.SQL.Add('where numero_venda = :numero_venda');
+
+      q1.Open;
+      q1.First;
+
+      while not q1.Eof do
+      begin
+        FormVenda.vtb_livrosVenda.Append;
+        FormVenda.vtb_livrosvenda['codigo'] := q1.FieldByName('codigo').Value;
+        FormVenda.vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
+        FormVenda.vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
+        FormVenda.vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
+        FormVenda.vtb_livrosvenda['preco'] := q1.FieldByName('preco').Value;
+        FormVenda.vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
+        FormVenda.vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
+
+        q1.Next;
+      end;
     end;
-
   finally
-    MostrarVendaForm.ModoInput.Text := 'V';
-    MostrarVendaForm.ShowModal;
 
+    FormVenda.ShowModal;
     FreeAndNil(q1);
   end;
 end;

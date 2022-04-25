@@ -2,7 +2,7 @@ object NovoLivroForm: TNovoLivroForm
   Left = 0
   Top = 0
   Caption = 'NovoLivroForm'
-  ClientHeight = 345
+  ClientHeight = 346
   ClientWidth = 630
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

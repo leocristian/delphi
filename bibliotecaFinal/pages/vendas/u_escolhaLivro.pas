@@ -46,7 +46,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_forms, u_dm1, u_novaVenda, u_mostrarVenda;
+uses u_forms, u_dm1, u_novaVenda, u_mostrarVenda, u_mostrarVenda2;
 
 procedure TEscolhaLivroForm.AbrirForm(Sender: TObject);
 begin
@@ -77,7 +77,8 @@ var
   precoLivro: Float32;
   categoria: String;
   qtdEstoque: Integer;
-  qtdEscolhida: String;
+  qtdEscolhida: integer;
+  novoValor: Float32;
 
 begin
 
@@ -91,47 +92,58 @@ begin
   categoria := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[5];
   qtdEstoque := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[6];
 
-  qtdEscolhida := inputBox('Escolher quantidade.', 'Digite a quantidade de livros.', '1');
+  qtdEscolhida := StrToInt(inputBox('Escolher quantidade.', 'Digite a quantidade de livros.', '1'));
 
-  MostrarVendaForm.vtb_livrosvenda.Append;
-  MostrarVendaForm.vtb_livrosvenda['codigo'] := codLivro;
-  MostrarVendaForm.vtb_livrosvenda['titulo'] := titulo;
-  MostrarVendaForm.vtb_livrosvenda['editora'] := editora;
-  MostrarVendaForm.vtb_livrosvenda['ano_publicacao'] := anoPublicacao;
-  MostrarVendaForm.vtb_livrosvenda['preco'] := FormatFloat('0,00', precoLivro);
-  MostrarVendaForm.vtb_livrosvenda['categoria'] := categoria;
-  MostrarVendaForm.vtb_livrosvenda['qtdEscolhida'] := qtdEscolhida;
+  if qtdEscolhida > qtdEstoque then
+  begin
+    aviso('Estoque insuficiente!');
+  end
+  else
+  begin
 
-  q1.Close;
-  q1.SQL.Clear;
-  q1.SQL.Text := 'select nextval(''tb_livrosVenda_cod_seq'') as codProximo';
-  q1.Open;
+    FormVenda.vtb_livrosvenda.Append;
+    FormVenda.vtb_livrosvenda['codigo'] := codLivro;
+    FormVenda.vtb_livrosvenda['titulo'] := titulo;
+    FormVenda.vtb_livrosvenda['editora'] := editora;
+    FormVenda.vtb_livrosvenda['ano_publicacao'] := anoPublicacao;
+    FormVenda.vtb_livrosvenda['preco'] := FormatFloat('0,00', precoLivro);
+    FormVenda.vtb_livrosvenda['categoria'] := categoria;
+    FormVenda.vtb_livrosvenda['qtdEscolhida'] := qtdEscolhida;
 
-  codLivro := q1.FieldByName('codProximo').AsInteger;
+    q1.Close;
+    q1.SQL.Clear;
+    q1.SQL.Text := 'select nextval(''tb_livrosVenda_cod_seq'') as codProximo';
+    q1.Open;
 
-  q1.Close;
-  q1.SQL.Clear;
+    codLivro := q1.FieldByName('codProximo').AsInteger;
 
-  q1.SQL.Add('insert into livros_venda (codigo, titulo, editora, ano_publicacao, preco, categoria, numero_venda, qtd_escolhida) ');
-  q1.SQL.Add('values ');
-  q1.SQL.Add('(:codigo, :titulo, :editora, :ano_publicacao, :preco, :categoria, :numero_venda, :qtd_escolhida)');
+    q1.Close;
+    q1.SQL.Clear;
 
-  q1.ParamByName('codigo').Value := codLivro;
-  q1.ParamByName('titulo').Value := titulo;
-  q1.ParamByName('editora').Value := editora;
-  q1.ParamByName('ano_publicacao').Value := anoPublicacao;
-  q1.ParamByName('preco').Value := FormatFloat('0,00', precoLivro);
-  q1.ParamByName('categoria').Value := categoria;
-  q1.ParamByName('numero_venda').Value := MostrarVendaForm.CodigoInput.Text;
-  q1.ParamByName('qtd_escolhida').Value := qtdEscolhida;
+    q1.SQL.Add('insert into livros_venda (codigo, titulo, editora, ano_publicacao, preco, categoria, numero_venda, qtd_escolhida) ');
+    q1.SQL.Add('values ');
+    q1.SQL.Add('(:codigo, :titulo, :editora, :ano_publicacao, :preco, :categoria, :numero_venda, :qtd_escolhida)');
 
-  q1.ExecSQL;
-  qtdLivros := qtdLivros + 1;
+    q1.ParamByName('codigo').Value := codLivro;
+    q1.ParamByName('titulo').Value := titulo;
+    q1.ParamByName('editora').Value := editora;
+    q1.ParamByName('ano_publicacao').Value := anoPublicacao;
+    q1.ParamByName('preco').Value := FormatFloat('0,00', precoLivro);
+    q1.ParamByName('categoria').Value := categoria;
+    q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
+    q1.ParamByName('qtd_escolhida').Value := qtdEscolhida;
 
-  vendaControle.IncrementaValor(StrToFloat(FormatFloat('0,00', precoLivro)) * StrToFloat(qtdEscolhida));
-  MostrarVendaForm.labelPreco.Caption := FloatToStr(vendaControle.valorAtual);
-  EscolhaLivroForm.Close;
-  MostrarVendaForm.TituloInput.SetFocus;
+    q1.ExecSQL;
+    qtdLivros := qtdLivros + 1;
+
+    novoValor := StrToFloat(FormatFloat('0,00', precoLivro)) * qtdEscolhida;
+
+    vendaControle.IncrementaValor(novoValor);
+
+    FormVenda.ValorVenda.Caption := FloatToStr(vendaControle.valorAtual);
+    EscolhaLivroForm.Close;
+    FormVenda.TituloInput.SetFocus;
+  end;
 end;
 
 procedure TEscolhaLivroForm.FormCreate(Sender: TObject);

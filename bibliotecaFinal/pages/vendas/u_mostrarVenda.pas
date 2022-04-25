@@ -61,7 +61,7 @@ type
   end;
 
 var
-  MostrarVendaForm: TMostrarVendaForm;
+  FormVenda: TMostrarVendaForm;
   q1: TUniQuery;
   vendaControle: TVendaControle;
 
@@ -147,7 +147,7 @@ end;
 
 procedure TMostrarVendaForm.FormShow(Sender: TObject);
 begin
-  AbrirForm(MostrarVendaForm);
+  AbrirForm(FormVenda);
 
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;

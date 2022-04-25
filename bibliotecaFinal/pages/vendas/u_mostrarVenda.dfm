@@ -75,7 +75,7 @@ object MostrarVendaForm: TMostrarVendaForm
   end
   object ModoInput: TEdit
     Left = 239
-    Top = 521
+    Top = 515
     Width = 25
     Height = 21
     CharCase = ecUpperCase
@@ -270,13 +270,13 @@ object MostrarVendaForm: TMostrarVendaForm
       TabOrder = 1
     end
     inline frame_estilo_grid1: Tframe_estilo_grid
-      Left = 470
-      Top = 10
+      Left = 534
+      Top = 106
       Width = 130
       Height = 72
       TabOrder = 4
-      ExplicitLeft = 470
-      ExplicitTop = 10
+      ExplicitLeft = 534
+      ExplicitTop = 106
       inherited estilo_padrao: TcxStyleRepository
         Left = 48
         Top = 24
@@ -299,8 +299,8 @@ object MostrarVendaForm: TMostrarVendaForm
       'begin'
       ''
       'end.')
-    Left = 250
-    Top = 368
+    Left = 218
+    Top = 376
     Datasets = <
       item
         DataSet = ds_rel_livrosVenda
@@ -784,8 +784,8 @@ object MostrarVendaForm: TMostrarVendaForm
     Top = 368
   end
   object PopupMenu1: TPopupMenu
-    Left = 126
-    Top = 368
+    Left = 94
+    Top = 384
     object removerLivro: TMenuItem
       Caption = 'Remover livro da venda'
       OnClick = removerLivroClick
@@ -829,8 +829,8 @@ object MostrarVendaForm: TMostrarVendaForm
         DataType = ftString
         Size = 20
       end>
-    Left = 64
-    Top = 368
+    Left = 80
+    Top = 328
     Data = {
       040007000600636F6469676F01001400000000000600746974756C6F01001400
       000000000700656469746F726101001400000000000E00616E6F5F7075626C69
@@ -841,6 +841,6 @@ object MostrarVendaForm: TMostrarVendaForm
   object vds_livrosVenda: TDataSource
     DataSet = vtb_livrosVenda
     Left = 188
-    Top = 368
+    Top = 304
   end
 end

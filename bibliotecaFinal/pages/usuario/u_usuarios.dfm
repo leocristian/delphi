@@ -1720,6 +1720,17 @@ object FormUsuarios: TFormUsuarios
         end
       end
     end
+    object Page2: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
+    end
   end
   object ds_rel_usuarios: TfrxDBDataset
     UserName = 'frxDBDataset1'
