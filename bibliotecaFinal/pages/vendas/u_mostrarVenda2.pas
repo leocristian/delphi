@@ -114,7 +114,7 @@ begin
       end
       else
       begin
-        ShowMessage('Livro não encontrado!');
+        aviso('Livro não encontrado!');
       end;
     finally
       FreeAndNil(q1);
@@ -250,7 +250,7 @@ begin
     TituloInput.Visible := True;
     AddLivro.Visible := True;
     TituloPagina.Caption := 'Alterar venda seecionada';
-    ConfirmarBtn.Caption := 'Salvar alterãções';
+    ConfirmarBtn.Caption := 'Salvar alterações';
     VendaControle.valorAtual := StrToInt(ValorVenda.Caption);
     ClienteInput.SetFocus;
   end;

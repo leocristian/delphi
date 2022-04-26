@@ -194,26 +194,33 @@ object FormVenda: TFormVenda
         Styles.IncSearch = frame_estilo_grid1.busca
         Styles.Header = frame_estilo_grid1.cabecalho
         object grid_livrosDBTableView1codigo: TcxGridDBColumn
+          Caption = 'C'#243'digo'
           DataBinding.FieldName = 'codigo'
           Width = 50
         end
         object grid_livrosDBTableView1titulo: TcxGridDBColumn
+          Caption = 'T'#237'tulo'
           DataBinding.FieldName = 'titulo'
         end
         object grid_livrosDBTableView1editora: TcxGridDBColumn
+          Caption = 'Editora'
           DataBinding.FieldName = 'editora'
         end
         object grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn
+          Caption = 'Ano de publica'#231#227'o'
           DataBinding.FieldName = 'ano_publicacao'
         end
         object grid_livrosDBTableView1preco: TcxGridDBColumn
+          Caption = 'Pre'#231'o'
           DataBinding.FieldName = 'preco'
           Width = 72
         end
         object grid_livrosDBTableView1categoria: TcxGridDBColumn
+          Caption = 'Categoria'
           DataBinding.FieldName = 'categoria'
         end
         object grid_livrosDBTableView1qtdEscolhida: TcxGridDBColumn
+          Caption = 'Qtd. Escolhida'
           DataBinding.FieldName = 'qtdEscolhida'
           Width = 87
         end
@@ -388,7 +395,7 @@ object FormVenda: TFormVenda
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 328.819110000000000000
+        Height = 245.669450000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
@@ -426,9 +433,9 @@ object FormVenda: TFormVenda
         object Memo3: TfrxMemoView
           AllowVectorExport = True
           Left = 34.015770000000000000
-          Top = 158.740260000000000000
+          Top = 102.047310000000000000
           Width = 86.929190000000000000
-          Height = 37.795300000000000000
+          Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -21
@@ -443,7 +450,7 @@ object FormVenda: TFormVenda
           IndexTag = 1
           AllowVectorExport = True
           Left = 124.724490000000000000
-          Top = 158.740260000000000000
+          Top = 102.047310000000000000
           Width = 502.677490000000000000
           Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -458,10 +465,10 @@ object FormVenda: TFormVenda
         end
         object Memo5: TfrxMemoView
           AllowVectorExport = True
-          Left = 37.795300000000000000
-          Top = 64.252010000000000000
+          Left = 34.015770000000000000
+          Top = 41.574830000000000000
           Width = 154.960730000000000000
-          Height = 37.795300000000000000
+          Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -21
@@ -475,8 +482,8 @@ object FormVenda: TFormVenda
         object data1: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 204.094620000000000000
-          Top = 64.252010000000000000
+          Left = 200.315090000000000000
+          Top = 41.574830000000000000
           Width = 158.740260000000000000
           Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -492,8 +499,8 @@ object FormVenda: TFormVenda
         object vendedor: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 158.740260000000000000
-          Top = 113.385900000000000000
+          Left = 154.960730000000000000
+          Top = 71.811070000000000000
           Width = 502.677490000000000000
           Height = 34.015770000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -508,10 +515,10 @@ object FormVenda: TFormVenda
         end
         object Memo2: TfrxMemoView
           AllowVectorExport = True
-          Left = 37.795300000000000000
-          Top = 113.385900000000000000
+          Left = 34.015770000000000000
+          Top = 71.811070000000000000
           Width = 117.165430000000000000
-          Height = 37.795300000000000000
+          Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -21
@@ -525,9 +532,9 @@ object FormVenda: TFormVenda
         object Memo4: TfrxMemoView
           AllowVectorExport = True
           Left = 34.015770000000000000
-          Top = 215.433210000000000000
+          Top = 132.283550000000000000
           Width = 170.078850000000000000
-          Height = 37.795300000000000000
+          Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -21
@@ -542,7 +549,7 @@ object FormVenda: TFormVenda
           IndexTag = 1
           AllowVectorExport = True
           Left = 211.653680000000000000
-          Top = 215.433210000000000000
+          Top = 132.283550000000000000
           Width = 154.960730000000000000
           Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -557,8 +564,8 @@ object FormVenda: TFormVenda
         end
         object Memo6: TfrxMemoView
           AllowVectorExport = True
-          Left = 3.779530000000000000
-          Top = 283.464750000000000000
+          Left = 7.559060000000000000
+          Top = 204.094620000000000000
           Width = 207.874150000000000000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -580,7 +587,7 @@ object FormVenda: TFormVenda
         FillGap.Right = 0
         Frame.Typ = []
         Height = 215.433210000000000000
-        Top = 408.189240000000000000
+        Top = 325.039580000000000000
         Width = 718.110700000000000000
         DataSet = ds_rel_livrosVenda
         DataSetName = 'frxDBDataset1'

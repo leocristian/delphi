@@ -561,17 +561,15 @@ object LoginForm: TLoginForm
     Top = 208
     Width = 85
     Height = 34
-    Cursor = crHandPoint
     Caption = 'Entrar'
     TabOrder = 2
     OnClick = LoginBtnClick
   end
   object ExitBtn: TButton
     Left = 443
-    Top = 206
+    Top = 208
     Width = 84
     Height = 34
-    Cursor = crHandPoint
     Caption = 'Cancelar'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -587,7 +585,6 @@ object LoginForm: TLoginForm
     Top = 285
     Width = 176
     Height = 41
-    Cursor = crHandPoint
     Caption = 'Cadastrar-se'
     Style = bsCommandLink
     TabOrder = 4

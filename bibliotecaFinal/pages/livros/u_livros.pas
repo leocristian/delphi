@@ -37,6 +37,7 @@ type
     grid_livrosDBTableView1categoria: TcxGridDBColumn;
     grid_livrosLevel1: TcxGridLevel;
     grid_livrosDBTableView1qtd_estoque: TcxGridDBColumn;
+    Atualizarestoque: TMenuItem;
     procedure NovoLivroClick(Sender: TObject);
     procedure bt_buscaClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);
@@ -45,6 +46,7 @@ type
     procedure ExcluirLivroClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure RelatorioLivrosClick(Sender: TObject);
+    procedure AtualizarestoqueClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -58,7 +60,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_novoLivro, u_dm1, u_mostrarLivro, u_forms;
+uses u_novoLivro, u_dm1, u_mostrarLivro, u_forms, u_atualizarEstoque;
 
 procedure TFormLivros.AlterarLivroClick(Sender: TObject);
 var
@@ -100,6 +102,38 @@ begin
   finally
     MostrarLivroForm.ShowModal;
     FreeAndNil(q1);
+  end;
+end;
+
+procedure TFormLivros.AtualizarestoqueClick(Sender: TObject);
+var
+  q1: TUniQuery;
+  qtd: Integer;
+  indexLivro: Integer;
+  codLivro: Integer;
+
+begin
+  try
+    q1 := TUniQuery.Create(nil);
+    q1.Connection := dm1.con1;
+
+    q1.Close;
+    q1.SQL.Clear;
+
+    indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
+    codLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
+
+    q1.SQL.Add('select titulo, qtd_estoque from livros where codigo = :codigo');
+    q1.ParamByName('codigo').Value := codLivro;
+
+    q1.ExecSQL;
+
+    AtualizarEstoqueForm.CodInput.Text := IntToStr(codLivro);
+    AtualizarEstoqueForm.TituloInput.Text := q1.FieldByName('titulo').AsString;
+    AtualizarEstoqueForm.QtdEstoqueLabel.Caption := q1.FieldByName('qtd_estoque').AsString;
+  finally
+    AtualizarEstoqueForm.ShowModal;
+    FreeandNil(q1);
   end;
 end;
 

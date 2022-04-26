@@ -7659,6 +7659,10 @@ object FormLivros: TFormLivros
       Caption = 'Alterar livro selecionado'
       OnClick = AlterarLivroClick
     end
+    object Atualizarestoque: TMenuItem
+      Caption = 'Atualizar estoque'
+      OnClick = AtualizarestoqueClick
+    end
     object RelatorioLivros: TMenuItem
       Caption = 'Emitir relat'#243'rio'
       OnClick = RelatorioLivrosClick
