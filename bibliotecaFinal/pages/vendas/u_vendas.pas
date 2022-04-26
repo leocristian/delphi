@@ -229,7 +229,7 @@ var
   q1: TUniQuery;
 
 begin
-
+  FormVenda.grid_livrosDBTableView1.OptionsView.NoDataToDisplayInfoText := '';
   try
     q1 := TUniQuery.Create(nil);
     q1.Connection := dm1.con1;

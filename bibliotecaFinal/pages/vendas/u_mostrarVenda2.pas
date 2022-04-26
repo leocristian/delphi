@@ -115,6 +115,7 @@ begin
       else
       begin
         aviso('Livro não encontrado!');
+        TituloInput.SetFocus;
       end;
     finally
       FreeAndNil(q1);

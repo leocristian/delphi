@@ -37,14 +37,13 @@ type
     rel_usuarios: TfrxReport;
     ds_rel_usuarios: TfrxDBDataset;
     frame_estilo_grid1: Tframe_estilo_grid;
-    procedure FocarInput(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure VisualizarUsuarioClick(Sender: TObject);
     procedure AlterarUsuarioClick(Sender: TObject);
     procedure ExcluirUsuarioClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure bt_buscaClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure FrameBusca1BuscaInputClick(Sender: TObject);
     procedure RelatorioUsuariosClick(Sender: TObject);
 
@@ -188,27 +187,16 @@ begin
   end;
 end;
 
-procedure TFormUsuarios.FocarInput(Sender: TObject);
+procedure TFormUsuarios.FormShow(Sender: TObject);
 begin
-  FrameBusca1.BuscaInput.SetFocus;
-end;
+  dm1.con1.Close;
 
-procedure TFormUsuarios.FormCreate(Sender: TObject);
-begin
-  if dm1.con1.Connected = True then
-  begin
-    tb_usuarios.Connection := dm1.con1;
-    tb_usuarios.TableName := 'usuarios';
-    tb_usuarios.Active := True;
-  end
-  else
-  begin
-    dm1.con1.Connect;
+  tb_usuarios.Connection := dm1.con1;
+  tb_usuarios.TableName := 'usuarios';
+  ds_usuarios.DataSet := tb_usuarios;
+  tb_usuarios.Active := True;
 
-    tb_usuarios.Connection := dm1.con1;
-    tb_usuarios.TableName := 'usuarios';
-    tb_usuarios.Active := True;
-  end;
+  dm1.con1.Open;
 end;
 
 procedure TFormUsuarios.FormKeyPress(Sender: TObject; var Key: Char);

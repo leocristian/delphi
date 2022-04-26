@@ -47,6 +47,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure RelatorioLivrosClick(Sender: TObject);
     procedure AtualizarestoqueClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -95,6 +96,7 @@ begin
       MostrarLivroForm.AnoPublicacaoInput.Text := q1.FieldByName('ano_publicacao').Value;
       MostrarLivroForm.PrecoInput.Text := FloatToStr(q1.FieldByName('preco').Value);
       MostrarLivroForm.CategoriaInput.Text := q1.FieldByName('categoria').Value;
+      MostrarLivroForm.QtdEstoqueInput.Text := q1.FieldByName('qtd_estoque').Value;
 
       MostrarLivroForm.ModoInput.Text := 'A';
     end;
@@ -108,7 +110,6 @@ end;
 procedure TFormLivros.AtualizarestoqueClick(Sender: TObject);
 var
   q1: TUniQuery;
-  qtd: Integer;
   indexLivro: Integer;
   codLivro: Integer;
 
@@ -233,6 +234,18 @@ begin
     tb_livros.TableName := 'livros';
     tb_livros.Active := True;
   end;
+end;
+
+procedure TFormLivros.FormShow(Sender: TObject);
+begin
+  dm1.con1.Close;
+
+  tb_livros.Connection := dm1.con1;
+  tb_livros.TableName := 'livros';
+  ds_livros.DataSet := tb_livros;
+  tb_livros.Active := True;
+
+  dm1.con1.Open;
 end;
 
 procedure TFormLivros.NovoLivroClick(Sender: TObject);

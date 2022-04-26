@@ -67,7 +67,8 @@ begin
     begin
       q1.ExecSQL;
       Mensagem('Estoque atualizado com sucesso!');
-      FormLivros.grid_livrosDBTableView1.DataController.Refresh;
+      FormLivros.grid_livrosDBTableView1.DataController.RefreshExternalData;
+      Close;
     end;
   finally
     FreeAndNil(q1);

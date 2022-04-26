@@ -193,6 +193,10 @@
             <Form>FormVenda</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="livros\u_atualizarEstoque.pas">
+            <Form>AtualizarEstoqueForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

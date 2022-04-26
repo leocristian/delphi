@@ -4,7 +4,7 @@ object FormClientes: TFormClientes
   Align = alClient
   BorderStyle = bsSingle
   Caption = 'Tela de clientes'
-  ClientHeight = 338
+  ClientHeight = 342
   ClientWidth = 730
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -3593,8 +3593,8 @@ object FormClientes: TFormClientes
     49454E44AE426082}
   KeyPreview = True
   OldCreateOrder = False
-  OnCreate = FormCreate
   OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   inline FrameBusca1: TFrameBusca
@@ -3626,10 +3626,11 @@ object FormClientes: TFormClientes
     Left = 0
     Top = 95
     Width = 730
-    Height = 243
+    Height = 247
     Align = alClient
     PopupMenu = PopupClientes
     TabOrder = 1
+    ExplicitHeight = 243
     object grid_clientesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -3737,7 +3738,6 @@ object FormClientes: TFormClientes
     Top = 248
   end
   object ds_clientes: TDataSource
-    DataSet = tb_clientes
     Left = 196
     Top = 248
   end

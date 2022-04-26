@@ -31,17 +31,15 @@ type
     ExitBtn: TButton;
     CadastrarBtn: TButton;
 
-    procedure AbrirForm(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure ExitBtnClick(Sender: TObject);
     procedure CadastrarBtnClick(Sender: TObject);
     procedure Finalizar(Sender: TObject; var CanClose: Boolean);
     procedure LoginBtnClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
-    i: TIniFile;
   public
     { Public declarations }
   end;
@@ -55,21 +53,52 @@ implementation
 
 uses u_dm1, u_cadastro, Uni, u_principal, u_forms, u_perfil;
 
-procedure TLoginForm.AbrirForm(Sender: TObject);
+procedure TLoginForm.FormShow(Sender: TObject);
+var
+  i: TIniFile;
+  NomeArquivoIni: String;
+
 begin
+  // ABRIR FORM CENTRALIZADO;
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
 
-  if i.ReadString('usuario', 'login', '' ) = '' then
-  begin
-    LoginInput.SetFocus;
-  end
-  else
-  begin
-    LoginInput.Text := i.ReadString('usuario', 'login', '' );
-    SenhaInput.SetFocus;
-  end;
+  // FECHAR CONEXÃO COM BD!!!
+  dm1.con1.Close;
+  NomeArquivoIni := ExtractFilePath(Application.ExeName) + 'login.ini';
 
+  if FileExists(NomeArquivoIni) then
+  begin
+    i := TIniFile.Create(NomeArquivoIni);
+    try
+      dm1.con1.ProviderName := i.ReadString('conexao', 'provider', '');
+      dm1.con1.Port := i.ReadInteger('conexao', 'port', 5432);
+      dm1.con1.Username := i.ReadString('conexao', 'username', '');
+      dm1.con1.Password := i.ReadString('conexao', 'password', '');
+      dm1.con1.Database := i.ReadString('conexao', 'database', '');
+
+      if i.ReadString('usuario', 'login', '' ) = '' then
+      begin
+        LoginInput.SetFocus;
+      end
+      else
+      begin
+        LoginInput.Text := i.ReadString('usuario', 'login', '' );
+        SenhaInput.SetFocus;
+      end;
+    finally
+      i.Free;
+    end;
+
+    try
+      dm1.con1.Open;
+    except on E: Exception do
+      begin
+        erro('Erro ao conectar no banco de dados!' + #13 + E.Message);
+        Application.Terminate;
+      end;
+    end;
+  end;
 end;
 
 procedure TLoginForm.AtivaNavegacao(Sender: TObject; var Key: Char);
@@ -102,34 +131,14 @@ begin
   LoginInput.SetFocus;
 end;
 
-procedure TLoginForm.FormCreate(Sender: TObject);
-begin
-  // Carregar o arquivo login.ini
-  i := TIniFile.Create(ExtractFilePath(Application.ExeName) + 'login.ini');
-
-  try
-    dm1.con1.Close;
-    dm1.con1.ProviderName := 'PostgreSQL';
-    dm1.con1.Port := 5432;
-    dm1.con1.Username := 'postgres';
-    dm1.con1.Password := 'admin';
-    dm1.con1.Database := 'bibliotecaDB';
-    dm1.con1.Open;
-  except on E: Exception do
-    begin
-      erro('Erro ao conectar no banco de dados!' + #13 + E.Message);
-      Application.Terminate;
-    end;
-  end;
-end;
-
 procedure TLoginForm.LoginBtnClick(Sender: TObject);
 var
   q1: TUniQuery;
   nomeUsuario: String;
+  i: TIniFile;
+  NomeArquivoIni: String;
 
 begin
-
   if ExisteInputsVazios(LoginForm) then
   begin
     aviso('Preencha todos os campos!');
@@ -144,7 +153,7 @@ begin
     q1.Close;
     q1.SQL.Clear;
 
-    q1.SQL.Add('select * from usuarios ');
+    q1.SQL.Add('select codigo, nome_completo, email, login from usuarios ');
     q1.SQL.Add('where login = :login and senha = md5(:senha)');
 
     q1.ParamByName('login').Value := LoginInput.Text;
@@ -152,11 +161,8 @@ begin
 
     q1.Open;
 
-    if q1.RecordCount > 0  then
-    begin
-      nomeUsuario := q1.FieldByName('nome_completo').Value;
-    end;
-  finally
+    nomeUsuario := q1.FieldByName('nome_completo').AsString;
+
     if nomeUsuario = '' then
     begin
       aviso('Usuário não encontrado!');
@@ -164,19 +170,23 @@ begin
     end
     else
     begin
+      // PREENCHER FORM PERIL DO USUARIO
+      PerfilUsuario.CodigoInput.Text := q1.FieldByName('codigo').AsString;
+      PerfilUsuario.NomeInput.Text := q1.FieldByName('nome_completo').AsString;
+      PerfilUsuario.EmailInput.Text := q1.FieldByName('email').AsString;
+      PerfilUsuario.LoginInput.Text := q1.FieldByName('login').AsString;
 
-      PerfilUsuario.CodigoInput.Text := q1.FieldByName('codigo').Value;
-      PerfilUsuario.NomeInput.Text := q1.FieldByName('nome_completo').Value;
-      PerfilUsuario.EmailInput.Text := q1.FieldByName('email').Value;
-      PerfilUsuario.LoginInput.Text := q1.FieldByName('login').Value;
+      // ABRIR ARQUIVO INI E PREENCHER CAMPO LOGIN
+      NomeArquivoIni := ExtractFilePath(Application.ExeName) + 'login.ini';
 
-      mensagem('Seja bem vindo: ' + nomeUsuario);
-
+      i := TIniFile.Create(NomeArquivoIni);
       i.WriteString('usuario', 'login', LoginInput.Text);
+      i.Free;
+      mensagem('Seja bem vindo: ' + nomeUsuario);
       SenhaInput.Clear;
-
       FormPrincipal.Visible := True;
     end;
+  finally
     FreeAndNil(q1);
   end;
 end;

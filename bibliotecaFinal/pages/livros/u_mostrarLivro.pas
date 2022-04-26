@@ -178,6 +178,7 @@ begin
             else
             begin
               erro('Data inválida!' + e.Message);
+              AnoPublicacaoInput.SetFocus;
             end;
           end;
         end;

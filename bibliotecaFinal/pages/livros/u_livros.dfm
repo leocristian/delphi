@@ -7507,6 +7507,7 @@ object FormLivros: TFormLivros
     000000000000000000000000000000000000000000000000000000000000}
   OldCreateOrder = False
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   inline FrameBusca1: TFrameBusca

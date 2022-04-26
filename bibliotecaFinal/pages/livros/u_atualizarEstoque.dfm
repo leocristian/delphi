@@ -20,7 +20,7 @@ object AtualizarEstoqueForm: TAtualizarEstoqueForm
   object Label1: TLabel
     Left = 67
     Top = 16
-    Width = 177
+    Width = 167
     Height = 23
     Caption = 'Atualizar estoque'
     Font.Charset = DEFAULT_CHARSET
@@ -46,7 +46,7 @@ object AtualizarEstoqueForm: TAtualizarEstoqueForm
   object QtdEstoqueLabel: TLabel
     Left = 158
     Top = 133
-    Width = 97
+    Width = 5
     Height = 19
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clRed

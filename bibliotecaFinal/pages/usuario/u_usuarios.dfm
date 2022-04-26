@@ -1335,9 +1335,8 @@ object FormUsuarios: TFormUsuarios
     AFFF035D0AFDDA8EA3724A0000000049454E44AE426082}
   KeyPreview = True
   OldCreateOrder = False
-  OnCreate = FormCreate
   OnKeyPress = FormKeyPress
-  OnShow = FocarInput
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object grid_usuarios: TcxGrid
@@ -1473,7 +1472,6 @@ object FormUsuarios: TFormUsuarios
     Top = 296
   end
   object ds_usuarios: TDataSource
-    DataSet = tb_usuarios
     Left = 188
     Top = 296
   end

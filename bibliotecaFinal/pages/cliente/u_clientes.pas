@@ -41,9 +41,9 @@ type
     procedure AdicionarClienteClick(Sender: TObject);
     procedure bt_mostrarTudoClick(Sender: TObject);
     procedure BuscaInputClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure RelatorioClientesClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -216,25 +216,6 @@ begin
   end;
 end;
 
-
-procedure TFormClientes.FormCreate(Sender: TObject);
-begin
-  if dm1.con1.Connected = True then
-  begin
-    tb_clientes.Connection := dm1.con1;
-    tb_clientes.TableName := 'clientes';
-    tb_clientes.Active := True;
-  end
-  else
-  begin
-    dm1.con1.Connect;
-
-    tb_clientes.Connection := dm1.con1;
-    tb_clientes.TableName := 'clientes';
-    tb_clientes.Active := True;
-  end;
-end;
-
 procedure TFormClientes.FormKeyPress(Sender: TObject; var Key: Char);
 begin
   if Key = #13 then
@@ -243,6 +224,18 @@ begin
     Perform(wm_nextdlgctl, 0, 0);
   end
   else if key = #27 then close;
+end;
+
+procedure TFormClientes.FormShow(Sender: TObject);
+begin
+  dm1.con1.Close;
+
+  tb_clientes.Connection := dm1.con1;
+  tb_clientes.TableName := 'clientes';
+  ds_clientes.DataSet := tb_clientes;
+  tb_clientes.Active := True;
+
+  dm1.con1.Open;
 end;
 
 procedure TFormClientes.RelatorioClientesClick(Sender: TObject);

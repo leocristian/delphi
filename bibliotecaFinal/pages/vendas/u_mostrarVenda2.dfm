@@ -64,7 +64,6 @@ object FormVenda: TFormVenda
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 798
     object Label4: TLabel
       Left = 113
       Top = 69

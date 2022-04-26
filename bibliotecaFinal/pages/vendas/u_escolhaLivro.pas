@@ -120,11 +120,7 @@ begin
 
     if confirma('Adicionar livro na venda?') then
     begin
-      try
-        q1.ExecSQL;
-      finally
-        Mensagem('estoque alterado!');
-      end;
+      q1.ExecSQL;
 
       q1.Close;
       q1.SQL.Clear;
