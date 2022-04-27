@@ -228,14 +228,14 @@ end;
 
 procedure TFormClientes.FormShow(Sender: TObject);
 begin
-  dm1.con1.Close;
+//  dm1.con1.Close;
 
   tb_clientes.Connection := dm1.con1;
   tb_clientes.TableName := 'clientes';
   ds_clientes.DataSet := tb_clientes;
   tb_clientes.Active := True;
 
-  dm1.con1.Open;
+//  dm1.con1.Open;
 end;
 
 procedure TFormClientes.RelatorioClientesClick(Sender: TObject);

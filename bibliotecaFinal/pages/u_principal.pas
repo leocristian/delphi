@@ -39,6 +39,7 @@ type
     procedure AlterarPerfilClick(Sender: TObject);
     procedure vendasClick(Sender: TObject);
     procedure livrosClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -67,8 +68,17 @@ end;
 
 procedure TFormPrincipal.encerrarClick(Sender: TObject);
 begin
-  FormPrincipal.Visible := False;
+  FormPrincipal.Close;
   LoginForm.LoginInput.SetFocus;
+end;
+
+procedure TFormPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FormUsuarios.Close;
+  FormClientes.Close;
+  FormLivros.Close;
+  FormVendas.Close;
+  dm1.con1.Close;
 end;
 
 procedure TFormPrincipal.livrosClick(Sender: TObject);

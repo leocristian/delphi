@@ -42,8 +42,8 @@ type
     procedure bt_buscaClick(Sender: TObject);
     procedure MostrarTodasClick(Sender: TObject);
     procedure BuscaInputClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure RelatorioVendasClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -200,22 +200,16 @@ begin
   end;
 end;
 
-procedure TFormVendas.FormCreate(Sender: TObject);
+procedure TFormVendas.FormShow(Sender: TObject);
 begin
-  if dm1.con1.Connected = True then
-  begin
-    tb_vendas.Connection := dm1.con1;
-    tb_vendas.TableName := 'vendas';
-    tb_vendas.Active := True;
-  end
-  else
-  begin
-    dm1.con1.Connect;
+//  dm1.con1.Close;
 
-    tb_vendas.Connection := dm1.con1;
-    tb_vendas.TableName := 'vendas';
-    tb_vendas.Active := True;
-  end;
+  tb_vendas.Connection := dm1.con1;
+  tb_vendas.TableName := 'vendas';
+  ds_vendas.DataSet := tb_vendas;
+  tb_vendas.Active := True;
+
+//  dm1.con1.Open;
 end;
 
 procedure TFormVendas.MostrarTodasClick(Sender: TObject);

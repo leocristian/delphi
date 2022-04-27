@@ -65,12 +65,15 @@ begin
 
   // FECHAR CONEXÃO COM BD!!!
   dm1.con1.Close;
+
+  // INSTANCIAR ARQUIVO INI
   NomeArquivoIni := ExtractFilePath(Application.ExeName) + 'login.ini';
 
   if FileExists(NomeArquivoIni) then
   begin
     i := TIniFile.Create(NomeArquivoIni);
     try
+      // LER ARQUIVO INI
       dm1.con1.ProviderName := i.ReadString('conexao', 'provider', '');
       dm1.con1.Port := i.ReadInteger('conexao', 'port', 5432);
       dm1.con1.Username := i.ReadString('conexao', 'username', '');
@@ -187,6 +190,7 @@ begin
       FormPrincipal.Visible := True;
     end;
   finally
+    dm1.con1.Open;
     FreeAndNil(q1);
   end;
 end;

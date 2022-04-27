@@ -189,14 +189,14 @@ end;
 
 procedure TFormUsuarios.FormShow(Sender: TObject);
 begin
-  dm1.con1.Close;
+//  dm1.con1.Close;
 
   tb_usuarios.Connection := dm1.con1;
   tb_usuarios.TableName := 'usuarios';
   ds_usuarios.DataSet := tb_usuarios;
   tb_usuarios.Active := True;
 
-  dm1.con1.Open;
+//  dm1.con1.Open;
 end;
 
 procedure TFormUsuarios.FormKeyPress(Sender: TObject; var Key: Char);

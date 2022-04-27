@@ -3630,7 +3630,6 @@ object FormClientes: TFormClientes
     Align = alClient
     PopupMenu = PopupClientes
     TabOrder = 1
-    ExplicitHeight = 243
     object grid_clientesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True

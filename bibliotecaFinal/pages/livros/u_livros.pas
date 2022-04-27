@@ -44,7 +44,6 @@ type
     procedure VisualizarLivroClick(Sender: TObject);
     procedure AlterarLivroClick(Sender: TObject);
     procedure ExcluirLivroClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure RelatorioLivrosClick(Sender: TObject);
     procedure AtualizarestoqueClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -218,34 +217,16 @@ begin
 
 end;
 
-procedure TFormLivros.FormCreate(Sender: TObject);
-begin
-  if dm1.con1.Connected = True then
-  begin
-    tb_livros.Connection := dm1.con1;
-    tb_livros.TableName := 'livros';
-    tb_livros.Active := True;
-  end
-  else
-  begin
-    dm1.con1.Connect;
-
-    tb_livros.Connection := dm1.con1;
-    tb_livros.TableName := 'livros';
-    tb_livros.Active := True;
-  end;
-end;
-
 procedure TFormLivros.FormShow(Sender: TObject);
 begin
-  dm1.con1.Close;
+//  dm1.con1.Close;
 
   tb_livros.Connection := dm1.con1;
   tb_livros.TableName := 'livros';
   ds_livros.DataSet := tb_livros;
   tb_livros.Active := True;
 
-  dm1.con1.Open;
+//  dm1.con1.Open;
 end;
 
 procedure TFormLivros.NovoLivroClick(Sender: TObject);
