@@ -21,7 +21,7 @@ type
     SalvarBtn: TButton;
     CodigoInput: TEdit;
     CancelarBtn: TButton;
-    procedure MostrarForm(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure SalvarBtnClick(Sender: TObject);
     procedure CancelarBtnClick(Sender: TObject);
@@ -55,12 +55,35 @@ begin
   close;
 end;
 
-procedure TUsuarioForm.MostrarForm(Sender: TObject);
+procedure TUsuarioForm.FormShow(Sender: TObject);
+var
+  q1: TUniQuery;
+
 begin
   AbrirForm(UsuarioForm);
 
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
+
+  try
+    q1 := TUniQuery.Create(nil);
+    q1.Connection := dm1.con1;
+
+    q1.SQL.Text := 'select nome_completo, email, login from usuarios where codigo = :codigo';
+    q1.ParamByName('codigo').Value := CodigoInput.Text;
+
+    q1.Open;
+
+    if q1.RecordCount > 0  then
+    begin
+      NomeInput.Text := q1.FieldByName('nome_completo').AsString;
+      EmailInput.Text := q1.FieldByName('email').AsString;
+      LoginInput.Text := q1.FieldByName('login').AsString;
+    end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
 
   if ModoInput.Text = 'V' then
   begin
@@ -68,7 +91,7 @@ begin
     SalvarBtn.Visible := False;
     CancelarBtn.Visible := False;
   end
-  else
+  else if ModoInput.Text = 'A' then
   begin
     panel_usuarioSelecionado.Enabled := True;
     SalvarBtn.Visible := True;
@@ -132,6 +155,7 @@ begin
         end;
       end;
     finally
+      q1.Close;
       FreeAndNil(q1);
     end;
   end;

@@ -2,7 +2,7 @@ object FormVenda: TFormVenda
   Left = 0
   Top = 0
   Caption = 'FormVenda'
-  ClientHeight = 546
+  ClientHeight = 608
   ClientWidth = 818
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,13 +15,17 @@ object FormVenda: TFormVenda
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
+  DesignSize = (
+    818
+    608)
   PixelsPerInch = 96
   TextHeight = 13
   object ValorVenda: TLabel
     Left = 681
-    Top = 481
+    Top = 549
     Width = 17
-    Height = 33
+    Height = 34
+    Anchors = [akLeft, akBottom]
     Caption = '0'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clRed
@@ -29,12 +33,14 @@ object FormVenda: TFormVenda
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
+    ExplicitTop = 516
   end
   object Label5: TLabel
     Left = 638
-    Top = 481
+    Top = 549
     Width = 37
-    Height = 33
+    Height = 34
+    Anchors = [akLeft, akBottom]
     Caption = 'R$'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -42,12 +48,14 @@ object FormVenda: TFormVenda
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
+    ExplicitTop = 516
   end
   object Label3: TLabel
     Left = 638
-    Top = 463
+    Top = 531
     Width = 91
-    Height = 23
+    Height = 24
+    Anchors = [akLeft, akBottom]
     Caption = 'Valor total:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -55,32 +63,35 @@ object FormVenda: TFormVenda
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
+    ExplicitTop = 498
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
     Width = 818
-    Height = 457
+    Height = 513
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitLeft = -32
+    ExplicitTop = -16
     object Label4: TLabel
       Left = 113
-      Top = 69
+      Top = 117
       Width = 76
       Height = 13
       Caption = 'Nome do cliente'
     end
     object Label7: TLabel
       Left = 32
-      Top = 69
+      Top = 117
       Width = 33
       Height = 13
       Caption = 'C'#243'digo'
     end
     object TituloPagina: TLabel
       Left = 32
-      Top = 16
+      Top = 64
       Width = 219
       Height = 33
       Caption = 'Venda escolhida'
@@ -93,14 +104,14 @@ object FormVenda: TFormVenda
     end
     object TituloLabel: TLabel
       Left = 360
-      Top = 69
+      Top = 117
       Width = 64
       Height = 13
       Caption = 'Titulo do livro'
     end
     object Label2: TLabel
       Left = 32
-      Top = 154
+      Top = 202
       Width = 195
       Height = 24
       Caption = 'Livros selecionados'
@@ -113,7 +124,7 @@ object FormVenda: TFormVenda
     end
     object AddLivro: TButton
       Left = 638
-      Top = 75
+      Top = 123
       Width = 131
       Height = 46
       Cursor = crHandPoint
@@ -129,7 +140,7 @@ object FormVenda: TFormVenda
     end
     object ClienteInput: TEdit
       Left = 113
-      Top = 88
+      Top = 136
       Width = 241
       Height = 21
       CharCase = ecUpperCase
@@ -138,7 +149,7 @@ object FormVenda: TFormVenda
     end
     object CodigoInput: TEdit
       Left = 32
-      Top = 88
+      Top = 136
       Width = 75
       Height = 21
       CharCase = ecUpperCase
@@ -147,7 +158,7 @@ object FormVenda: TFormVenda
     end
     object TituloInput: TEdit
       Left = 360
-      Top = 88
+      Top = 136
       Width = 217
       Height = 21
       CharCase = ecUpperCase
@@ -156,7 +167,7 @@ object FormVenda: TFormVenda
     end
     object grid_livros: TcxGrid
       Left = 32
-      Top = 193
+      Top = 241
       Width = 753
       Height = 237
       TabOrder = 4
@@ -186,6 +197,7 @@ object FormVenda: TFormVenda
         DataController.Summary.SummaryGroups = <>
         OptionsBehavior.IncSearch = True
         OptionsSelection.CellSelect = False
+        OptionsView.NoDataToDisplayInfoText = 'Nenhum livro na venda'
         OptionsView.GroupByBox = False
         OptionsView.Indicator = True
         OptionsView.IndicatorWidth = 20
@@ -231,30 +243,35 @@ object FormVenda: TFormVenda
   end
   object ModoInput: TEdit
     Left = 232
-    Top = 481
+    Top = 549
     Width = 29
-    Height = 21
+    Height = 22
     TabStop = False
+    Anchors = [akLeft, akBottom]
     TabOrder = 1
     Visible = False
+    ExplicitTop = 516
   end
   inline frame_estilo_grid1: Tframe_estilo_grid
-    Left = 502
-    Top = 115
-    Width = 130
+    Left = 406
+    Top = 163
+    Width = 75
     Height = 72
     TabOrder = 2
-    ExplicitLeft = 502
-    ExplicitTop = 115
+    ExplicitLeft = 406
+    ExplicitTop = 163
+    ExplicitWidth = 75
     inherited estilo_padrao: TcxStyleRepository
+      Left = 24
       PixelsPerInch = 96
     end
   end
   object ConfirmarBtn: TButton
     Left = 32
-    Top = 463
+    Top = 531
     Width = 185
-    Height = 63
+    Height = 52
+    Anchors = [akLeft, akBottom]
     Caption = 'Confirmar venda'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -264,6 +281,69 @@ object FormVenda: TFormVenda
     ParentFont = False
     TabOrder = 3
     OnClick = ConfirmarBtnClick
+    ExplicitTop = 498
+  end
+  object DataPanel: TPanel
+    Left = 513
+    Top = 0
+    Width = 305
+    Height = 81
+    TabOrder = 4
+    DesignSize = (
+      305
+      81)
+    object DataTituloLabel: TLabel
+      Left = 26
+      Top = 19
+      Width = 100
+      Height = 16
+      Caption = 'Data da venda:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object DataLabel: TLabel
+      Left = 148
+      Top = 19
+      Width = 130
+      Height = 16
+      Anchors = [akLeft, akBottom]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object VendedorTituloLabel: TLabel
+      Left = 26
+      Top = 41
+      Width = 68
+      Height = 16
+      Caption = 'Vendedor:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object VendedorLabel: TLabel
+      Left = 108
+      Top = 41
+      Width = 173
+      Height = 16
+      Anchors = [akLeft, akBottom]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
   object vtb_livrosVenda: TVirtualTable
     Active = True

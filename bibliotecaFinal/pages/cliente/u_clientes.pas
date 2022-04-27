@@ -60,72 +60,46 @@ implementation
 uses u_dm1, u_mostrarClientes, u_novoCliente, u_forms;
 
 procedure TFormClientes.AdicionarClienteClick(Sender: TObject);
-var
-  q1: TUniQuery;
 begin
-  try
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
-
-    q1.Close;
-    q1.SQL.Clear;
-
-    q1.SQL.Text := 'select nextval(''tb_clientes_cod_seq'') as codProximo';
-    q1.Open;
-
-    LimparInputs(MostrarClientesForm);
-
-    MostrarClientesForm.CodigoInput.Text := q1.FieldByName('codProximo').AsString;
-    MostrarClientesForm.ModoInput.Text := 'N';
-    MostrarClientesForm.CpfInput.Clear;
-    MostrarClientesForm.TelefoneInput.Clear;
-    MostrarClientesForm.ShowModal;
-  finally
-    FreeAndNil(q1);
-  end;
-
+  LimparInputs(ClienteForm);
+  ClienteForm.ModoInput.Text := 'N';
+  ClienteForm.ShowModal;
 end;
 
-procedure TFormClientes.AlterarClienteClick(Sender: TObject);
+procedure TFormClientes.VisualizarClienteClick(Sender: TObject);
 var
-  q1: TUniQuery;
   codCliente: Integer;
   indexCliente: Integer;
 
 begin
-  try
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
+  if not tb_clientes.Active then exit;
+  if tb_clientes.RecordCount = 0 then exit;
 
-    q1.Close;
-    q1.SQL.Clear;
+  indexCliente := grid_clientesDBTableView1.DataController.GetSelectedRowIndex(0);
+  codCliente := grid_clientesDBTableView1.ViewData.Records[indexCliente].Values[0];
 
-    indexCliente := grid_clientesDBTableView1.DataController.GetSelectedRowIndex(0);
-    codCliente := grid_clientesDBTableView1.ViewData.Records[indexCliente].Values[0];
+  ClienteForm.CodigoInput.Text := codCliente.ToString;
+  ClienteForm.ModoInput.Text := 'V';
 
-    q1.SQL.Add('select * from clientes ');
-    q1.SQL.Add('where ');
-    q1.SQL.Add('codigo = :codigo');
+  ClienteForm.ShowModal;
+end;
 
-    q1.ParamByName('codigo').Value := codCliente;
+procedure TFormClientes.AlterarClienteClick(Sender: TObject);
+var
+  codCliente: Integer;
+  indexCliente: Integer;
 
-    q1.Open;
+begin
+  if not tb_clientes.Active then exit;
+  if tb_clientes.RecordCount = 0 then exit;
 
-    if q1.RecordCount > 0 then
-    begin
-      MostrarClientesForm.CodigoInput.Text := q1.FieldByName('codigo').Value;
-      MostrarClientesForm.CpfInput.Text := q1.FieldByName('cpf').Value;
-      MostrarClientesForm.NomeInput.Text :=  q1.FieldByName('nome_completo').Value;
-      MostrarClientesForm.EmailInput.Text := q1.FieldByName('email').Value;
-      MostrarClientesForm.TelefoneInput.Text := q1.FieldByName('telefone').Value;
+  indexCliente := grid_clientesDBTableView1.DataController.GetSelectedRowIndex(0);
+  codCliente := grid_clientesDBTableView1.ViewData.Records[indexCliente].Values[0];
 
-      MostrarClientesForm.ModoInput.Text := 'A';
-    end;
+  ClienteForm.CodigoInput.Text := codCliente.ToString;
+  ClienteForm.ModoInput.Text := 'A';
 
-  finally
-    MostrarClientesForm.ShowModal;
-    FreeAndNil(q1);
-  end;
+  ClienteForm.ShowModal;
 end;
 
 procedure TFormClientes.bt_buscaClick(Sender: TObject);
@@ -185,6 +159,10 @@ var
   codCliente: Integer;
 
 begin
+
+  if not tb_clientes.Active then exit;
+  if tb_clientes.RecordCount = 0 then exit;
+
   try
     q1 := TUniQuery.Create(nil);
     q1.Connection := dm1.con1;
@@ -243,48 +221,4 @@ begin
   ds_rel_clientes.DataSource := ds_clientes;
   rel_clientes.ShowReport;
 end;
-
-procedure TFormClientes.VisualizarClienteClick(Sender: TObject);
-var
-  q1: TUniQuery;
-  codCliente: Integer;
-  indexCliente: Integer;
-
-begin
-  try
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
-
-    q1.Close;
-    q1.SQL.Clear;
-
-    indexCliente := grid_clientesDBTableView1.DataController.GetSelectedRowIndex(0);
-    codCliente := grid_clientesDBTableView1.ViewData.Records[indexCliente].Values[0];
-
-    q1.SQL.Add('select * from clientes ');
-    q1.SQL.Add('where ');
-    q1.SQL.Add('codigo = :codigo');
-
-    q1.ParamByName('codigo').Value := codCliente;
-
-    q1.Open;
-
-    if q1.RecordCount > 0 then
-    begin
-      MostrarClientesForm.CodigoInput.Text := q1.FieldByName('codigo').Value;
-      MostrarClientesForm.CpfInput.Text := q1.FieldByName('cpf').Value;
-      MostrarClientesForm.NomeInput.Text :=  q1.FieldByName('nome_completo').Value;
-      MostrarClientesForm.EmailInput.Text := q1.FieldByName('email').Value;
-      MostrarClientesForm.TelefoneInput.Text := q1.FieldByName('telefone').Value;
-
-      MostrarClientesForm.ModoInput.Text := 'V';
-    end;
-
-  finally
-    MostrarClientesForm.ShowModal;
-    FreeAndNil(q1);
-  end;
-end;
-
-
 end.

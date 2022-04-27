@@ -93,6 +93,7 @@ begin
       i.Free;
     end;
 
+    // ABRIR CONEXÃO OU MOSTRAR ERRO
     try
       dm1.con1.Open;
     except on E: Exception do
@@ -188,6 +189,7 @@ begin
       mensagem('Seja bem vindo: ' + nomeUsuario);
       SenhaInput.Clear;
       FormPrincipal.Visible := True;
+      LoginForm.Visible := False;
     end;
   finally
     dm1.con1.Open;

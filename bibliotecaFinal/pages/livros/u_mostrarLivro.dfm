@@ -1,7 +1,7 @@
-object MostrarLivroForm: TMostrarLivroForm
+object LivroForm: TLivroForm
   Left = 0
   Top = 0
-  Caption = 'MostrarLivroForm'
+  Caption = 'LivroForm'
   ClientHeight = 373
   ClientWidth = 471
   Color = clBtnFace

@@ -59,60 +59,46 @@ implementation
 
 uses u_dm1, u_novaVenda, u_mostrarVenda, u_forms, u_mostrarVenda2;
 
-procedure TFormVendas.AlterarVendaClick(Sender: TObject);
+procedure TFormVendas.VisualizarVendaClick(Sender: TObject);
 var
-  indexVenda, codVenda: Integer;
+  indexVenda: Integer;
+  codVenda: Integer;
 
 begin
-  FormVenda.vtb_livrosVenda.Clear;
-
-  q1.Close;
-  q1.SQL.Clear;
-
-  q1.SQL.Add('select * from vendas ');
-  q1.SQL.Add('where codigo = :codigo');
+  if not tb_vendas.Active then exit;
+  if tb_vendas.RecordCount = 0 then exit;
 
   indexVenda := grid_vendasDBTableView1.DataController.GetSelectedRowIndex(0);
   codVenda := grid_vendasDBTableView1.ViewData.Records[indexVenda].Values[0];
 
-  q1.ParamByName('codigo').Value := codVenda;
+  FormVenda.CodigoInput.Text := codVenda.ToString;
+  FormVenda.ModoInput.Text := 'V';
 
-  q1.Open;
+  FormVenda.ShowModal;
+end;
 
-  if q1.RecordCount > 0 then
-  begin
-    FormVenda.CodigoInput.Text := IntToStr(q1.FieldByName('codigo').Value);
-    FormVenda.ClienteInput.Text := q1.FieldByName('cliente').Value;
-    FormVenda.ValorVenda.Caption := q1.FieldByName('valor_total').Value;
-    FormVenda.ModoInput.Text := 'A';
+procedure TFormVendas.NovaVendaClick(Sender: TObject);
+begin
+  LimparInputs(FormVenda);
+  FormVenda.ModoInput.Text := 'N';
+  FormVenda.ShowModal;
+end;
 
-    q1.Close;
-    q1.SQL.Clear;
+procedure TFormVendas.AlterarVendaClick(Sender: TObject);
+var
+  indexVenda: Integer;
+  codVenda: Integer;
 
-    q1.SQL.Add('select * from livros_venda ');
-    q1.SQL.Add('where numero_venda = :numero_venda');
+begin
+  if not tb_vendas.Active then exit;
+  if tb_vendas.RecordCount = 0 then exit;
 
-    q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
+  indexVenda := grid_vendasDBTableView1.DataController.GetSelectedRowIndex(0);
+  codVenda := grid_vendasDBTableView1.ViewData.Records[indexVenda].Values[0];
 
-    q1.Open;
-    q1.First;
+  FormVenda.CodigoInput.Text := codVenda.ToString;
+  FormVenda.ModoInput.Text := 'A';
 
-    FormVenda.vtb_livrosVenda.Clear;
-
-    while not q1.Eof do
-    begin
-      FormVenda.vtb_livrosVenda.Append;
-      FormVenda.vtb_livrosvenda['codigo'] := q1.FieldByName('codigo').Value;
-      FormVenda.vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
-      FormVenda.vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
-      FormVenda.vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
-      FormVenda.vtb_livrosvenda['preco'] := q1.FieldByName('preco').Value;
-      FormVenda.vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
-      FormVenda.vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
-
-      q1.Next;
-    end;
-  end;
   FormVenda.ShowModal;
 end;
 
@@ -170,33 +156,38 @@ var
   indexVenda, codVenda: Integer;
 
 begin
-  q1.Close;
-  q1.SQL.Clear;
+  try
+    q1.Close;
+    q1.SQL.Clear;
 
-  indexVenda := grid_vendasDBTableView1.DataController.GetSelectedRowIndex(0);
-  codVenda := grid_vendasDBTableView1.ViewData.Records[indexVenda].Values[0];
+    indexVenda := grid_vendasDBTableView1.DataController.GetSelectedRowIndex(0);
+    codVenda := grid_vendasDBTableView1.ViewData.Records[indexVenda].Values[0];
 
-  q1.SQL.Add('delete from livros_venda where numero_venda = :numero_venda');
-  q1.ParamByName('numero_venda').Value := codVenda;
+    q1.SQL.Add('delete from livros_venda where numero_venda = :numero_venda');
+    q1.ParamByName('numero_venda').Value := codVenda;
 
-  q1.ExecSQL;
+    q1.ExecSQL;
 
-  q1.Close;
-  q1.SQL.Clear;
+    q1.Close;
+    q1.SQL.Clear;
 
-  q1.SQL.Add('delete from vendas where codigo = :codigo');
+    q1.SQL.Add('delete from vendas where codigo = :codigo');
 
-  q1.ParamByName('codigo').Value := codVenda;
+    q1.ParamByName('codigo').Value := codVenda;
 
-  if confirma('Confirmar exclusão de venda?') then
-  begin
-    try
-      q1.ExecSQL;
-      mensagem('Venda excluída com sucesso!');
-      grid_vendasDBTableView1.DataController.RefreshExternalData;
-    except on e:Exception do
-      Erro(e.Message);
+    if confirma('Confirmar exclusão de venda?') then
+    begin
+      try
+        q1.ExecSQL;
+        mensagem('Venda excluída com sucesso!');
+        grid_vendasDBTableView1.DataController.RefreshExternalData;
+      except on e:Exception do
+        Erro(e.Message);
+      end;
     end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
   end;
 end;
 
@@ -218,103 +209,9 @@ begin
   grid_vendasDBTableView1.DataController.RefreshExternalData;
 end;
 
-procedure TFormVendas.NovaVendaClick(Sender: TObject);
-var
-  q1: TUniQuery;
-
-begin
-  FormVenda.grid_livrosDBTableView1.OptionsView.NoDataToDisplayInfoText := '';
-  try
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
-
-    q1.Close;
-    q1.SQL.Clear;
-
-    q1.SQL.Text := 'select nextval(''tb_vendas_cod_seq'') as codProximo';
-    q1.Open;
-
-    LimparInputs(FormVenda);
-
-    FormVenda.CodigoInput.Text := q1.FieldByName('codProximo').AsString;
-    FormVenda.ModoInput.Text := 'N';
-
-    FormVenda.ShowModal;
-
-  finally
-    FreeAndNil(q1);
-  end;
-end;
-
 procedure TFormVendas.RelatorioVendasClick(Sender: TObject);
 begin
   ds_rel_vendas.DataSource := ds_vendas;
   rel_vendas.ShowReport;
 end;
-
-procedure TFormVendas.VisualizarVendaClick(Sender: TObject);
-var
-  q1: TUniQuery;
-  indexVenda: Integer;
-  codVenda: Integer;
-
-begin
-  try
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
-
-    q1.Close;
-    q1.SQL.Clear;
-
-    q1.SQL.Add('select * from vendas ');
-    q1.SQL.Add('where codigo = :codigo');
-
-    indexVenda := grid_vendasDBTableView1.DataController.GetSelectedRowIndex(0);
-    codVenda := grid_vendasDBTableView1.ViewData.Records[indexVenda].Values[0];
-
-    q1.ParamByName('codigo').Value := codVenda;
-
-    q1.Open;
-
-    if q1.RecordCount > 0 then
-    begin
-      FormVenda.CodigoInput.Text := IntTostr(q1.FieldByName('codigo').Value);
-      FormVenda.ClienteInput.Text := q1.FieldByName('cliente').Value;
-      FormVenda.ValorVenda.Caption := q1.FieldByName('valor_total').Value;
-      FormVenda.ModoInput.Text := 'V';
-
-      q1.Close;
-      q1.SQL.Clear;
-
-      q1.SQL.Add('select * from livros_venda ');
-      q1.SQL.Add('where numero_venda = :numero_venda');
-
-      q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
-
-      q1.Open;
-      q1.First;
-
-      FormVenda.vtb_livrosVenda.Clear;
-
-      while not q1.Eof do
-      begin
-        FormVenda.vtb_livrosVenda.Append;
-        FormVenda.vtb_livrosvenda['codigo'] := q1.FieldByName('codigo').Value;
-        FormVenda.vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
-        FormVenda.vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
-        FormVenda.vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
-        FormVenda.vtb_livrosvenda['preco'] := q1.FieldByName('preco').Value;
-        FormVenda.vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
-        FormVenda.vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
-
-        q1.Next;
-      end;
-    end;
-  finally
-
-    FormVenda.ShowModal;
-    FreeAndNil(q1);
-  end;
-end;
-
 end.

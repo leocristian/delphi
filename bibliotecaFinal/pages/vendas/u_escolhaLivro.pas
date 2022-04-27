@@ -106,7 +106,7 @@ begin
     FormVenda.vtb_livrosvenda['titulo'] := titulo;
     FormVenda.vtb_livrosvenda['editora'] := editora;
     FormVenda.vtb_livrosvenda['ano_publicacao'] := anoPublicacao;
-    FormVenda.vtb_livrosvenda['preco'] := FormatFloat('0,00', precoLivro);
+    FormVenda.vtb_livrosvenda['preco'] := StrToCurr(FormatFloat('0,00', precoLivro));
     FormVenda.vtb_livrosvenda['categoria'] := categoria;
     FormVenda.vtb_livrosvenda['qtdEscolhida'] := qtdEscolhida;
 
@@ -141,7 +141,7 @@ begin
       q1.ParamByName('titulo').Value := titulo;
       q1.ParamByName('editora').Value := editora;
       q1.ParamByName('ano_publicacao').Value := anoPublicacao;
-      q1.ParamByName('preco').Value := FormatFloat('0,00', precoLivro);
+      q1.ParamByName('preco').Value := StrToCurr(FormatFloat('0,00', precoLivro));
       q1.ParamByName('categoria').Value := categoria;
       q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
       q1.ParamByName('qtd_escolhida').Value := qtdEscolhida;

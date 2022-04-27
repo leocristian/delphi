@@ -46,6 +46,11 @@ type
     rel_comprovante: TfrxReport;
     PopupMenu1: TPopupMenu;
     removerLivro: TMenuItem;
+    DataPanel: TPanel;
+    DataTituloLabel: TLabel;
+    DataLabel: TLabel;
+    VendedorTituloLabel: TLabel;
+    VendedorLabel: TLabel;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
     procedure AddLivroClick(Sender: TObject);
@@ -216,20 +221,85 @@ begin
 end;
 
 procedure TFormVenda.FormShow(Sender: TObject);
+var
+  q1: TUniQuery;
+
 begin
   AbrirForm(FormVenda);
 
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
 
-  if ModoInput.Text = 'V' then
+  if (ModoInput.Text = 'V') or (ModoInput.Text = 'A') then
   begin
-    panel1.Enabled := False;
-    TituloLabel.Visible := False;
-    TituloInput.Visible := False;
-    TituloPagina.Caption := 'Venda selecionada';
-    ConfirmarBtn.Caption := 'Ver comprovante';
-    AddLivro.Visible := False;
+    try
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.Close;
+
+      q1.SQL.Text := 'select * from vendas where codigo = :codigo';
+      q1.ParamByName('codigo').Value := CodigoInput.Text;
+
+      q1.Open;
+
+      if q1.RecordCount > 0 then
+      begin
+        ClienteInput.Text := q1.FieldByName('cliente').AsString;
+        ValorVenda.Caption := q1.FieldByName('valor_total').AsString;
+        DataLabel.Caption := q1.FieldByName('data_venda').AsString;
+        VendedorLabel.Caption := q1.FieldByName('vendedor').AsString;
+      end;
+
+      // PREENCHER GRADE COM OS LIVROS DA VENDA SELECIONADA
+      q1.Close;
+      q1.SQL.Text := 'select * from livros_venda where numero_venda = :numero_venda';
+
+      q1.ParamByName('numero_venda').Value := CodigoInput.Text;
+
+      q1.Open;
+      q1.First;
+
+      FormVenda.vtb_livrosVenda.Clear;
+
+      while not q1.Eof do
+      begin
+        vtb_livrosVenda.Append;
+        vtb_livrosvenda['codigo'] := q1.FieldByName('codigo').Value;
+        vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
+        vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
+        vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
+        vtb_livrosvenda['preco'] := q1.FieldByName('preco').Value;
+        vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
+        vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
+
+        q1.Next;
+      end;
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
+
+    if ModoInput.Text = 'V' then
+    begin
+      panel1.Enabled := False;
+      TituloLabel.Visible := False;
+      TituloInput.Visible := False;
+      TituloPagina.Caption := 'Venda selecionada';
+      ConfirmarBtn.Caption := 'Ver comprovante';
+      AddLivro.Visible := False;
+    end
+    else if ModoInput.Text = 'A' then
+    begin
+      panel1.Enabled := True;
+      TituloLabel.Visible := True;
+      TituloInput.Visible := True;
+      AddLivro.Visible := True;
+      TituloPagina.Caption := 'Alterar venda seecionada';
+      ConfirmarBtn.Caption := 'Salvar alterações';
+      VendaControle.valorAtual := StrToInt(ValorVenda.Caption);
+      ClienteInput.SetFocus;
+    end;
   end
   else if ModoInput.Text = 'N' then
   begin
@@ -241,20 +311,26 @@ begin
     ConfirmarBtn.Caption := 'Confirmar venda';
     VendaControle.ZerarValor;
     ValorVenda.Caption := FloatToStr(VendaControle.valorAtual);
+    DataLabel.Caption := DateToStr(Now);
+    VendedorLabel.Caption := PerfilUsuario.LoginInput.Text;
     vtb_livrosVenda.Clear;
     ClienteInput.SetFocus;
+
+    try
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.Close;
+      q1.SQL.Text := 'select nextval(''tb_clientes_cod_seq'') as codProximo';
+      q1.Open;
+
+      CodigoInput.Text := q1.FieldByName('codProximo').AsString;
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
   end
-  else if ModoInput.Text = 'A' then
-  begin
-    panel1.Enabled := True;
-    TituloLabel.Visible := True;
-    TituloInput.Visible := True;
-    AddLivro.Visible := True;
-    TituloPagina.Caption := 'Alterar venda seecionada';
-    ConfirmarBtn.Caption := 'Salvar alterações';
-    VendaControle.valorAtual := StrToInt(ValorVenda.Caption);
-    ClienteInput.SetFocus;
-  end;
+
 end;
 
 procedure TFormVenda.removerLivroClick(Sender: TObject);
@@ -275,6 +351,7 @@ begin
   try
     q1.Close;
     q1.SQL.Clear;
+
 
     q1.SQL.Add('delete from livros_venda ');
     q1.SQL.Add('where titulo = :titulo');

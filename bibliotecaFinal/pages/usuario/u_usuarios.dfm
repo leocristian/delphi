@@ -1444,8 +1444,8 @@ object FormUsuarios: TFormUsuarios
     end
   end
   object PopupUsuarios: TPopupMenu
-    Left = 64
-    Top = 296
+    Left = 48
+    Top = 288
     object VisualizarUsuario: TMenuItem
       Caption = 'Visualizar usu'#225'rio selecionado'
       OnClick = VisualizarUsuarioClick

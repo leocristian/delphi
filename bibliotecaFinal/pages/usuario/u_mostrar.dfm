@@ -4,8 +4,8 @@ object UsuarioForm: TUsuarioForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'UsuarioForm'
-  ClientHeight = 301
-  ClientWidth = 363
+  ClientHeight = 310
+  ClientWidth = 371
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,16 +15,17 @@ object UsuarioForm: TUsuarioForm
   KeyPreview = True
   OldCreateOrder = False
   OnKeyPress = AtivaNavegacao
-  OnShow = MostrarForm
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object panel_usuarioSelecionado: TPanel
     Left = 0
     Top = 0
-    Width = 363
-    Height = 301
+    Width = 371
+    Height = 310
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 400
     object Label1: TLabel
       Left = 49
       Top = 34
@@ -122,7 +123,7 @@ object UsuarioForm: TUsuarioForm
       TabOrder = 6
     end
     object CancelarBtn: TButton
-      Left = 191
+      Left = 192
       Top = 235
       Width = 83
       Height = 32

@@ -1,9 +1,9 @@
-object MostrarClientesForm: TMostrarClientesForm
+object ClienteForm: TClienteForm
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = 'MostrarClientesForm'
+  Caption = 'ClienteForm'
   ClientHeight = 369
   ClientWidth = 365
   Color = clBtnFace
@@ -15,7 +15,7 @@ object MostrarClientesForm: TMostrarClientesForm
   KeyPreview = True
   OldCreateOrder = False
   OnKeyPress = AtivaNavegacao
-  OnShow = MostrarForm
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object panel_cliente: TPanel

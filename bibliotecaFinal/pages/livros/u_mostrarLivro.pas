@@ -8,7 +8,7 @@ uses
   Vcl.Mask;
 
 type
-  TMostrarLivroForm = class(TForm)
+  TLivroForm = class(TForm)
     Panel1: TPanel;
     LabelTitulo: TLabel;
     Label2: TLabel;
@@ -42,7 +42,7 @@ type
   end;
 
 var
-  MostrarLivroForm: TMostrarLivroForm;
+  LivroForm: TLivroForm;
 
 implementation
 
@@ -50,12 +50,12 @@ implementation
 
 uses u_forms, u_dm1, u_livros;
 
-procedure TMostrarLivroForm.CancelarBtnClick(Sender: TObject);
+procedure TLivroForm.CancelarBtnClick(Sender: TObject);
 begin
   close;
 end;
 
-procedure TMostrarLivroForm.FormKeyPress(Sender: TObject; var Key: Char);
+procedure TLivroForm.FormKeyPress(Sender: TObject; var Key: Char);
 begin
   if Key = #13 then
   begin
@@ -65,27 +65,56 @@ begin
   else if key = #27 then close;
 end;
 
-procedure TMostrarLivroForm.FormShow(Sender: TObject);
+procedure TLivroForm.FormShow(Sender: TObject);
+var
+  q1: TUniQuery;
+
 begin
-  AbrirForm(MostrarLivroForm);
+  AbrirForm(LivroForm);
 
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
 
-  if ModoInput.Text = 'V' then
+  if (ModoInput.Text = 'V') or (ModoInput.Text = 'A') then
   begin
-    LabelTitulo.Caption := 'Livro selecionado';
-    panel1.Enabled := False;
-    SalvarBtn.Visible := False;
-    CancelarBtn.Visible := False;
-  end
-  else if ModoInput.Text = 'A' then
-  begin
-    LabelTitulo.Caption := 'Alterar livro selecionado';
-    panel1.Enabled := True;
-    TituloInput.SetFocus;
-    SalvarBtn.Visible := True;
-    CancelarBtn.Visible := True;
+    try
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.Close;
+
+      q1.SQL.Text := 'select * from livros where codigo = :codigo';
+      q1.ParamByName('codigo').Value := CodigoInput.Text;
+
+      q1.Open;
+
+      if q1.RecordCount > 0 then
+      begin
+        CodigoInput.Text := q1.FieldByName('codigo').Value;
+        TituloInput.Text := q1.FieldByName('titulo').Value;
+        EditoraInput.Text :=  q1.FieldByName('editora').Value;
+        AnoPublicacaoInput.Text := q1.FieldByName('ano_publicacao').Value;
+        PrecoInput.Text := FloatToStr(q1.FieldByName('preco').Value);
+        CategoriaInput.Text := q1.FieldByName('categoria').Value;
+        QtdEstoqueInput.Text := q1.FieldByName('qtd_estoque').Value;
+      end;
+    finally
+    end;
+    if ModoInput.Text = 'V' then
+    begin
+      LabelTitulo.Caption := 'Livro selecionado';
+      panel1.Enabled := False;
+      SalvarBtn.Visible := False;
+      CancelarBtn.Visible := False;
+    end
+    else if ModoInput.Text = 'A' then
+    begin
+      LabelTitulo.Caption := 'Alterar livro selecionado';
+      panel1.Enabled := True;
+      TituloInput.SetFocus;
+      SalvarBtn.Visible := True;
+      CancelarBtn.Visible := True;
+    end
   end
   else if ModoInput.Text = 'N' then
   begin
@@ -95,10 +124,24 @@ begin
     AnoPublicacaoInput.Clear;
     SalvarBtn.Visible := True;
     CancelarBtn.Visible := True;
-  end;
 
+    // PREENCHER INPUT COM NOVO CÓDIGO
+    try
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.Close;
+      q1.SQL.Text := 'select nextval(''tb_livros_cod_seq'') as codProximo';
+      q1.Open;
+
+      CodigoInput.Text := q1.FieldByName('codProximo').AsString;
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
+  end;
 end;
-procedure TMostrarLivroForm.PrecoInputChange(Sender: TObject);
+procedure TLivroForm.PrecoInputChange(Sender: TObject);
 var
    s : string;
    v : double;
@@ -123,7 +166,7 @@ begin
    PrecoInput.SelStart := 0;
 end;
 
-procedure TMostrarLivroForm.PrecoInputKeyPress(Sender: TObject; var Key: Char);
+procedure TLivroForm.PrecoInputKeyPress(Sender: TObject; var Key: Char);
 begin
   if NOT (Key in ['0'..'9', #8, #9]) then
    key := #0;
@@ -131,107 +174,83 @@ begin
    PrecoInput.selstart := Length(PrecoInput.text);
 end;
 
-procedure TMostrarLivroForm.SalvarBtnClick(Sender: TObject);
+procedure TLivroForm.SalvarBtnClick(Sender: TObject);
 var
   q1: TUniQuery;
 
 begin
-  if ExisteInputsVazios(MostrarLivroForm) then
+  if ExisteInputsVazios(LivroForm) then
   begin
     aviso('Preencha todos os campos!');
   end
   else
   begin
-    if ModoInput.Text = 'A' then
-    begin
-      try
-        q1 := TUniQuery.Create(nil);
-        q1.Connection := dm1.con1;
+    try
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
 
-        q1.Close;
-        q1.SQL.Clear;
+      q1.Close;
+      q1.SQL.Clear;
 
+      if ModoInput.Text = 'A' then
+      begin
         q1.SQl.Add('update livros set');
         q1.SQL.Add(' titulo = :titulo, editora = :editora, ano_publicacao = :anoPublicacao, preco = :preco, categoria = :categoria, qtd_estoque = :qtdEstoque');
         q1.SQL.Add('where codigo = :codigo');
-
-        q1.ParamByName('codigo').Value := CodigoInput.Text;
-        q1.ParamByName('titulo').Value := TituloInput.Text;
-        q1.ParamByName('editora').Value := EditoraInput.Text;
-        q1.ParamByName('anoPublicacao').Value := AnoPublicacaoInput.Text;
-        q1.ParamByName('preco').Value := PrecoInput.Text;
-        q1.ParamByName('categoria').Value := CategoriaInput.Text;
-        q1.ParamByName('qtdEstoque').Value := QtdEstoqueInput.Text;
-
-        if confirma('Confirmar alteração de livro?') then
-        begin
-          try
-            q1.ExecSQL;
-            mensagem('Livro alterado com sucesso!');
-            Self.Close;
-            FormLivros.grid_livrosDBTableView1.DataController.RefreshExternalData;
-          except on e:exception do
-            if e.Message.Contains('livros_pkey') then
-            begin
-              erro('Livro já existe');
-            end
-            else
-            begin
-              erro('Data inválida!' + e.Message);
-              AnoPublicacaoInput.SetFocus;
-            end;
-          end;
-        end;
-
-      finally
-        FreeAndNil(q1);
-      end;
-    end
-    else if ModoInput.Text = 'N' then
-    begin
-      try
-        q1 := TUniQuery.Create(nil);
-        q1.Connection := dm1.con1;
-
-        q1.Close;
-        q1.SQL.Clear;
-
+      end
+      else if ModoInput.Text = 'N' then
+      begin
         q1.SQL.Add('insert into livros ');
         q1.SQL.Add('values');
         q1.SQL.Add('(:codigo, :titulo, :editora, :anoPublicacao, :preco, :categoria, :qtdEstoque)');
+      end;
 
-        q1.ParamByName('codigo').Value := CodigoInput.Text;
-        q1.ParamByName('titulo').Value := TituloInput.Text;
-        q1.ParamByName('editora').Value := EditoraInput.Text;
-        q1.ParamByName('anoPublicacao').Value := AnoPublicacaoInput.Text;
-        q1.ParamByName('preco').Value := PrecoInput.Text;
-        q1.ParamByName('categoria').Value := CategoriaInput.Text;
-        q1.ParamByName('qtdEstoque').Value := QtdEstoqueInput.Text;
+      q1.ParamByName('codigo').Value := CodigoInput.Text;
+      q1.ParamByName('titulo').Value := TituloInput.Text;
+      q1.ParamByName('editora').Value := EditoraInput.Text;
 
-        if confirma('Confirmar cadastro de livro?') then
+      // VALIDAÇÃO DE DATA
+      try
+        if StrToDate(AnoPublicacaoInput.Text) > Now then
         begin
-          try
-            q1.ExecSQL;
-            mensagem('Livro adicionado com sucesso!');
-            FormLivros.grid_livrosDBTableView1.DataController.RefreshExternalData;
-            Self.Close;
-          except on E: Exception do
-            if E.Message.Contains('livros_pkey') then
-            begin
-              erro('Livro já existe!');
-              TituloInput.SetFocus;
-            end
-            else if e.Message.Contains('date/time field value out of range') then
-            begin
-              aviso('Data inválida! ');
-            end
-            else erro(e.Message);
+          aviso('Ano de publicação deve ser menor que a data atual!!');
+          AnoPublicacaoInput.SetFocus;
+          Exit;
+        end
+        else
+        begin
+            q1.ParamByName('anoPublicacao').Value := StrToDate(AnoPublicacaoInput.Text);
+        end;
+      except on e:exception do
+        begin
+          aviso('Digite uma data válida!');
+          AnoPublicacaoInput.SetFocus;
+          exit;
+        end;
+      end;
+
+      q1.ParamByName('preco').Value := StrToFloat(precoInput.Text);
+      q1.ParamByName('categoria').Value := CategoriaInput.Text;
+      q1.ParamByName('qtdEstoque').Value := StrToInt(QtdEstoqueInput.Text);
+
+      if confirma('Confirmar operação?') then
+      begin
+        try
+          q1.ExecSQL;
+          mensagem('Operação conclúída!');
+          Self.Close;
+          FormLivros.grid_livrosDBTableView1.DataController.RefreshExternalData;
+        except on e:exception do
+          if e.Message.Contains('livros_pkey') then
+          begin
+            erro('Livro já existe');
+            TituloInput.SetFocus;
           end;
         end;
-
-      finally
-          FreeAndNil(q1);
       end;
+    finally
+      q1.Close;
+      FreeAndNil(q1);
     end;
   end;
 end;

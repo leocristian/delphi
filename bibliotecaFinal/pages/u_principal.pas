@@ -69,6 +69,7 @@ end;
 procedure TFormPrincipal.encerrarClick(Sender: TObject);
 begin
   FormPrincipal.Close;
+  LoginForm.Show;
   LoginForm.LoginInput.SetFocus;
 end;
 
@@ -79,6 +80,7 @@ begin
   FormLivros.Close;
   FormVendas.Close;
   dm1.con1.Close;
+  LoginForm.Show;
 end;
 
 procedure TFormPrincipal.livrosClick(Sender: TObject);

@@ -62,44 +62,43 @@ implementation
 
 uses u_dm1, u_mostrar, u_forms, frame_estilo;
 
-procedure TFormUsuarios.AlterarUsuarioClick(Sender: TObject);
+procedure TFormUsuarios.VisualizarUsuarioClick(Sender: TObject);
 var
-  q1: TUniQuery;
   codUsuario: Integer;
   indexUsuario: Integer;
 
 begin
-  try
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
+  // VERIFICA SE EXISTE USUÀRIO SELECIONADO NA GRID
+  if not tb_usuarios.Active then exit;
+  if tb_usuarios.RecordCount = 0 then exit;
 
-    q1.Close;
-    q1.SQL.Clear;
+  // SALVAR CÓDIGO DO USUÁRIO SELECIONADO
+  indexUsuario := grid_usuariosDBTableView1.DataController.GetSelectedRowIndex(0);
+  codUsuario := grid_usuariosDBTableView1.ViewData.Records[indexUsuario].Values[0];
 
-    indexUsuario := grid_usuariosDBTableView1.DataController.GetSelectedRowIndex(0);
-    codUsuario := grid_usuariosDBTableView1.ViewData.Records[indexUsuario].Values[0];
+  UsuarioForm.CodigoInput.Text := codUsuario.ToString;
+  UsuarioForm.ModoInput.Text := 'V';
 
-    q1.SQL.Add('select * from usuarios ');
-    q1.SQL.Add('where ');
-    q1.SQL.Add('codigo = :codigo');
+  UsuarioForm.ShowModal;
+end;
 
-    q1.ParamByName('codigo').Value := codUsuario;
+procedure TFormUsuarios.AlterarUsuarioClick(Sender: TObject);
+var
+  codUsuario: Integer;
+  indexUsuario: Integer;
 
-    q1.Open;
+begin
 
-    if q1.RecordCount > 0 then
-    begin
-      UsuarioForm.CodigoInput.Text := q1.FieldByName('codigo').Value;
-      UsuarioForm.NomeInput.Text :=  q1.FieldByName('nome_completo').Value;
-      UsuarioForm.EmailInput.Text := q1.FieldByName('email').Value;
-      UsuarioForm.LoginInput.Text := q1.FieldByName('login').Value;
-      UsuarioForm.ModoInput.Text := 'A';
-    end;
+  if not tb_usuarios.Active then exit;
+  if tb_usuarios.RecordCount = 0 then exit;
 
-  finally
-    UsuarioForm.ShowModal;
-    FreeAndNil(q1);
-  end;
+  indexUsuario := grid_usuariosDBTableView1.DataController.GetSelectedRowIndex(0);
+  codUsuario := grid_usuariosDBTableView1.ViewData.Records[indexUsuario].Values[0];
+
+  UsuarioForm.CodigoInput.Text := codUsuario.ToString;
+  UsuarioForm.ModoInput.Text := 'A';
+
+  UsuarioForm.ShowModal;
 end;
 
 procedure TFormUsuarios.bt_buscaClick(Sender: TObject);
@@ -136,7 +135,7 @@ begin
     FrameBusca1.BuscaInput.Text := '';
     grid_usuariosDBTableView1.OptionsView.NoDataToDisplayInfoText := '';
   except on E:Exception do
-    if E.Message.Contains('not found') then
+    if (E.Message.Contains('not found')) and (FrameBusca1.SelecaoBusca.Text = 'CÓDIGO') then
     begin
       erro('Digite apenas números para buscar por código!');
       FrameBusca1.BuscaInput.SetFocus;
@@ -158,6 +157,10 @@ var
   codUsuario: Integer;
 
 begin
+
+  if not tb_usuarios.Active then exit;
+  if tb_usuarios.RecordCount = 0 then exit;
+
   try
     q1 := TUniQuery.Create(nil);
     q1.Connection := dm1.con1;
@@ -169,7 +172,6 @@ begin
     codUsuario := grid_usuariosDBTableView1.ViewData.Records[indexUsuario].Values[0];
 
     q1.SQL.Add('delete from usuarios where codigo = :codigo');
-
     q1.ParamByName('codigo').Value := codUsuario;
 
     try
@@ -183,6 +185,7 @@ begin
       erro('Erro ao excluir usuário');
     end;
   finally
+    q1.Close;
     FreeAndNil(q1);
   end;
 end;
@@ -218,46 +221,6 @@ procedure TFormUsuarios.RelatorioUsuariosClick(Sender: TObject);
 begin
   ds_rel_usuarios.DataSource := ds_usuarios;
   rel_usuarios.ShowReport(true);
-end;
-
-procedure TFormUsuarios.VisualizarUsuarioClick(Sender: TObject);
-var
-  q1: TUniQuery;
-  codUsuario: Integer;
-  indexUsuario: Integer;
-
-begin
-  try
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
-
-    q1.Close;
-    q1.SQL.Clear;
-
-    indexUsuario := grid_usuariosDBTableView1.DataController.GetSelectedRowIndex(0);
-    codUsuario := grid_usuariosDBTableView1.ViewData.Records[indexUsuario].Values[0];
-
-    q1.SQL.Add('select * from usuarios ');
-    q1.SQL.Add('where ');
-    q1.SQL.Add('codigo = :codigo');
-
-    q1.ParamByName('codigo').Value := codUsuario;
-
-    q1.Open;
-
-    if q1.RecordCount > 0 then
-    begin
-      UsuarioForm.CodigoInput.Text := q1.FieldByName('codigo').Value;
-      UsuarioForm.NomeInput.Text :=  q1.FieldByName('nome_completo').Value;
-      UsuarioForm.EmailInput.Text := q1.FieldByName('email').Value;
-      UsuarioForm.LoginInput.Text := q1.FieldByName('login').Value;
-      UsuarioForm.ModoInput.Text := 'V';
-    end;
-
-  finally
-    UsuarioForm.ShowModal;
-    FreeAndNil(q1);
-  end;
 end;
 
 end.

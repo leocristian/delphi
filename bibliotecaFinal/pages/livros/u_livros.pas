@@ -62,48 +62,46 @@ implementation
 
 uses u_novoLivro, u_dm1, u_mostrarLivro, u_forms, u_atualizarEstoque;
 
-procedure TFormLivros.AlterarLivroClick(Sender: TObject);
+procedure TFormLivros.NovoLivroClick(Sender: TObject);
+begin
+  LimparInputs(LivroForm);
+  LivroForm.ModoInput.Text := 'N';
+  LivroForm.ShowModal;
+end;
+procedure TFormLivros.VisualizarLivroClick(Sender: TObject);
 var
-  q1: TUniQuery;
   codLivro: Integer;
   indexLivro: Integer;
 
 begin
-  try
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
+  if not tb_livros.Active then exit;
+  if tb_livros.RecordCount = 0 then exit;
 
-    q1.Close;
-    q1.SQL.Clear;
+  indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
+  codLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
 
-    indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
-    codLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
+  LivroForm.CodigoInput.Text := codLivro.ToString;
+  LivroForm.ModoInput.Text := 'V';
 
-    q1.SQL.Add('select * from livros ');
-    q1.SQL.Add('where ');
-    q1.SQL.Add('codigo = :codigo');
+  LivroForm.ShowModal;
+end;
 
-    q1.ParamByName('codigo').Value := codLivro;
+procedure TFormLivros.AlterarLivroClick(Sender: TObject);
+var
+  codLivro: Integer;
+  indexLivro: Integer;
 
-    q1.Open;
+begin
+  if not tb_livros.Active then exit;
+  if tb_livros.RecordCount = 0 then exit;
 
-    if q1.RecordCount > 0 then
-    begin
-      MostrarLivroForm.CodigoInput.Text := q1.FieldByName('codigo').Value;
-      MostrarLivroForm.TituloInput.Text := q1.FieldByName('titulo').Value;
-      MostrarLivroForm.EditoraInput.Text :=  q1.FieldByName('editora').Value;
-      MostrarLivroForm.AnoPublicacaoInput.Text := q1.FieldByName('ano_publicacao').Value;
-      MostrarLivroForm.PrecoInput.Text := FloatToStr(q1.FieldByName('preco').Value);
-      MostrarLivroForm.CategoriaInput.Text := q1.FieldByName('categoria').Value;
-      MostrarLivroForm.QtdEstoqueInput.Text := q1.FieldByName('qtd_estoque').Value;
+  indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
+  codLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
 
-      MostrarLivroForm.ModoInput.Text := 'A';
-    end;
+  LivroForm.CodigoInput.Text := codLivro.ToString;
+  LivroForm.ModoInput.Text := 'A';
 
-  finally
-    MostrarLivroForm.ShowModal;
-    FreeAndNil(q1);
-  end;
+  LivroForm.ShowModal;
 end;
 
 procedure TFormLivros.AtualizarestoqueClick(Sender: TObject);
@@ -113,6 +111,10 @@ var
   codLivro: Integer;
 
 begin
+
+  if not tb_livros.Active then exit;
+  if tb_livros.RecordCount = 0 then exit;
+
   try
     q1 := TUniQuery.Create(nil);
     q1.Connection := dm1.con1;
@@ -194,25 +196,34 @@ procedure TFormLivros.ExcluirLivroClick(Sender: TObject);
 var
   indexLivro, codLivro: Integer;
 begin
-  q1.Close;
-  q1.SQL.Clear;
 
-  indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
-  codLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
+  if not tb_livros.Active then exit;
+  if tb_livros.RecordCount = 0 then exit;
 
-  q1.SQL.Add('delete from livros where codigo = :codigo');
+  try
+    q1.Close;
+    q1.SQL.Clear;
 
-  q1.ParamByName('codigo').Value := codLivro;
+    indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
+    codLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
 
-  if confirma('Confirmar exclusão de livro?') then
-  begin
-    try
-      q1.ExecSQL;
-      mensagem('Livro excluído com sucesso!');
-      grid_livrosDBTableView1.DataController.RefreshExternalData;
-    except on e:exception do
-      erro(e.Message);
+    q1.SQL.Add('delete from livros where codigo = :codigo');
+
+    q1.ParamByName('codigo').Value := codLivro;
+
+    if confirma('Confirmar exclusão de livro?') then
+    begin
+      try
+        q1.ExecSQL;
+        mensagem('Livro excluído com sucesso!');
+        grid_livrosDBTableView1.DataController.RefreshExternalData;
+      except on e:exception do
+        erro(e.Message);
+      end;
     end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
   end;
 
 end;
@@ -229,77 +240,9 @@ begin
 //  dm1.con1.Open;
 end;
 
-procedure TFormLivros.NovoLivroClick(Sender: TObject);
-var
-  q1: TUniQuery;
-begin
-  try
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
-
-    q1.Close;
-    q1.SQL.Clear;
-
-    q1.SQL.Text := 'select nextval(''tb_livros_cod_seq'') as codProximo';
-    q1.Open;
-
-    LimparInputs(MostrarLivroForm);
-    MostrarLivroForm.ModoInput.Text := 'N';
-    MostrarLivroForm.CodigoInput.Text := q1.FieldByName('codProximo').AsString;
-    MostrarLivroForm.ShowModal;
-  finally
-    FreeAndNil(q1);
-  end;
-end;
-
 procedure TFormLivros.RelatorioLivrosClick(Sender: TObject);
 begin
   ds_rel_livros.DataSource := ds_livros;
   rel_livros.ShowReport;
-end;
-
-procedure TFormLivros.VisualizarLivroClick(Sender: TObject);
-var
-  q1: TUniQuery;
-  codLivro: Integer;
-  indexLivro: Integer;
-
-begin
-  try
-    q1 := TUniQuery.Create(nil);
-    q1.Connection := dm1.con1;
-
-    q1.Close;
-    q1.SQL.Clear;
-
-    indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
-    codLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
-
-    q1.SQL.Add('select * from livros ');
-    q1.SQL.Add('where ');
-    q1.SQL.Add('codigo = :codigo');
-
-    q1.ParamByName('codigo').Value := codLivro;
-
-    q1.Open;
-
-    if q1.RecordCount > 0 then
-    begin
-      MostrarLivroForm.CodigoInput.Text := q1.FieldByName('codigo').Value;
-      MostrarLivroForm.TituloInput.Text := q1.FieldByName('titulo').Value;
-      MostrarLivroForm.EditoraInput.Text :=  q1.FieldByName('editora').Value;
-      MostrarLivroForm.AnoPublicacaoInput.Text := q1.FieldByName('ano_publicacao').Value;
-      MostrarLivroForm.PrecoInput.Text := FloatToStr(q1.FieldByName('preco').Value);
-      MostrarLivroForm.CategoriaInput.Text := q1.FieldByName('categoria').Value;
-      MostrarLivroForm.QtdEstoqueInput.Text := q1.FieldByName('qtd_estoque').Value;
-
-      MostrarLivroForm.ModoInput.Text := 'V';
-    end;
-
-  finally
-    MostrarLivroForm.ShowModal;
-    FreeAndNil(q1);
-  end;
-
 end;
 end.

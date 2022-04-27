@@ -8,7 +8,7 @@ uses
   Vcl.Mask;
 
 type
-  TMostrarClientesForm = class(TForm)
+  TClienteForm = class(TForm)
     panel_cliente: TPanel;
     LabelTitulo: TLabel;
     Label2: TLabel;
@@ -25,7 +25,7 @@ type
     CpfInput: TMaskEdit;
     TelefoneInput: TMaskEdit;
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
-    procedure MostrarForm(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
     procedure CancelarBtnClick(Sender: TObject);
   private
@@ -35,7 +35,7 @@ type
   end;
 
 var
-  MostrarClientesForm: TMostrarClientesForm;
+  ClienteForm: TClienteForm;
 
 implementation
 
@@ -43,7 +43,7 @@ implementation
 
 uses u_forms, u_clientes;
 
-procedure TMostrarClientesForm.AtivaNavegacao(Sender: TObject; var Key: Char);
+procedure TClienteForm.AtivaNavegacao(Sender: TObject; var Key: Char);
 begin
   if Key = #13 then
   begin
@@ -53,95 +53,150 @@ begin
   else if key = #27 then close;
 end;
 
-procedure TMostrarClientesForm.CancelarBtnClick(Sender: TObject);
+procedure TClienteForm.CancelarBtnClick(Sender: TObject);
 begin
-  LimparInputs(MostrarClientesForm);
+  LimparInputs(ClienteForm);
   Close;
 end;
 
-procedure TMostrarClientesForm.MostrarForm(Sender: TObject);
-begin
-  AbrirForm(MostrarClientesForm);
-
-  Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
-  Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
-
-  if ModoInput.Text = 'V' then
-  begin
-    panel_cliente.Enabled := False;
-    SalvarBtn.Visible := False;
-    CancelarBtn.Visible := False;
-  end
-  else if ModoInput.Text = 'A' then
-  begin
-    panel_cliente.Enabled := True;
-    LabelTitulo.Caption := 'Alterar cliente';
-    SalvarBtn.Visible := True;
-    CancelarBtn.Visible := True;
-    CpfInput.SetFocus;
-  end
-  else if ModoInput.Text = 'N' then
-  begin
-    panel_cliente.Enabled := True;
-    LabelTitulo.Caption := 'Adicionar novo cliente';
-    SalvarBtn.Visible := True;
-    CancelarBtn.Visible := True;
-    CpfInput.SetFocus;
-  end;
-
-end;
-procedure TMostrarClientesForm.SalvarBtnClick(Sender: TObject);
+procedure TClienteForm.FormShow(Sender: TObject);
 var
   q1: TUniQuery;
 
 begin
-  if ExisteInputsVazios(MostrarClientesForm) then
+  AbrirForm(ClienteForm);
+
+  Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
+  Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
+
+  if (ModoInput.Text = 'V') or (ModoInput.Text = 'A') then
+  begin
+    try
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.Close;
+
+      q1.SQL.Text := 'select cpf, nome_completo, email, telefone from clientes where codigo = :codigo';
+      q1.ParamByName('codigo').Value := CodigoInput.Text;
+
+      q1.Open;
+
+      if q1.RecordCount > 0 then
+      begin
+        ClienteForm.CpfInput.Text := q1.FieldByName('cpf').AsString;
+        ClienteForm.NomeInput.Text := q1.FieldByName('nome_completo').AsString;
+        ClienteForm.EmailInput.Text := q1.FieldByName('email').AsString;
+        ClienteForm.TelefoneInput.Text := q1.FieldByName('telefone').AsString;
+      end;
+
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
+    if ModoInput.Text = 'V' then
+    begin
+      panel_cliente.Enabled := False;
+      SalvarBtn.Visible := False;
+      CancelarBtn.Visible := False;
+    end
+    else if ModoInput.Text = 'A' then
+    begin
+      panel_cliente.Enabled := True;
+      LabelTitulo.Caption := 'Alterar cliente';
+      SalvarBtn.Visible := True;
+      CancelarBtn.Visible := True;
+      CpfInput.SetFocus;
+    end;
+  end
+  else if ModoInput.Text = 'N' then
+  begin
+    panel_cliente.Enabled := True;
+
+    // LIMPAR INPUTS COM MÁSCARA
+    CpfInput.Clear;
+    TelefoneInput.Clear;
+    LabelTitulo.Caption := 'Adicionar novo cliente';
+    SalvarBtn.Visible := True;
+    CancelarBtn.Visible := True;
+    CpfInput.SetFocus;
+
+    // PREENCHER INPUT COM NOVO CÓDIGO
+    try
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.Close;
+      q1.SQL.Text := 'select nextval(''tb_clientes_cod_seq'') as codProximo';
+      q1.Open;
+
+      CodigoInput.Text := q1.FieldByName('codProximo').AsString;
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
+  end;
+end;
+
+procedure TClienteForm.SalvarBtnClick(Sender: TObject);
+var
+  q1: TUniQuery;
+
+begin
+  if ExisteInputsVazios(ClienteForm) then
     begin
       aviso('Preencha todos os campos!');
       cpfInput.SetFocus;
     end
   else
+  begin
+     // Validar o cpf
+    if Not testacpf( Trim( cpfInput.Text ) ) then
     begin
-    try
-      // Validar o cpf
-      if Not testacpf( Trim( cpfInput.Text ) ) then
-      begin
-        erro('Cpf inválido !');
-        cpfInput.SetFocus;
-        Exit;
-      end;
+      erro('Cpf inválido !');
+      cpfInput.SetFocus;
+      Exit;
+    end;
 
-      // Validar o email
-      if not testaemail(emailInput.Text) then
-      begin
-        erro('Email inválido!');
-        emailInput.SetFocus;
-        Exit;
-      end;
+    // Validar o email
+    if not testaemail(emailInput.Text) then
+    begin
+      erro('Email inválido!');
+      emailInput.SetFocus;
+      Exit;
+    end;
+
+    try
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.Close;
+      q1.SQL.Clear;
 
       if ModoInput.Text = 'A' then
-        begin
-        q1 := TUniQuery.Create(nil);
-        q1.Connection := dm1.con1;
-
-        q1.Close;
-        q1.SQL.Clear;
-
+      begin
         q1.SQL.Add('update clientes set nome_completo = :nome_completo, email = :email, cpf = :cpf, telefone = :telefone');
         q1.SQL.Add(' where codigo = :codigo');
+      end
+      else if ModoInput.Text = 'N' then
+      begin
+        q1.SQL.Add('insert into clientes ');
+        q1.SQL.Add('values');
+        q1.SQL.Add('(:codigo, :cpf, :nome_completo, :email, :telefone)');
+      end;
 
-        q1.ParamByName('nome_completo').Value := NomeInput.Text;
-        q1.ParamByName('email').Value := EmailInput.Text;
-        q1.ParamByName('cpf').Value := CpfInput.Text;
-        q1.ParamByName('telefone').Value := TelefoneInput.Text;
-        q1.ParamByName('codigo').Value := CodigoInput.Text;
+      q1.ParamByName('nome_completo').Value := NomeInput.Text;
+      q1.ParamByName('email').Value := EmailInput.Text;
+      q1.ParamByName('cpf').Value := CpfInput.Text;
+      q1.ParamByName('telefone').Value := TelefoneInput.Text;
+      q1.ParamByName('codigo').Value := CodigoInput.Text;
 
         try
-          if confirma('Confirmar alteração de cliente?') then
+          if confirma('Confirmar operação?') then
           begin
             q1.ExecSQL;
-            MessageDlg('Cliente alterado com sucesso!', mtConfirmation, [mbOk], 0);
-            Self.Close;
+            Mensagem('Operação concluída!');
+            Close;
             FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
           end;
         except on e:exception do
@@ -156,46 +211,8 @@ begin
           end;
 
         end;
-      end
-      else if ModoInput.Text = 'N' then
-      begin
-        q1 := TUniQuery.Create(nil);
-        q1.Connection := dm1.con1;
-
-        q1.Close;
-        q1.SQL.Clear;
-
-        q1.SQL.Add('insert into clientes ');
-        q1.SQL.Add('values');
-        q1.SQL.Add('(:codigo, :cpf, :nome_completo, :email, :telefone)');
-
-        q1.ParamByName('codigo').Value := CodigoInput.Text;
-        q1.ParamByName('cpf').Value := cpfInput.Text;
-        q1.ParamByName('nome_completo').Value := NomeInput.Text;
-        q1.ParamByName('email').Value := emailInput.Text;
-        q1.ParamByName('telefone').Value := telefoneInput.Text;
-
-        if confirma('Confirmar cadastro de cliente?') then
-        begin
-          try
-            q1.ExecSQL;
-            mensagem('Cliente cadastrado com sucesso!');
-            Self.Close;
-            FormClientes.grid_clientesDBTableView1.DataController.RefreshExternalData;
-          except on E: Exception do
-            if E.Message.Contains('clientes_pkey') then
-            begin
-              erro('Cliente já existe!');
-              cpfInput.SetFocus;
-            end
-            else
-            begin
-              erro(E.Message);
-            end;
-          end;
-        end;
-      end;
     finally
+      q1.Close;
       FreeAndNil(q1);
     end;
     end;
