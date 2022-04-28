@@ -84,125 +84,94 @@ begin
   end
   else
   begin
-    try
+    EscolhaLivroForm.ShowModal;
+  end;
+end;
 
+procedure TFormVenda.ConfirmarBtnClick(Sender: TObject);
+var
+  q1: TUniQuery;
+
+begin
+  // BOTÃO ASSUME A FUNÇÃO DE VER COMPROVANTE
+  if ModoInput.Text = 'V' then
+  begin
+      rel_comprovante.Variables['numero_venda'] := CodigoInput.Text;
+      rel_comprovante.Variables['vendedor'] := QuotedStr(PerfilUsuario.NomeInput.Text);
+      rel_comprovante.Variables['cliente'] := quotedStr(ClienteInput.Text);
+      rel_comprovante.Variables['valor'] := ValorVenda.Caption;
+      rel_comprovante.Variables['data'] := QuotedStr(DataLabel.Caption);
+
+      ds_rel_livrosVenda.DataSource := vds_livrosVenda;
+
+      rel_comprovante.ShowReport(true);
+  end
+  else
+  begin
+    try
       q1 := TUniQuery.Create(nil);
       q1.Connection := dm1.con1;
 
       q1.Close;
       q1.SQL.Clear;
-
-      q1.SQL.Add('select * from livros where titulo like :titulo');
-      q1.ParamByName('titulo').Value := '%' + TituloInput.Text + '%';
+      // VALIDAR CLIENTE DA VENDA
+      q1.SQL.Text := 'select cpf from clientes where cpf like :cpf';
+      q1.ParamByName('cpf').Value := '%' + ClienteInput.Text + '%';
 
       q1.Open;
 
-      if q1.RecordCount > 0 then
+      if q1.RecordCount = 1 then
       begin
-        EscolhaLivroForm.vtb_livrosEncontrados.Clear;
-        q1.First;
-        while not q1.Eof do
-        begin
-          EscolhaLivroForm.vtb_livrosEncontrados.Append;
-          EscolhaLivroForm.vtb_livrosEncontrados['codigo'] := q1.FieldByName('codigo').AsInteger;
-          EscolhaLivroForm.vtb_livrosEncontrados['titulo'] := q1.FieldByName('titulo').AsString;
-          EscolhaLivroForm.vtb_livrosEncontrados['editora'] := q1.FieldByName('editora').AsString;
-          EscolhaLivroForm.vtb_livrosEncontrados['anoPublicacao'] := q1.FieldByName('ano_publicacao').AsString;
-          EscolhaLivroForm.vtb_livrosEncontrados['preco'] := q1.FieldByName('preco').AsFloat;
-          EscolhaLivroForm.vtb_livrosEncontrados['categoria'] := q1.FieldByName('categoria').AsString;
-          EscolhaLivroForm.vtb_livrosEncontrados['qtdEstoque'] := q1.FieldByName('qtd_estoque').AsInteger;
-
-          q1.Next;
-        end;
-
-        EscolhaLivroForm.ShowModal;
+        ClienteInput.Text := q1.FieldByName('cpf').AsString;
       end
       else
       begin
-        aviso('Livro não encontrado!');
-        TituloInput.SetFocus;
+        aviso('Cliente não encontrado!');
+        ClienteInput.SetFocus;
+        exit;
       end;
-    finally
-      FreeAndNil(q1);
-    end;
-  end;
-end;
 
-procedure TFormVenda.ConfirmarBtnClick(Sender: TObject);
-begin
-    if ModoInput.Text = 'V' then
-    begin
-        rel_comprovante.Variables['numero_venda'] := CodigoInput.Text;
-        rel_comprovante.Variables['vendedor'] := QuotedStr(PerfilUsuario.NomeInput.Text);
-        rel_comprovante.Variables['cliente'] := quotedStr(ClienteInput.Text);
-        rel_comprovante.Variables['valor'] := ValorVenda.Caption;
-        rel_comprovante.Variables['data'] := quotedStr('14/07/1999');
-
-        ds_rel_livrosVenda.DataSource := vds_livrosVenda;
-
-        rel_comprovante.ShowReport(true);
-    end
-    else if ModoInput.Text = 'A' then
-    begin
       q1.Close;
       q1.SQL.Clear;
 
-      q1.SQL.Add('update vendas ');
-      q1.SQL.Add('set cliente = :cliente, valor_total = :valor_total');
-      q1.SQL.Add('where codigo = :codigo');
+      if ModoInput.Text = 'A' then
+      begin
+        q1.SQL.Add('update vendas ');
+        q1.SQL.Add('set cliente = :cliente, valor_total = :valor_total');
+        q1.SQL.Add('where codigo = :codigo');
+      end
+      else if ModoInput.Text = 'N' then
+      begin
+        q1.SQL.Add('insert into vendas ');
+        q1.SQL.Add('values (:codigo, :vendedor, :cliente, :valor_total, :data )');
 
+        q1.ParamByName('data').Value := Now();
+        q1.ParamByName('vendedor').Value := PerfilUsuario.NomeInput.Text;
+      end;
+      q1.ParamByName('codigo').Value := CodigoInput.Text;
       q1.ParamByName('cliente').Value := ClienteInput.Text;
       q1.ParamByName('valor_total').Value := ValorVenda.Caption;
-      q1.ParamByName('codigo').Value := StrToInt(CodigoInput.Text);
 
-      if confirma('Confirmar alteração da venda?') then
+      if ValorVenda.Caption = '0' then
+      begin
+        aviso('Venda deve ter pelo menos um livro!');
+        TituloInput.SetFocus;
+        Exit;
+      end;
+      if confirma('Confirmar operação?') then
       begin
         q1.ExecSQL;
-        mensagem('Venda alterada com sucesso!');
+        mensagem('Operação concluída!');
         FormVendas.grid_vendasDBTableView1.DataController.RefreshExternalData;
         vendaControle.ZerarValor;
         Self.Close;
       end;
-    end
-    else if ModoInput.Text = 'N' then
-    begin
+
+    finally
       q1.Close;
-      q1.SQL.Clear;
-
-      q1.SQL.Add('select nome_completo from clientes where nome_completo like :nome');
-      q1.ParamByName('nome').Value := '%' + ClienteInput.Text + '%';
-
-      q1.ExecSQL;
-      if q1.RecordCount = 1 then
-      begin
-        ClienteInput.Text := q1.FieldByName('nome_completo').Value;
-
-        q1.Close;
-        q1.SQL.Clear;
-
-        q1.SQL.Add('insert into vendas ');
-        q1.SQL.Add('values (:codigo, :vendedor, :cliente, :valor_total, :data )');
-
-        q1.ParamByName('codigo').Value := CodigoInput.Text;
-        q1.ParamByName('vendedor').Value := PerfilUsuario.NomeInput.Text;
-        q1.ParamByName('cliente').Value := ClienteInput.Text;
-        q1.ParamByName('valor_total').Value := ValorVenda.Caption;
-        q1.ParamByName('data').Value := Now();
-
-        if confirma('Confirmar nova venda?') then
-        begin
-          q1.ExecSQL;
-          mensagem('Venda realizada com sucesso!');
-          FormVendas.grid_vendasDBTableView1.DataController.RefreshExternalData;
-          vendaControle.ZerarValor;
-          Self.Close;
-        end;
-      end
-      else
-      begin
-        erro('Cliente não encontrado!');
-      end;
+      FreeAndNil(q1);
     end;
+  end;
 end;
 
 procedure TFormVenda.FormCreate(Sender: TObject);
@@ -223,6 +192,7 @@ end;
 procedure TFormVenda.FormShow(Sender: TObject);
 var
   q1: TUniQuery;
+  qtdLivros: Integer;
 
 begin
   AbrirForm(FormVenda);
@@ -233,6 +203,7 @@ begin
   if (ModoInput.Text = 'V') or (ModoInput.Text = 'A') then
   begin
     try
+      // LIMPAR TABELA DE LIVROS E ATUALIZAR COM LIVROS DA VENDA
       q1 := TUniQuery.Create(nil);
       q1.Connection := dm1.con1;
 
@@ -251,7 +222,9 @@ begin
         VendedorLabel.Caption := q1.FieldByName('vendedor').AsString;
       end;
 
-      // PREENCHER GRADE COM OS LIVROS DA VENDA SELECIONADA
+      // LIMPAR E PREENCHER GRADE COM OS LIVROS DA VENDA SELECIONADA
+      FormVenda.vtb_livrosVenda.Clear;
+
       q1.Close;
       q1.SQL.Text := 'select * from livros_venda where numero_venda = :numero_venda';
 
@@ -259,8 +232,6 @@ begin
 
       q1.Open;
       q1.First;
-
-      FormVenda.vtb_livrosVenda.Clear;
 
       while not q1.Eof do
       begin
@@ -295,7 +266,7 @@ begin
       TituloLabel.Visible := True;
       TituloInput.Visible := True;
       AddLivro.Visible := True;
-      TituloPagina.Caption := 'Alterar venda seecionada';
+      TituloPagina.Caption := 'Alterar venda selecionada';
       ConfirmarBtn.Caption := 'Salvar alterações';
       VendaControle.valorAtual := StrToInt(ValorVenda.Caption);
       ClienteInput.SetFocus;
@@ -303,6 +274,7 @@ begin
   end
   else if ModoInput.Text = 'N' then
   begin
+
     panel1.Enabled := True;
     TituloLabel.Visible := True;
     TituloInput.Visible := True;
@@ -316,6 +288,7 @@ begin
     vtb_livrosVenda.Clear;
     ClienteInput.SetFocus;
 
+    // DEFINIR UM CÓDIGO PARA A NOVA VENDA
     try
       q1 := TUniQuery.Create(nil);
       q1.Connection := dm1.con1;
@@ -340,6 +313,7 @@ var
   precoLivro: String;
   qtdEscolhida: String;
   valorAtualizado: Float32;
+  q1: TUniQuery;
 
 begin
   vds_livrosVenda.edit;
@@ -349,6 +323,9 @@ begin
   qtdEscolhida := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[6];
 
   try
+    q1 := TUniQuery.Create(nil);
+    q1.Connection := dm1.con1;
+
     q1.Close;
     q1.SQL.Clear;
 
@@ -367,11 +344,13 @@ begin
     end;
 
   finally
+    // REMOVER LIVRO DA TABLE
     vtb_livrosVenda.FieldByName('titulo').AsString := tituloLivro;
     vtb_livrosVenda.Delete;
 
     mensagem('Livro removido com sucesso!');
 
+    // ATUALIZAR VALOR DA VENDA
     valorAtualizado := StrToFloat(ValorVenda.Caption) - (StrToFloat(precoLivro) * StrToInt(qtdEscolhida));
     ValorVenda.Caption := FloatToStr(valorAtualizado);
     vendaControle.valorAtual := StrToInt(ValorVenda.Caption);

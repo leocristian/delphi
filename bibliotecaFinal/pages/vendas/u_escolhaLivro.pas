@@ -31,7 +31,6 @@ type
     procedure AbrirForm(Sender: TObject);
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure ConfirmarClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,10 +48,52 @@ implementation
 uses u_forms, u_dm1, u_novaVenda, u_mostrarVenda, u_mostrarVenda2;
 
 procedure TEscolhaLivroForm.AbrirForm(Sender: TObject);
+var
+  q1: TUniQuery;
+
 begin
   Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
   Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
 
+   try
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.Close;
+      q1.SQL.Clear;
+
+      q1.SQL.Add('select * from livros where titulo like :titulo');
+      q1.ParamByName('titulo').Value := '%' + MostrarVendaForm.TituloInput.Text + '%';
+
+      q1.Open;
+
+      if q1.RecordCount > 0 then
+      begin
+        EscolhaLivroForm.vtb_livrosEncontrados.Clear;
+        q1.First;
+        while not q1.Eof do
+        begin
+          vtb_livrosEncontrados.Append;
+          vtb_livrosEncontrados['codigo'] := q1.FieldByName('codigo').AsInteger;
+          vtb_livrosEncontrados['titulo'] := q1.FieldByName('titulo').AsString;
+          vtb_livrosEncontrados['editora'] := q1.FieldByName('editora').AsString;
+          vtb_livrosEncontrados['anoPublicacao'] := q1.FieldByName('ano_publicacao').AsString;
+          vtb_livrosEncontrados['preco'] := q1.FieldByName('preco').AsFloat;
+          vtb_livrosEncontrados['categoria'] := q1.FieldByName('categoria').AsString;
+          vtb_livrosEncontrados['qtdEstoque'] := q1.FieldByName('qtd_estoque').AsInteger;
+
+          q1.Next;
+        end;
+      end
+      else
+      begin
+        aviso('Livro não encontrado!');
+        MostrarVendaForm.TituloInput.SetFocus;
+      end;
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
   Confirmar.SetFocus;
 end;
 
@@ -69,7 +110,7 @@ end;
 procedure TEscolhaLivroForm.ConfirmarClick(Sender: TObject);
 var
   indexLivro: Integer;
-
+  q1: TUniQuery;
   codLivro: Integer;
   titulo: String;
   editora: String;
@@ -110,60 +151,60 @@ begin
     FormVenda.vtb_livrosvenda['categoria'] := categoria;
     FormVenda.vtb_livrosvenda['qtdEscolhida'] := qtdEscolhida;
 
-    q1.Close;
-    q1.SQL.Clear;
-
-    // Atualizar estoque do livro
-    q1.SQL.Add('update livros set qtd_estoque = :qtdFinal where titulo = :titulo');
-    q1.ParamByName('qtdFinal').Value := (qtdEstoque - qtdEscolhida);
-    q1.ParamByName('titulo').Value := titulo;
-
     if confirma('Adicionar livro na venda?') then
     begin
-      q1.ExecSQL;
+      try
+        q1 := TUniQuery.Create(nil);
+        q1.Connection := dm1.con1;
 
-      q1.Close;
-      q1.SQL.Clear;
+        q1.Close;
+        q1.SQL.Clear;
 
-      q1.SQL.Text := 'select nextval(''tb_livrosVenda_cod_seq'') as codProximo';
-      q1.Open;
+        // Atualizar estoque do livro
+        q1.SQL.Add('update livros set qtd_estoque = :qtdFinal where titulo = :titulo');
+        q1.ParamByName('qtdFinal').Value := (qtdEstoque - qtdEscolhida);
+        q1.ParamByName('titulo').Value := titulo;
 
-      codLivro := q1.FieldByName('codProximo').AsInteger;
+        q1.ExecSQL;
 
-      q1.Close;
-      q1.SQL.Clear;
+        q1.Close;
+        q1.SQL.Clear;
 
-      q1.SQL.Add('insert into livros_venda (codigo, titulo, editora, ano_publicacao, preco, categoria, numero_venda, qtd_escolhida) ');
-      q1.SQL.Add('values ');
-      q1.SQL.Add('(:codigo, :titulo, :editora, :ano_publicacao, :preco, :categoria, :numero_venda, :qtd_escolhida)');
+        q1.SQL.Text := 'select nextval(''tb_livrosVenda_cod_seq'') as codProximo';
+        q1.Open;
 
-      q1.ParamByName('codigo').Value := codLivro;
-      q1.ParamByName('titulo').Value := titulo;
-      q1.ParamByName('editora').Value := editora;
-      q1.ParamByName('ano_publicacao').Value := anoPublicacao;
-      q1.ParamByName('preco').Value := StrToCurr(FormatFloat('0,00', precoLivro));
-      q1.ParamByName('categoria').Value := categoria;
-      q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
-      q1.ParamByName('qtd_escolhida').Value := qtdEscolhida;
+        codLivro := q1.FieldByName('codProximo').AsInteger;
 
-      q1.ExecSQL;
-      qtdLivros := qtdLivros + 1;
+        q1.Close;
+        q1.SQL.Clear;
 
-      novoValor := StrToFloat(FormatFloat('0,00', precoLivro)) * qtdEscolhida;
+        q1.SQL.Add('insert into livros_venda (codigo, titulo, editora, ano_publicacao, preco, categoria, numero_venda, qtd_escolhida) ');
+        q1.SQL.Add('values ');
+        q1.SQL.Add('(:codigo, :titulo, :editora, :ano_publicacao, :preco, :categoria, :numero_venda, :qtd_escolhida)');
 
-      vendaControle.IncrementaValor(novoValor);
+        q1.ParamByName('codigo').Value := codLivro;
+        q1.ParamByName('titulo').Value := titulo;
+        q1.ParamByName('editora').Value := editora;
+        q1.ParamByName('ano_publicacao').Value := anoPublicacao;
+        q1.ParamByName('preco').Value := StrToCurr(FormatFloat('0,00', precoLivro));
+        q1.ParamByName('categoria').Value := categoria;
+        q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
+        q1.ParamByName('qtd_escolhida').Value := qtdEscolhida;
 
-      FormVenda.ValorVenda.Caption := FloatToStr(vendaControle.valorAtual);
-      EscolhaLivroForm.Close;
-      FormVenda.TituloInput.SetFocus;
+        q1.ExecSQL;
+
+        novoValor := StrToFloat(FormatFloat('0,00', precoLivro)) * qtdEscolhida;
+
+        vendaControle.IncrementaValor(novoValor);
+
+        FormVenda.ValorVenda.Caption := FloatToStr(vendaControle.valorAtual);
+        EscolhaLivroForm.Close;
+        FormVenda.TituloInput.SetFocus;
+      finally
+        FreeAndNil(q1);
+      end;
     end;
   end;
-end;
-
-procedure TEscolhaLivroForm.FormCreate(Sender: TObject);
-begin
-  q1 := TUniQuery.Create(nil);
-  q1.Connection := dm1.con1;
 end;
 
 end.

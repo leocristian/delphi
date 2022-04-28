@@ -1,9 +1,11 @@
 object FormVenda: TFormVenda
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'FormVenda'
-  ClientHeight = 608
-  ClientWidth = 818
+  ClientHeight = 603
+  ClientWidth = 828
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,13 +18,13 @@ object FormVenda: TFormVenda
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   DesignSize = (
-    818
-    608)
+    828
+    603)
   PixelsPerInch = 96
   TextHeight = 13
   object ValorVenda: TLabel
     Left = 681
-    Top = 549
+    Top = 544
     Width = 17
     Height = 34
     Anchors = [akLeft, akBottom]
@@ -37,7 +39,7 @@ object FormVenda: TFormVenda
   end
   object Label5: TLabel
     Left = 638
-    Top = 549
+    Top = 544
     Width = 37
     Height = 34
     Anchors = [akLeft, akBottom]
@@ -52,7 +54,7 @@ object FormVenda: TFormVenda
   end
   object Label3: TLabel
     Left = 638
-    Top = 531
+    Top = 526
     Width = 91
     Height = 24
     Anchors = [akLeft, akBottom]
@@ -68,19 +70,20 @@ object FormVenda: TFormVenda
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 818
+    Width = 828
     Height = 513
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
     ExplicitLeft = -32
     ExplicitTop = -16
+    ExplicitWidth = 818
     object Label4: TLabel
       Left = 113
       Top = 117
-      Width = 76
+      Width = 68
       Height = 13
-      Caption = 'Nome do cliente'
+      Caption = 'CPF do cliente'
     end
     object Label7: TLabel
       Left = 32
@@ -123,7 +126,7 @@ object FormVenda: TFormVenda
       ParentFont = False
     end
     object AddLivro: TButton
-      Left = 638
+      Left = 654
       Top = 123
       Width = 131
       Height = 46
@@ -243,7 +246,7 @@ object FormVenda: TFormVenda
   end
   object ModoInput: TEdit
     Left = 232
-    Top = 549
+    Top = 544
     Width = 29
     Height = 22
     TabStop = False
@@ -268,7 +271,7 @@ object FormVenda: TFormVenda
   end
   object ConfirmarBtn: TButton
     Left = 32
-    Top = 531
+    Top = 526
     Width = 185
     Height = 52
     Anchors = [akLeft, akBottom]
@@ -284,17 +287,19 @@ object FormVenda: TFormVenda
     ExplicitTop = 498
   end
   object DataPanel: TPanel
-    Left = 513
-    Top = 0
-    Width = 305
-    Height = 81
+    Left = 528
+    Top = 8
+    Width = 257
+    Height = 73
+    BevelInner = bvRaised
+    BevelOuter = bvNone
     TabOrder = 4
     DesignSize = (
-      305
-      81)
+      257
+      73)
     object DataTituloLabel: TLabel
-      Left = 26
-      Top = 19
+      Left = 10
+      Top = 18
       Width = 100
       Height = 16
       Caption = 'Data da venda:'
@@ -306,8 +311,8 @@ object FormVenda: TFormVenda
       ParentFont = False
     end
     object DataLabel: TLabel
-      Left = 148
-      Top = 19
+      Left = 116
+      Top = 18
       Width = 130
       Height = 16
       Anchors = [akLeft, akBottom]
@@ -319,8 +324,8 @@ object FormVenda: TFormVenda
       ParentFont = False
     end
     object VendedorTituloLabel: TLabel
-      Left = 26
-      Top = 41
+      Left = 10
+      Top = 40
       Width = 68
       Height = 16
       Caption = 'Vendedor:'
@@ -332,9 +337,9 @@ object FormVenda: TFormVenda
       ParentFont = False
     end
     object VendedorLabel: TLabel
-      Left = 108
-      Top = 41
-      Width = 173
+      Left = 84
+      Top = 40
+      Width = 143
       Height = 16
       Anchors = [akLeft, akBottom]
       Font.Charset = DEFAULT_CHARSET

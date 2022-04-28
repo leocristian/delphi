@@ -7510,7 +7510,7 @@ object FormVendas: TFormVendas
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
-            'Nome do cliente:')
+            'CPF do cliente:')
           ParentFont = False
         end
         object Memo6: TfrxMemoView
@@ -7621,7 +7621,7 @@ object FormVendas: TFormVendas
           Font.Style = []
           Frame.Typ = []
           Memo.UTF8W = (
-            '[frxDBDataset1."data_venda"]')
+            '[frxDBDataset1."valor_total"]')
           ParentFont = False
         end
       end

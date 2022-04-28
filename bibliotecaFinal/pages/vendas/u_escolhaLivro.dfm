@@ -13,7 +13,6 @@ object EscolhaLivroForm: TEscolhaLivroForm
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
-  OnCreate = FormCreate
   OnKeyPress = AtivaNavegacao
   OnShow = AbrirForm
   PixelsPerInch = 96

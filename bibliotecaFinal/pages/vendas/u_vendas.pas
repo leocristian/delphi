@@ -154,15 +154,20 @@ end;
 procedure TFormVendas.ExcluirVendaClick(Sender: TObject);
 var
   indexVenda, codVenda: Integer;
+  q1: TUniQuery;
 
 begin
   try
+    q1 := TUniQuery.Create(nil);
+    q1.Connection := dm1.con1;
+
     q1.Close;
     q1.SQL.Clear;
 
     indexVenda := grid_vendasDBTableView1.DataController.GetSelectedRowIndex(0);
     codVenda := grid_vendasDBTableView1.ViewData.Records[indexVenda].Values[0];
 
+    // DELETAR TODOS OS LIVROS RELACIONADOS A VENDA SELECIONADA
     q1.SQL.Add('delete from livros_venda where numero_venda = :numero_venda');
     q1.ParamByName('numero_venda').Value := codVenda;
 
