@@ -99,12 +99,6 @@ var
   q1: TUniQuery;
 
 begin
-  if ExisteInputsVazios(FormVenda) then
-  begin
-    aviso('Preencha todos os campos!');
-    ClienteInput.SetFocus;
-    exit;
-  end;
 
   // BOTÃO ASSUME A FUNÇÃO DE VER COMPROVANTE
   if ModoInput.Text = 'V' then
@@ -123,6 +117,12 @@ begin
   end
   else
   begin
+    if (ClienteInput.Text = '') or (QtdParcelas.Text = '') then
+    begin
+      aviso('Preencha todos os campos!');
+      ClienteInput.SetFocus;
+      exit;
+    end;
     try
       q1 := TUniQuery.Create(nil);
       q1.Connection := dm1.con1;
@@ -175,6 +175,12 @@ begin
         aviso('Venda deve ter pelo menos um livro!');
         TituloInput.SetFocus;
         Exit;
+      end;
+      if (QtdParcelas.Text = '0') or (StrToInt(Qtdparcelas.Text) > 12) then
+      begin
+        aviso('Parcelamento inválido! Qtd máxima: 12 parcelas');
+        QtdParcelas.SetFocus;
+        exit;
       end;
       if confirma('Confirmar operação?') then
       begin

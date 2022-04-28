@@ -4,7 +4,7 @@ object FormVenda: TFormVenda
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'FormVenda'
-  ClientHeight = 597
+  ClientHeight = 576
   ClientWidth = 828
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,12 +20,12 @@ object FormVenda: TFormVenda
   OnShow = FormShow
   DesignSize = (
     828
-    597)
+    576)
   PixelsPerInch = 96
   TextHeight = 13
   object ValorVenda: TLabel
     Left = 687
-    Top = 555
+    Top = 534
     Width = 17
     Height = 34
     Anchors = [akLeft, akBottom]
@@ -40,7 +40,7 @@ object FormVenda: TFormVenda
   end
   object Label5: TLabel
     Left = 644
-    Top = 555
+    Top = 534
     Width = 37
     Height = 34
     Anchors = [akLeft, akBottom]
@@ -55,7 +55,7 @@ object FormVenda: TFormVenda
   end
   object Label3: TLabel
     Left = 644
-    Top = 537
+    Top = 516
     Width = 91
     Height = 24
     Anchors = [akLeft, akBottom]
@@ -144,11 +144,11 @@ object FormVenda: TFormVenda
       Caption = 'Tipo'
     end
     object Label8: TLabel
-      Left = 192
-      Top = 456
-      Width = 70
+      Left = 191
+      Top = 480
+      Width = 74
       Height = 13
-      Caption = 'N'#176' de parcelas'
+      Caption = 'N'#176' de parcelas:'
     end
     object AddLivro: TButton
       Left = 654
@@ -198,7 +198,7 @@ object FormVenda: TFormVenda
       Top = 185
       Width = 753
       Height = 237
-      TabOrder = 4
+      TabOrder = 6
       object grid_livrosDBTableView1: TcxGridDBTableView
         PopupMenu = PopupMenu1
         Navigator.Buttons.CustomButtons = <>
@@ -275,7 +275,7 @@ object FormVenda: TFormVenda
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 5
+      TabOrder = 4
       Text = 'DINHEIRO'
       Items.Strings = (
         'DINHEIRO'
@@ -283,18 +283,18 @@ object FormVenda: TFormVenda
         'PIX')
     end
     object QtdParcelas: TEdit
-      Left = 192
-      Top = 475
-      Width = 121
+      Left = 271
+      Top = 477
+      Width = 26
       Height = 21
-      MaxLength = 10
+      MaxLength = 2
       NumbersOnly = True
-      TabOrder = 6
+      TabOrder = 5
     end
   end
   object ModoInput: TEdit
     Left = 232
-    Top = 555
+    Top = 534
     Width = 29
     Height = 22
     TabStop = False
@@ -319,7 +319,7 @@ object FormVenda: TFormVenda
   end
   object ConfirmarBtn: TButton
     Left = 32
-    Top = 537
+    Top = 516
     Width = 185
     Height = 52
     Anchors = [akLeft, akBottom]
@@ -330,7 +330,7 @@ object FormVenda: TFormVenda
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 4
     OnClick = ConfirmarBtnClick
     ExplicitTop = 595
   end
@@ -341,7 +341,7 @@ object FormVenda: TFormVenda
     Height = 73
     BevelInner = bvRaised
     BevelOuter = bvNone
-    TabOrder = 4
+    TabOrder = 3
     DesignSize = (
       257
       73)
