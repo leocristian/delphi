@@ -90,13 +90,13 @@ begin
 
       if q1.RecordCount > 0 then
       begin
-        CodigoInput.Text := q1.FieldByName('codigo').Value;
+        CodigoInput.Text := IntToStr(q1.FieldByName('codigo').Value);
         TituloInput.Text := q1.FieldByName('titulo').Value;
         EditoraInput.Text :=  q1.FieldByName('editora').Value;
-        AnoPublicacaoInput.Text := q1.FieldByName('ano_publicacao').Value;
+        AnoPublicacaoInput.Text := DateToStr(q1.FieldByName('ano_publicacao').Value);
         PrecoInput.Text := FloatToStr(q1.FieldByName('preco').Value);
         CategoriaInput.Text := q1.FieldByName('categoria').Value;
-        QtdEstoqueInput.Text := q1.FieldByName('qtd_estoque').Value;
+        QtdEstoqueInput.Text := IntToStr(q1.FieldByName('qtd_estoque').Value);
       end;
     finally
     end;
@@ -134,7 +134,7 @@ begin
       q1.SQL.Text := 'select nextval(''tb_livros_cod_seq'') as codProximo';
       q1.Open;
 
-      CodigoInput.Text := q1.FieldByName('codProximo').AsString;
+      CodigoInput.Text := IntToStr(q1.FieldByName('codProximo').Value);
     finally
       q1.Close;
       FreeAndNil(q1);
@@ -205,7 +205,7 @@ begin
         q1.SQL.Add('(:codigo, :titulo, :editora, :anoPublicacao, :preco, :categoria, :qtdEstoque)');
       end;
 
-      q1.ParamByName('codigo').Value := CodigoInput.Text;
+      q1.ParamByName('codigo').Value := StrToInt(CodigoInput.Text);
       q1.ParamByName('titulo').Value := TituloInput.Text;
       q1.ParamByName('editora').Value := EditoraInput.Text;
 

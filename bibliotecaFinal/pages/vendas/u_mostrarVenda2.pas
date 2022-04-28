@@ -113,7 +113,7 @@ begin
 
       ds_rel_livrosVenda.DataSource := vds_livrosVenda;
 
-      rel_comprovante.ShowReport(true);
+      rel_comprovante.ShowReport;
   end
   else
   begin

@@ -133,7 +133,14 @@ begin
   categoria := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[5];
   qtdEstoque := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[6];
 
-  qtdEscolhida := StrToInt(inputBox('Escolher quantidade.', 'Digite a quantidade de livros.', '1'));
+  try
+    qtdEscolhida := StrToInt(inputBox('Escolher quantidade.', 'Digite a quantidade de livros.', '1'));
+  except on e:Exception do
+  begin
+    erro('Digite uma quantidade válida de livros!');
+    exit;
+  end;
+  end;
 
   if qtdEscolhida > qtdEstoque then
   begin

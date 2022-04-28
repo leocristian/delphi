@@ -5,7 +5,7 @@ object FormVenda: TFormVenda
   BorderStyle = bsSingle
   Caption = 'FormVenda'
   ClientHeight = 576
-  ClientWidth = 828
+  ClientWidth = 829
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,7 +19,7 @@ object FormVenda: TFormVenda
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   DesignSize = (
-    828
+    829
     576)
   PixelsPerInch = 96
   TextHeight = 13
@@ -71,11 +71,12 @@ object FormVenda: TFormVenda
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 828
+    Width = 829
     Height = 505
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 828
     object Label4: TLabel
       Left = 113
       Top = 93

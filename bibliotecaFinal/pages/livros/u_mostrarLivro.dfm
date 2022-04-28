@@ -2,7 +2,7 @@ object LivroForm: TLivroForm
   Left = 0
   Top = 0
   Caption = 'LivroForm'
-  ClientHeight = 373
+  ClientHeight = 357
   ClientWidth = 471
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,7 +16,7 @@ object LivroForm: TLivroForm
   OnShow = FormShow
   DesignSize = (
     471
-    373)
+    357)
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -184,7 +184,7 @@ object LivroForm: TLivroForm
   end
   object SalvarBtn: TButton
     Left = 129
-    Top = 330
+    Top = 314
     Width = 103
     Height = 35
     Cursor = crHandPoint
@@ -198,6 +198,7 @@ object LivroForm: TLivroForm
     ParentFont = False
     TabOrder = 2
     OnClick = SalvarBtnClick
+    ExplicitTop = 330
   end
   object ModoInput: TEdit
     Left = 82
@@ -211,7 +212,7 @@ object LivroForm: TLivroForm
   end
   object CancelarBtn: TButton
     Left = 238
-    Top = 330
+    Top = 314
     Width = 103
     Height = 35
     Cursor = crHandPoint
@@ -219,5 +220,6 @@ object LivroForm: TLivroForm
     Caption = 'Cancelar'
     TabOrder = 3
     OnClick = CancelarBtnClick
+    ExplicitTop = 330
   end
 end
