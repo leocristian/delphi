@@ -28,7 +28,7 @@ type
     cxGrid1DBTableView1categoria: TcxGridDBColumn;
     cxGrid1DBTableView1qtdEstoque: TcxGridDBColumn;
     frame_estilo_grid1: Tframe_estilo_grid;
-    procedure AbrirForm(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure ConfirmarClick(Sender: TObject);
   private
@@ -47,7 +47,7 @@ implementation
 
 uses u_forms, u_dm1, u_novaVenda, u_mostrarVenda, u_mostrarVenda2;
 
-procedure TEscolhaLivroForm.AbrirForm(Sender: TObject);
+procedure TEscolhaLivroForm.FormShow(Sender: TObject);
 var
   q1: TUniQuery;
 
@@ -142,17 +142,16 @@ begin
   else
   begin
 
-    FormVenda.vtb_livrosvenda.Append;
-    FormVenda.vtb_livrosvenda['codigo'] := codLivro;
-    FormVenda.vtb_livrosvenda['titulo'] := titulo;
-    FormVenda.vtb_livrosvenda['editora'] := editora;
-    FormVenda.vtb_livrosvenda['ano_publicacao'] := anoPublicacao;
-    FormVenda.vtb_livrosvenda['preco'] := StrToCurr(FormatFloat('0,00', precoLivro));
-    FormVenda.vtb_livrosvenda['categoria'] := categoria;
-    FormVenda.vtb_livrosvenda['qtdEscolhida'] := qtdEscolhida;
-
     if confirma('Adicionar livro na venda?') then
     begin
+      FormVenda.vtb_livrosvenda.Append;
+      FormVenda.vtb_livrosvenda['codigo'] := codLivro;
+      FormVenda.vtb_livrosvenda['titulo'] := titulo;
+      FormVenda.vtb_livrosvenda['editora'] := editora;
+      FormVenda.vtb_livrosvenda['ano_publicacao'] := anoPublicacao;
+      FormVenda.vtb_livrosvenda['preco'] := StrToCurr(FormatFloat('0,00', precoLivro));
+      FormVenda.vtb_livrosvenda['categoria'] := categoria;
+      FormVenda.vtb_livrosvenda['qtdEscolhida'] := qtdEscolhida;
       try
         q1 := TUniQuery.Create(nil);
         q1.Connection := dm1.con1;
@@ -164,6 +163,7 @@ begin
         q1.SQL.Add('update livros set qtd_estoque = :qtdFinal where titulo = :titulo');
         q1.ParamByName('qtdFinal').Value := (qtdEstoque - qtdEscolhida);
         q1.ParamByName('titulo').Value := titulo;
+
 
         q1.ExecSQL;
 
@@ -193,14 +193,24 @@ begin
 
         q1.ExecSQL;
 
-        novoValor := StrToFloat(FormatFloat('0,00', precoLivro)) * qtdEscolhida;
+        q1.Close;
+        q1.SQL.Text := 'update vendas set valor_total = :valor_total where codigo = :codigo';
 
+        novoValor := StrToFloat(FormatFloat('0,00', precoLivro)) * qtdEscolhida;
         vendaControle.IncrementaValor(novoValor);
 
         FormVenda.ValorVenda.Caption := FloatToStr(vendaControle.valorAtual);
+
+        q1.ParamByName('valor_total').Value := VendaControle.valorAtual;
+        q1.ParamByName('codigo').Value := FormVenda.CodigoInput.Text;
+
+        q1.ExecSQL;
+
+      finally
         EscolhaLivroForm.Close;
         FormVenda.TituloInput.SetFocus;
-      finally
+
+        q1.Close;
         FreeAndNil(q1);
       end;
     end;

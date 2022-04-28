@@ -14,6 +14,7 @@ object FormVenda: TFormVenda
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  OnClose = FormClose
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
@@ -407,7 +408,7 @@ object FormVenda: TFormVenda
     CloseDataSource = False
     BCDToCurrency = False
     DataSetOptions = []
-    Left = 304
+    Left = 296
     Top = 368
   end
   object rel_comprovante: TfrxReport

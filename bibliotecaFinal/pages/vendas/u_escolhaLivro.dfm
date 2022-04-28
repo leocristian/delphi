@@ -14,7 +14,7 @@ object EscolhaLivroForm: TEscolhaLivroForm
   KeyPreview = True
   OldCreateOrder = False
   OnKeyPress = AtivaNavegacao
-  OnShow = AbrirForm
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel

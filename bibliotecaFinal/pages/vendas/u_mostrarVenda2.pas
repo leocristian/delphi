@@ -57,6 +57,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure ConfirmarBtnClick(Sender: TObject);
     procedure removerLivroClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -164,9 +165,33 @@ begin
         mensagem('Operação concluída!');
         FormVendas.grid_vendasDBTableView1.DataController.RefreshExternalData;
         vendaControle.ZerarValor;
+        ModoInput.Text := 'V';
         Self.Close;
       end;
 
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
+  end;
+end;
+
+procedure TFormVenda.FormClose(Sender: TObject; var Action: TCloseAction);
+var
+  q1: TUniQuery;
+
+begin
+  if ModoInput.Text = 'N' then
+  begin
+    try
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.Close;
+      q1.SQL.Text := 'delete from livros_venda where numero_venda = :numero_venda';
+      q1.ParamByName('numero_venda').Value := CodigoInput.Text;
+
+      q1.ExecSQL;
     finally
       q1.Close;
       FreeAndNil(q1);
@@ -203,7 +228,6 @@ begin
   if (ModoInput.Text = 'V') or (ModoInput.Text = 'A') then
   begin
     try
-      // LIMPAR TABELA DE LIVROS E ATUALIZAR COM LIVROS DA VENDA
       q1 := TUniQuery.Create(nil);
       q1.Connection := dm1.con1;
 
@@ -338,22 +362,35 @@ begin
     begin
       try
         q1.ExecSQL;
+        // REMOVER LIVRO DA TABLE
+        vtb_livrosVenda.FieldByName('titulo').AsString := tituloLivro;
+        vtb_livrosVenda.Delete;
+
+         // ATUALIZAR VALOR DA VENDA
+        valorAtualizado := StrToFloat(ValorVenda.Caption) - (StrToFloat(precoLivro) * StrToInt(qtdEscolhida));
+        ValorVenda.Caption := FloatToStr(valorAtualizado);
+        vendaControle.valorAtual := StrToInt(ValorVenda.Caption);
+
+        // ATUALIZAR VALOR NO BD
+        q1.Close;
+
+        q1.SQL.Text := 'update vendas set valor_total = :valor_total where codigo = :codigo';
+        q1.ParamByName('valor_total').Value := vendaControle.valorAtual;
+        q1.ParamByName('codigo').Value := CodigoInput.Text;
+
+        try
+          q1.ExecSQL;
+        finally
+          mensagem('Livro removido com sucesso!');
+        end;
       except on e:Exception do
         erro(e.Message);
       end;
     end;
 
   finally
-    // REMOVER LIVRO DA TABLE
-    vtb_livrosVenda.FieldByName('titulo').AsString := tituloLivro;
-    vtb_livrosVenda.Delete;
-
-    mensagem('Livro removido com sucesso!');
-
-    // ATUALIZAR VALOR DA VENDA
-    valorAtualizado := StrToFloat(ValorVenda.Caption) - (StrToFloat(precoLivro) * StrToInt(qtdEscolhida));
-    ValorVenda.Caption := FloatToStr(valorAtualizado);
-    vendaControle.valorAtual := StrToInt(ValorVenda.Caption);
+    q1.Close;
+    FreeAndNil(q1);
   end;
 end;
 

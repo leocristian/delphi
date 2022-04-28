@@ -5,7 +5,7 @@ object ClienteForm: TClienteForm
   BorderStyle = bsSingle
   Caption = 'ClienteForm'
   ClientHeight = 369
-  ClientWidth = 365
+  ClientWidth = 369
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,11 +21,12 @@ object ClienteForm: TClienteForm
   object panel_cliente: TPanel
     Left = 0
     Top = 0
-    Width = 365
+    Width = 369
     Height = 369
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 365
     object LabelTitulo: TLabel
       Left = 50
       Top = 41
