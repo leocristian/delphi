@@ -80,7 +80,7 @@ begin
   FormLivros.Close;
   FormVendas.Close;
   dm1.con1.Close;
-  LoginForm.Show;
+//  LoginForm.Show;
 end;
 
 procedure TFormPrincipal.livrosClick(Sender: TObject);

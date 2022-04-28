@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls, Uni,
-  Vcl.Mask;
+  Vcl.Mask, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
+  cxContainer, cxEdit, cxTextEdit, cxCurrencyEdit;
 
 type
   TLivroForm = class(TForm)
@@ -24,17 +25,15 @@ type
     ModoInput: TEdit;
     CancelarBtn: TButton;
     Label5: TLabel;
-    PrecoInput: TEdit;
     Label8: TLabel;
     Label9: TLabel;
     QtdEstoqueInput: TEdit;
     AnoPublicacaoInput: TMaskEdit;
+    PrecoInput: TcxCurrencyEdit;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure SalvarBtnClick(Sender: TObject);
     procedure CancelarBtnClick(Sender: TObject);
-    procedure PrecoInputKeyPress(Sender: TObject; var Key: Char);
-    procedure PrecoInputChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -124,54 +123,7 @@ begin
     AnoPublicacaoInput.Clear;
     SalvarBtn.Visible := True;
     CancelarBtn.Visible := True;
-
-    // PREENCHER INPUT COM NOVO CÓDIGO
-    try
-      q1 := TUniQuery.Create(nil);
-      q1.Connection := dm1.con1;
-
-      q1.Close;
-      q1.SQL.Text := 'select nextval(''tb_livros_cod_seq'') as codProximo';
-      q1.Open;
-
-      CodigoInput.Text := IntToStr(q1.FieldByName('codProximo').Value);
-    finally
-      q1.Close;
-      FreeAndNil(q1);
-    end;
   end;
-end;
-procedure TLivroForm.PrecoInputChange(Sender: TObject);
-var
-   s : string;
-   v : double;
-   I : integer;
-begin
-   //1º Passo : se o edit estiver vazio, nada pode ser feito.
-   If (PrecoInput.Text = emptystr) then
-      PrecoInput.Text := '0,00';
-
-   //2º Passo : obter o texto do edit, SEM a virgula e SEM o ponto decimal:
-   s := '';
-   for I := 1 to length(PrecoInput.Text) do
-   if (PrecoInput.text[I] in ['0'..'9']) then
-      s := s + PrecoInput.text[I];
-
-   //3º Passo : fazer com que o conteúdo do edit apresente 2 casas decimais:
-   v := strtofloat(s);
-   v := (v /100); // para criar 2 casa decimais
-
-   //4º Passo : Formata o valor de (V) para aceitar valores do tipo 0,10.
-   PrecoInput.text := FormatFloat('###,##0.00',v);
-   PrecoInput.SelStart := 0;
-end;
-
-procedure TLivroForm.PrecoInputKeyPress(Sender: TObject; var Key: Char);
-begin
-  if NOT (Key in ['0'..'9', #8, #9]) then
-   key := #0;
-   //Função para posicionar o cursor sempre na direita
-   PrecoInput.selstart := Length(PrecoInput.text);
 end;
 
 procedure TLivroForm.SalvarBtnClick(Sender: TObject);
@@ -179,6 +131,9 @@ var
   q1: TUniQuery;
 
 begin
+
+  CodigoInput.Text := '0';
+
   if ExisteInputsVazios(LivroForm) then
   begin
     aviso('Preencha todos os campos!');
@@ -200,12 +155,22 @@ begin
       end
       else if ModoInput.Text = 'N' then
       begin
+        // PREENCHER INPUT COM NOVO CÓDIGO
+        q1.Close;
+        q1.SQL.Text := 'select nextval(''tb_livros_cod_seq'') as codProximo';
+        q1.Open;
+
+        CodigoInput.Text := IntToStr(q1.FieldByName('codProximo').Value);
+
+        q1.Close;
+        q1.SQL.Clear;
+
         q1.SQL.Add('insert into livros ');
         q1.SQL.Add('values');
         q1.SQL.Add('(:codigo, :titulo, :editora, :anoPublicacao, :preco, :categoria, :qtdEstoque)');
       end;
 
-      q1.ParamByName('codigo').Value := StrToInt(CodigoInput.Text);
+      q1.ParamByName('codigo').Value := CodigoInput.Text;
       q1.ParamByName('titulo').Value := TituloInput.Text;
       q1.ParamByName('editora').Value := EditoraInput.Text;
 
@@ -229,7 +194,7 @@ begin
         end;
       end;
 
-      q1.ParamByName('preco').Value := StrToFloat(precoInput.Text);
+      q1.ParamByName('preco').Value := precoInput.Value;
       q1.ParamByName('categoria').Value := CategoriaInput.Text;
       q1.ParamByName('qtdEstoque').Value := StrToInt(QtdEstoqueInput.Text);
 

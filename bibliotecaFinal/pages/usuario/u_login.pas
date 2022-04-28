@@ -189,7 +189,7 @@ begin
       mensagem('Seja bem vindo: ' + nomeUsuario);
       SenhaInput.Clear;
       FormPrincipal.Visible := True;
-      LoginForm.Visible := False;
+//      LoginForm.Visible := False;
     end;
   finally
     dm1.con1.Open;

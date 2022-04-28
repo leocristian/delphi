@@ -3,7 +3,7 @@ object FormVendas: TFormVendas
   Top = 0
   Align = alClient
   Caption = 'Tela de vendas'
-  ClientHeight = 377
+  ClientHeight = 357
   ClientWidth = 841
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -7222,12 +7222,11 @@ object FormVendas: TFormVendas
     Left = 0
     Top = 95
     Width = 841
-    Height = 282
+    Height = 262
     Align = alClient
     PopupMenu = PopupVendas
     TabOrder = 0
-    ExplicitLeft = -80
-    ExplicitTop = 101
+    ExplicitHeight = 282
     object grid_vendasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -7316,10 +7315,10 @@ object FormVendas: TFormVendas
     Height = 95
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 704
+    ExplicitWidth = 841
     inherited Panel1: TPanel
       Width = 841
-      ExplicitWidth = 704
+      ExplicitWidth = 841
       inherited bt_busca: TButton
         OnClick = bt_buscaClick
       end

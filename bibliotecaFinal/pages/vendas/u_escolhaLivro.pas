@@ -78,7 +78,7 @@ begin
           vtb_livrosEncontrados['titulo'] := q1.FieldByName('titulo').AsString;
           vtb_livrosEncontrados['editora'] := q1.FieldByName('editora').AsString;
           vtb_livrosEncontrados['anoPublicacao'] := q1.FieldByName('ano_publicacao').AsString;
-          vtb_livrosEncontrados['preco'] := q1.FieldByName('preco').AsFloat;
+          vtb_livrosEncontrados['preco'] := FormatFloat('#,##0.00', q1.FieldByName('preco').AsFloat);
           vtb_livrosEncontrados['categoria'] := q1.FieldByName('categoria').AsString;
           vtb_livrosEncontrados['qtdEstoque'] := q1.FieldByName('qtd_estoque').AsInteger;
 
@@ -156,7 +156,7 @@ begin
       FormVenda.vtb_livrosvenda['titulo'] := titulo;
       FormVenda.vtb_livrosvenda['editora'] := editora;
       FormVenda.vtb_livrosvenda['ano_publicacao'] := anoPublicacao;
-      FormVenda.vtb_livrosvenda['preco'] := StrToCurr(FormatFloat('0,00', precoLivro));
+      FormVenda.vtb_livrosvenda['preco'] :=  FormatFloat('#,##0.00', precoLivro);
       FormVenda.vtb_livrosvenda['categoria'] := categoria;
       FormVenda.vtb_livrosvenda['qtdEscolhida'] := qtdEscolhida;
       try
@@ -192,7 +192,7 @@ begin
         q1.ParamByName('titulo').Value := titulo;
         q1.ParamByName('editora').Value := editora;
         q1.ParamByName('ano_publicacao').Value := anoPublicacao;
-        q1.ParamByName('preco').Value := StrToCurr(FormatFloat('0,00', precoLivro));
+        q1.ParamByName('preco').Value := precoLivro;
         q1.ParamByName('categoria').Value := categoria;
         q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
         q1.ParamByName('qtd_escolhida').Value := qtdEscolhida;
@@ -202,12 +202,13 @@ begin
         q1.Close;
         q1.SQL.Text := 'update vendas set valor_total = :valor_total where codigo = :codigo';
 
-        novoValor := StrToFloat(FormatFloat('0,00', precoLivro)) * qtdEscolhida;
+        novoValor :=  StrToFloat(FormatFloat('#,##0.00', precoLivro)) * qtdEscolhida;
         vendaControle.IncrementaValor(novoValor);
 
-        FormVenda.ValorVenda.Caption := FloatToStr(vendaControle.valorAtual);
+        FormVenda.ValorVenda.Caption := FormatFloat('#,##0.00', vendaControle.valorAtual);
 
-        q1.ParamByName('valor_total').Value := VendaControle.valorAtual;
+        ShowMessage(FormatFloat('#,##0.00', vendaControle.valorAtual));
+        q1.ParamByName('valor_total').Value := vendaControle.valorAtual;
         q1.ParamByName('codigo').Value := FormVenda.CodigoInput.Text;
 
         q1.ExecSQL;

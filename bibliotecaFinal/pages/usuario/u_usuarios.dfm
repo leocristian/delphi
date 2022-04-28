@@ -5,8 +5,8 @@ object FormUsuarios: TFormUsuarios
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Tela de usu'#225'rios'
-  ClientHeight = 373
-  ClientWidth = 710
+  ClientHeight = 385
+  ClientWidth = 785
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -1342,11 +1342,13 @@ object FormUsuarios: TFormUsuarios
   object grid_usuarios: TcxGrid
     Left = 0
     Top = 95
-    Width = 710
-    Height = 278
+    Width = 785
+    Height = 290
     Align = alClient
     PopupMenu = PopupUsuarios
     TabOrder = 0
+    ExplicitWidth = 710
+    ExplicitHeight = 278
     object grid_usuariosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -1410,13 +1412,13 @@ object FormUsuarios: TFormUsuarios
   inline FrameBusca1: TFrameBusca
     Left = 0
     Top = 0
-    Width = 710
+    Width = 785
     Height = 95
     Align = alTop
     TabOrder = 1
     ExplicitWidth = 710
     inherited Panel1: TPanel
-      Width = 710
+      Width = 785
       ExplicitWidth = 710
       inherited BuscaInput: TEdit
         OnClick = FrameBusca1BuscaInputClick

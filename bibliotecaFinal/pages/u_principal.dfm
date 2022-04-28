@@ -2,7 +2,7 @@ object FormPrincipal: TFormPrincipal
   Left = 0
   Top = 0
   Caption = 'FormPrincipal'
-  ClientHeight = 505
+  ClientHeight = 508
   ClientWidth = 821
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -32,9 +32,10 @@ object FormPrincipal: TFormPrincipal
     Left = 0
     Top = 0
     Width = 821
-    Height = 505
+    Height = 508
     Align = alClient
     TabOrder = 1
+    ExplicitHeight = 505
     object Label1: TLabel
       Left = 53
       Top = 28

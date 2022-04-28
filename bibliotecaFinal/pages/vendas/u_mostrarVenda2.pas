@@ -80,8 +80,6 @@ implementation
 uses u_forms, u_escolhaLivro, u_dm1, u_vendas, u_perfil;
 
 procedure TFormVenda.AddLivroClick(Sender: TObject);
-var
-  q1: TUniQuery;
 begin
   if TituloInput.Text = '' then
   begin
@@ -166,7 +164,7 @@ begin
 
       q1.ParamByName('codigo').Value := CodigoInput.Text;
       q1.ParamByName('cliente').Value := ClienteInput.Text;
-      q1.ParamByName('valor_total').Value := ValorVenda.Caption;
+      q1.ParamByName('valor_total').Value := StrtoFloat(ValorVenda.Caption);
       q1.ParamByName('tipo').Value := TipoPagamento.Text;
       q1.ParamByName('qtd_parcelas').Value := QtdParcelas.Text;
 
@@ -289,7 +287,7 @@ begin
         vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
         vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
         vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
-        vtb_livrosvenda['preco'] := q1.FieldByName('preco').Value;
+        vtb_livrosvenda['preco'] := FormatFloat('#,##0.00', q1.FieldByName('preco').Value);
         vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
         vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
 
@@ -317,7 +315,7 @@ begin
       AddLivro.Visible := True;
       TituloPagina.Caption := 'Alterar venda selecionada';
       ConfirmarBtn.Caption := 'Salvar alterações';
-      VendaControle.valorAtual := StrToInt(ValorVenda.Caption);
+      VendaControle.valorAtual := StrToFloat(ValorVenda.Caption);
       ClienteInput.SetFocus;
     end;
   end
@@ -393,14 +391,14 @@ begin
 
          // ATUALIZAR VALOR DA VENDA
         valorAtualizado := StrToFloat(ValorVenda.Caption) - (StrToFloat(precoLivro) * StrToInt(qtdEscolhida));
-        ValorVenda.Caption := FloatToStr(valorAtualizado);
+        ValorVenda.Caption := FormatFloat('#,##0.00', valorAtualizado); //    FloatToStr(valorAtualizado);
         vendaControle.valorAtual := StrToInt(ValorVenda.Caption);
 
         // ATUALIZAR VALOR NO BD
         q1.Close;
 
         q1.SQL.Text := 'update vendas set valor_total = :valor_total where codigo = :codigo';
-        q1.ParamByName('valor_total').Value := vendaControle.valorAtual;
+        q1.ParamByName('valor_total').Value := FormatFloat('#,##0.00',vendaControle.valorAtual);
         q1.ParamByName('codigo').Value := CodigoInput.Text;
 
         try

@@ -2,7 +2,7 @@ object LivroForm: TLivroForm
   Left = 0
   Top = 0
   Caption = 'LivroForm'
-  ClientHeight = 357
+  ClientHeight = 376
   ClientWidth = 471
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,7 +16,7 @@ object LivroForm: TLivroForm
   OnShow = FormShow
   DesignSize = (
     471
-    357)
+    376)
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -152,16 +152,6 @@ object LivroForm: TLivroForm
         'SUSPENSE'
         'TERROR')
     end
-    object PrecoInput: TEdit
-      Left = 286
-      Top = 192
-      Width = 121
-      Height = 21
-      MaxLength = 6
-      TabOrder = 4
-      OnChange = PrecoInputChange
-      OnKeyPress = PrecoInputKeyPress
-    end
     object QtdEstoqueInput: TEdit
       Left = 286
       Top = 243
@@ -181,6 +171,18 @@ object LivroForm: TLivroForm
       TabOrder = 3
       Text = '  /  /    '
     end
+    object PrecoInput: TcxCurrencyEdit
+      Left = 286
+      Top = 192
+      EditValue = 0c
+      Properties.AssignedValues.EditFormat = True
+      Properties.DisplayFormat = ',0.00;,0.00'
+      Properties.MaxLength = 5
+      Properties.MaxValue = 100000.000000000000000000
+      Properties.UseDisplayFormatWhenEditing = True
+      TabOrder = 4
+      Width = 121
+    end
   end
   object SalvarBtn: TButton
     Left = 129
@@ -198,7 +200,6 @@ object LivroForm: TLivroForm
     ParentFont = False
     TabOrder = 2
     OnClick = SalvarBtnClick
-    ExplicitTop = 330
   end
   object ModoInput: TEdit
     Left = 82
@@ -220,6 +221,5 @@ object LivroForm: TLivroForm
     Caption = 'Cancelar'
     TabOrder = 3
     OnClick = CancelarBtnClick
-    ExplicitTop = 330
   end
 end
