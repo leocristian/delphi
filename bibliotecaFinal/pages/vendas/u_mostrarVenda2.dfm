@@ -4,7 +4,7 @@ object FormVenda: TFormVenda
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'FormVenda'
-  ClientHeight = 603
+  ClientHeight = 597
   ClientWidth = 828
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,12 +20,12 @@ object FormVenda: TFormVenda
   OnShow = FormShow
   DesignSize = (
     828
-    603)
+    597)
   PixelsPerInch = 96
   TextHeight = 13
   object ValorVenda: TLabel
-    Left = 681
-    Top = 544
+    Left = 687
+    Top = 555
     Width = 17
     Height = 34
     Anchors = [akLeft, akBottom]
@@ -36,11 +36,11 @@ object FormVenda: TFormVenda
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    ExplicitTop = 516
+    ExplicitTop = 613
   end
   object Label5: TLabel
-    Left = 638
-    Top = 544
+    Left = 644
+    Top = 555
     Width = 37
     Height = 34
     Anchors = [akLeft, akBottom]
@@ -51,11 +51,11 @@ object FormVenda: TFormVenda
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    ExplicitTop = 516
+    ExplicitTop = 613
   end
   object Label3: TLabel
-    Left = 638
-    Top = 526
+    Left = 644
+    Top = 537
     Width = 91
     Height = 24
     Anchors = [akLeft, akBottom]
@@ -66,36 +66,33 @@ object FormVenda: TFormVenda
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    ExplicitTop = 498
+    ExplicitTop = 595
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
     Width = 828
-    Height = 513
+    Height = 505
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = -32
-    ExplicitTop = -16
-    ExplicitWidth = 818
     object Label4: TLabel
       Left = 113
-      Top = 117
+      Top = 93
       Width = 68
       Height = 13
       Caption = 'CPF do cliente'
     end
     object Label7: TLabel
       Left = 32
-      Top = 117
+      Top = 93
       Width = 33
       Height = 13
       Caption = 'C'#243'digo'
     end
     object TituloPagina: TLabel
       Left = 32
-      Top = 64
+      Top = 40
       Width = 219
       Height = 33
       Caption = 'Venda escolhida'
@@ -108,14 +105,14 @@ object FormVenda: TFormVenda
     end
     object TituloLabel: TLabel
       Left = 360
-      Top = 117
+      Top = 93
       Width = 64
       Height = 13
       Caption = 'Titulo do livro'
     end
     object Label2: TLabel
       Left = 32
-      Top = 202
+      Top = 146
       Width = 195
       Height = 24
       Caption = 'Livros selecionados'
@@ -126,9 +123,36 @@ object FormVenda: TFormVenda
       Font.Style = [fsBold]
       ParentFont = False
     end
+    object Label1: TLabel
+      Left = 32
+      Top = 433
+      Width = 173
+      Height = 19
+      Caption = 'Forma de pagamento'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label6: TLabel
+      Left = 32
+      Top = 458
+      Width = 20
+      Height = 13
+      Caption = 'Tipo'
+    end
+    object Label8: TLabel
+      Left = 192
+      Top = 456
+      Width = 70
+      Height = 13
+      Caption = 'N'#176' de parcelas'
+    end
     object AddLivro: TButton
       Left = 654
-      Top = 123
+      Top = 112
       Width = 131
       Height = 46
       Cursor = crHandPoint
@@ -144,7 +168,7 @@ object FormVenda: TFormVenda
     end
     object ClienteInput: TEdit
       Left = 113
-      Top = 136
+      Top = 112
       Width = 241
       Height = 21
       CharCase = ecUpperCase
@@ -153,7 +177,7 @@ object FormVenda: TFormVenda
     end
     object CodigoInput: TEdit
       Left = 32
-      Top = 136
+      Top = 112
       Width = 75
       Height = 21
       CharCase = ecUpperCase
@@ -162,7 +186,7 @@ object FormVenda: TFormVenda
     end
     object TituloInput: TEdit
       Left = 360
-      Top = 136
+      Top = 112
       Width = 217
       Height = 21
       CharCase = ecUpperCase
@@ -171,7 +195,7 @@ object FormVenda: TFormVenda
     end
     object grid_livros: TcxGrid
       Left = 32
-      Top = 241
+      Top = 185
       Width = 753
       Height = 237
       TabOrder = 4
@@ -244,26 +268,49 @@ object FormVenda: TFormVenda
         GridView = grid_livrosDBTableView1
       end
     end
+    object TipoPagamento: TComboBox
+      Left = 32
+      Top = 477
+      Width = 145
+      Height = 21
+      Style = csDropDownList
+      ItemIndex = 0
+      TabOrder = 5
+      Text = 'DINHEIRO'
+      Items.Strings = (
+        'DINHEIRO'
+        'CART'#195'O'
+        'PIX')
+    end
+    object QtdParcelas: TEdit
+      Left = 192
+      Top = 475
+      Width = 121
+      Height = 21
+      MaxLength = 10
+      NumbersOnly = True
+      TabOrder = 6
+    end
   end
   object ModoInput: TEdit
     Left = 232
-    Top = 544
+    Top = 555
     Width = 29
     Height = 22
     TabStop = False
     Anchors = [akLeft, akBottom]
     TabOrder = 1
     Visible = False
-    ExplicitTop = 516
+    ExplicitTop = 613
   end
   inline frame_estilo_grid1: Tframe_estilo_grid
-    Left = 406
-    Top = 163
+    Left = 430
+    Top = 8
     Width = 75
     Height = 72
     TabOrder = 2
-    ExplicitLeft = 406
-    ExplicitTop = 163
+    ExplicitLeft = 430
+    ExplicitTop = 8
     ExplicitWidth = 75
     inherited estilo_padrao: TcxStyleRepository
       Left = 24
@@ -272,7 +319,7 @@ object FormVenda: TFormVenda
   end
   object ConfirmarBtn: TButton
     Left = 32
-    Top = 526
+    Top = 537
     Width = 185
     Height = 52
     Anchors = [akLeft, akBottom]
@@ -285,7 +332,7 @@ object FormVenda: TFormVenda
     ParentFont = False
     TabOrder = 3
     OnClick = ConfirmarBtnClick
-    ExplicitTop = 498
+    ExplicitTop = 595
   end
   object DataPanel: TPanel
     Left = 528
@@ -457,6 +504,14 @@ object FormVenda: TFormVenda
       item
         Name = 'numero_venda'
         Value = Null
+      end
+      item
+        Name = 'tipo_pagamento'
+        Value = ''
+      end
+      item
+        Name = 'qtd_parcelas'
+        Value = ''
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -480,12 +535,11 @@ object FormVenda: TFormVenda
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 245.669450000000000000
+        Height = 275.905690000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
           AllowVectorExport = True
-          Left = 7.559060000000000000
           Top = 3.779530000000000000
           Width = 309.921460000000000000
           Height = 34.015770000000000000
@@ -649,8 +703,8 @@ object FormVenda: TFormVenda
         end
         object Memo6: TfrxMemoView
           AllowVectorExport = True
-          Left = 7.559060000000000000
-          Top = 204.094620000000000000
+          Left = 3.779530000000000000
+          Top = 234.330860000000000000
           Width = 207.874150000000000000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -663,6 +717,72 @@ object FormVenda: TFormVenda
             'Livros vendidos')
           ParentFont = False
         end
+        object Memo15: TfrxMemoView
+          AllowVectorExport = True
+          Left = 34.015770000000000000
+          Top = 162.519790000000000000
+          Width = 215.433210000000000000
+          Height = 26.456710000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -21
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Tipo de pagamento:')
+          ParentFont = False
+        end
+        object tipo_pagamento: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 260.787570000000000000
+          Top = 162.519790000000000000
+          Width = 177.637910000000000000
+          Height = 22.677180000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -21
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[tipo_pagamento]')
+          ParentFont = False
+        end
+        object Memo16: TfrxMemoView
+          AllowVectorExport = True
+          Left = 34.015770000000000000
+          Top = 196.535560000000000000
+          Width = 215.433210000000000000
+          Height = 26.456710000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -21
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'N'#250'mero de parcelas:')
+          ParentFont = False
+        end
+        object qtd_parcelas: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 260.787570000000000000
+          Top = 196.535560000000000000
+          Width = 139.842610000000000000
+          Height = 26.456710000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -21
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[qtd_parcelas]')
+          ParentFont = False
+        end
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
@@ -672,7 +792,7 @@ object FormVenda: TFormVenda
         FillGap.Right = 0
         Frame.Typ = []
         Height = 215.433210000000000000
-        Top = 325.039580000000000000
+        Top = 355.275820000000000000
         Width = 718.110700000000000000
         DataSet = ds_rel_livrosVenda
         DataSetName = 'frxDBDataset1'
@@ -903,7 +1023,7 @@ object FormVenda: TFormVenda
     end
   end
   object PopupMenu1: TPopupMenu
-    Left = 390
+    Left = 382
     Top = 368
     object removerLivro: TMenuItem
       Caption = 'Remover livro da venda'

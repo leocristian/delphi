@@ -3,8 +3,8 @@ object FormVendas: TFormVendas
   Top = 0
   Align = alClient
   Caption = 'Tela de vendas'
-  ClientHeight = 322
-  ClientWidth = 704
+  ClientHeight = 377
+  ClientWidth = 841
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -7221,11 +7221,13 @@ object FormVendas: TFormVendas
   object grid_vendas: TcxGrid
     Left = 0
     Top = 95
-    Width = 704
-    Height = 227
+    Width = 841
+    Height = 282
     Align = alClient
     PopupMenu = PopupVendas
     TabOrder = 0
+    ExplicitLeft = -80
+    ExplicitTop = 101
     object grid_vendasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -7285,12 +7287,22 @@ object FormVendas: TFormVendas
       object grid_vendasDBTableView1valor_total: TcxGridDBColumn
         Caption = 'Valor total'
         DataBinding.FieldName = 'valor_total'
-        Width = 169
+        Width = 121
       end
       object grid_vendasDBTableView1data_venda: TcxGridDBColumn
         Caption = 'Data da venda'
         DataBinding.FieldName = 'data_venda'
         Width = 159
+      end
+      object grid_vendasDBTableView1tipo_pagamento: TcxGridDBColumn
+        Caption = 'Tipo de pagamento'
+        DataBinding.FieldName = 'tipo_pagamento'
+        Width = 126
+      end
+      object grid_vendasDBTableView1qtd_parcelas: TcxGridDBColumn
+        Caption = 'N'#250'mero de parcelas'
+        DataBinding.FieldName = 'qtd_parcelas'
+        Width = 130
       end
     end
     object grid_vendasLevel1: TcxGridLevel
@@ -7300,13 +7312,13 @@ object FormVendas: TFormVendas
   inline FrameBusca1: TFrameBusca
     Left = 0
     Top = 0
-    Width = 704
+    Width = 841
     Height = 95
     Align = alTop
     TabOrder = 1
     ExplicitWidth = 704
     inherited Panel1: TPanel
-      Width = 704
+      Width = 841
       ExplicitWidth = 704
       inherited bt_busca: TButton
         OnClick = bt_buscaClick
@@ -7443,7 +7455,7 @@ object FormVendas: TFormVendas
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 173.858380000000000000
+        Height = 234.330860000000000000
         Top = 151.181200000000000000
         Width = 718.110700000000000000
         DataSet = ds_rel_vendas
@@ -7622,6 +7634,76 @@ object FormVendas: TFormVendas
           Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBDataset1."valor_total"]')
+          ParentFont = False
+        end
+        object Memo11: TfrxMemoView
+          AllowVectorExport = True
+          Left = 11.338590000000000000
+          Top = 147.401670000000000000
+          Width = 158.740260000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clTeal
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Tipo de pagamento:')
+          ParentFont = False
+        end
+        object Memo12: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 173.858380000000000000
+          Top = 147.401670000000000000
+          Width = 241.889920000000000000
+          Height = 18.897650000000000000
+          DataSet = ds_rel_vendas
+          DataSetName = 'frxDBDataset1'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."tipo_pagamento"]')
+          ParentFont = False
+        end
+        object Memo13: TfrxMemoView
+          AllowVectorExport = True
+          Left = 11.338590000000000000
+          Top = 173.858380000000000000
+          Width = 166.299320000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clTeal
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'N'#250'mero de parcelas:')
+          ParentFont = False
+        end
+        object Memo14: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 181.417440000000000000
+          Top = 173.858380000000000000
+          Width = 241.889920000000000000
+          Height = 18.897650000000000000
+          DataSet = ds_rel_vendas
+          DataSetName = 'frxDBDataset1'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."qtd_parcelas"]')
           ParentFont = False
         end
       end

@@ -35,6 +35,8 @@ type
     rel_vendas: TfrxReport;
     ds_rel_vendas: TfrxDBDataset;
     frame_estilo_grid1: Tframe_estilo_grid;
+    grid_vendasDBTableView1tipo_pagamento: TcxGridDBColumn;
+    grid_vendasDBTableView1qtd_parcelas: TcxGridDBColumn;
     procedure NovaVendaClick(Sender: TObject);
     procedure VisualizarVendaClick(Sender: TObject);
     procedure AlterarVendaClick(Sender: TObject);

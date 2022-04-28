@@ -51,6 +51,11 @@ type
     DataLabel: TLabel;
     VendedorTituloLabel: TLabel;
     VendedorLabel: TLabel;
+    Label1: TLabel;
+    TipoPagamento: TComboBox;
+    QtdParcelas: TEdit;
+    Label6: TLabel;
+    Label8: TLabel;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
     procedure AddLivroClick(Sender: TObject);
@@ -94,6 +99,13 @@ var
   q1: TUniQuery;
 
 begin
+  if ExisteInputsVazios(FormVenda) then
+  begin
+    aviso('Preencha todos os campos!');
+    ClienteInput.SetFocus;
+    exit;
+  end;
+
   // BOTÃO ASSUME A FUNÇÃO DE VER COMPROVANTE
   if ModoInput.Text = 'V' then
   begin
@@ -101,6 +113,8 @@ begin
       rel_comprovante.Variables['vendedor'] := QuotedStr(PerfilUsuario.NomeInput.Text);
       rel_comprovante.Variables['cliente'] := quotedStr(ClienteInput.Text);
       rel_comprovante.Variables['valor'] := ValorVenda.Caption;
+      rel_comprovante.Variables['tipo_pagamento'] := QuotedStr(TipoPagamento.Text);
+      rel_comprovante.Variables['qtd_parcelas'] := QtdParcelas.Text;
       rel_comprovante.Variables['data'] := QuotedStr(DataLabel.Caption);
 
       ds_rel_livrosVenda.DataSource := vds_livrosVenda;
@@ -138,20 +152,23 @@ begin
       if ModoInput.Text = 'A' then
       begin
         q1.SQL.Add('update vendas ');
-        q1.SQL.Add('set cliente = :cliente, valor_total = :valor_total');
+        q1.SQL.Add('set cliente = :cliente, valor_total = :valor_total, tipo_pagamento = :tipo, qtd_parcelas = :qtd_parcelas');
         q1.SQL.Add('where codigo = :codigo');
       end
       else if ModoInput.Text = 'N' then
       begin
         q1.SQL.Add('insert into vendas ');
-        q1.SQL.Add('values (:codigo, :vendedor, :cliente, :valor_total, :data )');
+        q1.SQL.Add('values (:codigo, :vendedor, :cliente, :valor_total, :data, :tipo, :qtd_parcelas )');
 
         q1.ParamByName('data').Value := Now();
         q1.ParamByName('vendedor').Value := PerfilUsuario.NomeInput.Text;
       end;
+
       q1.ParamByName('codigo').Value := CodigoInput.Text;
       q1.ParamByName('cliente').Value := ClienteInput.Text;
       q1.ParamByName('valor_total').Value := ValorVenda.Caption;
+      q1.ParamByName('tipo').Value := TipoPagamento.Text;
+      q1.ParamByName('qtd_parcelas').Value := QtdParcelas.Text;
 
       if ValorVenda.Caption = '0' then
       begin
@@ -244,6 +261,8 @@ begin
         ValorVenda.Caption := q1.FieldByName('valor_total').AsString;
         DataLabel.Caption := q1.FieldByName('data_venda').AsString;
         VendedorLabel.Caption := q1.FieldByName('vendedor').AsString;
+        TipoPagamento.Text := q1.FieldByName('tipo_pagamento').AsString;
+        QtdParcelas.Text := q1.FieldByName('qtd_parcelas').AsString;
       end;
 
       // LIMPAR E PREENCHER GRADE COM OS LIVROS DA VENDA SELECIONADA

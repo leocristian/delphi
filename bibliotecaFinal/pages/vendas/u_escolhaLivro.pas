@@ -164,7 +164,6 @@ begin
         q1.ParamByName('qtdFinal').Value := (qtdEstoque - qtdEscolhida);
         q1.ParamByName('titulo').Value := titulo;
 
-
         q1.ExecSQL;
 
         q1.Close;
