@@ -136,7 +136,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="cliente\u_mostrarClientes.pas">
-            <Form>MostrarClientesForm</Form>
+            <Form>ClienteForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="vendas\u_vendas.pas">
@@ -153,7 +153,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="livros\u_mostrarLivro.pas">
-            <Form>MostrarLivroForm</Form>
+            <Form>LivroForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="vendas\u_mostrarVenda.pas">

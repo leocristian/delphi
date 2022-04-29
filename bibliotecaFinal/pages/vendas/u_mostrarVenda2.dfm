@@ -23,26 +23,11 @@ object FormVenda: TFormVenda
     576)
   PixelsPerInch = 96
   TextHeight = 13
-  object ValorVenda: TLabel
-    Left = 687
-    Top = 534
-    Width = 17
-    Height = 34
-    Anchors = [akLeft, akBottom]
-    Caption = '0'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clRed
-    Font.Height = -27
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    ExplicitTop = 613
-  end
   object Label5: TLabel
-    Left = 644
-    Top = 534
+    Left = 495
+    Top = 527
     Width = 37
-    Height = 34
+    Height = 33
     Anchors = [akLeft, akBottom]
     Caption = 'R$'
     Font.Charset = DEFAULT_CHARSET
@@ -51,13 +36,12 @@ object FormVenda: TFormVenda
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    ExplicitTop = 613
   end
   object Label3: TLabel
-    Left = 644
-    Top = 516
+    Left = 538
+    Top = 498
     Width = 91
-    Height = 24
+    Height = 23
     Anchors = [akLeft, akBottom]
     Caption = 'Valor total:'
     Font.Charset = DEFAULT_CHARSET
@@ -66,7 +50,6 @@ object FormVenda: TFormVenda
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    ExplicitTop = 595
   end
   object Panel1: TPanel
     Left = 0
@@ -76,7 +59,6 @@ object FormVenda: TFormVenda
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 828
     object Label4: TLabel
       Left = 113
       Top = 93
@@ -260,9 +242,7 @@ object FormVenda: TFormVenda
           DataBinding.FieldName = 'categoria'
         end
         object grid_livrosDBTableView1qtdEscolhida: TcxGridDBColumn
-          Caption = 'Qtd. Escolhida'
           DataBinding.FieldName = 'qtdEscolhida'
-          Width = 87
         end
       end
       object grid_livrosLevel1: TcxGridLevel
@@ -297,12 +277,11 @@ object FormVenda: TFormVenda
     Left = 232
     Top = 534
     Width = 29
-    Height = 22
+    Height = 21
     TabStop = False
     Anchors = [akLeft, akBottom]
     TabOrder = 1
     Visible = False
-    ExplicitTop = 613
   end
   inline frame_estilo_grid1: Tframe_estilo_grid
     Left = 430
@@ -333,7 +312,6 @@ object FormVenda: TFormVenda
     ParentFont = False
     TabOrder = 4
     OnClick = ConfirmarBtnClick
-    ExplicitTop = 595
   end
   object DataPanel: TPanel
     Left = 528
@@ -362,7 +340,7 @@ object FormVenda: TFormVenda
     object DataLabel: TLabel
       Left = 116
       Top = 18
-      Width = 130
+      Width = 4
       Height = 16
       Anchors = [akLeft, akBottom]
       Font.Charset = DEFAULT_CHARSET
@@ -388,7 +366,7 @@ object FormVenda: TFormVenda
     object VendedorLabel: TLabel
       Left = 84
       Top = 40
-      Width = 143
+      Width = 4
       Height = 16
       Anchors = [akLeft, akBottom]
       Font.Charset = DEFAULT_CHARSET
@@ -398,6 +376,19 @@ object FormVenda: TFormVenda
       Font.Style = [fsBold]
       ParentFont = False
     end
+  end
+  object ValorVenda: TcxCurrencyEdit
+    Left = 538
+    Top = 527
+    ParentFont = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clRed
+    Style.Font.Height = -24
+    Style.Font.Name = 'Tahoma'
+    Style.Font.Style = [fsBold]
+    Style.IsFontAssigned = True
+    TabOrder = 5
+    Width = 247
   end
   object vtb_livrosVenda: TVirtualTable
     Active = True

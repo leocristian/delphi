@@ -10,7 +10,7 @@ uses
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
   frame_grid, MemDS, VirtualTable, Uni, u_vendaControle, frxClass, frxDBSet,
-  Vcl.Menus;
+  Vcl.Menus, cxContainer, cxTextEdit, cxCurrencyEdit;
 
 type
   TFormVenda = class(TForm)
@@ -23,7 +23,6 @@ type
     ClienteInput: TEdit;
     CodigoInput: TEdit;
     TituloInput: TEdit;
-    ValorVenda: TLabel;
     Label5: TLabel;
     Label3: TLabel;
     ModoInput: TEdit;
@@ -40,7 +39,6 @@ type
     grid_livrosDBTableView1ano_publicacao: TcxGridDBColumn;
     grid_livrosDBTableView1preco: TcxGridDBColumn;
     grid_livrosDBTableView1categoria: TcxGridDBColumn;
-    grid_livrosDBTableView1qtdEscolhida: TcxGridDBColumn;
     ConfirmarBtn: TButton;
     ds_rel_livrosVenda: TfrxDBDataset;
     rel_comprovante: TfrxReport;
@@ -56,6 +54,8 @@ type
     QtdParcelas: TEdit;
     Label6: TLabel;
     Label8: TLabel;
+    ValorVenda: TcxCurrencyEdit;
+    grid_livrosDBTableView1qtdEscolhida: TcxGridDBColumn;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
     procedure AddLivroClick(Sender: TObject);
@@ -104,7 +104,7 @@ begin
       rel_comprovante.Variables['numero_venda'] := CodigoInput.Text;
       rel_comprovante.Variables['vendedor'] := QuotedStr(PerfilUsuario.NomeInput.Text);
       rel_comprovante.Variables['cliente'] := quotedStr(ClienteInput.Text);
-      rel_comprovante.Variables['valor'] := ValorVenda.Caption;
+      rel_comprovante.Variables['valor'] := ValorVenda.Value;
       rel_comprovante.Variables['tipo_pagamento'] := QuotedStr(TipoPagamento.Text);
       rel_comprovante.Variables['qtd_parcelas'] := QtdParcelas.Text;
       rel_comprovante.Variables['data'] := QuotedStr(DataLabel.Caption);
@@ -164,11 +164,11 @@ begin
 
       q1.ParamByName('codigo').Value := CodigoInput.Text;
       q1.ParamByName('cliente').Value := ClienteInput.Text;
-      q1.ParamByName('valor_total').Value := StrtoFloat(ValorVenda.Caption);
+      q1.ParamByName('valor_total').Value := ValorVenda.Value;
       q1.ParamByName('tipo').Value := TipoPagamento.Text;
       q1.ParamByName('qtd_parcelas').Value := QtdParcelas.Text;
 
-      if ValorVenda.Caption = '0' then
+      if ValorVenda.Value = 0 then
       begin
         aviso('Venda deve ter pelo menos um livro!');
         TituloInput.SetFocus;
@@ -262,7 +262,7 @@ begin
       if q1.RecordCount > 0 then
       begin
         ClienteInput.Text := q1.FieldByName('cliente').AsString;
-        ValorVenda.Caption := q1.FieldByName('valor_total').AsString;
+        ValorVenda.Value := q1.FieldByName('valor_total').AsFloat;
         DataLabel.Caption := q1.FieldByName('data_venda').AsString;
         VendedorLabel.Caption := q1.FieldByName('vendedor').AsString;
         TipoPagamento.Text := q1.FieldByName('tipo_pagamento').AsString;
@@ -315,7 +315,7 @@ begin
       AddLivro.Visible := True;
       TituloPagina.Caption := 'Alterar venda selecionada';
       ConfirmarBtn.Caption := 'Salvar alterações';
-      VendaControle.valorAtual := StrToFloat(ValorVenda.Caption);
+      VendaControle.valorAtual := ValorVenda.Value;
       ClienteInput.SetFocus;
     end;
   end
@@ -329,7 +329,7 @@ begin
     TituloPagina.Caption := 'Realizar nova venda';
     ConfirmarBtn.Caption := 'Confirmar venda';
     VendaControle.ZerarValor;
-    ValorVenda.Caption := FloatToStr(VendaControle.valorAtual);
+    ValorVenda.Value := VendaControle.valorAtual;
     DataLabel.Caption := DateToStr(Now);
     VendedorLabel.Caption := PerfilUsuario.LoginInput.Text;
     vtb_livrosVenda.Clear;
@@ -390,9 +390,9 @@ begin
         vtb_livrosVenda.Delete;
 
          // ATUALIZAR VALOR DA VENDA
-        valorAtualizado := StrToFloat(ValorVenda.Caption) - (StrToFloat(precoLivro) * StrToInt(qtdEscolhida));
-        ValorVenda.Caption := FormatFloat('#,##0.00', valorAtualizado); //    FloatToStr(valorAtualizado);
-        vendaControle.valorAtual := StrToInt(ValorVenda.Caption);
+        valorAtualizado := ValorVenda.Value - (StrToFloat(precoLivro) * StrToFloat(qtdEscolhida));
+        ValorVenda.Value := valorAtualizado; // FormatFloat('#,##0.00', valorAtualizado); //    FloatToStr(valorAtualizado);
+        vendaControle.valorAtual := ValorVenda.Value;
 
         // ATUALIZAR VALOR NO BD
         q1.Close;

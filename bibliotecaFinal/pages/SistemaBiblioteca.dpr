@@ -11,12 +11,12 @@ uses
   u_clientes in 'cliente\u_clientes.pas' {FormClientes},
   u_mostrar in 'usuario\u_mostrar.pas' {UsuarioForm},
   u_perfil in 'usuario\u_perfil.pas' {PerfilUsuario},
-  u_mostrarClientes in 'cliente\u_mostrarClientes.pas' {MostrarClientesForm},
+  u_mostrarClientes in 'cliente\u_mostrarClientes.pas' {ClienteForm},
   u_vendas in 'vendas\u_vendas.pas' {FormVendas},
   u_vendaControle in 'vendas\u_vendaControle.pas',
   u_escolhaLivro in 'vendas\u_escolhaLivro.pas' {EscolhaLivroForm},
   u_livros in 'livros\u_livros.pas' {FormLivros},
-  u_mostrarLivro in 'livros\u_mostrarLivro.pas' {MostrarLivroForm},
+  u_mostrarLivro in 'livros\u_mostrarLivro.pas' {LivroForm},
   u_mostrarVenda in 'vendas\u_mostrarVenda.pas' {MostrarVendaForm},
   u_alterarSenha in 'usuario\u_alterarSenha.pas' {AlterarSenhaForm},
   u_md5 in 'usuario\u_md5.pas',
@@ -41,12 +41,12 @@ begin
   Application.CreateForm(TFormUsuarios, FormUsuarios);
   Application.CreateForm(TUsuarioForm, UsuarioForm);
   Application.CreateForm(TPerfilUsuario, PerfilUsuario);
-  Application.CreateForm(TMostrarClientesForm, MostrarClientesForm);
+  Application.CreateForm(TClienteForm, ClienteForm);
   Application.CreateForm(TFormVendas, FormVendas);
   Application.CreateForm(TMostrarVendaForm, MostrarVendaForm);
   Application.CreateForm(TEscolhaLivroForm, EscolhaLivroForm);
   Application.CreateForm(TFormLivros, FormLivros);
-  Application.CreateForm(TMostrarLivroForm, MostrarLivroForm);
+  Application.CreateForm(TLivroForm, LivroForm);
   Application.CreateForm(TMostrarVendaForm, MostrarVendaForm);
   Application.CreateForm(TFormClientes, FormClientes);
   Application.CreateForm(TAlterarSenhaForm, AlterarSenhaForm);

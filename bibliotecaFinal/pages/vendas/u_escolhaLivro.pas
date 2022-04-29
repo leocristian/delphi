@@ -156,7 +156,7 @@ begin
       FormVenda.vtb_livrosvenda['titulo'] := titulo;
       FormVenda.vtb_livrosvenda['editora'] := editora;
       FormVenda.vtb_livrosvenda['ano_publicacao'] := anoPublicacao;
-      FormVenda.vtb_livrosvenda['preco'] :=  FormatFloat('#,##0.00', precoLivro);
+      FormVenda.vtb_livrosvenda['preco'] :=  precoLivro;
       FormVenda.vtb_livrosvenda['categoria'] := categoria;
       FormVenda.vtb_livrosvenda['qtdEscolhida'] := qtdEscolhida;
       try
@@ -202,12 +202,11 @@ begin
         q1.Close;
         q1.SQL.Text := 'update vendas set valor_total = :valor_total where codigo = :codigo';
 
-        novoValor :=  StrToFloat(FormatFloat('#,##0.00', precoLivro)) * qtdEscolhida;
+        novoValor :=  precoLivro * qtdEscolhida;
         vendaControle.IncrementaValor(novoValor);
 
-        FormVenda.ValorVenda.Caption := FormatFloat('#,##0.00', vendaControle.valorAtual);
+        FormVenda.ValorVenda.Value := vendaControle.valorAtual;
 
-        ShowMessage(FormatFloat('#,##0.00', vendaControle.valorAtual));
         q1.ParamByName('valor_total').Value := vendaControle.valorAtual;
         q1.ParamByName('codigo').Value := FormVenda.CodigoInput.Text;
 
