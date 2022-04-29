@@ -151,14 +151,6 @@ begin
 
     if confirma('Adicionar livro na venda?') then
     begin
-      FormVenda.vtb_livrosvenda.Append;
-      FormVenda.vtb_livrosvenda['codigo'] := codLivro;
-      FormVenda.vtb_livrosvenda['titulo'] := titulo;
-      FormVenda.vtb_livrosvenda['editora'] := editora;
-      FormVenda.vtb_livrosvenda['ano_publicacao'] := anoPublicacao;
-      FormVenda.vtb_livrosvenda['preco'] :=  precoLivro;
-      FormVenda.vtb_livrosvenda['categoria'] := categoria;
-      FormVenda.vtb_livrosvenda['qtdEscolhida'] := qtdEscolhida;
       try
         q1 := TUniQuery.Create(nil);
         q1.Connection := dm1.con1;
@@ -184,7 +176,7 @@ begin
         q1.Close;
         q1.SQL.Clear;
 
-        q1.SQL.Add('insert into livros_venda (codigo, titulo, editora, ano_publicacao, preco, categoria, numero_venda, qtd_escolhida) ');
+        q1.SQL.Add('insert into livrosVenda_teste (cod, titulo, editora, ano_publicacao, preco_unitario, categoria, numero_venda, qtd_escolhida) ');
         q1.SQL.Add('values ');
         q1.SQL.Add('(:codigo, :titulo, :editora, :ano_publicacao, :preco, :categoria, :numero_venda, :qtd_escolhida)');
 
@@ -214,8 +206,30 @@ begin
 
       finally
         EscolhaLivroForm.Close;
-        FormVenda.TituloInput.SetFocus;
+        q1.Close;
+        q1.SQL.Text := 'select * from livrosvenda_teste where numero_venda = :numero_venda';
 
+        q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
+
+        q1.Open;
+        q1.First;
+
+        FormVenda.vtb_livrosVenda.Clear;
+        while not q1.Eof do
+        begin
+          FormVenda.vtb_livrosVenda.Append;
+          FormVenda.vtb_livrosvenda['codigo'] := q1.FieldByName('cod').Value;
+          FormVenda.vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
+          FormVenda.vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
+          FormVenda.vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
+          FormVenda.vtb_livrosvenda['preco_unitario'] := FormatFloat('#,##0.00', q1.FieldByName('preco_unitario').Value);
+          FormVenda.vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
+          FormVenda.vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
+          FormVenda.vtb_livrosvenda['preco_final'] := FormatFloat('#,##0.00', q1.FieldByName('preco_final').Value);
+
+          q1.Next;
+        end;
+        FormVenda.TituloInput.SetFocus;
         q1.Close;
         FreeAndNil(q1);
       end;

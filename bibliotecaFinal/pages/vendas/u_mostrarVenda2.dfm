@@ -4,8 +4,8 @@ object FormVenda: TFormVenda
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'FormVenda'
-  ClientHeight = 576
-  ClientWidth = 829
+  ClientHeight = 613
+  ClientWidth = 958
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,29 +19,15 @@ object FormVenda: TFormVenda
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   DesignSize = (
-    829
-    576)
+    958
+    613)
   PixelsPerInch = 96
   TextHeight = 13
-  object Label5: TLabel
-    Left = 495
-    Top = 527
-    Width = 37
-    Height = 33
-    Anchors = [akLeft, akBottom]
-    Caption = 'R$'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -27
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
   object Label3: TLabel
-    Left = 538
-    Top = 498
+    Left = 627
+    Top = 524
     Width = 91
-    Height = 23
+    Height = 19
     Anchors = [akLeft, akBottom]
     Caption = 'Valor total:'
     Font.Charset = DEFAULT_CHARSET
@@ -54,11 +40,13 @@ object FormVenda: TFormVenda
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 829
+    Width = 958
     Height = 505
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitTop = 5
+    ExplicitWidth = 1037
     object Label4: TLabel
       Left = 113
       Top = 93
@@ -87,7 +75,7 @@ object FormVenda: TFormVenda
       ParentFont = False
     end
     object TituloLabel: TLabel
-      Left = 360
+      Left = 430
       Top = 93
       Width = 64
       Height = 13
@@ -134,8 +122,8 @@ object FormVenda: TFormVenda
       Caption = 'N'#176' de parcelas:'
     end
     object AddLivro: TButton
-      Left = 654
-      Top = 112
+      Left = 774
+      Top = 87
       Width = 131
       Height = 46
       Cursor = crHandPoint
@@ -168,9 +156,9 @@ object FormVenda: TFormVenda
       TabOrder = 0
     end
     object TituloInput: TEdit
-      Left = 360
+      Left = 430
       Top = 112
-      Width = 217
+      Width = 243
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 50
@@ -179,7 +167,7 @@ object FormVenda: TFormVenda
     object grid_livros: TcxGrid
       Left = 32
       Top = 185
-      Width = 753
+      Width = 873
       Height = 237
       TabOrder = 6
       object grid_livrosDBTableView1: TcxGridDBTableView
@@ -233,9 +221,9 @@ object FormVenda: TFormVenda
           DataBinding.FieldName = 'ano_publicacao'
         end
         object grid_livrosDBTableView1preco: TcxGridDBColumn
-          Caption = 'Pre'#231'o'
-          DataBinding.FieldName = 'preco'
-          Width = 72
+          Caption = 'Pre'#231'o unidade'
+          DataBinding.FieldName = 'preco_unitario'
+          Width = 94
         end
         object grid_livrosDBTableView1categoria: TcxGridDBColumn
           Caption = 'Categoria'
@@ -243,6 +231,11 @@ object FormVenda: TFormVenda
         end
         object grid_livrosDBTableView1qtdEscolhida: TcxGridDBColumn
           DataBinding.FieldName = 'qtdEscolhida'
+        end
+        object grid_livrosDBTableView1preco_final: TcxGridDBColumn
+          AlternateCaption = 'Pre'#231'o final'
+          Caption = 'Pre'#231'o final'
+          DataBinding.FieldName = 'preco_final'
         end
       end
       object grid_livrosLevel1: TcxGridLevel
@@ -274,8 +267,8 @@ object FormVenda: TFormVenda
     end
   end
   object ModoInput: TEdit
-    Left = 232
-    Top = 534
+    Left = 223
+    Top = 551
     Width = 29
     Height = 21
     TabStop = False
@@ -299,7 +292,7 @@ object FormVenda: TFormVenda
   end
   object ConfirmarBtn: TButton
     Left = 32
-    Top = 516
+    Top = 534
     Width = 185
     Height = 52
     Anchors = [akLeft, akBottom]
@@ -314,8 +307,8 @@ object FormVenda: TFormVenda
     OnClick = ConfirmarBtnClick
   end
   object DataPanel: TPanel
-    Left = 528
-    Top = 8
+    Left = 648
+    Top = 0
     Width = 257
     Height = 73
     BevelInner = bvRaised
@@ -378,8 +371,10 @@ object FormVenda: TFormVenda
     end
   end
   object ValorVenda: TcxCurrencyEdit
-    Left = 538
-    Top = 527
+    Left = 631
+    Top = 549
+    TabStop = False
+    Enabled = False
     ParentFont = False
     Style.Font.Charset = DEFAULT_CHARSET
     Style.Font.Color = clRed
@@ -387,8 +382,10 @@ object FormVenda: TFormVenda
     Style.Font.Name = 'Tahoma'
     Style.Font.Style = [fsBold]
     Style.IsFontAssigned = True
+    StyleDisabled.BorderColor = clBackground
+    StyleDisabled.TextColor = clRed
     TabOrder = 5
-    Width = 247
+    Width = 274
   end
   object vtb_livrosVenda: TVirtualTable
     Active = True
@@ -414,7 +411,7 @@ object FormVenda: TFormVenda
         Size = 20
       end
       item
-        Name = 'preco'
+        Name = 'preco_unitario'
         DataType = ftString
         Size = 20
       end
@@ -427,15 +424,21 @@ object FormVenda: TFormVenda
         Name = 'qtdEscolhida'
         DataType = ftString
         Size = 20
+      end
+      item
+        Name = 'preco_final'
+        DataType = ftString
+        Size = 20
       end>
     Left = 72
     Top = 368
     Data = {
-      040007000600636F6469676F01001400000000000600746974756C6F01001400
+      040008000600636F6469676F01001400000000000600746974756C6F01001400
       000000000700656469746F726101001400000000000E00616E6F5F7075626C69
-      636163616F01001400000000000500707265636F010014000000000009006361
-      7465676F72696101001400000000000C007174644573636F6C68696461010014
-      0000000000000000000000}
+      636163616F01001400000000000E00707265636F5F756E69746172696F010014
+      0000000000090063617465676F72696101001400000000000C00717464457363
+      6F6C6869646101001400000000000B00707265636F5F66696E616C0100140000
+      000000000000000000}
   end
   object vds_livrosVenda: TDataSource
     DataSet = vtb_livrosVenda

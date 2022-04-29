@@ -23,7 +23,6 @@ type
     ClienteInput: TEdit;
     CodigoInput: TEdit;
     TituloInput: TEdit;
-    Label5: TLabel;
     Label3: TLabel;
     ModoInput: TEdit;
     grid_livros: TcxGrid;
@@ -56,6 +55,7 @@ type
     Label8: TLabel;
     ValorVenda: TcxCurrencyEdit;
     grid_livrosDBTableView1qtdEscolhida: TcxGridDBColumn;
+    grid_livrosDBTableView1preco_final: TcxGridDBColumn;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
     procedure AddLivroClick(Sender: TObject);
@@ -209,7 +209,7 @@ begin
       q1.Connection := dm1.con1;
 
       q1.Close;
-      q1.SQL.Text := 'delete from livros_venda where numero_venda = :numero_venda';
+      q1.SQL.Text := 'delete from livrosvenda_teste where numero_venda = :numero_venda';
       q1.ParamByName('numero_venda').Value := CodigoInput.Text;
 
       q1.ExecSQL;
@@ -273,7 +273,7 @@ begin
       FormVenda.vtb_livrosVenda.Clear;
 
       q1.Close;
-      q1.SQL.Text := 'select * from livros_venda where numero_venda = :numero_venda';
+      q1.SQL.Text := 'select * from livrosvenda_teste where numero_venda = :numero_venda';
 
       q1.ParamByName('numero_venda').Value := CodigoInput.Text;
 
@@ -283,13 +283,14 @@ begin
       while not q1.Eof do
       begin
         vtb_livrosVenda.Append;
-        vtb_livrosvenda['codigo'] := q1.FieldByName('codigo').Value;
+        vtb_livrosvenda['codigo'] := q1.FieldByName('cod').Value;
         vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
         vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
         vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
-        vtb_livrosvenda['preco'] := FormatFloat('#,##0.00', q1.FieldByName('preco').Value);
+        vtb_livrosvenda['preco_unitario'] := FormatFloat('#,##0.00', q1.FieldByName('preco_unitario').Value);
         vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
         vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
+        vtb_livrosvenda['preco_final'] := FormatFloat('#,##0.00', q1.FieldByName('preco_final').Value);
 
         q1.Next;
       end;
@@ -357,17 +358,17 @@ procedure TFormVenda.removerLivroClick(Sender: TObject);
 var
   indexLivro: Integer;
   tituloLivro: String;
-  precoLivro: String;
-  qtdEscolhida: String;
+  precoLivro: Currency;
+  qtdEscolhida: Integer;
   valorAtualizado: Float32;
   q1: TUniQuery;
+  precoFinal: Currency;
 
 begin
   vds_livrosVenda.edit;
   indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
   tituloLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[1];
-  precoLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[4];
-  qtdEscolhida := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[6];
+  precoFinal := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[7];
 
   try
     q1 := TUniQuery.Create(nil);
@@ -377,7 +378,7 @@ begin
     q1.SQL.Clear;
 
 
-    q1.SQL.Add('delete from livros_venda ');
+    q1.SQL.Add('delete from livrosvenda_teste ');
     q1.SQL.Add('where titulo = :titulo');
     q1.ParamByName('titulo').Value := tituloLivro;
 
@@ -390,7 +391,7 @@ begin
         vtb_livrosVenda.Delete;
 
          // ATUALIZAR VALOR DA VENDA
-        valorAtualizado := ValorVenda.Value - (StrToFloat(precoLivro) * StrToFloat(qtdEscolhida));
+        valorAtualizado := ValorVenda.Value - precoFinal;
         ValorVenda.Value := valorAtualizado; // FormatFloat('#,##0.00', valorAtualizado); //    FloatToStr(valorAtualizado);
         vendaControle.valorAtual := ValorVenda.Value;
 
@@ -398,7 +399,7 @@ begin
         q1.Close;
 
         q1.SQL.Text := 'update vendas set valor_total = :valor_total where codigo = :codigo';
-        q1.ParamByName('valor_total').Value := FormatFloat('#,##0.00',vendaControle.valorAtual);
+        q1.ParamByName('valor_total').Value := vendaControle.valorAtual;
         q1.ParamByName('codigo').Value := CodigoInput.Text;
 
         try
