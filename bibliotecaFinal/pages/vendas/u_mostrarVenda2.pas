@@ -10,7 +10,8 @@ uses
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
   frame_grid, MemDS, VirtualTable, Uni, u_vendaControle, frxClass, frxDBSet,
-  Vcl.Menus, cxContainer, cxTextEdit, cxCurrencyEdit;
+  Vcl.Menus, cxContainer, cxTextEdit, cxCurrencyEdit, Vcl.WinXCtrls,
+  System.ImageList, Vcl.ImgList;
 
 type
   TFormVenda = class(TForm)
@@ -56,6 +57,9 @@ type
     ValorVenda: TcxCurrencyEdit;
     grid_livrosDBTableView1qtdEscolhida: TcxGridDBColumn;
     grid_livrosDBTableView1preco_final: TcxGridDBColumn;
+    BalloonHint1: TBalloonHint;
+    Button1: TButton;
+    ImageList1: TImageList;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
     procedure AddLivroClick(Sender: TObject);
