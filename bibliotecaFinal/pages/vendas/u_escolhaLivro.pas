@@ -9,28 +9,37 @@ uses
   cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   cxDBData, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGridLevel, cxClasses, cxGridCustomView, cxGrid, Uni, Vcl.Buttons, frame_grid;
+  cxGridLevel, cxClasses, cxGridCustomView, cxGrid, Uni, Vcl.Buttons, frame_grid,
+  Vcl.ExtCtrls, frame_imagens;
 
 type
   TEscolhaLivroForm = class(TForm)
-    Label1: TLabel;
-    Confirmar: TButton;
     vtb_livrosEncontrados: TVirtualTable;
     vds_livrosEncontrados: TDataSource;
-    cxGrid1DBTableView1: TcxGridDBTableView;
-    cxGrid1Level1: TcxGridLevel;
-    cxGrid1: TcxGrid;
-    cxGrid1DBTableView1codigo: TcxGridDBColumn;
-    cxGrid1DBTableView1titulo: TcxGridDBColumn;
-    cxGrid1DBTableView1editora: TcxGridDBColumn;
-    cxGrid1DBTableView1anoPublicacao: TcxGridDBColumn;
-    cxGrid1DBTableView1preco: TcxGridDBColumn;
-    cxGrid1DBTableView1categoria: TcxGridDBColumn;
-    cxGrid1DBTableView1qtdEstoque: TcxGridDBColumn;
+    grid_livrosDBTableView1: TcxGridDBTableView;
+    grid_livrosLevel1: TcxGridLevel;
+    grid_livros: TcxGrid;
+    grid_livrosDBTableView1codigo: TcxGridDBColumn;
+    grid_livrosDBTableView1titulo: TcxGridDBColumn;
+    grid_livrosDBTableView1editora: TcxGridDBColumn;
+    grid_livrosDBTableView1anoPublicacao: TcxGridDBColumn;
+    grid_livrosDBTableView1preco: TcxGridDBColumn;
+    grid_livrosDBTableView1categoria: TcxGridDBColumn;
+    grid_livrosDBTableView1qtdEstoque: TcxGridDBColumn;
+    BuscaLivro: TPanel;
+    BuscaBtn: TSpeedButton;
+    SelecaoBusca: TComboBox;
+    BuscaInput: TEdit;
+    PanelConfirma: TPanel;
+    CancelarBtn: TSpeedButton;
+    FrameImagens1: TFrameImagens;
+    Confirmar: TButton;
     frame_estilo_grid1: Tframe_estilo_grid;
+    Label1: TLabel;
     procedure FormShow(Sender: TObject);
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure ConfirmarClick(Sender: TObject);
+    procedure BuscaBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -52,49 +61,9 @@ var
   q1: TUniQuery;
 
 begin
-  Left := (GetSystemMetrics(SM_CXSCREEN) - Width) div 2;
-  Top :=  (GetSystemMetrics(SM_CYSCREEN) - Height) div 2;
-
-   try
-      q1 := TUniQuery.Create(nil);
-      q1.Connection := dm1.con1;
-
-      q1.Close;
-      q1.SQL.Clear;
-
-      q1.SQL.Add('select * from livros where titulo like :titulo');
-      q1.ParamByName('titulo').Value := '%' + MostrarVendaForm.TituloInput.Text + '%';
-
-      q1.Open;
-
-      if q1.RecordCount > 0 then
-      begin
-        EscolhaLivroForm.vtb_livrosEncontrados.Clear;
-        q1.First;
-        while not q1.Eof do
-        begin
-          vtb_livrosEncontrados.Append;
-          vtb_livrosEncontrados['codigo'] := q1.FieldByName('codigo').AsInteger;
-          vtb_livrosEncontrados['titulo'] := q1.FieldByName('titulo').AsString;
-          vtb_livrosEncontrados['editora'] := q1.FieldByName('editora').AsString;
-          vtb_livrosEncontrados['anoPublicacao'] := q1.FieldByName('ano_publicacao').AsString;
-          vtb_livrosEncontrados['preco'] := FormatFloat('#,##0.00', q1.FieldByName('preco').AsFloat);
-          vtb_livrosEncontrados['categoria'] := q1.FieldByName('categoria').AsString;
-          vtb_livrosEncontrados['qtdEstoque'] := q1.FieldByName('qtd_estoque').AsInteger;
-
-          q1.Next;
-        end;
-      end
-      else
-      begin
-        aviso('Livro não encontrado!');
-        MostrarVendaForm.TituloInput.SetFocus;
-      end;
-    finally
-      q1.Close;
-      FreeAndNil(q1);
-    end;
-  Confirmar.SetFocus;
+  BuscaInput.SetFocus;
+  grid_livrosDBTableView1.OptionsView.NoDataToDisplayInfoText := '';
+  LimparInputs(EscolhaLivroForm);
 end;
 
 procedure TEscolhaLivroForm.AtivaNavegacao(Sender: TObject; var Key: Char);
@@ -105,6 +74,42 @@ begin
     Perform(wm_nextdlgctl, 0, 0);
   end
   else if key = #27 then close;
+end;
+
+procedure TEscolhaLivroForm.BuscaBtnClick(Sender: TObject);
+var
+  q1: TUniQuery;
+begin
+  vtb_livrosEncontrados.Clear;
+  try
+    q1 := TUniQuery.Create(nil);
+    q1.Connection := dm1.con1;
+
+    q1.Close;
+    q1.SQL.Clear;
+
+    q1.SQL.Add('select * from livros where titulo like :titulo');
+    q1.ParamByName('titulo').Value := '%' + MostrarVendaForm.TituloInput.Text + '%';
+
+    q1.Open;
+
+    while not q1.Eof do
+    begin
+      vtb_livrosEncontrados.Append;
+      vtb_livrosEncontrados['codigo'] := q1.FieldByName('codigo').AsInteger;
+      vtb_livrosEncontrados['titulo'] := q1.FieldByName('titulo').AsString;
+      vtb_livrosEncontrados['editora'] := q1.FieldByName('editora').AsString;
+      vtb_livrosEncontrados['anoPublicacao'] := q1.FieldByName('ano_publicacao').AsString;
+      vtb_livrosEncontrados['preco'] := FormatFloat('#,##0.00', q1.FieldByName('preco').AsFloat);
+      vtb_livrosEncontrados['categoria'] := q1.FieldByName('categoria').AsString;
+      vtb_livrosEncontrados['qtdEstoque'] := q1.FieldByName('qtd_estoque').AsInteger;
+
+      q1.Next;
+    end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+   end;
 end;
 
 procedure TEscolhaLivroForm.ConfirmarClick(Sender: TObject);
@@ -123,15 +128,15 @@ var
 
 begin
 
-  indexLivro := cxGrid1DBTableView1.DataController.GetSelectedRowIndex(0);
+  indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
 
-  codLivro := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[0];
-  titulo := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[1];
-  editora := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[2];
-  anoPublicacao := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[3];
-  precoLivro := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[4];
-  categoria := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[5];
-  qtdEstoque := cxGrid1DBTableView1.ViewData.Records[indexLivro].Values[6];
+  codLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
+  titulo := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[1];
+  editora := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[2];
+  anoPublicacao := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[3];
+  precoLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[4];
+  categoria := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[5];
+  qtdEstoque := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[6];
 
   try
     qtdEscolhida := StrToInt(inputBox('Escolher quantidade.', 'Digite a quantidade de livros.', '1'));

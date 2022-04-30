@@ -13,9 +13,6 @@ Coordinates=881,342,186,36
 [Label4]
 Coordinates=670,232,53,58
 
-[TituloInput]
-Coordinates=95,232,75,58
-
 [grid_livrosDBTableView1preco]
 Coordinates=881,397,191,36
 
@@ -46,9 +43,6 @@ Coordinates=435,300,85,58
 [grid_livrosDBTableView1ano_publicacao]
 Coordinates=1360,1,249,36
 
-[ClienteInput]
-Coordinates=213,300,84,58
-
 [Label7]
 Coordinates=733,232,53,58
 
@@ -69,9 +63,6 @@ Coordinates=669,10,84,58
 
 [Panel1]
 Coordinates=307,300,55,58
-
-[AddLivro]
-Coordinates=449,232,65,58
 
 [frame_estilo_grid1.cabecalho]
 Coordinates=1110,111,183,36
@@ -148,10 +139,7 @@ Coordinates=1370,56,232,36
 [BalloonHint1]
 Coordinates=348,548,88,36
 
-[Button1]
-Coordinates=500,10,59,58
-Visible=True
-
 []
-Coordinates=249,548,91,36
+Coordinates=449,232,65,58
+Visible=True
 

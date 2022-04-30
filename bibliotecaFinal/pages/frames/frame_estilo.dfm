@@ -1,8 +1,8 @@
 object frame_cxGrid: Tframe_cxGrid
   Left = 0
   Top = 0
-  Width = 95
-  Height = 79
+  Width = 128
+  Height = 81
   TabOrder = 0
   object estilo_padrao: TcxStyleRepository
     Left = 32

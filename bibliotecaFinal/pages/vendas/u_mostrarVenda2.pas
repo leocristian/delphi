@@ -11,7 +11,8 @@ uses
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
   frame_grid, MemDS, VirtualTable, Uni, u_vendaControle, frxClass, frxDBSet,
   Vcl.Menus, cxContainer, cxTextEdit, cxCurrencyEdit, Vcl.WinXCtrls,
-  System.ImageList, Vcl.ImgList;
+  System.ImageList, Vcl.ImgList, Vcl.Buttons, frame_seleciona_item,
+  frame_imagens;
 
 type
   TFormVenda = class(TForm)
@@ -20,10 +21,7 @@ type
     Label7: TLabel;
     TituloPagina: TLabel;
     TituloLabel: TLabel;
-    AddLivro: TButton;
-    ClienteInput: TEdit;
     CodigoInput: TEdit;
-    TituloInput: TEdit;
     Label3: TLabel;
     ModoInput: TEdit;
     grid_livros: TcxGrid;
@@ -58,8 +56,12 @@ type
     grid_livrosDBTableView1qtdEscolhida: TcxGridDBColumn;
     grid_livrosDBTableView1preco_final: TcxGridDBColumn;
     BalloonHint1: TBalloonHint;
-    Button1: TButton;
-    ImageList1: TImageList;
+    SpeedButton2: TSpeedButton;
+    FrameImagens1: TFrameImagens;
+    ClienteInput: TEdit;
+    BuscaClienteBtn: TSpeedButton;
+    TituloInput: TEdit;
+    BuscaLivroBtn: TSpeedButton;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
     procedure AddLivroClick(Sender: TObject);
@@ -67,6 +69,7 @@ type
     procedure ConfirmarBtnClick(Sender: TObject);
     procedure removerLivroClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BuscaClienteClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -81,19 +84,12 @@ implementation
 
 {$R *.dfm}
 
-uses u_forms, u_escolhaLivro, u_dm1, u_vendas, u_perfil;
+uses u_forms, u_escolhaLivro, u_dm1, u_vendas, u_perfil, u_selecionaCliente;
 
 procedure TFormVenda.AddLivroClick(Sender: TObject);
 begin
-  if TituloInput.Text = '' then
-  begin
-    aviso('Informe o título do livro!!');
-    TituloInput.SetFocus;
-  end
-  else
-  begin
-    EscolhaLivroForm.ShowModal;
-  end;
+  EscolhaLivroForm.vtb_livrosEncontrados.Clear;
+  EscolhaLivroForm.ShowModal;
 end;
 
 procedure TFormVenda.ConfirmarBtnClick(Sender: TObject);
@@ -310,14 +306,16 @@ begin
       TituloInput.Visible := False;
       TituloPagina.Caption := 'Venda selecionada';
       ConfirmarBtn.Caption := 'Ver comprovante';
-      AddLivro.Visible := False;
+      BuscaClienteBtn.Visible := False;
+      BuscaLivroBtn.Visible := False;
     end
     else if ModoInput.Text = 'A' then
     begin
       panel1.Enabled := True;
+      BuscaClienteBtn.Visible := False;
+      BuscaLivroBtn.Visible := False;
       TituloLabel.Visible := True;
       TituloInput.Visible := True;
-      AddLivro.Visible := True;
       TituloPagina.Caption := 'Alterar venda selecionada';
       ConfirmarBtn.Caption := 'Salvar alterações';
       VendaControle.valorAtual := ValorVenda.Value;
@@ -329,8 +327,9 @@ begin
 
     panel1.Enabled := True;
     TituloLabel.Visible := True;
+    BuscaClienteBtn.Visible := True;
+    BuscaLivroBtn.Visible := True;
     TituloInput.Visible := True;
-    AddLivro.Visible := True;
     TituloPagina.Caption := 'Realizar nova venda';
     ConfirmarBtn.Caption := 'Confirmar venda';
     VendaControle.ZerarValor;
@@ -420,6 +419,12 @@ begin
     q1.Close;
     FreeAndNil(q1);
   end;
+end;
+
+procedure TFormVenda.BuscaClienteClick(Sender: TObject);
+begin
+  BuscaClienteForm.vtb_clientesEncontrados.Clear;
+  BuscaClienteForm.ShowModal;
 end;
 
 end.
