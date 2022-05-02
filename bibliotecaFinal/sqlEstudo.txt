@@ -1,0 +1,23 @@
+create table funcionarios(
+	codigo serial primary key,
+	p_nome varchar(30),
+	s_nome varchar(30),
+	u_nome varchar(30),
+	dt_nasci date,
+	cpf varchar(11),
+	rg varchar(11),
+	endereco varchar(20),
+	cep varchar(8),
+	cidade varchar(20),
+	fone varchar(11),
+	funcao varchar(10),
+	salario numeric(10, 2)	
+);
+create table departamentos(
+	codigo serial primary key,
+	nome varchar(15),
+	loc varchar(10)	
+);
+
+alter table funcionarios add column cod_dep integer references departamentos (codigo);
+alter table departamentos add column cod_func_gerente integer references funcionarios(codigo);

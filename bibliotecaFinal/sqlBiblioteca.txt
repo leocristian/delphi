@@ -1,0 +1,67 @@
+create table usuarios (
+	codigo integer,
+	nome_completo varchar(60),
+	email varchar(30),
+	login varchar(15) primary key,
+	senha varchar(50)
+);
+create sequence tb_usuarios_cod_seq
+as integer
+increment by 1
+start with 1
+owned by usuarios.codigo;
+
+create table clientes (
+	codigo integer,
+	cpf varchar(11) primary key,
+	nome_completo varchar(60),
+	email varchar(30),
+	telefone varchar(14)
+);
+
+create sequence tb_clientes_cod_seq
+as integer
+increment by 1
+start with 1
+owned by clientes.codigo;
+
+create table livros (
+	codigo integer,
+	titulo varchar(60),
+	editora varchar(30),
+	ano_publicacao date,
+	preco money,
+	categoria varchar(20),
+	qtd_estoque integer
+);
+create sequence tb_livros_cod_seq
+as integer
+increment by 1
+start with 1
+owned by livros.codigo;
+
+create table vendas (
+	codigo integer,
+	vendedor varchar(60),
+	cliente varchar(60),
+	valor_total money,
+	data_venda date,
+	tipo_pagamento varchar(10),
+	qtd_parcelas integer
+);
+create sequence tb_vendas_cod_seq;
+
+create table livros_venda (
+	codigo integer,
+	cod_livro integer references livros.codigo,
+	cod_venda integer references vendas.codigo,
+	preco_unitario money references livros.preco,
+	qtd_escolhida integer,
+	preco_total money generated always as (preco_unitario * qtd_escolhida) stored
+);
+
+create sequence tb_livrosvenda_cod_seq
+as integer
+increment by 1
+start with 1
+owned by livros_venda.codigo;

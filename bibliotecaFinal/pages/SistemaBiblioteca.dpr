@@ -24,10 +24,13 @@ uses
   frame_estilo in 'frames\frame_estilo.pas' {frame_cxGrid: TFrame},
   frame_grid in 'frames\frame_grid.pas' {frame_estilo_grid: TFrame},
   u_novoLivro in 'livros\u_novoLivro.pas' {NovoLivroForm},
+  frame_imagens in 'frames\frame_imagens.pas' {FrameImagens},
+  frame_seleciona_item in 'frames\frame_seleciona_item.pas' {SelecionaItemFrame},
   u_novaVenda in 'vendas\u_novaVenda.pas' {NovaVendaForm},
   u_novoCliente in 'cliente\u_novoCliente.pas' {NovoCliente},
   u_mostrarVenda2 in 'vendas\u_mostrarVenda2.pas' {FormVenda},
-  u_atualizarEstoque in 'livros\u_atualizarEstoque.pas' {AtualizarEstoqueForm};
+  u_atualizarEstoque in 'livros\u_atualizarEstoque.pas' {AtualizarEstoqueForm},
+  u_selecionaCliente in 'cliente\u_selecionaCliente.pas';
 
 {$R *.res}
 
