@@ -26,8 +26,8 @@ start with 1
 owned by clientes.codigo;
 
 create table livros (
-	codigo integer,
-	titulo varchar(60),
+	codigo integer primary key,
+	titulo varchar(60) unique,
 	editora varchar(30),
 	ano_publicacao date,
 	preco money,
@@ -41,7 +41,7 @@ start with 1
 owned by livros.codigo;
 
 create table vendas (
-	codigo integer,
+	codigo integer primary key,
 	vendedor varchar(60),
 	cliente varchar(60),
 	valor_total money,
@@ -53,9 +53,9 @@ create sequence tb_vendas_cod_seq;
 
 create table livros_venda (
 	codigo integer,
-	cod_livro integer references livros.codigo,
-	cod_venda integer references vendas.codigo,
-	preco_unitario money references livros.preco,
+	cod_livro integer references livros(codigo),
+	cod_venda integer references vendas(codigo),
+	preco_unitario money,
 	qtd_escolhida integer,
 	preco_total money generated always as (preco_unitario * qtd_escolhida) stored
 );
