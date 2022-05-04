@@ -7226,7 +7226,6 @@ object FormVendas: TFormVendas
     Align = alClient
     PopupMenu = PopupVendas
     TabOrder = 0
-    ExplicitHeight = 282
     object grid_vendasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -7272,35 +7271,42 @@ object FormVendas: TFormVendas
       object grid_vendasDBTableView1codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
+        DataBinding.IsNullValueType = True
       end
       object grid_vendasDBTableView1vendedor: TcxGridDBColumn
         Caption = 'Vendedor'
         DataBinding.FieldName = 'vendedor'
+        DataBinding.IsNullValueType = True
         Width = 168
       end
       object grid_vendasDBTableView1cliente: TcxGridDBColumn
         Caption = 'Cliente'
         DataBinding.FieldName = 'cliente'
+        DataBinding.IsNullValueType = True
         Width = 184
       end
       object grid_vendasDBTableView1valor_total: TcxGridDBColumn
         Caption = 'Valor total'
         DataBinding.FieldName = 'valor_total'
+        DataBinding.IsNullValueType = True
         Width = 121
       end
       object grid_vendasDBTableView1data_venda: TcxGridDBColumn
         Caption = 'Data da venda'
         DataBinding.FieldName = 'data_venda'
+        DataBinding.IsNullValueType = True
         Width = 159
       end
       object grid_vendasDBTableView1tipo_pagamento: TcxGridDBColumn
         Caption = 'Tipo de pagamento'
         DataBinding.FieldName = 'tipo_pagamento'
+        DataBinding.IsNullValueType = True
         Width = 126
       end
       object grid_vendasDBTableView1qtd_parcelas: TcxGridDBColumn
         Caption = 'N'#250'mero de parcelas'
         DataBinding.FieldName = 'qtd_parcelas'
+        DataBinding.IsNullValueType = True
         Width = 130
       end
     end

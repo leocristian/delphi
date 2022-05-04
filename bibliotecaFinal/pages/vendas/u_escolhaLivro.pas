@@ -40,6 +40,7 @@ type
     procedure AtivaNavegacao(Sender: TObject; var Key: Char);
     procedure ConfirmarClick(Sender: TObject);
     procedure BuscaBtnClick(Sender: TObject);
+    procedure CancelarBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -76,6 +77,7 @@ end;
 procedure TEscolhaLivroForm.BuscaBtnClick(Sender: TObject);
 var
   q1: TUniQuery;
+  buscaInfo: String;
 begin
   vtb_livrosEncontrados.Clear;
   try
@@ -83,12 +85,34 @@ begin
     q1.Connection := dm1.con1;
 
     q1.Close;
-    q1.SQL.Clear;
+    if SelecaoBusca.Text = 'CÓDIGO' then
+    begin
+      q1.SQL.Text := 'select * from livros where codigo = :info';
+      buscaInfo := BuscaInput.Text;
+    end
+    else if SelecaoBusca.Text = 'TÍTULO' then
+    begin
+      q1.SQL.Text := 'select * from livros where titulo like :info';
+      buscaInfo := '%' + BuscaInput.Text + '%';
+    end
+    else if SelecaoBusca.Text = 'EDITORA' then
+    begin
+      q1.SQL.Text := 'select * from livros where editora like :info';
+      buscaInfo := '%' + BuscaInput.Text + '%';
+    end
+    else if SelecaoBusca.Text = 'CATEGORIA' then
+    begin
+      q1.SQL.Text := 'select * from livros where categoria like :info';
+      buscaInfo := '%' + BuscaInput.Text + '%';
+    end;
+    q1.ParamByName('info').Value := buscaInfo;
 
-    q1.SQL.Add('select * from livros where titulo like :titulo');
-    q1.ParamByName('titulo').Value := '%' + MostrarVendaForm.TituloInput.Text + '%';
-
-    q1.Open;
+    try
+      q1.Open;
+    except
+      aviso('Informe uma palavra-chave válida!');
+      exit;
+    end;
 
     while not q1.Eof do
     begin
@@ -107,6 +131,11 @@ begin
     q1.Close;
     FreeAndNil(q1);
    end;
+end;
+
+procedure TEscolhaLivroForm.CancelarBtnClick(Sender: TObject);
+begin
+  close;
 end;
 
 procedure TEscolhaLivroForm.ConfirmarClick(Sender: TObject);
@@ -220,7 +249,13 @@ begin
       finally
         EscolhaLivroForm.Close;
         q1.Close;
-        q1.SQL.Text := 'select livros_venda.codigo, livros.titulo, livros.editora, livros.ano_publicacao, livros.preco, livros.categoria,livros_venda.qtd_escolhida, livros_venda.preco_total from livros inner join livros_venda on livros_venda.cod_venda = :cod_venda';
+        q1.SQL.Clear;
+
+        q1.SQL.Add('select livros.codigo, livros.titulo, livros.editora,');
+        q1.SQL.Add('livros.ano_publicacao, livros.preco, livros.categoria, livros_venda.qtd_escolhida, ');
+        q1.SQL.Add('livros_venda.preco_total from livros inner join livros_venda on livros.codigo = livros_venda.cod_livro');
+        q1.SQL.Add(' where livros_venda.cod_venda = :cod_venda');
+
         q1.ParamByName('cod_venda').Value := FormVenda.CodigoInput.Text;
 
         q1.ExecSQL;

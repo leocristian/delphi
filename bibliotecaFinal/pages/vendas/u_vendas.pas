@@ -170,7 +170,7 @@ begin
     codVenda := grid_vendasDBTableView1.ViewData.Records[indexVenda].Values[0];
 
     // DELETAR TODOS OS LIVROS RELACIONADOS A VENDA SELECIONADA
-    q1.SQL.Add('delete from livros_venda where numero_venda = :numero_venda');
+    q1.SQL.Add('delete from livros_venda where cod_venda = :numero_venda');
     q1.ParamByName('numero_venda').Value := codVenda;
 
     q1.ExecSQL;

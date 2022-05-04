@@ -26,7 +26,6 @@ object ClienteForm: TClienteForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 365
     object LabelTitulo: TLabel
       Left = 50
       Top = 41

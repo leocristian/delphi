@@ -98,6 +98,7 @@ object BuscaClienteForm: TBuscaClienteForm
     Height = 60
     Align = alTop
     TabOrder = 2
+    ExplicitTop = -6
     object BuscaBtn: TSpeedButton
       Left = 383
       Top = 20

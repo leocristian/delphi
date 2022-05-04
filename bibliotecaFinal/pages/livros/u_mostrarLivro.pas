@@ -121,6 +121,7 @@ begin
     panel1.Enabled := True;
     TituloInput.SetFocus;
     AnoPublicacaoInput.Clear;
+    PrecoInput.Clear;
     SalvarBtn.Visible := True;
     CancelarBtn.Visible := True;
   end;

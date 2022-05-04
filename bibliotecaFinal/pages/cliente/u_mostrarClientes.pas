@@ -120,21 +120,6 @@ begin
     SalvarBtn.Visible := True;
     CancelarBtn.Visible := True;
     CpfInput.SetFocus;
-
-    // PREENCHER INPUT COM NOVO CÓDIGO
-    try
-      q1 := TUniQuery.Create(nil);
-      q1.Connection := dm1.con1;
-
-      q1.Close;
-      q1.SQL.Text := 'select nextval(''tb_clientes_cod_seq'') as codProximo';
-      q1.Open;
-
-      CodigoInput.Text := q1.FieldByName('codProximo').AsString;
-    finally
-      q1.Close;
-      FreeAndNil(q1);
-    end;
   end;
 end;
 
@@ -143,6 +128,7 @@ var
   q1: TUniQuery;
 
 begin
+  CodigoInput.Text := '0';
   if ExisteInputsVazios(ClienteForm) then
     begin
       aviso('Preencha todos os campos!');
@@ -180,6 +166,17 @@ begin
       end
       else if ModoInput.Text = 'N' then
       begin
+      // PREENCHER INPUT COM NOVO CÓDIGO
+        q1 := TUniQuery.Create(nil);
+        q1.Connection := dm1.con1;
+
+        q1.Close;
+        q1.SQL.Text := 'select nextval(''tb_clientes_cod_seq'') as codProximo';
+        q1.Open;
+
+        CodigoInput.Text := q1.FieldByName('codProximo').AsString;
+        q1.Close;
+        q1.SQL.Clear;
         q1.SQL.Add('insert into clientes ');
         q1.SQL.Add('values');
         q1.SQL.Add('(:codigo, :cpf, :nome_completo, :email, :telefone)');

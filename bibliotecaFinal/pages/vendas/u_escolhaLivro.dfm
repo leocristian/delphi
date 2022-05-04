@@ -68,21 +68,27 @@ object EscolhaLivroForm: TEscolhaLivroForm
       Styles.IncSearch = frame_estilo_grid1.busca
       Styles.Header = frame_estilo_grid1.cabecalho
       object grid_livrosDBTableView1codigo: TcxGridDBColumn
+        Caption = 'C'#243'digo'
         DataBinding.FieldName = 'codigo'
       end
       object grid_livrosDBTableView1titulo: TcxGridDBColumn
+        Caption = 'T'#237'tulo'
         DataBinding.FieldName = 'titulo'
       end
       object grid_livrosDBTableView1editora: TcxGridDBColumn
+        Caption = 'Editora'
         DataBinding.FieldName = 'editora'
       end
       object grid_livrosDBTableView1anoPublicacao: TcxGridDBColumn
+        Caption = 'Ano de publica'#231#227'o'
         DataBinding.FieldName = 'anoPublicacao'
       end
       object grid_livrosDBTableView1preco: TcxGridDBColumn
+        Caption = 'Pre'#231'o unit'#225'rio'
         DataBinding.FieldName = 'preco'
       end
       object grid_livrosDBTableView1categoria: TcxGridDBColumn
+        Caption = 'Categoria'
         DataBinding.FieldName = 'categoria'
       end
       object grid_livrosDBTableView1qtdEstoque: TcxGridDBColumn
@@ -143,6 +149,8 @@ object EscolhaLivroForm: TEscolhaLivroForm
       Top = 20
       Width = 233
       Height = 21
+      CharCase = ecUpperCase
+      MaxLength = 60
       TabOrder = 0
     end
   end
@@ -159,6 +167,7 @@ object EscolhaLivroForm: TEscolhaLivroForm
       Width = 89
       Height = 30
       Caption = 'Cancelar'
+      OnClick = CancelarBtnClick
     end
     inline FrameImagens1: TFrameImagens
       Left = 31

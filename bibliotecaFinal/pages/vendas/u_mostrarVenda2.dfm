@@ -45,6 +45,8 @@ object FormVenda: TFormVenda
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitLeft = -144
+    ExplicitTop = 8
     object Label4: TLabel
       Left = 121
       Top = 86
@@ -321,15 +323,15 @@ object FormVenda: TFormVenda
     OnClick = ConfirmarBtnClick
   end
   object DataPanel: TPanel
-    Left = 648
-    Top = 8
-    Width = 257
+    Left = 559
+    Top = 7
+    Width = 386
     Height = 73
     BevelInner = bvRaised
     BevelOuter = bvNone
     TabOrder = 3
     DesignSize = (
-      257
+      386
       73)
     object DataTituloLabel: TLabel
       Left = 10

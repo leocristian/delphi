@@ -84,7 +84,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_forms, u_escolhaLivro, u_dm1, u_vendas, u_perfil, u_selecionaCliente;
+uses u_forms, u_escolhaLivro, u_dm1, u_vendas, u_perfil, u_escolhaCliente;
 
 procedure TFormVenda.AddLivroClick(Sender: TObject);
 begin
@@ -124,25 +124,6 @@ begin
     try
       q1 := TUniQuery.Create(nil);
       q1.Connection := dm1.con1;
-
-      q1.Close;
-      q1.SQL.Clear;
-      // VALIDAR CLIENTE DA VENDA
-      q1.SQL.Text := 'select cpf from clientes where cpf like :cpf';
-      q1.ParamByName('cpf').Value := '%' + ClienteInput.Text + '%';
-
-      q1.Open;
-
-      if q1.RecordCount = 1 then
-      begin
-        ClienteInput.Text := q1.FieldByName('cpf').AsString;
-      end
-      else
-      begin
-        aviso('Cliente não encontrado!');
-        ClienteInput.SetFocus;
-        exit;
-      end;
 
       q1.Close;
       q1.SQL.Clear;
@@ -273,26 +254,32 @@ begin
       FormVenda.vtb_livrosVenda.Clear;
 
       q1.Close;
-      q1.SQL.Text := 'select livros_venda.codigo, livros.titulo, livros.editora, livros.ano_publicacao, livros.preco, livros.categoria,livros_venda.qtd_escolhida, livros_venda.preco_total from livros inner join livros_venda on livros_venda.cod_venda = :cod_venda';
+      q1.SQL.Clear;
+
+      q1.SQL.Add('select livros.codigo, livros.titulo, livros.editora,');
+      q1.SQL.Add('livros.ano_publicacao, livros.preco, livros.categoria, livros_venda.qtd_escolhida, ');
+      q1.SQL.Add('livros_venda.preco_total from livros inner join livros_venda on livros.codigo = livros_venda.cod_livro');
+      q1.SQL.Add(' where livros_venda.cod_venda = :cod_venda');
+
       q1.ParamByName('cod_venda').Value := FormVenda.CodigoInput.Text;
 
-        q1.ExecSQL;
+      q1.ExecSQL;
 
-        FormVenda.vtb_livrosVenda.Clear;
-        while not q1.Eof do
-        begin
-          FormVenda.vtb_livrosVenda.Append;
-          FormVenda.vtb_livrosvenda['codigo'] := q1.FieldByName('codigo').Value;
-          FormVenda.vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
-          FormVenda.vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
-          FormVenda.vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
-          FormVenda.vtb_livrosvenda['preco_unitario'] := FormatFloat('#,##0.00', q1.FieldByName('preco').Value);
-          FormVenda.vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
-          FormVenda.vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
-          FormVenda.vtb_livrosvenda['preco_final'] := FormatFloat('#,##0.00', q1.FieldByName('preco_total').Value);
+      FormVenda.vtb_livrosVenda.Clear;
+      while not q1.Eof do
+      begin
+        FormVenda.vtb_livrosVenda.Append;
+        FormVenda.vtb_livrosvenda['codigo'] := q1.FieldByName('codigo').Value;
+        FormVenda.vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
+        FormVenda.vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
+        FormVenda.vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
+        FormVenda.vtb_livrosvenda['preco_unitario'] := FormatFloat('#,##0.00', q1.FieldByName('preco').Value);
+        FormVenda.vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
+        FormVenda.vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
+        FormVenda.vtb_livrosvenda['preco_final'] := FormatFloat('#,##0.00', q1.FieldByName('preco_total').Value);
 
-          q1.Next;
-        end;
+        q1.Next;
+      end;
     finally
       q1.Close;
       FreeAndNil(q1);
@@ -426,9 +413,8 @@ end;
 
 procedure TFormVenda.BuscaClienteClick(Sender: TObject);
 begin
-//  BuscaClienteForm.vtb_clientesEncontrados.Clear;
-  showmessage('oi');
-  BuscaClienteForm.Show;
+  EscolhaClienteForm.vtb_clientesEncontrados.Clear;
+  EscolhaClienteForm.Show;
 end;
 
 end.

@@ -30,7 +30,8 @@ uses
   u_novoCliente in 'cliente\u_novoCliente.pas' {NovoCliente},
   u_mostrarVenda2 in 'vendas\u_mostrarVenda2.pas' {FormVenda},
   u_atualizarEstoque in 'livros\u_atualizarEstoque.pas' {AtualizarEstoqueForm},
-  u_selecionaCliente in 'cliente\u_selecionaCliente.pas';
+  u_selecionaCliente in 'cliente\u_selecionaCliente.pas',
+  u_escolhaCliente in 'vendas\u_escolhaCliente.pas' {EscolhaClienteForm};
 
 {$R *.res}
 
@@ -57,6 +58,7 @@ begin
   Application.CreateForm(TNovoCliente, NovoCliente);
   Application.CreateForm(TFormVenda, FormVenda);
   Application.CreateForm(TAtualizarEstoqueForm, AtualizarEstoqueForm);
+  Application.CreateForm(TEscolhaClienteForm, EscolhaClienteForm);
   Application.Run;
 end.
 
