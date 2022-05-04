@@ -209,8 +209,8 @@ begin
       q1.Connection := dm1.con1;
 
       q1.Close;
-      q1.SQL.Text := 'delete from livrosvenda_teste where numero_venda = :numero_venda';
-      q1.ParamByName('numero_venda').Value := CodigoInput.Text;
+      q1.SQL.Text := 'delete from livros_venda where cod_venda = :cod_venda';
+      q1.ParamByName('cod_venda').Value := CodigoInput.Text;
 
       q1.ExecSQL;
     finally
@@ -273,27 +273,26 @@ begin
       FormVenda.vtb_livrosVenda.Clear;
 
       q1.Close;
-      q1.SQL.Text := 'select * from livrosvenda_teste where numero_venda = :numero_venda';
+      q1.SQL.Text := 'select livros_venda.codigo, livros.titulo, livros.editora, livros.ano_publicacao, livros.preco, livros.categoria,livros_venda.qtd_escolhida, livros_venda.preco_total from livros inner join livros_venda on livros_venda.cod_venda = :cod_venda';
+      q1.ParamByName('cod_venda').Value := FormVenda.CodigoInput.Text;
 
-      q1.ParamByName('numero_venda').Value := CodigoInput.Text;
+        q1.ExecSQL;
 
-      q1.Open;
-      q1.First;
+        FormVenda.vtb_livrosVenda.Clear;
+        while not q1.Eof do
+        begin
+          FormVenda.vtb_livrosVenda.Append;
+          FormVenda.vtb_livrosvenda['codigo'] := q1.FieldByName('codigo').Value;
+          FormVenda.vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
+          FormVenda.vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
+          FormVenda.vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
+          FormVenda.vtb_livrosvenda['preco_unitario'] := FormatFloat('#,##0.00', q1.FieldByName('preco').Value);
+          FormVenda.vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
+          FormVenda.vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
+          FormVenda.vtb_livrosvenda['preco_final'] := FormatFloat('#,##0.00', q1.FieldByName('preco_total').Value);
 
-      while not q1.Eof do
-      begin
-        vtb_livrosVenda.Append;
-        vtb_livrosvenda['codigo'] := q1.FieldByName('cod').Value;
-        vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
-        vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
-        vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
-        vtb_livrosvenda['preco_unitario'] := FormatFloat('#,##0.00', q1.FieldByName('preco_unitario').Value);
-        vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
-        vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
-        vtb_livrosvenda['preco_final'] := FormatFloat('#,##0.00', q1.FieldByName('preco_final').Value);
-
-        q1.Next;
-      end;
+          q1.Next;
+        end;
     finally
       q1.Close;
       FreeAndNil(q1);
@@ -320,6 +319,8 @@ begin
       ConfirmarBtn.Caption := 'Salvar alterações';
       VendaControle.valorAtual := ValorVenda.Value;
       ClienteInput.SetFocus;
+      BuscaClienteBtn.Visible := True;
+      BuscaLivroBtn.Visible := True;
     end;
   end
   else if ModoInput.Text = 'N' then
@@ -349,6 +350,7 @@ begin
       q1.Open;
 
       CodigoInput.Text := q1.FieldByName('codProximo').AsString;
+
     finally
       q1.Close;
       FreeAndNil(q1);
@@ -364,13 +366,14 @@ var
   precoLivro: Currency;
   qtdEscolhida: Integer;
   valorAtualizado: Float32;
+  codLivro: Integer;
   q1: TUniQuery;
   precoFinal: Currency;
 
 begin
   vds_livrosVenda.edit;
   indexLivro := grid_livrosDBTableView1.DataController.GetSelectedRowIndex(0);
-  tituloLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[1];
+  codLivro := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[0];
   precoFinal := grid_livrosDBTableView1.ViewData.Records[indexLivro].Values[7];
 
   try
@@ -381,16 +384,16 @@ begin
     q1.SQL.Clear;
 
 
-    q1.SQL.Add('delete from livrosvenda_teste ');
-    q1.SQL.Add('where titulo = :titulo');
-    q1.ParamByName('titulo').Value := tituloLivro;
+    q1.SQL.Add('delete from livros_venda ');
+    q1.SQL.Add('where codigo = :codigo');
+    q1.ParamByName('codigo').Value := codLivro;
 
     if confirma('Confirmar remoção de livro da venda?') then
     begin
       try
         q1.ExecSQL;
         // REMOVER LIVRO DA TABLE
-        vtb_livrosVenda.FieldByName('titulo').AsString := tituloLivro;
+        vtb_livrosVenda.FieldByName('codigo').AsInteger := codLivro;
         vtb_livrosVenda.Delete;
 
          // ATUALIZAR VALOR DA VENDA
@@ -423,8 +426,9 @@ end;
 
 procedure TFormVenda.BuscaClienteClick(Sender: TObject);
 begin
-  BuscaClienteForm.vtb_clientesEncontrados.Clear;
-  BuscaClienteForm.ShowModal;
+//  BuscaClienteForm.vtb_clientesEncontrados.Clear;
+  showmessage('oi');
+  BuscaClienteForm.Show;
 end;
 
 end.

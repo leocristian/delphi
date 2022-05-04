@@ -57,9 +57,6 @@ implementation
 uses u_forms, u_dm1, u_novaVenda, u_mostrarVenda, u_mostrarVenda2;
 
 procedure TEscolhaLivroForm.FormShow(Sender: TObject);
-var
-  q1: TUniQuery;
-
 begin
   BuscaInput.SetFocus;
   grid_livrosDBTableView1.OptionsView.NoDataToDisplayInfoText := '';
@@ -125,6 +122,7 @@ var
   qtdEstoque: Integer;
   qtdEscolhida: integer;
   novoValor: Float32;
+  codLivroVenda: Integer;
 
 begin
 
@@ -164,9 +162,9 @@ begin
         q1.SQL.Clear;
 
         // Atualizar estoque do livro
-        q1.SQL.Add('update livros set qtd_estoque = :qtdFinal where titulo = :titulo');
+        q1.SQL.Add('update livros set qtd_estoque = :qtdFinal where codigo = :codigo');
         q1.ParamByName('qtdFinal').Value := (qtdEstoque - qtdEscolhida);
-        q1.ParamByName('titulo').Value := titulo;
+        q1.ParamByName('codigo').Value := codLivro;
 
         q1.ExecSQL;
 
@@ -176,22 +174,32 @@ begin
         q1.SQL.Text := 'select nextval(''tb_livrosVenda_cod_seq'') as codProximo';
         q1.Open;
 
-        codLivro := q1.FieldByName('codProximo').AsInteger;
+        codLivroVenda := q1.FieldByName('codProximo').AsInteger;
 
         q1.Close;
         q1.SQL.Clear;
 
-        q1.SQL.Add('insert into livrosVenda_teste (cod, titulo, editora, ano_publicacao, preco_unitario, categoria, numero_venda, qtd_escolhida) ');
-        q1.SQL.Add('values ');
-        q1.SQL.Add('(:codigo, :titulo, :editora, :ano_publicacao, :preco, :categoria, :numero_venda, :qtd_escolhida)');
+//        q1.SQL.Add('insert into livros_venda (codigo, titulo, editora, ano_publicacao, preco_unitario, categoria, numero_venda, qtd_escolhida) ');
+//        q1.SQL.Add('values ');
+//        q1.SQL.Add('(:codigo, :titulo, :editora, :ano_publicacao, :preco, :categoria, :numero_venda, :qtd_escolhida)');
+//
+//        q1.ParamByName('codigo').Value := codLivro;
+//        q1.ParamByName('titulo').Value := titulo;
+//        q1.ParamByName('editora').Value := editora;
+//        q1.ParamByName('ano_publicacao').Value := anoPublicacao;
+//        q1.ParamByName('preco').Value := precoLivro;
+//        q1.ParamByName('categoria').Value := categoria;
+//        q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
+//        q1.ParamByName('qtd_escolhida').Value := qtdEscolhida;
 
-        q1.ParamByName('codigo').Value := codLivro;
-        q1.ParamByName('titulo').Value := titulo;
-        q1.ParamByName('editora').Value := editora;
-        q1.ParamByName('ano_publicacao').Value := anoPublicacao;
-        q1.ParamByName('preco').Value := precoLivro;
-        q1.ParamByName('categoria').Value := categoria;
-        q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
+        q1.SQL.Add('insert into livros_venda (codigo, cod_livro, cod_venda, preco_unitario, qtd_escolhida)');
+        q1.SQl.Add('values ');
+        q1.SQL.Add('(:codigo, :cod_livro, :cod_venda, :preco_unitario, :qtd_escolhida)');
+
+        q1.ParamByName('codigo').Value := codLivroVenda;
+        q1.ParamByName('cod_livro').Value := codLivro;
+        q1.ParamByName('cod_venda').Value := Formvenda.CodigoInput.Text;
+        q1.ParamByName('preco_unitario').Value := precoLivro;
         q1.ParamByName('qtd_escolhida').Value := qtdEscolhida;
 
         q1.ExecSQL;
@@ -212,25 +220,23 @@ begin
       finally
         EscolhaLivroForm.Close;
         q1.Close;
-        q1.SQL.Text := 'select * from livrosvenda_teste where numero_venda = :numero_venda';
+        q1.SQL.Text := 'select livros_venda.codigo, livros.titulo, livros.editora, livros.ano_publicacao, livros.preco, livros.categoria,livros_venda.qtd_escolhida, livros_venda.preco_total from livros inner join livros_venda on livros_venda.cod_venda = :cod_venda';
+        q1.ParamByName('cod_venda').Value := FormVenda.CodigoInput.Text;
 
-        q1.ParamByName('numero_venda').Value := FormVenda.CodigoInput.Text;
-
-        q1.Open;
-        q1.First;
+        q1.ExecSQL;
 
         FormVenda.vtb_livrosVenda.Clear;
         while not q1.Eof do
         begin
           FormVenda.vtb_livrosVenda.Append;
-          FormVenda.vtb_livrosvenda['codigo'] := q1.FieldByName('cod').Value;
+          FormVenda.vtb_livrosvenda['codigo'] := q1.FieldByName('codigo').Value;
           FormVenda.vtb_livrosvenda['titulo'] := q1.FieldByName('titulo').Value;
           FormVenda.vtb_livrosvenda['editora'] := q1.FieldByName('editora').Value;
           FormVenda.vtb_livrosvenda['ano_publicacao'] := q1.FieldByName('ano_publicacao').Value;
-          FormVenda.vtb_livrosvenda['preco_unitario'] := FormatFloat('#,##0.00', q1.FieldByName('preco_unitario').Value);
+          FormVenda.vtb_livrosvenda['preco_unitario'] := FormatFloat('#,##0.00', q1.FieldByName('preco').Value);
           FormVenda.vtb_livrosvenda['categoria'] := q1.FieldByName('categoria').Value;
           FormVenda.vtb_livrosvenda['qtdEscolhida'] := q1.FieldByName('qtd_escolhida').Value;
-          FormVenda.vtb_livrosvenda['preco_final'] := FormatFloat('#,##0.00', q1.FieldByName('preco_final').Value);
+          FormVenda.vtb_livrosvenda['preco_final'] := FormatFloat('#,##0.00', q1.FieldByName('preco_total').Value);
 
           q1.Next;
         end;

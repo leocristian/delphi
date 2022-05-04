@@ -25,9 +25,6 @@ object EscolhaLivroForm: TEscolhaLivroForm
     Height = 312
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = 16
-    ExplicitTop = 68
-    ExplicitWidth = 956
     object grid_livrosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -104,9 +101,6 @@ object EscolhaLivroForm: TEscolhaLivroForm
     Height = 60
     Align = alTop
     TabOrder = 1
-    ExplicitLeft = -8
-    ExplicitTop = 88
-    ExplicitWidth = 472
     object BuscaBtn: TSpeedButton
       Left = 824
       Top = 20
@@ -159,9 +153,6 @@ object EscolhaLivroForm: TEscolhaLivroForm
     Height = 63
     Align = alBottom
     TabOrder = 2
-    ExplicitLeft = 16
-    ExplicitTop = 380
-    ExplicitWidth = 956
     object CancelarBtn: TSpeedButton
       Left = 768
       Top = 16

@@ -45,7 +45,6 @@ object FormVenda: TFormVenda
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitTop = 8
     object Label4: TLabel
       Left = 121
       Top = 86
@@ -138,7 +137,7 @@ object FormVenda: TFormVenda
       Left = 437
       Top = 105
       Width = 60
-      Height = 26
+      Height = 22
       Hint = 'Clique aqui para busca um cliente por um campo espef'#237'fico'
       CustomHint = BalloonHint1
       ImageIndex = 1
@@ -151,7 +150,7 @@ object FormVenda: TFormVenda
       Left = 845
       Top = 106
       Width = 60
-      Height = 26
+      Height = 21
       Hint = 'Clique aqui para busca um livro por um campo espef'#237'fico'
       CustomHint = BalloonHint1
       ImageIndex = 1
@@ -164,7 +163,7 @@ object FormVenda: TFormVenda
       Left = 32
       Top = 105
       Width = 75
-      Height = 25
+      Height = 21
       CharCase = ecUpperCase
       Enabled = False
       TabOrder = 0
@@ -274,7 +273,7 @@ object FormVenda: TFormVenda
       Left = 121
       Top = 105
       Width = 296
-      Height = 25
+      Height = 21
       CharCase = ecUpperCase
       MaxLength = 60
       TabOrder = 4
@@ -419,7 +418,7 @@ object FormVenda: TFormVenda
     Left = 536
     Top = 106
     Width = 295
-    Height = 25
+    Height = 21
     CharCase = ecUpperCase
     MaxLength = 60
     TabOrder = 7

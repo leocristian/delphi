@@ -56,13 +56,13 @@ procedure TBuscaClienteForm.BuscaBtnClick(Sender: TObject);
 var
   q1: TUniQuery;
 begin
-  vtb_clientesEncontrados.Clear;
+//  vtb_clientesEncontrados.Clear;
   try
     q1 := TUniQuery.Create(nil);
     q1.Connection := dm1.con1;
 
     q1.Close;
-    q1.SQL.Text := 'select codigo, cpf, nome_completo, email from clientes where cpf like :cpf';
+    q1.SQL.Text := 'select * from clientes where cpf like :cpf';
     q1.ParamByName('cpf').Value := '%' + BuscaInput.Text + '%';
 
     q1.Open;
@@ -100,9 +100,10 @@ begin
 end;
 procedure TBuscaClienteForm.FormShow(Sender: TObject);
 begin
-  BuscaInput.SetFocus;
-  grid_clientesDBTableView1.OptionsView.NoDataToDisplayInfoText := '';
-  LimparInputs(BuscaClienteForm);
+//  BuscaInput.SetFocus;
+//  grid_clientesDBTableView1.OptionsView.NoDataToDisplayInfoText := '';
+//  LimparInputs(BuscaClienteForm);
+  showmessage('show');
 end;
 
 procedure TBuscaClienteForm.SelecionarBtnClick(Sender: TObject);

@@ -24,9 +24,6 @@ object BuscaClienteForm: TBuscaClienteForm
     Height = 63
     Align = alBottom
     TabOrder = 0
-    ExplicitLeft = 16
-    ExplicitTop = 448
-    ExplicitWidth = 464
     object SelecionarBtn: TSpeedButton
       Left = 233
       Top = 16
@@ -60,7 +57,6 @@ object BuscaClienteForm: TBuscaClienteForm
     Height = 364
     Align = alClient
     TabOrder = 1
-    ExplicitTop = 47
     object grid_clientesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
@@ -102,7 +98,6 @@ object BuscaClienteForm: TBuscaClienteForm
     Height = 60
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 657
     object BuscaBtn: TSpeedButton
       Left = 383
       Top = 20
